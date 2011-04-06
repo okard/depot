@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="Icons">
+    <file alias="Close">../img/emblem-unreadable.png</file>
+    <file alias="NewGame">../img/document-new.png</file>
+  </qresource>
+</RCC>

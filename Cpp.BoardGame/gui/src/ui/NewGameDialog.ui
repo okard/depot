@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>NewGameDialog</class>
+ <widget class="QDialog" name="NewGameDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>770</width>
+    <height>297</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>New Game</string>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Network Game</string>
+     </property>
+     <property name="flat">
+      <bool>false</bool>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+     <widget class="QPushButton" name="btnHost">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>150</y>
+        <width>118</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Host</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnConnect">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>90</y>
+        <width>118</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Connect</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtIP">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>60</y>
+        <width>171</width>
+        <height>27</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>25</x>
+        <y>40</y>
+        <width>71</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>IP:</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtPort">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>60</y>
+        <width>91</width>
+        <height>27</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>204</x>
+        <y>40</y>
+        <width>71</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Port</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinBoardSize">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>150</y>
+        <width>81</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>5</number>
+      </property>
+      <property name="maximum">
+       <number>40</number>
+      </property>
+      <property name="value">
+       <number>10</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>150</y>
+        <width>91</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Board Size</string>
+      </property>
+     </widget>
+     <widget class="QSpinBox" name="spinArmySize">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>190</y>
+        <width>81</width>
+        <height>27</height>
+       </rect>
+      </property>
+      <property name="minimum">
+       <number>50</number>
+      </property>
+      <property name="maximum">
+       <number>600</number>
+      </property>
+      <property name="value">
+       <number>200</number>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>190</y>
+        <width>91</width>
+        <height>19</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Army Size</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="btnLocalGame">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>190</y>
+        <width>118</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Local Game</string>
+      </property>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Play against Computer</string>
+     </property>
+     <widget class="QPushButton" name="btnStartAIGame">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>230</y>
+        <width>118</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Start</string>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>40</y>
+        <width>121</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Builtin</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QRadioButton" name="radioButton_2">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>80</y>
+        <width>121</width>
+        <height>21</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Executeable</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtExecutable">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>110</y>
+        <width>351</width>
+        <height>27</height>
+       </rect>
+      </property>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

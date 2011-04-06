@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>880</width>
+    <height>783</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="centralLayout">
+    <property name="topMargin">
+     <number>1</number>
+    </property>
+    <property name="bottomMargin">
+     <number>1</number>
+    </property>
+    <item>
+     <widget class="QGraphicsView" name="boardView">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="renderHints">
+       <set>QPainter::Antialiasing|QPainter::TextAntialiasing</set>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGraphicsView" name="sideboardView">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>120</height>
+       </size>
+      </property>
+      <property name="renderHints">
+       <set>QPainter::Antialiasing|QPainter::TextAntialiasing</set>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>880</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuGame">
+    <property name="title">
+     <string>Game</string>
+    </property>
+    <addaction name="actionNewGame"/>
+    <addaction name="actionClose"/>
+   </widget>
+   <widget class="QMenu" name="menuSettings">
+    <property name="title">
+     <string>Settings</string>
+    </property>
+   </widget>
+   <addaction name="menuGame"/>
+   <addaction name="menuSettings"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QDockWidget" name="dockHistory">
+   <property name="minimumSize">
+    <size>
+     <width>78</width>
+     <height>103</height>
+    </size>
+   </property>
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>History</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QPlainTextEdit" name="txtHistory">
+       <property name="undoRedoEnabled">
+        <bool>false</bool>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockControl">
+   <property name="minimumSize">
+    <size>
+     <width>60</width>
+     <height>50</height>
+    </size>
+   </property>
+   <property name="floating">
+    <bool>false</bool>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Controls</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <widget class="QPushButton" name="btnRollDice">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>10</y>
+       <width>118</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Roll Dice</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblAP">
+     <property name="geometry">
+      <rect>
+       <x>125</x>
+       <y>13</y>
+       <width>41</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>14</pointsize>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string notr="true">0</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnEndTurn">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>70</y>
+       <width>118</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>End Turn</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnUpgrade">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>40</y>
+       <width>118</width>
+       <height>28</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Upgrade</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QDockWidget" name="dockStats">
+   <property name="minimumSize">
+    <size>
+     <width>60</width>
+     <height>100</height>
+    </size>
+   </property>
+   <property name="features">
+    <set>QDockWidget::DockWidgetFloatable|QDockWidget::DockWidgetMovable</set>
+   </property>
+   <property name="windowTitle">
+    <string>Statistics</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_3">
+    <widget class="QLabel" name="lblTime">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>120</y>
+       <width>71</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Time</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblPlayer">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>40</y>
+       <width>121</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Current Player</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblPlayerTurn">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>70</y>
+       <width>131</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Current Turn:</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="lblCurrentPhase">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>10</y>
+       <width>141</width>
+       <height>19</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Current Phase</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+  <action name="actionNewGame">
+   <property name="icon">
+    <iconset resource="../Resource.qrc">
+     <normaloff>:/Icons/NewGame</normaloff>:/Icons/NewGame</iconset>
+   </property>
+   <property name="text">
+    <string>New</string>
+   </property>
+  </action>
+  <action name="actionClose">
+   <property name="icon">
+    <iconset resource="../Resource.qrc">
+     <normaloff>:/Icons/Close</normaloff>:/Icons/Close</iconset>
+   </property>
+   <property name="text">
+    <string>Close</string>
+   </property>
+  </action>
+ </widget>
+ <tabstops>
+  <tabstop>boardView</tabstop>
+  <tabstop>sideboardView</tabstop>
+  <tabstop>btnEndTurn</tabstop>
+  <tabstop>btnRollDice</tabstop>
+  <tabstop>txtHistory</tabstop>
+ </tabstops>
+ <resources>
+  <include location="../Resource.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>actionClose</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
