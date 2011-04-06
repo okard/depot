@@ -16,11 +16,12 @@ include(${QT_USE_FILE})
 set(VocabTrainer_src
     src/main.cpp
     src/Application.cpp
+    src/VocableDisplay.cpp
 )
 
 # UI Files
 set(VocabTrainer_ui 
-
+    src/ui/VocableDisplay.ui
 )
 
 # Resources

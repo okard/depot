@@ -14,42 +14,30 @@
     You should have received a copy of the GNU General Public License
     along with VocabTrainer.  If not, see <http://www.gnu.org/licenses/>. 
 */
-#ifndef __VT_APPLICATION_HPP__
-#define __VT_APPLICATION_HPP__
+#ifndef __VT_VOCABLEDISPLAY_HPP__
+#define __VT_VOCABLEDISPLAY_HPP__
 
-#include<QApplication>
+#include <QDialog>
+#include "ui_VocableDisplay.h"
 
 
 namespace VocabTrainer {
 
-class Application : public QApplication
+/**
+* Shows a Vocable at Display
+*/
+class VocableDisplay : public QDialog, private Ui::VocableDisplay
 {
-    Q_OBJECT
+    
 private:
-    // TrayIcon
-    // Display Window
-    // Option/Setting Window
-    
-    
-    Application();
-    Application(const Application& app);   
-    virtual ~Application();
     
 public:
+    VocableDisplay();
+    virtual ~VocableDisplay();
     
-    static Application* instance();
 };
+    
 
+} // end namespace VocabTrainer
 
-} //end namespace VocabTrainer
-
-
-
-
-#endif //__VT_APPLICATION_HPP__
-
-
-
-
-
-
+#endif //  __VT_VOCABLEDISPLAY_HPP__

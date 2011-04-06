@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with VocabTrainer.  If not, see <http://www.gnu.org/licenses/>. 
 */
-#include "Application.hpp"
+#include "Application.moc"
 
 using VocabTrainer::Application;
 
@@ -27,6 +27,11 @@ Application::Application()
 Application::Application(const VocabTrainer::Application& app)
     : QApplication(0,0)
 {
+}
+
+Application::~Application()
+{
+
 }
 
 
