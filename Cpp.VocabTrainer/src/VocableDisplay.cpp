@@ -16,16 +16,40 @@
 */
 #include "VocableDisplay.hpp"
 
+#include <QDesktopWidget>
+#include <QMoveEvent>
+
 using VocabTrainer::VocableDisplay;
 
 
-VocableDisplay::VocableDisplay()
+VocableDisplay::VocableDisplay(QWidget* parent)
+    : QFrame(parent, Qt::CustomizeWindowHint | Qt::Tool | Qt::FramelessWindowHint | Qt::WindowStaysOnTopHint)
+{
+    setupUi(this);
+    
+    //TODO right detection on all platforms and wms
+    QRect geoScreen = QApplication::desktop()->screenGeometry(this);
+
+    //use complete width, height = 1/10 of screen, y position + 20 current workaround
+    this->setGeometry(geoScreen.x(), geoScreen.y()+20, geoScreen.width(), geoScreen.height()/10);
+    this->setFixedSize(this->width(), this->height());
+}
+
+
+VocableDisplay::~VocableDisplay()
 {
 
 }
 
 
-VocableDisplay::~VocableDisplay()
+void VocableDisplay::moveEvent(QMoveEvent* event)
+{
+    event->ignore();
+    QFrame::moveEvent(event);
+}
+
+
+void VocableDisplay::closeEvent(QCloseEvent* e)
 {
 
 }

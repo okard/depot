@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="icons">
+    <file alias="appIcon">../img/preferences-desktop-locale.png</file>
+  </qresource>
+</RCC>

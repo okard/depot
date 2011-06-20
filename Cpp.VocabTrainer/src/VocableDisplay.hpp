@@ -17,7 +17,7 @@
 #ifndef __VT_VOCABLEDISPLAY_HPP__
 #define __VT_VOCABLEDISPLAY_HPP__
 
-#include <QDialog>
+#include <QFrame>
 #include "ui_VocableDisplay.h"
 
 
@@ -26,15 +26,19 @@ namespace VocabTrainer {
 /**
 * Shows a Vocable at Display
 */
-class VocableDisplay : public QDialog, private Ui::VocableDisplay
+class VocableDisplay : public QFrame, private Ui::VocableDisplay
 {
     
 private:
     
 public:
-    VocableDisplay();
+    VocableDisplay(QWidget* parent = 0);
     virtual ~VocableDisplay();
     
+protected:
+    
+    virtual void closeEvent(QCloseEvent *e);
+    virtual void moveEvent(QMoveEvent * event);
 };
     
 

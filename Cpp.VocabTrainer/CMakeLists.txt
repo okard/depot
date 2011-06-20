@@ -8,6 +8,9 @@ project(VocabTrainer)
 
 find_package(Qt4 REQUIRED)
 
+
+set(QT_USE_QTSQL true)
+
 # include dirs
 include(${QT_USE_FILE})
 
@@ -26,6 +29,7 @@ set(VocabTrainer_ui
 
 # Resources
 set(VocabTrainer_qrc
+    src/defaultResource.qrc
 )
 
 # auto moc

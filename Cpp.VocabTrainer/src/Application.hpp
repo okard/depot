@@ -17,7 +17,10 @@
 #ifndef __VT_APPLICATION_HPP__
 #define __VT_APPLICATION_HPP__
 
-#include<QApplication>
+#include <QApplication>
+#include <QSystemTrayIcon>
+
+#include "VocableDisplay.hpp"
 
 
 namespace VocabTrainer {
@@ -26,9 +29,13 @@ class Application : public QApplication
 {
     Q_OBJECT
 private:
-    // TrayIcon
-    // Display Window
     // Option/Setting Window
+    
+    ///Tray Icon
+    QSystemTrayIcon trayIcon;
+    
+    ///The Vocable Display Window
+    VocableDisplay vocabDisplay;
     
     
     Application();
@@ -38,6 +45,10 @@ private:
 public:
     
     static Application* instance();
+    
+    
+    //test function
+    void show();
 };
 
 

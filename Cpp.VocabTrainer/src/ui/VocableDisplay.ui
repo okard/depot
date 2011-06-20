@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>VocableDisplay</class>
- <widget class="QDialog" name="VocableDisplay">
+ <widget class="QFrame" name="VocableDisplay">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -10,10 +10,25 @@
     <height>185</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::DefaultContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string>VocableDisplay</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../defaultResource.qrc">
+    <normaloff>:/icons/appIcon</normaloff>:/icons/appIcon</iconset>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(255, 255, 255);</string>
+  </property>
  </widget>
- <resources/>
+ <resources>
+  <include location="../defaultResource.qrc"/>
+ </resources>
  <connections/>
 </ui>

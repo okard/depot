@@ -14,39 +14,32 @@
     You should have received a copy of the GNU General Public License
     along with VocabTrainer.  If not, see <http://www.gnu.org/licenses/>. 
 */
-#include "Application.moc"
+#include "Database.hpp"
 
-using VocabTrainer::Application;
+using VocabTrainer::Database;
 
-Application::Application()
-    : QApplication(0, 0)
+
+Database::Database()
 {
-    trayIcon.setParent(&vocabDisplay);
-    trayIcon.setIcon(vocabDisplay.windowIcon());
-    trayIcon.setVisible(true);
-}
-
-Application::Application(const VocabTrainer::Application& app)
-    : QApplication(0,0)
-{
-    trayIcon.hide();
-}
-
-Application::~Application()
-{
+    db = QSqlDatabase::addDatabase("QSQLITE");
 
 }
 
-void Application::show()
+Database::~Database()
 {
-    vocabDisplay.show();
+    if(db.isOpen())
+        db.close();
 }
 
 
-
-Application* Application::instance()
+Database::open(const char* file)
 {
-    static Application app;
-    return &app;
+    if(db.isOpen())
+        db.close();
+    
+    db.setDatabaseName(file);
+    if (!db.open()) 
+    {
+        throw "cant open db";
+    }
 }
-
