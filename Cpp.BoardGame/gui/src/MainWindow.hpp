@@ -31,6 +31,7 @@ THE SOFTWARE.
 
 #include <Game.h>
 #include "BoardScene.hpp"
+#include "GuiPlayer.hpp"
 
 //Forward Declaration
 class NewGameDialog;
@@ -43,11 +44,14 @@ class MainWindow : public QMainWindow, private Ui::MainWindow
     Q_OBJECT
     
 private:
-    /// New Game Dialog
-    NewGameDialog* ngd;
-    
     /// Game Class
     Game game;
+    
+    /// Player A
+    GuiPlayer playerA;
+    
+    // Player B
+    //GuiPlayer, Network Player, KI Player
     
     /// Board Scene
     BoardScene scene;
@@ -63,6 +67,9 @@ private:
     /// Selected game mode
     GameMode mode;
     
+    /// New Game Dialog
+    NewGameDialog* ngd;
+    
 public:
     /**
     * Creates a new Main Window
@@ -75,7 +82,7 @@ public:
     virtual ~MainWindow();
     
     /**
-    * Acces to Game
+    * Access to Game
     */
     Game& getGame();
     
@@ -84,8 +91,11 @@ public:
     */ 
     void startGame();
     
-    //startPickPhase
-    //startGamePhase
+    /**
+    * start a specific phase
+    */
+    void start(Game::Phase phase);
+    
     
 public slots:
     /// Start a new game

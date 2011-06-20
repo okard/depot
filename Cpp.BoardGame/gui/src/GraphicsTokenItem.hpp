@@ -47,6 +47,12 @@ private:
     /// Dimension
     QRectF dimension;
     
+    //7 Circles
+    QGraphicsEllipseItem* circles[7];
+    
+    // radius of circles
+    static const float radius = 0.04;
+    
 public:
     GraphicsTokenItem();
     ~GraphicsTokenItem();
@@ -77,6 +83,10 @@ public:
     
     /// get the Token
     Token* getToken();
+    
+    /// Update Token Data
+    void update();
+    
 };
 
 #endif // __GRAPHICSTOKENTITEM_HPP__

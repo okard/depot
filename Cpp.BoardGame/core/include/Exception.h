@@ -21,38 +21,38 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-#ifndef __BOARDSCENE_HPP__
-#define __BOARDSCENE_HPP__
+#ifndef __CORE_EXCEPTION_H__
+#define __CORE_EXCEPTION_H__
 
-#include <QGraphicsScene>
-
-#include <Game.h>
+#include <exception>
 
 /**
-* Board Scene
-* Manage the Board Scene, Board Fields tokens and so on
+* GameException
 */
-class BoardScene : public QGraphicsScene
+class GameException : public std::exception
 {
-    Q_OBJECT
+    private:
+        /// exception msg
+        const char* msg;
     
-private:
-    /// Fields of the game board
-    QVector<QGraphicsRectItem*> fields;
-    
-    //brush selected
-    //brush normal
-    
-public:
-    
-    ///setup scene for game //create fields and so on
-    void setup(Game* game);
-    
-    
-    //get rect for sideboard for player a and b?
-public slots:
-    void fieldSelected();
+    public:
+        /**
+        * Constructor
+        */
+        Exception(const char* msg)
+            : msg(msg)
+        {
+        }
+        
+        /**
+        * Description
+        */
+        virtual const char* what() const throw()
+        {
+            return msg;
+        }
 };
 
 
-#endif // __BOARDSCENE_HPP__
+
+#endif // __CORE_EXCEPTION_H__

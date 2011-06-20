@@ -71,6 +71,13 @@ void MainWindow::startGame()
 {
     game.start();
     
+    //Start Phase for GUI
+    start(game.getPhase());
+    
+    //a game starts with phase x
+    
+    //game.getPhase() == Game::Phase::PickPhase
+    
     //show pick window?
     
     QDialog* dia = new QDialog(this);
@@ -79,7 +86,7 @@ void MainWindow::startGame()
     TokenWidget* wid = new TokenWidget(dia);
     wid->setToken(new Token());
     
-    dia->show();
+    dia->exec();
     
     //which players turn
     
@@ -107,6 +114,30 @@ void MainWindow::startGame()
 }
 
 /**
+* start a specific phase
+*/
+void MainWindow::start(Game::Phase phase)
+{
+    // Configure GUI for Phase
+    switch(phase)
+    {
+        /*case Game::Phase::PickPhase:
+            //Show Pick Window
+            break;
+            
+        case Game::Phase::SetPhase:
+            break;
+            
+        case Game::Phase::GamePhase:
+            break;
+        */
+        default: 
+            break;
+    }
+}
+    
+
+/**
 * Acces to Game
 */
 Game& MainWindow::getGame()
@@ -122,5 +153,5 @@ void MainWindow::newGame()
     // then the set phase
     // then game begins
     ngd->setModal(true);
-    ngd->show();
+    ngd->exec();
 }

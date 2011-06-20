@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>880</width>
-    <height>783</height>
+    <height>836</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,12 +15,37 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="centralLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>2</number>
+    </property>
     <property name="topMargin">
      <number>1</number>
+    </property>
+    <property name="rightMargin">
+     <number>2</number>
     </property>
     <property name="bottomMargin">
      <number>1</number>
     </property>
+    <item>
+     <widget class="QGraphicsView" name="sideboardOpponentView">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>50</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>100</height>
+       </size>
+      </property>
+     </widget>
+    </item>
     <item>
      <widget class="QGraphicsView" name="boardView">
       <property name="sizePolicy">
@@ -57,7 +82,7 @@
       <property name="maximumSize">
        <size>
         <width>16777215</width>
-        <height>120</height>
+        <height>100</height>
        </size>
       </property>
       <property name="renderHints">
@@ -73,7 +98,7 @@
      <x>0</x>
      <y>0</y>
      <width>880</width>
-     <height>25</height>
+     <height>24</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuGame">
@@ -95,7 +120,7 @@
   <widget class="QDockWidget" name="dockHistory">
    <property name="minimumSize">
     <size>
-     <width>78</width>
+     <width>79</width>
      <height>103</height>
     </size>
    </property>
@@ -277,6 +302,19 @@
      </property>
      <property name="text">
       <string>Current Phase</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="btnShowGameTerms">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>150</y>
+       <width>161</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Show Game Terms</string>
      </property>
     </widget>
    </widget>

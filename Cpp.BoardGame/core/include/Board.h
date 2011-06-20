@@ -55,6 +55,7 @@ private:
     Field* board;
 
 public:
+    //Board(Game, size)
     Board(unsigned int size);
     ~Board();
     

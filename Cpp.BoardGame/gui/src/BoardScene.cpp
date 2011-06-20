@@ -23,6 +23,8 @@ THE SOFTWARE.
 */
 #include "BoardScene.moc"
 
+#include <QMessageBox>
+
 #include "GraphicsTokenItem.hpp"
 
 
@@ -46,7 +48,10 @@ void BoardScene::setup(Game* game)
     {
         for(int y=0; y < boardSize; y++)
         {
-            fields.append(addRect(QRectF(x, y, 1, 1), QPen(), background));
+            QGraphicsRectItem* item = addRect(QRectF(x, y, 1, 1), QPen(), background);
+            //connect item fieldSelected event
+            //connect(item, SIGNAL(clicked()), this, SLOT(fieldSelected()));
+            fields.append(item);
         }
     }
     
@@ -61,4 +66,15 @@ void BoardScene::setup(Game* game)
     item->setPosition(0,0);
     item->setFlag(QGraphicsItem::ItemIsMovable);
     addItem(item);   
+}
+
+
+
+/**
+* Field got selected
+*/
+void BoardScene::fieldSelected()
+{
+    //set brush for field
+    QMessageBox::information(0, QString("Event"), QString("Clicked"));
 }

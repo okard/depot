@@ -27,6 +27,22 @@ THE SOFTWARE.
 #include <Board.h>
 #include <Player.h>
 
+
+/**
+* Game Options
+* Game Rules/ Parameters / ????
+*/
+struct GameOptions
+{
+    unsigned int armyLimit; 
+    unsigned int boardSize;
+    
+    //bool diceRole
+    //unsigned short diceDefault;
+    
+    //win terms
+};
+
 /**
 * A Game
 */
@@ -39,6 +55,17 @@ public:
         PickPhase = 1,
         SetPhase = 2,
         GamePhase = 3
+    };
+    
+    
+    ///Represents the Phases of a turn
+    //TurnState ?
+    enum TurnPhase
+    {
+       DiceRole,
+       MoveTake,
+       Promote,
+       Drop
     };
     
 private:
@@ -57,8 +84,6 @@ private:
     /// Has Game started
     bool started;
     
-    ///army limit
-    
     /// which turn?
     bool turnPlayerA;
     
@@ -66,6 +91,9 @@ private:
     unsigned int rounds;
     
 public:
+    
+    //init(GameOptions, PlayerA, PlayerB);
+    
     /// Create new Game
     Game();
     
@@ -92,6 +120,23 @@ public:
     
     /// Start Game
     void start();
+    
+    
+    //Whichs Turn
+    //End Turn
+    //TurnPhase
+    
+    
+    //do game actions and check rules
+    //move (field a to field b)
+    //take (field a to field b) 
+        // check right player
+        // check move allowed for token
+        // check available ap
+        // check phase
+    //promote (field a)
+    //drop (token, field)
+    
     
     /// End Current Phase
     void endPhase();

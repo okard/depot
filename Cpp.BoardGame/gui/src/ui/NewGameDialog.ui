@@ -20,7 +20,7 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Network Game</string>
+      <string>Play against Human</string>
      </property>
      <property name="flat">
       <bool>false</bool>
@@ -31,20 +31,20 @@
      <widget class="QPushButton" name="btnHost">
       <property name="geometry">
        <rect>
-        <x>200</x>
-        <y>150</y>
-        <width>118</width>
+        <x>20</x>
+        <y>230</y>
+        <width>151</width>
         <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>Host</string>
+       <string>Host a Game</string>
       </property>
      </widget>
      <widget class="QPushButton" name="btnConnect">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>20</x>
         <y>90</y>
         <width>118</width>
         <height>28</height>
@@ -167,14 +167,27 @@
      <widget class="QPushButton" name="btnLocalGame">
       <property name="geometry">
        <rect>
-        <x>200</x>
-        <y>190</y>
-        <width>118</width>
+        <x>190</x>
+        <y>230</y>
+        <width>171</width>
         <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>Local Game</string>
+       <string>Start a Local Game</string>
+      </property>
+     </widget>
+     <widget class="Line" name="line">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>130</y>
+        <width>351</width>
+        <height>16</height>
+       </rect>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
       </property>
      </widget>
     </widget>
@@ -187,7 +200,7 @@
      <widget class="QPushButton" name="btnStartAIGame">
       <property name="geometry">
        <rect>
-        <x>250</x>
+        <x>240</x>
         <y>230</y>
         <width>118</width>
         <height>28</height>

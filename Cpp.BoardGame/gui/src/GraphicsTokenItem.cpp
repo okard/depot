@@ -34,6 +34,18 @@ THE SOFTWARE.
 GraphicsTokenItem::GraphicsTokenItem()
     : dimension(.0f, .0f, 1.0f, 1.0f), token(0)
 {
+    
+    //edges also
+    
+    //Create Circles
+    for(int i=0; i< 7; i++)
+    {
+        circles[i] = new QGraphicsEllipseItem(this);
+        circles[i]->setRect(0,0,radius,radius);
+        
+        //map events
+    }
+    
 }
 
 /**
@@ -89,8 +101,7 @@ void GraphicsTokenItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*
     //go to center, a little bit more on y axis
     painter->translate(dimension.width()/2, dimension.height()/2 + egde/2);
     
-    // radius of circles
-    const float radius = 0.04;
+
     // length of cross
     float length = dimension.height()/3.8f;
     
@@ -103,6 +114,12 @@ void GraphicsTokenItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*
         
         if(side.Dir[i] > Token::None)
         {
+            //New Circles drwaing
+            QPointF p(0,-length);
+            //circles[i]->translate(p.rx(), p.ry());
+            circles[i]->setPos(p);
+            circles[i]->paint(painter,option,widget);
+            
             painter->setBrush(QBrush(side.Dir[i] == Token::Move ? Qt::white : Qt::black, Qt::SolidPattern));
             painter->drawEllipse(QPointF(0,-length), radius, radius);
         }
@@ -139,12 +156,26 @@ void GraphicsTokenItem::paint(QPainter* painter, const QStyleOptionGraphicsItem*
     painter->drawEllipse(QPointF(0,0), radius, radius);
 }
 
+
+/**
+* Update Token Data
+*/
+void GraphicsTokenItem::update()
+{
+    //update token information
+    
+    QGraphicsItem::update();
+}
+
+
 /**
 * Mouse Clock Event
 */ 
 void GraphicsTokenItem::mousePressEvent (QGraphicsSceneMouseEvent* event)
 {
     //QMessageBox::information(0, QString("Event"), QString("Clicked"));
+    //when is Active mark field under item
+    //fire selected event?
 }
 
 
@@ -187,6 +218,7 @@ void GraphicsTokenItem::setSize(int x, int y)
 */
 void GraphicsTokenItem::setToken(Token* token)
 {
+    //TODO Update Circles
     this->token = token;
 }
 
@@ -197,3 +229,4 @@ Token* GraphicsTokenItem::getToken()
 {
     return this->token;
 }
+

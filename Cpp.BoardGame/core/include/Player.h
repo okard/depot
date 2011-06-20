@@ -40,7 +40,12 @@ private:
     // victory points
     //sideboard?
     
+    //access to board
+    
+    //ap
+    
 public:
+    ///Player(Game)
     /// Create new Player
     Player();
     /// Destructs player
