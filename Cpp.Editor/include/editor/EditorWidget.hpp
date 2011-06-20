@@ -34,8 +34,10 @@ class EditorWidget : public QWidget
     Q_OBJECT
     
 private:
+    /// editor
     QsciScintilla editor;
     
+    ///document
     QsciDocument document;
     
 public:

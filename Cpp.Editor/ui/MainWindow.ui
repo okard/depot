@@ -20,6 +20,11 @@
     </property>
     <item>
      <widget class="QTabWidget" name="tabWidget">
+      <property name="styleSheet">
+       <string notr="true">QTabWidget::pane { 
+border-top: 1px solid #C2C7CB;
+}</string>
+      </property>
       <property name="tabsClosable">
        <bool>true</bool>
       </property>

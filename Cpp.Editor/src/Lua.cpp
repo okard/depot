@@ -19,40 +19,4 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE. 
 */
-#ifndef __EDITOR_MAINWINDOW_HPP__
-#define __EDITOR_MAINWINDOW_HPP__
-
-#include <QMainWindow>
-
 #include <editor/Lua.hpp>
-
-#include "ui_MainWindow.h"
-
-namespace editor {
-    
-class MainWindow : public QMainWindow, private Ui::MainWindow
-{
-    Q_OBJECT
-    
-private:
-    //lua context
-    
-    
-public:
-    MainWindow(QWidget * parent = 0);
-    virtual ~MainWindow();
-    
-    //TODO Copy Constructor
-    
-public slots:
-    void openDocument();
-    
-};
-    
-    
-    
-} //end namespace editor
-
-
-
-#endif

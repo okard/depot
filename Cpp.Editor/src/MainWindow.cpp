@@ -23,6 +23,9 @@ THE SOFTWARE.
 
 #include <editor/EditorWidget.hpp>
 
+#include <QFileDialog>
+
+
 using editor::MainWindow;
 
 
@@ -40,6 +43,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::openDocument()
 {
+    QFileDialog dialog(this);
+    dialog.exec();
+     
+     
     //oipen file dialog
     int id = tabWidget->addTab(new editor::EditorWidget(this), tr("Editor"));
 

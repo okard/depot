@@ -15,6 +15,7 @@ set(editor_src
     src/main.cpp
     src/MainWindow.cpp
     src/EditorWidget.cpp
+    src/Lua.cpp
 )
 
 # header for moc
