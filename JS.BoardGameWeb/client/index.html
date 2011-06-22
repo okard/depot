@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Board Game</title>
+
+     
+    <link rel="stylesheet" href="css/default.css" type="text/css" />
+
+    <script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+  </head>
+  <body>
+
+    <!-- Login Window -->
+    <div id="loginWindow">
+        <div id="noscript">
+            Javascript is disabled
+        </div>
+
+        <label> Username: <input id="txtUsername" type="text" /> </label>
+        <label> Password: <input id="txtPassword" type="text" /> </label>
+        <label> Server: <input id="txtServer" type="text" /> </label>
+
+        <input id="btnLogin" type="button" value="Login" onclick="login()" />
+
+    </div>
+
+    <!-- Lobby Window -->
+    <div id="lobbyWindow" style="display:none">
+        <!-- Chat -->
+        <!-- Game List  (Join, Spectate) -->
+        <!-- Controls -->
+        <!-- Match Making -->
+
+    </div>
+
+    <!-- Game Window -->
+    <div id="gameWindow" style="display:none">
+        <!-- Canvas -> Board + Sideboard -->
+        <!-- Statictics -->
+        <!-- Controls -->
+    </div>
+
+
+  </body>
+</html>
