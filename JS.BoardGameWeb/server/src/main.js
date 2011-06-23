@@ -7,21 +7,34 @@
 
 var https = require('https');
 var fs = require('fs');
+var url = require('url');
 
 var config = require('./config.js').config;
 
-//test certs -> config
+//ssl options
 var options = {
-  key: fs.readFileSync(config.http_ssl_key),
-  cert: fs.readFileSync(config.http_ssl_cert)
+    key: fs.readFileSync(config.http_ssl_key),
+    cert: fs.readFileSync(config.http_ssl_cert)
+};
+
+// handler urls
+var handler = {
+    
+    
 };
 
 
 //create a https server
 https.createServer(options, function (req, res) 
 {
+    var u = url.parse(req.url);
     //parse req 
     console.log('Request: ' + req.url + ' method: ' + req.method);
+    
+    //handler:
+    //user 
+    //game
+    //lobby
     
     res.writeHead(200, {'Content-Type': 'text/plain'});
     res.end('Hello World\n');

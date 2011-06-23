@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/default.css" type="text/css" />
 
     <script type="text/javascript" src="js/jquery-1.6.1.min.js"></script>
+    <script type="text/javascript" src="js/lib.js"></script>
     <script type="text/javascript" src="js/main.js"></script>
   </head>
   <body>
@@ -19,19 +20,37 @@
 
         <label> Username: <input id="txtUsername" type="text" /> </label>
         <label> Password: <input id="txtPassword" type="text" /> </label>
-        <label> Server: <input id="txtServer" type="text" /> </label>
+        <label> Server: <input id="cmbServer" type="url" list="serverUrls"/> </label>
+        <datalist id="serverUrls">
+        <option value="https://localhost:53001/" label="Localhost">
+        </datalist>
 
         <input id="btnLogin" type="button" value="Login" onclick="login()" />
 
     </div>
 
+    <!-- Status Bar -->
+    <div id="statusBar" style="display:none">
+        <!-- Username -->
+        <span>Benutzer</span>
+        <!-- Ranking -->
+        <span>Ranking</span>
+        <!-- Einstellungen -->
+        <!-- Logout -->
+        <a href="#" onclick="logout(); return false;">Logout</a>
+    </div>
+
     <!-- Lobby Window -->
     <div id="lobbyWindow" style="display:none">
+
+        <!-- Game Making Dialog -->
         <!-- Chat -->
         <!-- Game List  (Join, Spectate) -->
-        <!-- Controls -->
+        <!-- Id (Spieler) Join, Spectate) -->
+        <!-- Controls (Host Game)-->
         <!-- Match Making -->
-
+        <input id="btnMakeGame" type="button" value="Make a game" />
+        <input id="btnMatchMaking" type="button" value="Match Making" />
     </div>
 
     <!-- Game Window -->
