@@ -6,6 +6,7 @@
 */
 
 //global states?
+var server = "";
 
 /**
 * Initializer Function
@@ -14,6 +15,7 @@ $(document).ready(function() {
    //hide no script box
    $("#noscript").hide(); 
    
+   //load library scripts
    include("js/jquery.urldecoder.min.js");
    include("js/sjcl.js");
    
@@ -24,16 +26,47 @@ $(document).ready(function() {
 * login user into the server
 */
 function login()
-{
-    alert("login:" + $("#txtUsername").attr("value"));
+{   
+    var user = $("#txtUsername").attr("value");
     
-    var srv = $("#cmbServer").attr("value");
+    //256 rounds for pw hash
+    var pwhash = $("#txtPassword").attr("value");
+    for (var i=0;i<=256;i++)
+    {
+        pwhash = sjcl.hash.sha256.hash(pwhash);
+    }
     
+    
+    alert("pwhash: " + sjcl.codec.hex.fromBits(pwhash));
+    
+    server = $("#cmbServer").attr("value");
+    
+    
+    var response = null;
+    
+    //try to login into server
+    $.ajax({
+        url: "test.html",
+        contentType: "application/json",
+        dataType: "json",
+        type: "POST",
+        context: this,
+        statusCode: {
+                     404: function() { alert('page not found');},
+                     403: function() { alert('access denied'); }
+                    },
+        success: function(){
+                $(this).addClass("done");
+            }
+    });
+    
+    
+    //error(jqXHR, textStatus, errorThrown)
     
     //connect to server (ssl!)
     
     //get seed from server?
-    //hash(username) 
+    //hash(username)  100 x sha256
     //hash(pw+seed),seed
     
     //session cookie?

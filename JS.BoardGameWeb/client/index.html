@@ -20,7 +20,7 @@
 
         <label> Username: <input id="txtUsername" type="text" /> </label>
         <label> Password: <input id="txtPassword" type="text" /> </label>
-        <label> Server: <input id="cmbServer" type="url" list="serverUrls"/> </label>
+        <label> Server: <input id="cmbServer" type="url" list="serverUrls" value="https://localhost:53001/"/> </label>
         <datalist id="serverUrls">
         <option value="https://localhost:53001/" label="Localhost">
         </datalist>
@@ -36,6 +36,7 @@
         <!-- Ranking -->
         <span>Ranking</span>
         <!-- Einstellungen -->
+        <a href="#" onclick="return false;">Settings</a>
         <!-- Logout -->
         <a href="#" onclick="logout(); return false;">Logout</a>
     </div>
@@ -45,10 +46,12 @@
 
         <!-- Game Making Dialog -->
         <!-- Chat -->
-        <!-- Game List  (Join, Spectate) -->
-        <!-- Id (Spieler) Join, Spectate) -->
-        <!-- Controls (Host Game)-->
-        <!-- Match Making -->
+
+        <!-- Game List -->
+        <div id="divGameList">
+            <!-- Id (Spieler) Join, Spectate) -->
+        </div>
+        
         <input id="btnMakeGame" type="button" value="Make a game" />
         <input id="btnMatchMaking" type="button" value="Match Making" />
     </div>

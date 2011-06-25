@@ -10,6 +10,8 @@ var fs = require('fs');
 var url = require('url');
 
 var config = require('./config.js').config;
+var handler = require('./handler.js');
+var util = require('./util.js');
 
 //ssl options
 var options = {
@@ -19,8 +21,9 @@ var options = {
 
 // handler urls
 var handler = {
-    
-    
+    "/game" : handler.game,
+    "/lobby" : handler.lobby,
+    "/user" : handler.user
 };
 
 
@@ -28,16 +31,28 @@ var handler = {
 https.createServer(options, function (req, res) 
 {
     var u = url.parse(req.url);
+    
+    //u.pathname = u.pathname.split('/');
+    //console.log(u.pathname);
+   
     //parse req 
     console.log('Request: ' + req.url + ' method: ' + req.method);
     
-    //handler:
-    //user 
-    //game
-    //lobby
+    console.log(util.cookies(req));
     
-    res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('Hello World\n');
+    for(h in handler)
+    {
+        //look for right handler (hashtable for js?)
+        if(util.startsWith(u.pathname, h))
+        {
+            handler[h](req, url, res);
+            return;
+        }
+        
+    }
+    
+    //send not found here
+    util.send404(req, res);
   
 }).listen(53001, "127.0.0.1");
 
