@@ -29,9 +29,8 @@ using Vte;
 */
 public class TerminalWindow : Window
 {
-    //TODO Tabs
-    
-    private Terminal term;
+    //Tab Container
+    private Notebook tabs;
     
     /**
     * Ctor
@@ -41,20 +40,73 @@ public class TerminalWindow : Window
         this.title = "Terminal";
         this.set_has_resize_grip(false);
         
-        term = new Terminal();
-        startShell();
+        this.key_press_event.connect(onKeyPress);
+        
+        this.tabs = new Notebook();
+        tabs.page_removed.connect((child, index) => {
+            if(tabs.get_n_pages() == 0)
+                    this.hide();
+            //close program? when not windows are open
+        });
+       
+        
+        //one shell
+        addTerminalTab();
        
         var vbox = new VBox (true, 0);
-        vbox.add(term);
-        vbox.add(new Button.with_label("foo"));
+        vbox.add(tabs);
         add(vbox);
     }
     
+    /**
+    * Key Event Handling
+    */
+    public bool onKeyPress(Gdk.EventKey event)
+    {
+        if (event.type != Gdk.EventType.KEY_PRESS)
+            return false;
+        
+        if(event.is_modifier > 0)
+            return false;
+        
+        //TODO shortcuts
+        
+        if((event.state & Gdk.ModifierType.CONTROL_MASK) == Gdk.ModifierType.CONTROL_MASK)
+        {
+            string key = Gdk.keyval_name(event.keyval);
+            if(key == "t")
+            {
+                addTerminalTab();
+                return true;
+            }
+            //Left, Right
+            //
+        }
+        
+        return false;
+    }
+    
+    /**
+    * Add a Terminal Tab
+    */
+    private void addTerminalTab()
+    {        
+        Terminal term = new Terminal();
+        startShell(term);
+        tabs.append_page(term, new Label("Terminal"));
+        
+        term.child_exited.connect(() => {
+            tabs.remove(term);
+        });
+            
+            
+        tabs.show_all();
+    }
     
     /**
     * Start a Shell at terminal
     */
-    private void startShell()
+    private void startShell(Terminal term)
     {
         //public bool fork_command_full (Vte.PtyFlags pty_flags, string? working_directory, [CCode (array_length = false)] string[] argv, [CCode (array_length = false)] string[]? envv, GLib.SpawnFlags spawn_flags, [CCode (delegate_target_pos = 6.5)] GLib.SpawnChildSetupFunc? child_setup, out GLib.Pid? child_pid) 
         
@@ -107,9 +159,19 @@ public static int main (string[] args)
     Gdk.Screen screen = display.get_default_screen();
     StyleContext.add_provider_for_screen (screen, cssProvider, STYLE_PROVIDER_PRIORITY_APPLICATION); 
     
+    uint windowCounter = 0;
+    
     //set up Terminal Window
     var window = new TerminalWindow(); 
     window.destroy.connect (Gtk.main_quit);
+    
+    window.show.connect(() => { windowCounter++; });
+    
+    window.hide.connect(() => {
+        windowCounter--;
+        if(windowCounter == 0)
+            Gtk.main_quit();
+    });
 
     window.show_all();
 
