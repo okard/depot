@@ -38,6 +38,7 @@ public class TerminalWindow : Window
     {
         this.title = "Terminal";
         this.set_has_resize_grip(false);
+        this.set_default_size(800, 600);
         
         //window try close? multiple tabs open -> security question
         this.key_press_event.connect(onKeyPress);
@@ -111,6 +112,7 @@ public class TerminalWindow : Window
         Terminal term = new Terminal();
         startShell(term);
         tabs.append_page(term, new Label("Terminal"));
+        term.show_all();
         
         term.child_exited.connect(() => {
             tabs.remove(term);

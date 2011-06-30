@@ -53,7 +53,15 @@ public class TerminalApplication : Gtk.Application
         //map events
         activate.connect(onActivate);
         
+        command_line.connect( (com) =>
+        {
+            //command line handling here??
+            return 0;
+        });
+        
     }
+    
+
     
     /**
     * On Application Activate
@@ -71,6 +79,48 @@ public class TerminalApplication : Gtk.Application
         this.add_window(window);
         window.show_all();
     }
+    
+    /**
+    * Command line handling
+    */
+    
+    public override bool local_command_line ([CCode (array_null_terminated = true, array_length = false)] 
+                                             ref unowned string[] arguments, 
+                                             out int exit_status) 
+    {
+        //NOTICE Some small parts copied from Gnome Cheese GTK3 Vala Port
+        
+        // Try to register.
+        try
+        {
+            register();
+        }
+        catch (Error e)
+        {
+            stdout.printf ("Error Registering App: %s\n", e.message);
+            exit_status = 1;
+            return true;
+        }
+    
+        
+        // Workaround until bug 642885 is solved.
+        unowned string[] local_args = arguments;
+       
+        //no args starts normal
+        if (local_args.length <= 1)
+        {
+            activate ();
+            exit_status = 0;
+            return true;
+        }
+
+        //TODO Parse Args here
+
+        activate ();
+        exit_status = 0;
+        
+        return true;
+    }
 }
 
 
@@ -81,8 +131,16 @@ public static int main (string[] args)
 {
     //have to detect multiple instance here to set right app id
     var IsMultipleInstance = false;
+    
+    foreach(string arg in args)
+    {
+        if(arg == "--instance")
+            IsMultipleInstance = true;
+    }
+    
     string appid = !IsMultipleInstance ? TerminalApplication.AppId : "%s.instance%x".printf(TerminalApplication.AppId ,new DateTime.now_utc().hash());
-    var app = new TerminalApplication(appid, ApplicationFlags.FLAGS_NONE);
+    stdout.printf("appid: %s\n", appid);
+    var app = new TerminalApplication(appid, ApplicationFlags.HANDLES_COMMAND_LINE);
     
     return app.run(args);
 }
