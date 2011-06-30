@@ -23,7 +23,6 @@ THE SOFTWARE.
 using Gtk;
 using Vte;
 
-
 /**
 * Terminal Window
 */
@@ -40,17 +39,20 @@ public class TerminalWindow : Window
         this.title = "Terminal";
         this.set_has_resize_grip(false);
         
+        //window try close? multiple tabs open -> security question
         this.key_press_event.connect(onKeyPress);
         
         this.tabs = new Notebook();
+        
         tabs.page_added.connect((child, index) => { tabs.set_show_tabs(tabs.get_n_pages() > 1 ? true : false); });
         
         tabs.page_removed.connect((child, index) => {
             tabs.set_show_tabs(tabs.get_n_pages() > 1 ? true : false);
             
             if(tabs.get_n_pages() == 0)
-                    this.hide();
-            //close program? when not windows are open
+            {
+                this.destroy();
+            }
         });
        
         
@@ -78,11 +80,22 @@ public class TerminalWindow : Window
         if((event.state & Gdk.ModifierType.CONTROL_MASK) == Gdk.ModifierType.CONTROL_MASK)
         {
             string key = Gdk.keyval_name(event.keyval);
+            
+            if(key == "w")
+            {
+                var win = new TerminalWindow();
+                win.set_application(this.get_application());
+                win.show_all();
+                return true;
+            }
+            
             if(key == "t")
             {
                 addTerminalTab();
                 return true;
             }
+
+            stdout.printf("Key Pressed: %s\n", key);
             //Left, Right
             //
         }
@@ -139,40 +152,4 @@ public class TerminalWindow : Window
         }
     }
     
-}
-
-/**
-* Main Function
-*/
-public static int main (string[] args) 
-{
-    Gtk.Application app = new Gtk.Application("org.gtk.vala.vaterm", ApplicationFlags.FLAGS_NONE);
-   
-    //look for existing process?
-    //send message to open a new window?
-    
-    //read config
-    
-    CssProvider cssProvider = new CssProvider();
-    
-    //TODO fix vterm.css location
-    try {cssProvider.load_from_file(File.new_for_path ("vterm.css"));}
-    catch(Error e){  stderr.printf ("Error: %s\n", e.message);}
-    
-    //on app activate
-    app.activate.connect(() =>
-    {
-        //required to handle here???
-        Gdk.Display display = Gdk.Display.get_default();
-        Gdk.Screen screen = display.get_default_screen();
-        StyleContext.add_provider_for_screen (screen, cssProvider, STYLE_PROVIDER_PRIORITY_APPLICATION);
-    
-        //set up Terminal Window
-        var window = new TerminalWindow(); 
-        window.set_application(app);
-        window.show_all();
-        
-    });
-    
-    return app.run(args);
 }

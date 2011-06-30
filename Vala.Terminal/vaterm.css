@@ -4,16 +4,16 @@ GtkWindow {
 }
 
 .notebook {
-    padding:0;
+    padding:5;
     margin:0;
-    border-color:white;
-    border-width:1;
+    border-width:0;
 }
 
 .notebook tab {
     border-width:0;
+    border-style:inset;
     margin:0;
-    padding:0;
+    padding:1;
     font: Sans 9;
     background-color: black;
 }
