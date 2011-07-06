@@ -44,6 +44,33 @@ exports.cookies = function(req)
 }
 
 /**
+* Get a random number between min and max
+*/
+exports.random_range = function(min, max)
+{
+    if( min > max ) {
+        return( -1 );
+    }
+    if( min == max ) {
+        return( min );
+    }
+ 
+    return( min + parseInt( Math.random() * ( max-min+1 ) ) );
+}
+
+/**
+* Write a JSON Object to Response Stream
+*/
+exports.sendJson = function(res, obj)
+{
+    var header = {
+        'Content-Type': 'application/json'
+    }
+    res.writeHead(200, header);
+    res.end(JSON.stringify(obj));    
+}
+
+/**
 * send a 404 error
 * page not found
 */

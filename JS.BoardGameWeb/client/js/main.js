@@ -56,7 +56,7 @@ function login()
                      403: function() { alert('access denied'); }
                     },
         success: function(){
-                $(this).addClass("done");
+                //$(this).addClass("done");
             }
     });
     

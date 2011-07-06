@@ -36,16 +36,18 @@ https.createServer(options, function (req, res)
     //console.log(u.pathname);
    
     //parse req 
-    console.log('Request: ' + req.url + ' method: ' + req.method);
+    console.log('Request: ' + req.url + ' method: ' + req.method + ' headers: ' + JSON.stringify(req.headers));
+    console.log('Cookies: ' + JSON.stringify(util.cookies(req)));
     
-    console.log(util.cookies(req));
     
     for(h in handler)
     {
         //look for right handler (hashtable for js?)
         if(util.startsWith(u.pathname, h))
         {
-            handler[h](req, url, res);
+            u.pathname = u.pathname.substr(1).split('/');
+            handler[h](req, u, res);
+            console.log("\n\n");
             return;
         }
         
