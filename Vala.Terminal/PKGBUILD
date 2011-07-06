@@ -1,0 +1,24 @@
+pkgname=vaterm
+pkgver=0.0.2
+pkgrel=1
+pkgdesc="Vala VTE3 based Terminal"
+arch=('x86_64' 'i686')
+license=('MIT')
+depends=('gtk3' 'vte3')
+makedepends=('vala')
+
+
+build() {
+    echo Build...
+    #git clone url ${srcdir}
+    #cd ${srcdir}
+    cd ${srcdir}/..
+
+    ./build.sh
+}
+ 
+package() {
+  #cd "${srcdir}/${pkgname}-${pkgver}"
+  #make DESTDIR="${pkgdir}" install
+  install -D -m555 "${srcdir}/../vaterm" "${pkgdir}/usr/bin/vaterm"
+}

@@ -138,6 +138,8 @@ public static int main (string[] args)
             IsMultipleInstance = true;
     }
     
+    stdout.printf("%s\n", exePath());
+    
     string appid = !IsMultipleInstance ? TerminalApplication.AppId : "%s.instance%x".printf(TerminalApplication.AppId ,new DateTime.now_utc().hash());
     stdout.printf("appid: %s\n", appid);
     var app = new TerminalApplication(appid, ApplicationFlags.HANDLES_COMMAND_LINE);

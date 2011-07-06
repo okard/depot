@@ -1,1 +1,4 @@
 vaterm
+pkg/
+*.pkg.tar.xz
+

@@ -95,6 +95,18 @@ public class TerminalWindow : Window
                 addTerminalTab();
                 return true;
             }
+            
+            if(key == "Left")
+            {
+                tabs.prev_page();
+                return true;
+            }
+            
+            if(key == "Right")
+            {
+                tabs.next_page();
+                return true;
+            }
 
             stdout.printf("Key Pressed: %s\n", key);
             //Left, Right
@@ -111,7 +123,8 @@ public class TerminalWindow : Window
     {        
         Terminal term = new Terminal();
         startShell(term);
-        tabs.append_page(term, new Label("Terminal"));
+        var name = "Terminal %d".printf(tabs.get_n_pages()+1);
+        tabs.append_page(term, new Label(name));
         term.show_all();
         
         term.child_exited.connect(() => {
