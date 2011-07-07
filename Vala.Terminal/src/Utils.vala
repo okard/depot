@@ -44,16 +44,19 @@ public static string exePath()
 /**
 * Search for a file in path hierachy
 */
-public static File findFile(string file)
+public static File findFile(string file) throws Error
 {
+    string[] pathlist = new string[]{ exePath(),
+                     Environment.get_home_dir() +"/.config/vaterm/",
+                     "/etc/vaterm/"};
     
+    foreach(var p in pathlist)
+    {
+        File f = File.new_for_path(p + file);
+        GLib.stdout.printf("Check for file '%s'\n", f.get_path ());
+        if(f.query_exists())
+            return f;
+    }
     
-    File f = File.new_for_path(file);
-    if(f.query_exists())
-        return f;
-    // 1. dir (symlink (/proc/self/exe)) + file (for testing and developing)
-    // 2. ~/.conf/vaterm/file
-    // 3. /etc/vaterm/ or /usr/share/apps ... ???????
-        
     throw new Error(Quark.from_string("VaTerm Error"), 0, "No matching file found");
 }

@@ -45,7 +45,7 @@ public class TerminalApplication : Gtk.Application
         cssProvider = new CssProvider();
         try 
         {
-            var file = File.new_for_path ("vaterm.css");
+            var file = findFile("vaterm.css");
             cssProvider.load_from_file(file);
         }
         catch(Error e){  stderr.printf ("Error: %s\n", e.message);}
