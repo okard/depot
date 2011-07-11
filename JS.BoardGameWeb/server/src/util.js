@@ -67,7 +67,18 @@ exports.sendJson = function(res, obj)
         'Content-Type': 'application/json'
     }
     res.writeHead(200, header);
-    res.end(JSON.stringify(obj));    
+    res.end("(" + JSON.stringify(obj) + ")");    
+}
+
+/**
+* Send a JSON Error Object
+*/
+exports.sendError = function(res, errorid, msg)
+{
+    exports.sendJson(res, {
+        error: errorid,
+        msg: msg
+    });
 }
 
 /**

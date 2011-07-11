@@ -61,16 +61,17 @@ function user_handler(req, url, res)
     {
         case 'login':
             //check if already logged in?
+            //user/password
             session.set(req, 'userid', Math.random());
             console.log("do login");
-            util.sendJson(res, {'action' : 'login', 'status' : 'ok'});
+            util.sendJson(res, {action: 'login', status: 'ok'});
             return;
             break;
             
         case 'logout':
             session.end(req, res);
             console.log("do logout");
-            util.sendJson(res, {'action' : 'logout', 'status' : 'ok'});
+            util.sendJson(res, {action: 'logout', status: 'ok'});
             return;
             break;
        
@@ -78,10 +79,10 @@ function user_handler(req, url, res)
             var userid = session.get(req, 'userid');
             if(userid)
             {
-                util.sendJson(res, {'userid' : userid});
+                util.sendJson(res, {userid: userid});
             }
             else
-                util.sendJson(res, {'error' : 'not logged in'});
+                util.sendJson(res, {error: 'not logged in'});
             return;
             break;
     }

@@ -5,9 +5,6 @@
  Author: okard
 */
 
-//global states?
-var server = "";
-
 /**
 * Initializer Function
 */
@@ -17,8 +14,12 @@ $(document).ready(function() {
    
    //load library scripts
    include("js/jquery.urldecoder.min.js");
+   include("js/jquery.cookie.js");
    include("js/sjcl.js");
+   include("js/api.js");
    
+   
+   //look which state user is and switch to right page  
 });
 
 
@@ -28,48 +29,16 @@ $(document).ready(function() {
 function login()
 {   
     var user = $("#txtUsername").attr("value");
+    var pw = $("#txtPassword").attr("value");
+    var server = $("#cmbServer").attr("value");
     
-    //256 rounds for pw hash
-    var pwhash = $("#txtPassword").attr("value");
-    for (var i=0;i<=256;i++)
-    {
-        pwhash = sjcl.hash.sha256.hash(pwhash);
-    }
+    //initialize Server API
+    api.init(server);
     
+    //login to server
+    api.login(user, pw);
     
-    alert("pwhash: " + sjcl.codec.hex.fromBits(pwhash));
-    
-    server = $("#cmbServer").attr("value");
-    
-    
-    var response = null;
-    
-    //try to login into server
-    $.ajax({
-        url: "test.html",
-        contentType: "application/json",
-        dataType: "json",
-        type: "POST",
-        context: this,
-        statusCode: {
-                     404: function() { alert('page not found');},
-                     403: function() { alert('access denied'); }
-                    },
-        success: function(){
-                //$(this).addClass("done");
-            }
-    });
-    
-    
-    //error(jqXHR, textStatus, errorThrown)
-    
-    //connect to server (ssl!)
-    
-    //get seed from server?
-    //hash(username)  100 x sha256
-    //hash(pw+seed),seed
-    
-    //session cookie?
+    //handle error/success
     
     $("#loginWindow").hide();
     $("#lobbyWindow").show();
