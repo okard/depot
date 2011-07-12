@@ -8,15 +8,18 @@
 var crypto = require('crypto');
 var util = require('./util.js');
 
-
-var sessions = {};
-
+// Constants
 var SESSIONID = 'sessionid';
 var TIMEOUT = 3*60*1000;
+
+//Session Storage
+var sessions = {};
 
 
 //TODO Associate IP with Session, (Cookie Stealing) Way to disable (AOL Problems?)
 //TODO Session via url parameter? not better?
+//TODO Use of Set-Cookie2 ?
+//TODO Clean invalid sessions? when user kill session cookie and server got no notice
 
 /**
 * Starts session
@@ -104,8 +107,15 @@ exports.get = function(req, key)
 */
 exports.end = function(req, res)
 {
-    //delete cookie
-    //set expire data
+    //delete session object
+    var c = util.cookies(req);
+    
+    if(c[SESSIONID])
+    {
+        delete sessions[c[SESSIONID]];
+    }
+    
+    //delete cookie with setting expire data
     var value = SESSIONID + "=;Version=1;Max-Age=1";
     res.setHeader('Set-Cookie', value);
 }

@@ -10,8 +10,11 @@ var fs = require('fs');
 var url = require('url');
 
 var config = require('./config.js').config;
-var handler = require('./handler.js');
 var util = require('./util.js');
+
+var user = require('./user.js');
+var lobby = require('./lobby.js');
+var game = require('./game.js');
 
 //ssl options
 var options = {
@@ -21,9 +24,9 @@ var options = {
 
 // handler urls
 var handler = {
-    "/game" : handler.game,
-    "/lobby" : handler.lobby,
-    "/user" : handler.user
+    "/game" : game.handler,
+    "/lobby" : lobby.handler,
+    "/user" : user.handler
 };
 
 

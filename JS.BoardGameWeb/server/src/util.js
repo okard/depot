@@ -77,7 +77,8 @@ exports.sendError = function(res, errorid, msg)
 {
     exports.sendJson(res, {
         error: errorid,
-        msg: msg
+        msg: msg,
+        status: 'error'
     });
 }
 
@@ -87,6 +88,8 @@ exports.sendError = function(res, errorid, msg)
 */
 exports.send404 = function (req, res)
 {
+    //TODO HTTP Errors with JSON as Return?
+    
     res.writeHead(404, {'Content-Type': 'text/html'});
     res.write("<h1>404 Not Found</h1>");
     res.end("The page you were looking for: "+req.pathname+" can not be found");    
