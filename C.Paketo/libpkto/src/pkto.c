@@ -16,33 +16,24 @@
 */
 #include <pkto/pkto.h>
 
-#include <pkto/os.h>
+#include <stdlib.h>
 
 
-void pkto_build(pkto_handle* handle, char* path)
+/**
+* Create new pkto object
+*/
+pkto_handle* pkto_handle_new()
 {
-    //opendir
-    //look for pkgdef
-    //open path + pkgdef
-    
-    
-    //requires pkgdef
-    //line ending? map build tool? .sh = bash, .lua = lua and so on?
-    //requires folder with pkgdef
-    //test if folder is writeable?
-    //build to temp if not?
-    
-    
-    os_process* proc = os_process_new();
-    
-    os_process_delete(proc);
-    
-    //start build process
-    //load library script
-    //load pkgdef
-    //load handle script
-    
-    //build application should return 0 when successful then the pkgbuild file must exist
-    //return result? read result file? pkgbuild links to packages created?
+    pkto_handle* obj = malloc(sizeof(pkto_handle));
+    //initialize structure here
+    return obj;
+}
 
+/**
+* Delete a pkto object
+*/
+void pkto_handle_delete(pkto_handle* obj)
+{
+    free(obj);
+    obj = 0;
 }

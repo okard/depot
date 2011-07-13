@@ -17,14 +17,37 @@
 #ifndef __LIBPKTO_PACKAGE_H__
 #define __LIBPKTO_PACKAGE_H__
 
-typedef struct pkto_package
+/**
+* Represents a package
+*/
+typedef struct
 {
-    //name
-    //version
-    //repository
-    //arch
+    //From Database
+    //- name
+    //- version
+    //- arch
+    //- repository
+    //- signature
     
-};
+    //archive_file (bin/src/src-full)
+    
+}  pkto_package;
+
+
+/**
+* Result of a package action
+*/
+typedef struct
+{
+    //successful
+    //error
+    //msg
+} pkto_package_result;
+
+
+
+//open package from repository
+//open package from archive file
 
 
 //open package

@@ -17,6 +17,50 @@
 #ifndef __LIBPKTO_PKTO_H__
 #define __LIBPKTO_PKTO_H__
 
+// Constants
+#define PKGDEFFILE "pkgdef"
+#define PKGDBFILE "pkgdb"
+#define PKGBUILDFILE "pkgbuild"
+
+
+/**
+* Central File Structure
+*/
+typedef struct 
+{
+    //target directory (e.g. root /)
+    //repositories
+    //general configuration
+    //state
+    //thread management?
+    //logging?
+    
+    //error handler function?
+} pkto_handle;
+
+
+/**
+* Create a new pkto handle
+*/
+pkto_handle* pkto_handle_new();
+
+/**
+* Delete a pkto handle
+*/
+void pkto_handle_delete(pkto_handle* handle);
+
+
+//add repository to core
+
+
+//other functions
+
+/**
+* Build a package
+*/
+void pkto_build(pkto_handle* handle, char* path);
+
+
 // Package DB
 // Package - Install / Remove / Status
 // Repository - Configs

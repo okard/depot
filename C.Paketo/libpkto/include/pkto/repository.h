@@ -19,17 +19,24 @@
 
 typedef struct pkto_repository
 {
-    // Database
+    //Cache Database
     KCDB* db;
     
     //repository type src/bin
     //repository arch type
     //repository name
     
+    
+    // db 
+    // pkg files
+    
+    // json file with all packages for rebuild db and so on
     //folder of pkg cache
 };
 
 //actions sync
+//open
+
 
 
 

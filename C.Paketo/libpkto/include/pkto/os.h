@@ -14,18 +14,33 @@
     You should have received a copy of the GNU General Public License
     along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
 */
+#ifndef __LIBPKTO_OS_H__
+#define __LIBPKTO_OS_H__
 
-#include <kclangc.h>
+// Platform Functions
 
-#include <pkto/pkto.h>
+// Directory Reading
+
+// Process Handling
+typedef struct os_process os_process;
+
+/**
+* Create a new process object
+*/
+os_process* os_process_new();
+
+/**
+* Delete process object
+*/
+void os_process_delete(os_process* proc);
+
+/**
+* Start a process
+*/
+void os_process_start(os_process* proc, char* process);
 
 
-void pkto_db_open(pkto_handle* handle)
-{
-    
-}
 
-//read package informations and so on
 
-//read package information from pkgdb
-//read package information from koyoto cabinet db? (is json stored?)
+
+#endif

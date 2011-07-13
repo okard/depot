@@ -16,6 +16,9 @@
 */
 
 #include <stdio.h>
+#include <string.h>
+
+#include <pkto/pkto.h>
 
 
 /**
@@ -25,9 +28,42 @@ int main(int argc, char *argv[])
 {
     printf("repoman\n");
     
+    if(argc < 2)
+    {
+        //print usage
+        printf("Error: to less arguments\n");
+        return 1;
+    }
+    
+    //initialize pkto_core
+    pkto_handle* handle = pkto_handle_new();
+    
+    //build command
+    if(strcmp(argv[1], "build") == 0)
+    {
+        if(argc >= 3)
+        {
+            printf("Start building %s\n", argv[2]);
+            pkto_build(handle, argv[2]);
+            return 0;
+        }
+        else
+        {
+            printf("Syntax: %s build <folder>\n", argv[0]);
+            return 1;
+        }
+    }
+    
+    
     //options:
     //run on repository-root.json config file
     //run on complete folder
-    //- each subfolder should contain a pkgdef
+        //-each subfolder should contain a pkgdef
     //run on single folder (containing pkgdef) 
+    //daemon mode
+    
+    // build 
+    
+    pkto_handle_delete(handle);
+    
 }

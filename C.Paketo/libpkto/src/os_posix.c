@@ -14,35 +14,46 @@
     You should have received a copy of the GNU General Public License
     along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <pkto/pkto.h>
-
 #include <pkto/os.h>
 
+#include <stdlib.h>
 
-void pkto_build(pkto_handle* handle, char* path)
+//Implement os specific (non ansi c99) here for posix
+
+/**
+* Posix Process Structure
+*/
+typedef struct os_process
 {
-    //opendir
-    //look for pkgdef
-    //open path + pkgdef
     
-    
-    //requires pkgdef
-    //line ending? map build tool? .sh = bash, .lua = lua and so on?
-    //requires folder with pkgdef
-    //test if folder is writeable?
-    //build to temp if not?
-    
-    
-    os_process* proc = os_process_new();
-    
-    os_process_delete(proc);
-    
-    //start build process
-    //load library script
-    //load pkgdef
-    //load handle script
-    
-    //build application should return 0 when successful then the pkgbuild file must exist
-    //return result? read result file? pkgbuild links to packages created?
+} os_process;
 
+
+/**
+* Create a new process object
+*/
+os_process* os_process_new()
+{
+    os_process* proc = malloc(sizeof(os_process));
+    //TODO Initialize Structure here
+    return proc;
+}
+
+/**
+* Delete process object
+*/
+void os_process_delete(os_process* proc)
+{
+    free(proc);
+    proc = 0;
+}
+
+/**
+* Start a process
+*/
+void os_process_start(os_process* proc, char* process)
+{
+    //fork
+    //exec
+    
 }

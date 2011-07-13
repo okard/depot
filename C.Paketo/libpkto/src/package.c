@@ -15,34 +15,30 @@
     along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include <pkto/pkto.h>
+#include <pkto/package.h>
 
-#include <pkto/os.h>
 
-
-void pkto_build(pkto_handle* handle, char* path)
+/**
+* Install a package
+*/
+void pkto_package_install(pkto_handle* handle)
 {
-    //opendir
-    //look for pkgdef
-    //open path + pkgdef
-    
-    
-    //requires pkgdef
-    //line ending? map build tool? .sh = bash, .lua = lua and so on?
-    //requires folder with pkgdef
-    //test if folder is writeable?
-    //build to temp if not?
-    
-    
-    os_process* proc = os_process_new();
-    
-    os_process_delete(proc);
-    
-    //start build process
-    //load library script
-    //load pkgdef
-    //load handle script
-    
-    //build application should return 0 when successful then the pkgbuild file must exist
-    //return result? read result file? pkgbuild links to packages created?
+    //check for conflicts
+}
 
+/**
+* Remove a package
+*/
+void pkto_package_remove(pkto_handle* handle)
+{
+    //check for dependencies
+}
+
+/**
+* Upgrade a package
+*/
+void pkto_package_upgrade(pkto_handle* handle)
+{
+    //old package information
+    //compare?
 }
