@@ -13,14 +13,18 @@
 
     You should have received a copy of the GNU General Public License
     along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
+    
+    Platform independent function which are not available in standard c library
 */
 #ifndef __LIBPKTO_OS_H__
 #define __LIBPKTO_OS_H__
 
-// Platform Functions
+///////////////////////////////////////////////////////////////////////////////
+// IO - Directory Reading
 
-// Directory Reading
+//size_t os_getfilesize(char* path);
 
+///////////////////////////////////////////////////////////////////////////////
 // Process Handling
 typedef struct os_process os_process;
 
@@ -39,7 +43,10 @@ void os_process_delete(os_process* proc);
 */
 void os_process_start(os_process* proc, char* process);
 
-
+/**
+* Wait until child process finished
+*/
+void os_process_wait(os_process* proc);
 
 
 

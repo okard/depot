@@ -13,6 +13,8 @@
 
     You should have received a copy of the GNU General Public License
     along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
+    
+    This File contains basic functions for libpkto
 */
 #include <pkto/pkto.h>
 

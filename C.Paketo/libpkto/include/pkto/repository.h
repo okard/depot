@@ -32,11 +32,12 @@ typedef struct pkto_repository
     
     // json file with all packages for rebuild db and so on
     //folder of pkg cache
-};
+} pkto_repository;
 
 //actions sync
 //open
 
+//get package from repository
 
 
 

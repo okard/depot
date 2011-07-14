@@ -20,7 +20,7 @@
 /**
 * Represents a package
 */
-typedef struct
+typedef struct pkto_package
 {
     //From Database
     //- name
@@ -31,13 +31,15 @@ typedef struct
     
     //archive_file (bin/src/src-full)
     
+    //From Archive File?
+    
 }  pkto_package;
 
 
 /**
 * Result of a package action
 */
-typedef struct
+typedef struct pkto_package_result
 {
     //successful
     //error
@@ -46,8 +48,11 @@ typedef struct
 
 
 
-//open package from repository
-//open package from archive file
+//open package from repository (handle, repository, name) to repository?
+//pkto_package* pkto_package_openrep(pkto_handle* handle, pkto_repository* repo, char* const name);
+
+//open package from archive file (handle, path)
+//pkto_package* pkto_package_open(pkto_handle* handle, char* const path);
 
 
 //open package

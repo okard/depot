@@ -22,6 +22,8 @@
 #define PKGDBFILE "pkgdb"
 #define PKGBUILDFILE "pkgbuild"
 
+static const char* const libpkto_version = "0.0.1";
+
 
 /**
 * Central File Structure

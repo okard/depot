@@ -27,6 +27,7 @@
 int main(int argc, char *argv[])
 {
     printf("repoman\n");
+    printf("libpkto version: %s\n", libpkto_version);
     
     if(argc < 2)
     {
