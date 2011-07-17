@@ -19,10 +19,43 @@
 #ifndef __LIBPKTO_OS_H__
 #define __LIBPKTO_OS_H__
 
+#include <stddef.h>
+#include <stdbool.h>
+
 ///////////////////////////////////////////////////////////////////////////////
 // IO - Directory Reading
+typedef struct os_dir os_dir;
+typedef struct os_dir_entry os_dir_entry;
 
-//size_t os_getfilesize(char* path);
+/**
+* Create new dir object
+*/
+os_dir* os_dir_new();
+
+/**
+* Delete dir object
+*/
+void os_dir_delete(os_dir* dir);
+
+/**
+* Open a dir
+*/
+bool os_dir_open(os_dir* dir, char* path);
+
+/**
+* Get next entry
+*/
+os_dir_entry* os_dir_next(os_dir* dir);
+
+//TODO lesser memory consume new/delete/clean for os_dir_entry
+
+/**
+* Get file size
+*/
+size_t os_get_filesize(char* path);
+
+//char* os_get_executabledir();
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // Process Handling
@@ -41,7 +74,13 @@ void os_process_delete(os_process* proc);
 /**
 * Start a process
 */
-void os_process_start(os_process* proc, char* process);
+void os_process_start(os_process* proc, const char* path, const char *arg0, ...);
+//TODO arguments?
+//TODO env?
+
+//Flags for stdin/out/err mapping?
+//Write to process stdin
+//Event Callbacks
 
 /**
 * Wait until child process finished

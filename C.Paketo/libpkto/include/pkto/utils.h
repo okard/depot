@@ -1,5 +1,5 @@
 /*
-    This file is part of repoman.
+    This file is part of libpkto.
 
     libpkto is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -12,26 +12,32 @@
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with repoman.  If not, see <http://www.gnu.org/licenses/>.
+    along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
+    
+    Utility Functions
 */
+#ifndef __LIBPKTO_UTILS_H__
+#define __LIBPKTO_UTILS_H__
 
-#include <stdio.h>
+#include <stdlib.h>
 
-#include <pkto/pkto.h>
+typedef struct pkto_buffer
+{
+    void* data;
+    size_t size;
+} pkto_buffer;
 
 /**
-* Main Function
+* Create a new buffer
 */
-int main(int argc, char *argv[])
-{
-    printf("paketo\n");
-    
-    //sync
-    //upgrade
-    //update -> sync + upgrade
-    //install
-    //remove
-    //search
-    //build
-    
-}
+pkto_buffer* pkto_buffer_new(size_t size);
+
+/**
+* Delete Buffer
+*/
+void pkto_buffer_delete(pkto_buffer* buffer);
+
+
+
+
+#endif

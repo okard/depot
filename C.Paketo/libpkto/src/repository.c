@@ -1,5 +1,5 @@
 /*
-    This file is part of repoman.
+    This file is part of libpkto.
 
     libpkto is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -12,26 +12,25 @@
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with repoman.  If not, see <http://www.gnu.org/licenses/>.
+    along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <stdio.h>
+#include <kclangc.h>
 
 #include <pkto/pkto.h>
 
-/**
-* Main Function
-*/
-int main(int argc, char *argv[])
+
+void pkto_repository_open(pkto_handle* handle)
 {
-    printf("paketo\n");
-    
-    //sync
-    //upgrade
-    //update -> sync + upgrade
-    //install
-    //remove
-    //search
-    //build
-    
 }
+
+
+void pkto_db_open(pkto_handle* handle)
+{
+    //open repository cache?
+}
+
+//read package informations and so on
+
+//read package information from pkgdb
+//read package information from koyoto cabinet db? (is json stored?)

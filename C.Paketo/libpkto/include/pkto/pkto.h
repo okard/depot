@@ -17,13 +17,16 @@
 #ifndef __LIBPKTO_PKTO_H__
 #define __LIBPKTO_PKTO_H__
 
+#include <pkto/error.h>
+
 // Constants
-#define PKGDEFFILE "pkgdef"
-#define PKGDBFILE "pkgdb"
-#define PKGBUILDFILE "pkgbuild"
+static const char* const PKGDEFFILE = "pkgdef";
+static const char* const PKGDBFILE = "pkgdb";
+static const char* const PKGBUILDFILE = "pkgbuild";
+static const char* const LIBPKTO_VERSION = "0.0.1";
 
-static const char* const libpkto_version = "0.0.1";
 
+//OPTIONS for creating handle (build_only/package_management/....)
 
 /**
 * Central File Structure

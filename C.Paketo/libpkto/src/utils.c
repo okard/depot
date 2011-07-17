@@ -13,19 +13,29 @@
 
     You should have received a copy of the GNU General Public License
     along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-#include <kclangc.h>
-
-#include <pkto/pkto.h>
-
-
-void pkto_db_open(pkto_handle* handle)
-{
     
+    Utility Functions
+*/
+#include <pkto/utils.h>
+
+/**
+* Create a new buffer
+*/
+pkto_buffer* pkto_buffer_new(size_t size)
+{
+    pkto_buffer* buffer = malloc(sizeof(pkto_buffer));
+    buffer->data = malloc(size);
+    buffer->size = size;
+    return buffer;
 }
 
-//read package informations and so on
-
-//read package information from pkgdb
-//read package information from koyoto cabinet db? (is json stored?)
+/**
+* Delete Buffer
+*/
+void pkto_buffer_delete(pkto_buffer* buffer)
+{
+    free(buffer->data);
+    buffer->data = 0;
+    free(buffer);
+    buffer = 0;
+}

@@ -37,15 +37,19 @@ void pkto_build(pkto_handle* handle, char* path)
     //line ending? map build tool? .sh = bash, .lua = lua and so on?
     //requires folder with pkgdef
     //test if folder is writeable?
-    //build to temp if not?
+    //build to temp if nota?
     
     
     os_process* proc = os_process_new();
     
+    //path of lib.sh and post.sh
+    //bash -c ". lib.sh; . pkgdef; . post.sh;"
     //start a bash process
     //load . lib.sh
     //load . pkgdef
     //load . post.sh to create package
+    // create right string with full pathes
+    //os_process_start(proc, "/usr/bin/bash", "/usr/bin/bash", "-c", "", NULL);
     
     os_process_delete(proc);
     
@@ -79,7 +83,8 @@ void pkto_write_archive_from_dir(char* dir, char* archive_file)
     archive_write_set_compression_gzip(a);
     archive_write_set_format_pax_restricted(a); // Note 1
     archive_write_open_filename(a, outname, 10240);
-    while (*filename) {
+    while (*filename) 
+    {
       stat(*filename, &st);
       entry = archive_entry_new(); // Note 2
       archive_entry_set_pathname(entry, *filename);
@@ -89,7 +94,8 @@ void pkto_write_archive_from_dir(char* dir, char* archive_file)
       archive_write_header(a, entry);
       fd = open(*filename, O_RDONLY);
       len = read(fd, buff, sizeof(buff));
-      while ( len > 0 ) {
+      while ( len > 0 ) 
+      {
           archive_write_data(a, buff, len);
           len = read(fd, buff, sizeof(buff));
       }

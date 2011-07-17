@@ -1,5 +1,5 @@
 /*
-    This file is part of repoman.
+    This file is part of libpkto.
 
     libpkto is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -12,26 +12,21 @@
     GNU General Public License for more details.
 
     You should have received a copy of the GNU General Public License
-    along with repoman.  If not, see <http://www.gnu.org/licenses/>.
+    along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
+    
+    error ids
 */
-
-#include <stdio.h>
-
-#include <pkto/pkto.h>
+#ifndef __LIBPKTO_ERROR_H__
+#define __LIBPKTO_ERROR_H__
 
 /**
-* Main Function
+* ERROR IDs
 */
-int main(int argc, char *argv[])
+typedef enum pkto_error
 {
-    printf("paketo\n");
-    
-    //sync
-    //upgrade
-    //update -> sync + upgrade
-    //install
-    //remove
-    //search
-    //build
-    
-}
+    PKTO_NO_ERROR = 0,
+    PKTO_ERROR_UNKOWN = 1
+} pkto_error;
+
+
+#endif

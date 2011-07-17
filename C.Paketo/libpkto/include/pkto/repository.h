@@ -14,21 +14,23 @@
     You should have received a copy of the GNU General Public License
     along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __LIBPKTO_DB_H__
-#define __LIBPKTO_DB_H__
+#ifndef __LIBPKTO_REPOSITORY_H__
+#define __LIBPKTO_REPOSITORY_H__
 
+/**
+* Holds a repository
+*/
 typedef struct pkto_repository
 {
-    //Cache Database
-    KCDB* db;
-    
     //repository type src/bin
     //repository arch type
     //repository name
     
+    // db dir
+    // pkg files (cache)
     
-    // db 
-    // pkg files
+    //Cache Database
+    KCDB* db;
     
     // json file with all packages for rebuild db and so on
     //folder of pkg cache
