@@ -6,7 +6,7 @@
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Foobar is distributed in the hope that it will be useful,
+    libpkto is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -46,9 +46,14 @@ typedef struct os_dir_entry
 */
 typedef struct os_process
 {
+     /// Process ID
      pid_t pid;
-     //status?
-    
+     //process status?
+     
+     /// Error Handler Callback
+     os_error_handler error_handler;
+     /// Error Context
+     void* error_context;
 } os_process;
 
 
@@ -104,8 +109,6 @@ size_t os_get_filesize(char* path)
 }
 
 
-
-
 /**
 * Create a new process object
 */
@@ -113,6 +116,7 @@ os_process* os_process_new()
 {
     os_process* proc = malloc(sizeof(os_process));
     //TODO Initialize Structure here
+    proc->error_handler = NULL;
     return proc;
 }
 

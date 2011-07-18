@@ -14,29 +14,23 @@
     You should have received a copy of the GNU General Public License
     along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
     
-    This File contains basic functions for libpkto
+    Error Strings
 */
-#include <pkto/pkto.h>
+#include <pkto/error.h>
 
-#include <stdlib.h>
+#include <libintl.h>
 
 
 /**
-* Create new pkto object
+* Get String Message for Error 
 */
-pkto_handle* pkto_handle_new()
+char* pkto_strerror(pkto_error error)
 {
-    pkto_handle* obj = malloc(sizeof(pkto_handle));
-    //initialize structure here
-    obj->error_handler = NULL;
-    return obj;
-}
-
-/**
-* Delete a pkto object
-*/
-void pkto_handle_delete(pkto_handle* obj)
-{
-    free(obj);
-    obj = 0;
+    switch(error)
+    {
+        case PKTO_NO_ERROR:
+            return gettext("No error has occured");
+        case PKTO_ERROR_UNKOWN:
+            return gettext("A not specified error has occured");
+    }
 }

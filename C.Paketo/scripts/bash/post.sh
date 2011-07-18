@@ -1,4 +1,6 @@
 
+#lib.sh has to be included before
+
 # Call pre build function
 pre_build
 
@@ -15,4 +17,4 @@ write_pkgbuild
 clean
 
 # Exit Bash
-#exit
+exit

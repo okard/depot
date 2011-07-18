@@ -6,7 +6,7 @@
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Foobar is distributed in the hope that it will be useful,
+    libpkto is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -41,6 +41,9 @@ typedef struct
     //logging?
     
     //error handler function?
+    ///PKTO Error Callback
+    pkto_error_handler error_handler;
+    
 } pkto_handle;
 
 
@@ -54,17 +57,22 @@ pkto_handle* pkto_handle_new();
 */
 void pkto_handle_delete(pkto_handle* handle);
 
+/**
+* Read libpkto configuration file
+*/
+void pkto_read_config(pkto_handle* handle, char* file);
 
-//add repository to core
-
-
-//other functions
+//request setting?
+//char* pkto_get_setting(handle, char* id)
 
 /**
 * Build a package
 */
 void pkto_build(pkto_handle* handle, char* path);
 
+//add repository to core
+
+//other functions
 
 // Package DB
 // Package - Install / Remove / Status

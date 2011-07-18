@@ -25,6 +25,7 @@ solution "paketo"
         includedirs { "libpkto/include" }
         files { "repoman/src/**.c" }
         links { "pkto" }
+        -- postbuildcommands { "cp default.conf bin/" }
 
     -- paketo
     project "paketo"

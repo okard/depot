@@ -6,7 +6,7 @@
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Foobar is distributed in the hope that it will be useful,
+    libpkto is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -21,6 +21,14 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+
+///////////////////////////////////////////////////////////////////////////////
+// General
+
+/**
+* OS Layer Error Callback
+*/
+typedef void(*os_error_handler)(int errorid, const char* msg, void* ctx);
 
 ///////////////////////////////////////////////////////////////////////////////
 // IO - Directory Reading
@@ -55,6 +63,8 @@ os_dir_entry* os_dir_next(os_dir* dir);
 size_t os_get_filesize(char* path);
 
 //char* os_get_executabledir();
+// char *getcwd(char *buf, size_t size);
+// int chdir(const char *path);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -81,6 +91,8 @@ void os_process_start(os_process* proc, const char* path, const char *arg0, ...)
 //Flags for stdin/out/err mapping?
 //Write to process stdin
 //Event Callbacks
+
+//void os_process_seterrhandler(os_process* proc, os_error_handler handler, void* ctx);
 
 /**
 * Wait until child process finished

@@ -1,12 +1,12 @@
 /*
     This file is part of repoman.
 
-    libpkto is free software: you can redistribute it and/or modify
+    repoman is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Foobar is distributed in the hope that it will be useful,
+    repoman is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -17,8 +17,49 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdbool.h>
 
 #include <pkto/pkto.h>
+
+#include "repoman.h"
+
+/**
+* Parsed repoman arguments
+* Helper Structure
+*/
+typedef struct repoman_args
+{
+    //build a specific folder
+    bool folder_build;
+    //build specific folder recursive
+    bool folder_build_recursive;
+    //the folder to build
+    char* folder;
+    //print out version information
+    bool print_version;
+} repoman_args;
+
+/**
+* Print Usage
+*/
+static void usage()
+{
+    printf("Usage:\n");
+    printf("repoman build <dir>\n");
+    printf("repoman build -r <dir>\n");
+    printf("repoman <config>\n");
+    printf("repoman daemon <config>\n");
+    
+    //upload to repository??
+}
+
+/**
+* parse arguments
+*/
+void parse_args(int argc, char *argv[], repoman_args* rargs)
+{
+    //TODO implement repoman parse_args
+}
 
 
 /**
@@ -26,18 +67,27 @@
 */
 int main(int argc, char *argv[])
 {
-    printf("repoman\n");
-    printf("libpkto version: %s\n", LIBPKTO_VERSION);
+    //TODO parse arguments
+    repoman_args rargs;
+    parse_args(argc, argv, &rargs);
+    
+    
+    printf("repoman version: %s\n", REPOMAN_VERSION);
+    printf("libpkto version: %s\n\n", LIBPKTO_VERSION);
     
     if(argc < 2)
     {
-        //print usage
         printf("Error: to less arguments\n");
+        //print usage
+        usage();
         return 1;
     }
     
     //initialize pkto_core
     pkto_handle* handle = pkto_handle_new();
+    
+    //parse config
+    
     
     //build command
     if(strcmp(argv[1], "build") == 0)
@@ -51,6 +101,8 @@ int main(int argc, char *argv[])
         else
         {
             printf("Syntax: %s build <folder>\n", argv[0]);
+            //print usage
+            usage();
             return 1;
         }
     }

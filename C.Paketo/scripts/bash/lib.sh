@@ -56,4 +56,5 @@ write_pkgbuild()
 pre_build() { sleep 0; }
 build() { sleep 0; }
 post_build() { sleep 0; }
+package() { sleep 0; }
 clean() { sleep 0; }

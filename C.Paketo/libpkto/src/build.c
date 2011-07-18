@@ -6,7 +6,7 @@
     the Free Software Foundation, either version 3 of the License, or
     (at your option) any later version.
 
-    Foobar is distributed in the hope that it will be useful,
+    libpkto is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
@@ -31,9 +31,9 @@ void pkto_build(pkto_handle* handle, char* path)
     //open path + pkgdef
     
     //signed pkgdef ?
-    
-    
     //requires pkgdef
+    
+    
     //line ending? map build tool? .sh = bash, .lua = lua and so on?
     //requires folder with pkgdef
     //test if folder is writeable?
@@ -44,6 +44,9 @@ void pkto_build(pkto_handle* handle, char* path)
     
     //path of lib.sh and post.sh
     //bash -c ". lib.sh; . pkgdef; . post.sh;"
+    //sprintf
+    static const char* cmdLine = ". %s; . %s; . %s;";
+    //command str sprintf(str, ". %s; . %s; . %s;", libsh, pkgdef, postsh); 
     //start a bash process
     //load . lib.sh
     //load . pkgdef
