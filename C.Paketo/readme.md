@@ -3,6 +3,7 @@ Paketo - Linux Package Manager
 
 Paketo(eo) - packet, package
 
+* libosal - OS Abstraction Layer for libpkto
 * libpkto - Paketo Library
 * paketo - Package Manager for libpkto 
 * repoman - Repository Manager for libpkto

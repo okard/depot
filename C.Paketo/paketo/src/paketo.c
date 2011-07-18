@@ -25,10 +25,20 @@
 /**
 * Print usage
 */
-static void usage()
+static void usage(char* exec)
 {
     printf("Usage: \n");
+    printf("%s install [--src] <package>\n", exec);
+    printf("%s remove <package>\n", exec);
+    printf("%s search <package>\n", exec);
+    printf("%s status <package>\n", exec);
+    printf("%s sync [<repository>]\n", exec);
+    printf("%s upgrade [<package>]\n", exec);
+    printf("%s update\n", exec);
+    printf("%s build <folder>\n", exec);
     
+    //build <folder>
+    //grab <package> target <folder>
 }
 
 
@@ -39,16 +49,7 @@ int main(int argc, char *argv[])
 {
     printf("paketo\n");
     
-    //install --src <package>
-    //remove <package>
-    //search <package>
-    //sync [<repository>] 
-    //upgrade [<package>]
-    
-    //update -> sync + upgrade
-
-    //build <folder>
-    //grab <package> target <folder>
+    usage(argv[0]);
     
     // for user builds
     // grab/source/pkgdef/download - download source
