@@ -20,17 +20,33 @@
 #include <pkto/pkto.h>
 
 
+//open a repository
 void pkto_repository_open(pkto_handle* handle)
 {
 }
 
+//get a package from repository
+void pkto_repository_package(pkto_handle* handle)
+{
+}
 
+// synchronize repository
+void pkto_repositor_sync(pkto_handle* handle)
+{
+    //http get db file? diff ?
+    //rsync sync files
+}
+
+//open the db for repository (shared between repositories?)
 void pkto_db_open(pkto_handle* handle)
 {
     //open repository cache?
 }
 
+
+
+
 //read package informations and so on
 
 //read package information from pkgdb
-//read package information from koyoto cabinet db? (is json stored?)
+//read package information from kyoto cabinet db? (is json stored?)

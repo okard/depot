@@ -26,16 +26,22 @@ typedef struct pkto_package
     //- name
     //- version
     //- arch
-    //- repository
     //- signature
     //- deps
+    //- repository
     
     //meta?     - a package can be a empty meta package only dependencies
     //multiple? - a package can provide multiple packages (meta(bin) or splitted(src))
     
-    //installed? 
+    //installed? installed as dep not installed
     
+    //other files
     //archive_file (bin/src/src-full)
+    //-bin file
+    //-src file
+    //-src-full file
+    
+    //mirrors?
     
     //From Archive File?
     

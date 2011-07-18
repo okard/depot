@@ -14,28 +14,24 @@
     You should have received a copy of the GNU General Public License
     along with libosal.  If not, see <http://www.gnu.org/licenses/>.
     
-    Error Functions
+    Path Functions
 */
-#ifndef __LIBOSAL_ERROR_H__
-#define __LIBOSAL_ERROR_H__
+#ifndef __LIBOSAL_PATH_H__
+#define __LIBOSAL_PATH_H__
 
-/**
-* Error Structure
-*/
-typedef struct os_error
-{
-    int id;
-    char* msg;
-    void* ctx;
-} os_error;
+/// os path structure
+typedef struct os_path os_path;
 
-/**
-* OS Layer Error Callback
-*/
-typedef void(*os_error_handler)(os_error* err);
+//os_path* os_path_new();
+//void os_path_delete(os_path* path);
+//void os_path_set()
+//void os_path_append()
+//bool os_path_is_file();
+//bool os_path_is_dir();
+//os_dir* os_path_dir_open();
+//os_file* os_path_file_open();
+//char* os_path_str();
 
+//char os_path_seperator();
 
-//os_error* os_error_new(int id, const char* const msg, void* ctx);
-
-
-#endif
+#endif 

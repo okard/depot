@@ -22,6 +22,7 @@
 #include <stdio.h>
 
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 /**
@@ -32,6 +33,7 @@ typedef struct os_process
      /// Process ID
      pid_t pid;
      //process status?
+     int result;
      
      /// Error Handler Callback
      os_error_handler error_handler;
@@ -103,5 +105,11 @@ void os_process_start(os_process* proc, const char* path, const char *arg0, ...)
 void os_process_wait(os_process* proc)
 {
      int childExitStatus = 0;
-     pid_t r = waitpid( proc->pid, &childExitStatus, 0);    
+     pid_t r = waitpid( proc->pid, &childExitStatus, 0);   
+     
+     if(WIFEXITED(childExitStatus))
+     {
+         //Normally exited
+         proc->result = WEXITSTATUS(childExitStatus);
+     }
 }

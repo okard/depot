@@ -43,3 +43,11 @@ void pkto_package_upgrade(pkto_handle* handle)
     //old package information
     //compare?
 }
+
+/**
+* Package Status
+*/
+void pkto_package_status(pkto_handle* handle)
+{
+    //package status
+}
