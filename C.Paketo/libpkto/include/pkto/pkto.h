@@ -102,8 +102,13 @@ void pkto_read_config(pkto_handle* handle, char* file);
 //request setting?
 //char* pkto_get_setting(handle, char* id)
 
+
+//interrupt for signals and fatal errors try to shutdown process safe
+//void pkto_interrupt(pkto_handle* handle);
+
 /**
 * Build a package
+* TODO build results?
 */
 void pkto_build(pkto_handle* handle, char* path);
 

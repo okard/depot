@@ -32,7 +32,7 @@
 static void os_process_error_handler(os_error* err)
 {
     //error from pkto_handle in ctx
-    fprintf(stderr, "Error from os_process: %s", err->msg);
+    fprintf(stderr, "Error from os_process: %s\n", err->msg);
 }
 
 /**
@@ -68,6 +68,10 @@ void pkto_build(pkto_handle* handle, char* path)
     //load . post.sh to create package
     // create right string with full pathes
     //os_process_start(proc, "/usr/bin/bash", "/usr/bin/bash", "-c", "", NULL);
+    
+    const char* args[] = {"/bin/ls", "-alh", (char *)0 };
+    os_process_start(proc, args[0], args);
+    os_process_wait(proc);
     
     os_process_delete(proc);
     

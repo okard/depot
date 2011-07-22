@@ -42,7 +42,7 @@ void os_process_delete(os_process* proc);
 /**
 * Start a process
 */
-void os_process_start(os_process* proc, const char* path, const char *arg0, ...);
+void os_process_start(os_process* proc, const char* path, const char* args[]);
 //TODO arguments?
 //TODO env?
 

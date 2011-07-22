@@ -21,7 +21,9 @@
 #include <osal/mem.h>
 #include <osal/error.h>
 
+#include <errno.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -81,14 +83,19 @@ static void os_process_error(os_process* proc, int id, const char* const msg)
 {
     if(proc->error_handler != NULL)
     {
-        (*proc->error_handler)(os_error_new(id, msg, proc->error_context));
+        os_error* err = os_error_new(id, msg, proc->error_context);
+        (*proc->error_handler)(err);
+        
+        //if user accidently delete err
+        if(err != 0)
+            os_error_free(err);
     }   
 }
 
 /**
 * Start a process
 */
-void os_process_start(os_process* proc, const char* path, const char *arg0, ...)
+void os_process_start(os_process* proc, const char* path, const char* args[])
 {
     //fork (vfork here?)
     proc->pid = fork();
@@ -108,15 +115,22 @@ void os_process_start(os_process* proc, const char* path, const char *arg0, ...)
     
     //Bind input and output to stdin and stdout?
     //Child Process here
-    int result = execl(path, arg0);
+    //int execv (__const char *__path, char *__const __argv[])
+    int result = execv(path, args);
     
+    //should never go here?
     if(result == -1)
     {
-        //error calling execl
-        os_process_error(proc, OS_ERROR_PROCESS, "Error calling execl");
+        //save error message first
+        char* msg = strerror(errno);
+        os_process_error(proc, OS_ERROR_PROCESS, msg);
+        //os_free(msg);
+        
+        os_process_error(proc, OS_ERROR_PROCESS, "Error executing execl");
     }
     
     //Exit forked process?
+    _exit(0); 
 }
 
 

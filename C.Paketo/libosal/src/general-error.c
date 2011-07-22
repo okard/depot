@@ -33,11 +33,20 @@ os_error* os_error_new(int id, const char* const msg, void* ctx)
     return err;
 }
 
-
 /**
 * Create new error object by id
 */
 os_error* os_error_new_byid(os_error_id id, const char* const msg, void* ctx)
 {
     return os_error_new(id, msg, ctx);
+}
+
+/**
+* Freeing Error
+*/
+void os_error_free(os_error* err)
+{
+    //TODO freeing msg also?
+    //TODO add flag for freeing msg?
+    os_free(err);
 }

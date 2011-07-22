@@ -64,6 +64,11 @@ os_error* os_error_new(int id, const char* const msg, void* ctx);
 */
 os_error* os_error_new_byid(os_error_id id, const char* const msg, void* ctx);
 
+/**
+* Freeing Error
+*/
+void os_error_free(os_error* err);
+
 /** }@ */
 
 #endif
