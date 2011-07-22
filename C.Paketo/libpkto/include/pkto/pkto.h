@@ -24,16 +24,39 @@
 * @{
 */
 
-
-// Constants
+/// Package Definition Filename
 static const char* const PKGDEFFILE = "pkgdef";
+
+/// Package Database Entry Filename
 static const char* const PKGDBFILE = "pkgdb";
+
+/// Package Build Result Filename
 static const char* const PKGBUILDFILE = "pkgbuild";
+
+/// Current libpkto Version
 static const char* const LIBPKTO_VERSION = "0.0.1";
 
+/**
+* Define functionalty for a libpkto handle
+* Also a small security check
+*/
+typedef enum pkto_handle_option
+{
+    /// Allow all functions
+    PKTO_HANDLE_ALL = 0xFFFF,
+    /// Allow package management
+    PKTO_HANDLE_PACKAGE_MANAGEMENT = 4,
+    /// Allow repository management
+    PKTO_HANDLE_REPOSITORY_MANAGEMENT = 2,
+    /// Allow only building of packages
+    PKTO_HANDLE_BUILD_ONLY = 1,
+    /// Allow only functions which doesn't effect system
+    PKTO_HANDLE_NONE = 0
+    
+} pkto_handle_option;
 
-//OPTIONS for creating handle (build_only/package_management/repository_management....)
-
+//TODO Naming for pkto handle options
+//TODO Fix flags for pkto options
 //TODO Transactions can be interuppted (signals from applications)
 
 /**
@@ -41,6 +64,9 @@ static const char* const LIBPKTO_VERSION = "0.0.1";
 */
 typedef struct 
 {
+    /// Mode - Which methods are allowed to execute
+    pkto_handle_option mode;
+    
     //target directory (e.g. root /)
     //repositories
     //general configuration
@@ -48,6 +74,8 @@ typedef struct
     //thread management?
     //logging?
     //status of handle? missing configuration?
+    
+    //transactions and state
     
     //error handler function?
     ///PKTO Error Callback
@@ -59,7 +87,7 @@ typedef struct
 /**
 * Create a new pkto handle
 */
-pkto_handle* pkto_handle_new();
+pkto_handle* pkto_handle_new(pkto_handle_option mode);
 
 /**
 * Delete a pkto handle

@@ -14,51 +14,34 @@
     You should have received a copy of the GNU General Public License
     along with libosal.  If not, see <http://www.gnu.org/licenses/>.
     
-    Path Functions
+    Memory Functions
 */
-#include <osal/path.h>
+#ifndef __LIBOSAL_MEM_H__
+#define __LIBOSAL_MEM_H__
 
-#include <osal/mem.h>
-
-
-/// Posix Path Seperator
-static const char PATHSEP = '/';
+#include <stddef.h>
 
 /**
-* posix dir structure
+* \defgroup Mem Memory Handling
+* @{
 */
-typedef struct os_path
-{
-  char* pathstr;
-  size_t mem;
-  
-  //include os_dir and os_file here?
-} os_path;
-
 
 /**
-* Create new path object
+* Allocate Memory
 */
-os_path* os_path_new()
-{
-    os_path* path = os_alloc_null(sizeof(os_path));
-    return path;
-}
+void* os_alloc(size_t size);
 
 /**
-* Delete path object
+* Allocate memory and set it to null
 */
-void os_path_delete(os_path* path)
-{
-    os_free(path);
-}
-
-
+void* os_alloc_null(size_t size);
 
 /**
-* Get path seperator
+* Freeing memory
 */
-char os_path_seperator()
-{
-    return PATHSEP;
-}
+void os_free(void* mem);
+
+
+/** }@ */
+
+#endif 

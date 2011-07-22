@@ -18,17 +18,18 @@
 */
 #include <pkto/pkto.h>
 
-#include <stdlib.h>
+#include <osal/mem.h>
 
 
 /**
 * Create new pkto object
 */
-pkto_handle* pkto_handle_new()
+pkto_handle* pkto_handle_new(pkto_handle_option mode)
 {
-    pkto_handle* obj = malloc(sizeof(pkto_handle));
+    pkto_handle* obj = os_alloc_null(sizeof(pkto_handle));
     //initialize structure here
     obj->error_handler = NULL;
+    obj->mode = mode;
     return obj;
 }
 
@@ -37,6 +38,5 @@ pkto_handle* pkto_handle_new()
 */
 void pkto_handle_delete(pkto_handle* obj)
 {
-    free(obj);
-    obj = 0;
+    os_free(obj);
 }

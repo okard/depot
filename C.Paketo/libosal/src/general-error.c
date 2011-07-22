@@ -18,16 +18,14 @@
 */
 #include <osal/error.h>
 
-#include <stdlib.h>
-#include <string.h>
+#include <osal/mem.h>
 
 /**
 * Create new error object
 */
 os_error* os_error_new(int id, const char* const msg, void* ctx)
 {
-    os_error* err = malloc(sizeof(os_error));
-    memset(err, 0, sizeof(os_error));
+    os_error* err = os_alloc_null(sizeof(os_error));
     err->id = id;
     err->msg = (char*)msg;
     err->ctx = ctx;

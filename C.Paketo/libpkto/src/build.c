@@ -18,8 +18,22 @@
 
 #include <pkto/os.h>
 
+#include <osal/error.h>
+
+//For Debug
+#include <stdio.h>
+
 //libArchive
 #include <archive.h> 
+
+/**
+* OS Process Error Handler
+*/
+static void os_process_error_handler(os_error* err)
+{
+    //error from pkto_handle in ctx
+    fprintf(stderr, "Error from os_process: %s", err->msg);
+}
 
 /**
 * Build a package
@@ -41,6 +55,7 @@ void pkto_build(pkto_handle* handle, char* path)
     
     
     os_process* proc = os_process_new();
+    os_process_set_error_handler(proc, &os_process_error_handler, handle);
     
     //path of lib.sh and post.sh
     //bash -c ". lib.sh; . pkgdef; . post.sh;"

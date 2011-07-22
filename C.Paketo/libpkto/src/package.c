@@ -25,6 +25,7 @@ void pkto_package_install(pkto_handle* handle)
 {
     //check for conflicts
     //check dependencies
+    //add to a queue
 }
 
 /**

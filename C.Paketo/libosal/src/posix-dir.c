@@ -18,7 +18,9 @@
 */
 #include <osal/dir.h>
 
-#include <stdlib.h>
+#include <osal/mem.h>
+
+
 //temp debug
 #include <stdio.h> 
 
@@ -52,7 +54,7 @@ typedef struct os_dir_entry
 */
 os_dir* os_dir_new()
 {
-    os_dir* dir = malloc(sizeof(os_dir));
+    os_dir* dir = os_alloc_null(sizeof(os_dir));
     //TODO Initialize Structure here
     return dir;
 }
@@ -62,8 +64,7 @@ os_dir* os_dir_new()
 */
 void os_dir_delete(os_dir* dir)
 {
-    free(dir);
-    dir = 0;
+    os_free(dir);
 }
 
 /**

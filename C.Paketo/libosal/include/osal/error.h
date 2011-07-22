@@ -32,6 +32,8 @@ typedef enum os_error_id
     OS_ERROR_NO_ERROR = 0,
     OS_ERROR_UNKOWN = 1,
     
+    //Process Module Errors
+    OS_ERROR_PROCESS,
     
     OS_ERROR_MAXID
 } os_error_id;

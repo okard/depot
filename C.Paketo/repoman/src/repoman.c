@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
     }
     
     //initialize pkto_core
-    pkto_handle* handle = pkto_handle_new();
+    pkto_handle* handle = pkto_handle_new(PKTO_HANDLE_REPOSITORY_MANAGEMENT);
     
     //parse config
     

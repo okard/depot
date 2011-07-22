@@ -18,8 +18,10 @@
 */
 #include <osal/process.h>
 
+#include <osal/mem.h>
+#include <osal/error.h>
+
 #include <stdlib.h>
-#include <stdio.h>
 
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -49,7 +51,7 @@ typedef struct os_process
 */
 os_process* os_process_new()
 {
-    os_process* proc = malloc(sizeof(os_process));
+    os_process* proc = os_alloc_null(sizeof(os_process));
     //TODO Initialize Structure here
     proc->error_handler = NULL;
     return proc;
@@ -60,8 +62,7 @@ os_process* os_process_new()
 */
 void os_process_delete(os_process* proc)
 {
-    free(proc);
-    proc = 0;
+    os_free(proc);
 }
 
 /**
@@ -95,7 +96,7 @@ void os_process_start(os_process* proc, const char* path, const char *arg0, ...)
     if(proc->pid < 0)
     {
         //Error
-        fprintf(stderr, "Error calling fork\n");
+        os_process_error(proc, OS_ERROR_PROCESS, "Error calling fork");
         return;
     }
     
@@ -112,7 +113,7 @@ void os_process_start(os_process* proc, const char* path, const char *arg0, ...)
     if(result == -1)
     {
         //error calling execl
-        fprintf(stderr, "Error calling execl\n");
+        os_process_error(proc, OS_ERROR_PROCESS, "Error calling execl");
     }
     
     //Exit forked process?
