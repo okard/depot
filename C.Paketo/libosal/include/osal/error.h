@@ -20,6 +20,23 @@
 #define __LIBOSAL_ERROR_H__
 
 /**
+* \defgroup Error Error Handling
+* @{
+*/
+
+/**
+* Default error ids
+*/
+typedef enum os_error_id
+{
+    OS_ERROR_NO_ERROR = 0,
+    OS_ERROR_UNKOWN = 1,
+    
+    
+    OS_ERROR_MAXID
+} os_error_id;
+
+/**
 * Error Structure
 */
 typedef struct os_error
@@ -35,7 +52,16 @@ typedef struct os_error
 typedef void(*os_error_handler)(os_error* err);
 
 
-//os_error* os_error_new(int id, const char* const msg, void* ctx);
+/**
+* Create new error object
+*/
+os_error* os_error_new(int id, const char* const msg, void* ctx);
 
+/**
+* Create new error object by id
+*/
+os_error* os_error_new_byid(os_error_id id, const char* const msg, void* ctx);
+
+/** }@ */
 
 #endif

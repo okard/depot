@@ -19,14 +19,28 @@
 #ifndef __LIBPKTO_ERROR_H__
 #define __LIBPKTO_ERROR_H__
 
+#include <osal/error.h>
+
+/**
+* \defgroup Error Error Handling
+* @{
+*/
+
 
 /**
 * ERROR IDs
+* The libpkto error ids starts after the libosal errors
+* Only the "No Error" id is the same as in libosal
 */
 typedef enum pkto_error
 {
-    PKTO_NO_ERROR = 0,
-    PKTO_ERROR_UNKOWN = 1
+    /// No Error occurred
+    PKTO_NO_ERROR = OS_ERROR_NO_ERROR,
+    /// Unkown Error
+    PKTO_ERROR_UNKOWN = OS_ERROR_MAXID+1,
+    
+    
+    PKTO_ERROR_MAXID
 } pkto_error;
 
 
@@ -40,5 +54,7 @@ typedef void(*pkto_error_handler)(pkto_error error, const char* msg);
 */
 char* pkto_strerror(pkto_error error);
 
+
+/** }@ */
 
 #endif

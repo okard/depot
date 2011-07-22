@@ -104,7 +104,7 @@ size_t os_get_filesize(char* path)
 /**
 * Is path a directory
 */
-bool os_is_dir_(char* path)
+bool os_is_dir(char* path)
 {
     DIR* dir = opendir(path);
     if(dir == NULL)

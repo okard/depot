@@ -18,12 +18,49 @@
 */
 #include <osal/path.h>
 
+#include <stdlib.h>
+#include <string.h>
+
+/// Posix Path Seperator
+static const char PATHSEP = '/';
 
 /**
 * posix dir structure
 */
 typedef struct os_path
 {
+  char* pathstr;
+  size_t mem;
   
+  //include os_dir and os_file here?
 } os_path;
 
+
+/**
+* Create new path object
+*/
+os_path* os_path_new()
+{
+    os_path* path = malloc(sizeof(os_path));
+    memset(path, 0, sizeof(os_path));
+    return path;
+}
+
+/**
+* Delete path object
+*/
+void os_path_delete(os_path* path)
+{
+    free(path);
+    path = 0;
+}
+
+
+
+/**
+* Get path seperator
+*/
+char os_path_seperator()
+{
+    return PATHSEP;
+}

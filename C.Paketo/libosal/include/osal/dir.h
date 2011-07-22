@@ -22,8 +22,11 @@
 #include <stddef.h>
 #include <stdbool.h>
 
-///////////////////////////////////////////////////////////////////////////////
-// IO - Directory Reading
+/**
+* \defgroup Dir Directory Handling
+* @{
+*/
+
 typedef struct os_dir os_dir;
 typedef struct os_dir_entry os_dir_entry;
 
@@ -60,12 +63,13 @@ size_t os_get_filesize(char* path);
 /**
 * Is path a directory
 */
-bool os_is_dir_(char* path);
+bool os_is_dir(char* path);
 
 
 //char* os_get_executabledir();
 // char *getcwd(char *buf, size_t size);
 // int chdir(const char *path);
 
+/** }@ */
 
 #endif

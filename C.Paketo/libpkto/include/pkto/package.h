@@ -18,6 +18,11 @@
 #define __LIBPKTO_PACKAGE_H__
 
 /**
+* \defgroup Package Package Handling
+* @{
+*/
+
+/**
 * Represents a package
 */
 typedef struct pkto_package
@@ -25,6 +30,8 @@ typedef struct pkto_package
     //From Database
     //- name
     //- version
+    //- license
+    //- is_oss /is_tainted
     //- arch
     //- signature
     //- deps
@@ -80,5 +87,7 @@ typedef struct pkto_package_result
 
     //pkgdef  - Package Defintion (Handled by build process)
     //pkgdb   - Package DB Entry  (Created by build process) JSON ?
+
+/** }@ */
 
 #endif

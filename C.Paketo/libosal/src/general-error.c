@@ -14,44 +14,32 @@
     You should have received a copy of the GNU General Public License
     along with libosal.  If not, see <http://www.gnu.org/licenses/>.
     
-    Path Functions
+    Error Functions
 */
-#ifndef __LIBOSAL_PATH_H__
-#define __LIBOSAL_PATH_H__
+#include <osal/error.h>
 
-#include <stdbool.h>
+#include <stdlib.h>
+#include <string.h>
 
 /**
-* \defgroup Path Path Handling
-* @{
+* Create new error object
 */
+os_error* os_error_new(int id, const char* const msg, void* ctx)
+{
+    os_error* err = malloc(sizeof(os_error));
+    memset(err, 0, sizeof(os_error));
+    err->id = id;
+    err->msg = (char*)msg;
+    err->ctx = ctx;
+    
+    return err;
+}
 
-/// os path structure
-typedef struct os_path os_path;
 
 /**
-* Create new path object
+* Create new error object by id
 */
-os_path* os_path_new();
-
-/**
-* Delete path object
-*/
-void os_path_delete(os_path* path);
-
-//void os_path_set()
-//void os_path_append()
-//bool os_path_is_file();
-//bool os_path_is_dir();
-//os_dir* os_path_dir_open();
-//os_file* os_path_file_open();
-//char* os_path_str();
-
-/**
-* Get path seperator
-*/
-char os_path_seperator();
-
-/** }@ */
-
-#endif 
+os_error* os_error_new_byid(os_error_id id, const char* const msg, void* ctx)
+{
+    return os_error_new(id, msg, ctx);
+}

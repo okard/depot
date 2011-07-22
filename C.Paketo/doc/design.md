@@ -16,7 +16,8 @@ Objects:
     - Contains Packages
     - Name (e.g. core)
     - Arch (e.g. any, x86_64, i686, arm)
-    - Type (bin, src, src-full)
+    - DB (KC/JSON/COMPRESSED JSON/...) (local vs remote)
+    - Package-Types (bin, src, src-full)
 * Packages
     - Name
     - Version
@@ -30,8 +31,9 @@ Tools Usage:
     - Create Packages
     - Binary Packages builded from Package Definitions
     - Source Packages are archived Package Definitions from Repository Root
+    - Create Repository DB
 * paketo
-    - Sync Repositories (rsync?)
+    - Sync Repositories DB (rsync?, file download)
     - Build Source Packages to Binary Packages
     - Handle Binary Packages (Install, Remove, Update)
     

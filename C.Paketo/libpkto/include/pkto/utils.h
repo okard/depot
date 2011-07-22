@@ -21,6 +21,15 @@
 
 #include <stdlib.h>
 
+/**
+* \defgroup Utils Utility Functions
+* @{
+*/
+
+/**
+* A Buffer 
+* (Move to libosal?)
+*/
 typedef struct pkto_buffer
 {
     void* data;
@@ -38,6 +47,6 @@ pkto_buffer* pkto_buffer_new(size_t size);
 void pkto_buffer_delete(pkto_buffer* buffer);
 
 
-
+/** }@ */
 
 #endif

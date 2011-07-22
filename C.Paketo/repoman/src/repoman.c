@@ -23,6 +23,8 @@
 
 #include "repoman.h"
 
+//TODO Program Signal handling
+
 /**
 * Parsed repoman arguments
 * Helper Structure
@@ -46,7 +48,6 @@ static void usage()
 {
     printf("Usage:\n");
     printf("repoman build <dir>\n");
-    printf("repoman build -r <dir>\n");
     printf("repoman <config>\n");
     printf("repoman daemon <config>\n");
     
@@ -94,6 +95,7 @@ int main(int argc, char *argv[])
     {
         if(argc >= 3)
         {
+            //TODO Sign, package requires signature for building
             printf("Start building %s\n", argv[2]);
             pkto_build(handle, argv[2]);
             return 0;
@@ -109,11 +111,11 @@ int main(int argc, char *argv[])
     
     
     //options:
-    //run on repository-root.json config file
-    //run on complete folder
-        //-each subfolder should contain a pkgdef
+    //run on repository-root.json config file        
     //run on single folder (containing pkgdef) 
     //daemon mode
+    
+    //Create Package DB?
     
     // build 
     

@@ -19,6 +19,12 @@
 
 #include <pkto/error.h>
 
+/**
+* \defgroup PKTO Paketo Library Core
+* @{
+*/
+
+
 // Constants
 static const char* const PKGDEFFILE = "pkgdef";
 static const char* const PKGDBFILE = "pkgdb";
@@ -26,7 +32,9 @@ static const char* const PKGBUILDFILE = "pkgbuild";
 static const char* const LIBPKTO_VERSION = "0.0.1";
 
 
-//OPTIONS for creating handle (build_only/package_management/....)
+//OPTIONS for creating handle (build_only/package_management/repository_management....)
+
+//TODO Transactions can be interuppted (signals from applications)
 
 /**
 * Central File Structure
@@ -39,6 +47,7 @@ typedef struct
     //state
     //thread management?
     //logging?
+    //status of handle? missing configuration?
     
     //error handler function?
     ///PKTO Error Callback
@@ -78,5 +87,7 @@ void pkto_build(pkto_handle* handle, char* path);
 // Package - Install / Remove / Status
 // Repository - Configs
 
+
+/** }@ */
 
 #endif

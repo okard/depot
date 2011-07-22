@@ -65,6 +65,26 @@ void os_process_delete(os_process* proc)
 }
 
 /**
+* Set error handler
+*/
+void os_process_set_error_handler(os_process* proc, os_error_handler handler, void* ctx)
+{
+    proc->error_context = ctx;
+    proc->error_handler = handler;
+}
+
+/**
+* Fire a error
+*/
+static void os_process_error(os_process* proc, int id, const char* const msg)
+{
+    if(proc->error_handler != NULL)
+    {
+        (*proc->error_handler)(os_error_new(id, msg, proc->error_context));
+    }   
+}
+
+/**
 * Start a process
 */
 void os_process_start(os_process* proc, const char* path, const char *arg0, ...)

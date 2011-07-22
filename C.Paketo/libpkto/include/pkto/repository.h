@@ -18,6 +18,11 @@
 #define __LIBPKTO_REPOSITORY_H__
 
 /**
+* \defgroup Repository Repository Handling
+* @{
+*/
+
+/**
 * Holds a repository
 */
 typedef struct pkto_repository
@@ -42,5 +47,7 @@ typedef struct pkto_repository
 //get package from repository
 
 
+
+/** }@ */
 
 #endif

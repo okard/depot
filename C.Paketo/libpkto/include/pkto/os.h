@@ -22,4 +22,11 @@
 #include <osal/dir.h>
 #include <osal/process.h>
 
+/**
+* \defgroup OS OS Abstraction
+* @{
+*/
+
+/** }@ */
+
 #endif

@@ -21,8 +21,12 @@
 
 #include <osal/error.h>
 
-///////////////////////////////////////////////////////////////////////////////
-// Process Handling
+/**
+* \defgroup Process Process Handling
+* @{
+*/
+
+/// Platform Specific Process Structure
 typedef struct os_process os_process;
 
 /**
@@ -46,7 +50,10 @@ void os_process_start(os_process* proc, const char* path, const char *arg0, ...)
 //Write to process stdin
 //Event Callbacks
 
-//void os_process_seterrhandler(os_process* proc, os_error_handler handler, void* ctx);
+/**
+* Set error handler
+*/
+void os_process_set_error_handler(os_process* proc, os_error_handler handler, void* ctx);
 
 /**
 * Wait until child process finished
@@ -54,5 +61,6 @@ void os_process_start(os_process* proc, const char* path, const char *arg0, ...)
 void os_process_wait(os_process* proc);
 
 
+/** }@ */
 
 #endif

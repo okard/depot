@@ -29,7 +29,7 @@ solution "paketo"
     project "repoman"
         kind "ConsoleApp"
         language "C"
-        includedirs { "libpkto/include" }
+        includedirs { "libosal/include", "libpkto/include" }
         files { "repoman/src/**.c" }
         links { "pkto" }
         -- postbuildcommands { "cp default.conf bin/" }
@@ -38,7 +38,7 @@ solution "paketo"
     project "paketo"
         kind "ConsoleApp"
         language "C"
-        includedirs { "libpkto/include" }
+        includedirs { "libosal/include", "libpkto/include" }
         files { "paketo/src/**.c" }
         links { "pkto" }
 
