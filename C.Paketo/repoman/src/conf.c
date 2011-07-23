@@ -14,30 +14,29 @@
     You should have received a copy of the GNU General Public License
     along with repoman.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __REPOMAN_H__
-#define __REPOMAN_H__
+#include "conf.h"
 
-/// Repoman Version String
-static const char* const REPOMAN_VERSION = "0.0.1";
-
-/// Repoman Configuration File
-static const char* const REPOMAN_CONFIG = "repoman.conf";
-
+#include <stdlib.h>
 
 /**
-* Parsed repoman arguments
-* Helper Structure
+* Open configuration
 */
-typedef struct repoman_args
+rm_config* rm_open_config(const char* path)
 {
-    //build a specific folder
-    bool folder_build;
-    //build specific folder recursive
-    bool folder_build_recursive;
-    //the folder to build
-    char* folder;
-    //print out version information
-    bool print_version;
-} repoman_args;
+    rm_config* rmc = malloc(sizeof(rm_config));
+    
+    //rmc->node = yajl_tree_parse((const char *) fileData, errbuf, sizeof(errbuf));
+    //file buffer = size of file
+    
+    return rmc;
+}
 
-#endif
+/**
+* Set up build action from config
+*/
+void rm_prepare_build(rm_config* conf, pkto_action_build* ba)
+{
+    //yajl_val v = yajl_tree_get(node, path, yajl_t_string);
+    //ba.bash_lib_path
+    //ba.bash_post_path
+}

@@ -67,9 +67,11 @@ typedef struct
     /// Mode - Which methods are allowed to execute
     pkto_handle_option mode;
     
-    //target directory (e.g. root /)
+    ///PKTO Error Callback
+    pkto_error_handler error_handler;
+    
     //repositories
-    //general configuration
+    //general configuration -> seperate?
     //state
     //thread management?
     //logging?
@@ -78,8 +80,6 @@ typedef struct
     //transactions and state
     
     //error handler function?
-    ///PKTO Error Callback
-    pkto_error_handler error_handler;
     
 } pkto_handle;
 
@@ -95,23 +95,23 @@ pkto_handle* pkto_handle_new(pkto_handle_option mode);
 void pkto_handle_delete(pkto_handle* handle);
 
 /**
+* interrupt for signals and fatal errors try to shutdown process safe
+*/
+void pkto_interrupt(pkto_handle* handle);
+
+/**
+* Set Error Handler for pkto handle
+*/
+void pkto_handle_set_error_handler(pkto_handle* handle, pkto_error_handler error_handler);
+
+/**
 * Read libpkto configuration file
 */
 void pkto_read_config(pkto_handle* handle, char* file);
 
 //request setting?
+//keep settings complete external?
 //char* pkto_get_setting(handle, char* id)
-
-
-//interrupt for signals and fatal errors try to shutdown process safe
-//void pkto_interrupt(pkto_handle* handle);
-
-/**
-* Build a package
-* TODO build results?
-*/
-void pkto_build(pkto_handle* handle, char* path);
-
 //add repository to core
 
 //other functions

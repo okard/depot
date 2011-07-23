@@ -18,28 +18,16 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h>
+#include <signal.h>
 
 #include <pkto/pkto.h>
+#include <pkto/error.h>
+#include <pkto/action.h>
 
 #include "repoman.h"
 
 //TODO Program Signal handling
 
-/**
-* Parsed repoman arguments
-* Helper Structure
-*/
-typedef struct repoman_args
-{
-    //build a specific folder
-    bool folder_build;
-    //build specific folder recursive
-    bool folder_build_recursive;
-    //the folder to build
-    char* folder;
-    //print out version information
-    bool print_version;
-} repoman_args;
 
 /**
 * Print Usage
@@ -62,16 +50,39 @@ void parse_args(int argc, char *argv[], repoman_args* rargs)
     //TODO implement repoman parse_args
 }
 
+/**
+* pkto error handler
+*/
+void pkto_handle_error(pkto_error error, const char* msg)
+{
+    fprintf(stderr, "%s: %s\n", pkto_strerror(error), msg);
+}
+
+
+/**
+* Handle SIGINT
+*/
+void sigint_handler()
+{  
+   //signal(SIGINT,sigint); /* reset signal */
+   //printf("CHILD: I have received a SIGINT\n");
+   printf("sigint occured\n"); 
+   //interrupt pkto
+   
+}
+
 
 /**
 * Main Function
 */
 int main(int argc, char *argv[])
 {
+    //register signal handler
+     signal(SIGINT, sigint_handler);
+    
     //TODO parse arguments
     repoman_args rargs;
     parse_args(argc, argv, &rargs);
-    
     
     printf("repoman version: %s\n", REPOMAN_VERSION);
     printf("libpkto version: %s\n\n", LIBPKTO_VERSION);
@@ -84,8 +95,10 @@ int main(int argc, char *argv[])
         return 1;
     }
     
+    ///////////////////////////////////////////////////////////////////////////
     //initialize pkto_core
     pkto_handle* handle = pkto_handle_new(PKTO_HANDLE_REPOSITORY_MANAGEMENT);
+    pkto_handle_set_error_handler(handle, &pkto_handle_error);
     
     //parse config
     
@@ -97,7 +110,16 @@ int main(int argc, char *argv[])
         {
             //TODO Sign, package requires signature for building
             printf("Start building %s\n", argv[2]);
-            pkto_build(handle, argv[2]);
+            
+            //rm_prepare(ba);
+            //create build action
+            pkto_action_build ba;
+            ba.handle = handle;
+            ba.path = argv[2];
+            
+            //start build
+            pkto_build(&ba);
+            
             return 0;
         }
         else

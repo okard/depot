@@ -30,6 +30,7 @@ static const char PATHSEP = '/';
 typedef struct os_path
 {
   char* pathstr;
+  size_t size;
   size_t mem;
   
   //include os_dir and os_file here?
@@ -45,6 +46,7 @@ os_path* os_path_new()
     static const size_t default_memsize = 1024;
     path->pathstr = os_alloc_null(default_memsize);
     path->mem = default_memsize;
+    path->size = 0;
     return path;
 }
 

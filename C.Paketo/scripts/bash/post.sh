@@ -10,7 +10,10 @@ build
 # Call post build function
 post_build
 
-#write pkgbuild file
+# Configure Complete Package
+package
+
+# write pkgbuild file
 write_pkgbuild
 
 # Call clean function

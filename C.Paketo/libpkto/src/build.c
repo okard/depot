@@ -14,11 +14,13 @@
     You should have received a copy of the GNU General Public License
     along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <pkto/pkto.h>
+#include <pkto/action.h>
 
 #include <pkto/os.h>
 
 #include <osal/error.h>
+
+#include <assert.h>
 
 //For Debug
 #include <stdio.h>
@@ -38,8 +40,14 @@ static void os_process_error_handler(os_error* err)
 /**
 * Build a package
 */
-void pkto_build(pkto_handle* handle, char* path)
+void pkto_build(pkto_action_build* build_action)
 {
+    //check if action is valid
+    assert(build_action != 0);
+    //assert(build_action.bash_lib_path != 0);
+    //assert(build_action.bash_post_path != 0);
+    
+    
     //opendir
     //look for pkgdef
     //open path + pkgdef
@@ -55,7 +63,7 @@ void pkto_build(pkto_handle* handle, char* path)
     
     
     os_process* proc = os_process_new();
-    os_process_set_error_handler(proc, &os_process_error_handler, handle);
+    os_process_set_error_handler(proc, &os_process_error_handler, build_action->handle);
     
     //path of lib.sh and post.sh
     //bash -c ". lib.sh; . pkgdef; . post.sh;"

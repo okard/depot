@@ -20,6 +20,8 @@
 
 #include <osal/mem.h>
 
+#include <assert.h>
+
 
 /**
 * Create new pkto object
@@ -39,4 +41,25 @@ pkto_handle* pkto_handle_new(pkto_handle_option mode)
 void pkto_handle_delete(pkto_handle* obj)
 {
     os_free(obj);
+}
+
+/**
+* Set Error Handler for pkto handle
+*/
+void pkto_handle_set_error_handler(pkto_handle* handle, pkto_error_handler error_handler)
+{
+    assert(handle != 0);
+    assert(error_handler != 0);
+    
+    handle->error_handler = error_handler;
+}
+
+
+/**
+* interrupt for signals and fatal errors try to shutdown process safe
+*/
+void pkto_interrupt(pkto_handle* handle)
+{
+    
+    
 }
