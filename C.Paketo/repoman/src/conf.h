@@ -37,6 +37,12 @@ typedef struct rm_config
 rm_config* rm_open_config(const char* path);
 
 /**
+* Close configuration
+*/
+void rm_close_config(rm_config* conf);
+
+
+/**
 * Set up build action from config
 */
 void rm_prepare_build(rm_config* conf, pkto_action_build* ba);

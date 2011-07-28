@@ -40,6 +40,7 @@ static void usage()
     printf("repoman daemon <config>\n");
     
     //upload to repository??
+    //--config file.conf
 }
 
 /**
@@ -53,7 +54,7 @@ void parse_args(int argc, char *argv[], repoman_args* rargs)
 /**
 * pkto error handler
 */
-void pkto_handle_error(pkto_error error, const char* msg)
+void pkto_handle_error_handler(pkto_error error, const char* msg)
 {
     fprintf(stderr, "%s: %s\n", pkto_strerror(error), msg);
 }
@@ -98,7 +99,7 @@ int main(int argc, char *argv[])
     ///////////////////////////////////////////////////////////////////////////
     //initialize pkto_core
     pkto_handle* handle = pkto_handle_new(PKTO_HANDLE_REPOSITORY_MANAGEMENT);
-    pkto_handle_set_error_handler(handle, &pkto_handle_error);
+    pkto_handle_set_error_handler(handle, &pkto_handle_error_handler);
     
     //parse config
     

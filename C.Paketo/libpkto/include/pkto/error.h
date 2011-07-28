@@ -19,7 +19,7 @@
 #ifndef __LIBPKTO_ERROR_H__
 #define __LIBPKTO_ERROR_H__
 
-#include <osal/error.h>
+#include <cpr/error.h>
 
 /**
 * \defgroup Error Error Handling
@@ -35,9 +35,9 @@
 typedef enum pkto_error
 {
     /// No Error occurred
-    PKTO_NO_ERROR = OS_ERROR_NO_ERROR,
+    PKTO_NO_ERROR = CPR_ERROR_NO_ERROR,
     /// Unkown Error
-    PKTO_ERROR_UNKOWN = OS_ERROR_MAXID+1,
+    PKTO_ERROR_UNKOWN = CPR_ERROR_MAXID+1,
     
     
     PKTO_ERROR_MAXID

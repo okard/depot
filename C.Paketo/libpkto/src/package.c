@@ -23,6 +23,7 @@
 */
 void pkto_package_install(pkto_handle* handle)
 {
+    //assert(handle)
     //check for conflicts
     //check dependencies
     //add to a queue
@@ -33,6 +34,7 @@ void pkto_package_install(pkto_handle* handle)
 */
 void pkto_package_remove(pkto_handle* handle)
 {
+    //assert(handle)
     //check for dependencies
 }
 
@@ -41,6 +43,7 @@ void pkto_package_remove(pkto_handle* handle)
 */
 void pkto_package_upgrade(pkto_handle* handle)
 {
+    //assert(handle)
     //old package information
     //compare?
 }
@@ -50,5 +53,6 @@ void pkto_package_upgrade(pkto_handle* handle)
 */
 void pkto_package_status(pkto_handle* handle)
 {
+    //assert(handle)
     //package status
 }

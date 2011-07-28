@@ -105,13 +105,10 @@ void pkto_interrupt(pkto_handle* handle);
 void pkto_handle_set_error_handler(pkto_handle* handle, pkto_error_handler error_handler);
 
 /**
-* Read libpkto configuration file
+* Fire error
 */
-void pkto_read_config(pkto_handle* handle, char* file);
+void pkto_handle_error(pkto_handle* handle, pkto_error error, const char* msg);
 
-//request setting?
-//keep settings complete external?
-//char* pkto_get_setting(handle, char* id)
 //add repository to core
 
 //other functions

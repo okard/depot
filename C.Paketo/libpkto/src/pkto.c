@@ -18,7 +18,7 @@
 */
 #include <pkto/pkto.h>
 
-#include <osal/mem.h>
+#include <cpr/mem.h>
 
 #include <assert.h>
 
@@ -28,7 +28,7 @@
 */
 pkto_handle* pkto_handle_new(pkto_handle_option mode)
 {
-    pkto_handle* obj = os_alloc_null(sizeof(pkto_handle));
+    pkto_handle* obj = cpr_alloc_null(sizeof(pkto_handle));
     //initialize structure here
     obj->error_handler = NULL;
     obj->mode = mode;
@@ -40,7 +40,7 @@ pkto_handle* pkto_handle_new(pkto_handle_option mode)
 */
 void pkto_handle_delete(pkto_handle* obj)
 {
-    os_free(obj);
+    cpr_free(obj);
 }
 
 /**
@@ -54,6 +54,13 @@ void pkto_handle_set_error_handler(pkto_handle* handle, pkto_error_handler error
     handle->error_handler = error_handler;
 }
 
+/**
+* Fire error
+*/
+void pkto_handle_error(pkto_handle* handle, pkto_error error, const char* msg)
+{
+    //TODO
+}
 
 /**
 * interrupt for signals and fatal errors try to shutdown process safe

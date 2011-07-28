@@ -32,6 +32,15 @@ rm_config* rm_open_config(const char* path)
 }
 
 /**
+* Close configuration
+*/
+void rm_close_config(rm_config* conf)
+{
+    free(conf);
+    conf = 0;
+}
+
+/**
 * Set up build action from config
 */
 void rm_prepare_build(rm_config* conf, pkto_action_build* ba)

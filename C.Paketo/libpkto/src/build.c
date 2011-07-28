@@ -18,7 +18,7 @@
 
 #include <pkto/os.h>
 
-#include <osal/error.h>
+#include <cpr/error.h>
 
 #include <assert.h>
 
@@ -31,8 +31,9 @@
 /**
 * OS Process Error Handler
 */
-static void os_process_error_handler(os_error* err)
+static void os_process_error_handler(cpr_error* err)
 {
+    //pkto_handle_error((pkto_handle*)err->ctx, err->msg) 
     //error from pkto_handle in ctx
     fprintf(stderr, "Error from os_process: %s\n", err->msg);
 }
@@ -44,6 +45,7 @@ void pkto_build(pkto_action_build* build_action)
 {
     //check if action is valid
     assert(build_action != 0);
+    //assert(build_action.handle != 0);
     //assert(build_action.bash_lib_path != 0);
     //assert(build_action.bash_post_path != 0);
     
