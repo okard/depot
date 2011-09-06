@@ -37,12 +37,13 @@ static void usage(char* exec)
     printf("%s sync [<repository>]\n", exec);
     printf("%s upgrade [<package>]\n", exec);
     printf("%s update\n", exec);
-    printf("%s build <folder>\n", exec);
+    printf("%s build [-i] <folder>\n", exec);
     
     //build <folder>
     //grab <package> target <folder>
 }
 
+//parse args function
 
 /**
 * Main Function
@@ -51,7 +52,16 @@ int main(int argc, char *argv[])
 {
     printf("paketo\n");
     
-    usage(argv[0]);
+    if(argc < 2)
+    {
+        usage(argv[0]);
+        return 1;
+    }
+    
+    //detect action
+    
+    //create pkto handle
+
     
     // for user builds
     // grab/source/pkgdef/download - download source

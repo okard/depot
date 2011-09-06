@@ -16,6 +16,16 @@
 */
 #include <pkto/pkto.h>
 #include <pkto/package.h>
+#include <pkto/action.h>
+
+
+
+void pkto_package_handle_action(pkto_action_package* pa)
+{
+    //install
+    //remove
+    //upgrade
+}
 
 
 /**

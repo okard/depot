@@ -49,9 +49,12 @@ typedef struct pkto_action_build
     
     /// Parameter Package Def Path
     char* path;
+    
+    //vfs
 
     /// Parameter Bash Build Library Path
     char* bash_lib_path;
+    
     /// Parameter Bash Build Post Script
     char* bash_post_path;
     
@@ -76,6 +79,7 @@ typedef struct pkto_action_package
     //config
     //target directory (e.g. root /)
     char* root_dir;
+    //vfs_dir root
     
     //result?
     

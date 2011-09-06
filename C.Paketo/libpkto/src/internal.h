@@ -14,39 +14,11 @@
     You should have received a copy of the GNU General Public License
     along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
     
-    Utility Functions
+    Internal Functions
 */
-#ifndef __LIBPKTO_UTILS_H__
-#define __LIBPKTO_UTILS_H__
+#ifndef __LIBPKTO_INTERNAL_H__
+#define __LIBPKTO_INTERNAL_H__
 
-#include <stdlib.h>
-
-/**
-* \defgroup Utils Utility Functions
-* @{
-*/
-
-/**
-* A Buffer 
-* (Move to libcpr?)
-*/
-typedef struct pkto_buffer
-{
-    void* data;
-    size_t size;
-} pkto_buffer;
-
-/**
-* Create a new buffer
-*/
-pkto_buffer* pkto_buffer_new(size_t size);
-
-/**
-* Delete Buffer
-*/
-void pkto_buffer_delete(pkto_buffer* buffer);
-
-
-/** }@ */
+//Internal Function Definitions
 
 #endif

@@ -17,6 +17,8 @@
 #ifndef __LIBPKTO_REPOSITORY_H__
 #define __LIBPKTO_REPOSITORY_H__
 
+#include <pkto/pkto.h>
+
 /**
 * \defgroup Repository Repository Handling
 * @{
@@ -27,12 +29,15 @@
 */
 typedef struct pkto_repository
 {
+    /// Pkto Handle
+    pkto_handle* handle;
+    
     //repository type src/bin
     //repository arch type
     //repository name
     
     // db dir
-    // pkg files (cache)
+    // pkg files (cache) src/src-full/bin
     
     ///Cache Database
     KCDB* db;
@@ -45,6 +50,11 @@ typedef struct pkto_repository
 //open
 
 //get package from repository
+
+//pkto_repository* pkto_repository_new(pkto_handle* handle);
+
+//open
+//search
 
 
 

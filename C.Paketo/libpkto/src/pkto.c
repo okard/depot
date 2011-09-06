@@ -67,6 +67,7 @@ void pkto_handle_error(pkto_handle* handle, pkto_error error, const char* msg)
 */
 void pkto_interrupt(pkto_handle* handle)
 {
-    
-    
+    //Threads
+    //Queues
+    //Safe State
 }

@@ -18,7 +18,10 @@
 #include <kclangc.h>
 
 #include <pkto/pkto.h>
+#include <pkto/repository.h>
 
+
+//pkto_repository
 
 //open a repository
 void pkto_repository_open(pkto_handle* handle)
@@ -35,6 +38,7 @@ void pkto_repository_sync(pkto_handle* handle)
 {
     //http get db file? diff ?
     //rsync sync files
+    //detect packages to upgrade?
 }
 
 //open the db for repository (shared between repositories?)

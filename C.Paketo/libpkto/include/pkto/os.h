@@ -19,8 +19,8 @@
 #ifndef __LIBPKTO_OS_H__
 #define __LIBPKTO_OS_H__
 
-#include <cpr/os/dir.h>
-#include <cpr/os/process.h>
+#include <cpr/dir.h>
+#include <cpr/process.h>
 
 /**
 * \defgroup OS OS Abstraction

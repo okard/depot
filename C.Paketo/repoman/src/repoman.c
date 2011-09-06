@@ -32,12 +32,12 @@
 /**
 * Print Usage
 */
-static void usage()
+static void usage(char* exec)
 {
     printf("Usage:\n");
-    printf("repoman build <dir>\n");
-    printf("repoman <config>\n");
-    printf("repoman daemon <config>\n");
+    printf("%s build <dir>\n", exec);
+    printf("%s <config>\n", exec);
+    printf("%s daemon <config>\n", exec);
     
     //upload to repository??
     //--config file.conf
@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
     {
         printf("Error: to less arguments\n");
         //print usage
-        usage();
+        usage(argv[0]);
         return 1;
     }
     
@@ -112,11 +112,12 @@ int main(int argc, char *argv[])
             //TODO Sign, package requires signature for building
             printf("Start building %s\n", argv[2]);
             
-            //rm_prepare(ba);
+         
             //create build action
             pkto_action_build ba;
             ba.handle = handle;
             ba.path = argv[2];
+            //rm_prepare(&ba);
             
             //start build
             pkto_build(&ba);
@@ -127,7 +128,7 @@ int main(int argc, char *argv[])
         {
             printf("Syntax: %s build <folder>\n", argv[0]);
             //print usage
-            usage();
+            usage(argv[0]);
             return 1;
         }
     }
