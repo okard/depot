@@ -1,0 +1,8 @@
+# latex
+*.log
+*.aux
+*.pdf
+*.out
+
+#script to generate images?
+*.png

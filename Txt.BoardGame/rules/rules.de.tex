@@ -1,0 +1,368 @@
+\documentclass{article}
+\usepackage[a4paper]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage{amsmath}
+\usepackage{mathptmx} %times font
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{color}
+\usepackage{hyperref}
+\usepackage{wrapfig}
+ 
+\title{Brettspiel}
+\author{tg}
+\date{\today}
+
+%\definecolor{}{rgb}{.7,1,.7} 
+\linespread {1.25}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Einführung
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Einführung}
+	Es handelt sich hier um ein strategisches Brettspiel wie Schach oder Shôgi.
+	Gespielt wird auf einem kariertem Spielbrett mit Spielsteinen.
+	Im Gegensatz zu den genannten Spielen herrscht eine größere Individualität.
+	Jeder Spieler kann seine 'Armee' nach seinen Bedürfnissen zusammenstellen, die
+	Anzahl und Art der Spielsteine kann also variieren und ist nicht fest vorgegeben.
+	Zusätzlich wird als Zufallselement ein Würfel verwendet, was ebenso mit einkalkuliert 
+	werden muss.
+	Die Regeln sind so konstruiert das man sie leicht verstehen kann. Um das Spiel meistern
+	zu können muss allerdings jedes kleinste Detail bedacht werden.
+	
+	%Schach -> Krieg auf dem Spielbrett
+	%NAMEN
+		% Pugna? lat. Kampf/Schlacht
+	%Entstehung des Spiels
+	
+	%Inspiriert durch Schach, Shogi
+	
+	%Taktik, Strategie mit ein wenig Zufall
+	%Individualität durch Spielstein wahl
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Spielsteine & Spielzüge
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Spielsteine \& Spielzüge}
+
+\subsection{Der Spielstein}
+		
+	\begin{wrapfigure}{l}{3cm}
+	\centering
+	\includegraphics[scale=0.5]{img/example_token.png}
+	\end{wrapfigure}
+	
+	Der Spielstein ist dem japanischem Sh\=ogi Spielstein nachempfunden. Beide Seiten eines Spielsteins können belegt sein.
+	Die Spitze zeigt die Spielrichtung und somit die Zugehörigkeit zum Spieler an.
+	Die äußeren Kreise an den Kreuzenden geben an in welche Richtung der Spielstein sich bewegen und schlagen kann.
+	Der Kreis in der Mitte gibt die generelle Wertigkeit des Spielsteins an. Diese Bestimmt wie sich die Spielsteine in Relation zueinander verhalten.
+	Für einen schwächeren Spielstein ist es zum Beispiel schwieriger einer höherwertigen Spielstein zu schlagen,
+		
+	\begin{flushleft}
+	
+	Für die generelle Wertigkeit, also den mittleren Kreis, gibt es folgende Varianten:
+	
+	\vspace{0.2cm}
+	
+	\begin{tabular}{lcl}
+	\hline
+	Farbe & Wertigkeit & Name \\ \hline 
+	\textcolor{black}{$\bullet$} Schwarz 	& 1 & Bauer \\ 
+	\textcolor{green}{$\bullet$} Grün	& 2 & Soldat \\ 
+	\textcolor{red}{$\bullet$} 	Rot	& 3 & Ritter \\ 
+	\textcolor{blue}{$\bullet$} Blau	& 4 & General \\ 
+	\textcolor{yellow}{$\bullet$} Gold	& 5 & Herrscher \\ 
+	\end{tabular}
+
+	\end{flushleft}
+	
+	\vspace{0.2cm}
+	
+	\begin{wrapfigure}{l}{4cm}
+	\centering
+	\includegraphics[scale=0.3]{img/token_related_board.png}
+	\end{wrapfigure}
+	
+	Die maximal 8 äußeren Kreise geben an in welche Richtungen der Spielstein ziehen und 
+	schlagen darf, sie beziehen sich auf die Felder die um den Spielstein liegen.
+	Wenn ein Spielstein in einer Richtung schlagen darf, so darf er sich auch in 
+	diese Richtung bewegen ohne eine andere Figur schlagen zu müssen. Falls für eine
+	Richtung kein Kreis vorhanden ist bedeutet dies das der Spielstein in diese Richtung
+	weder schlagen noch ziehen darf. Durch eine Beförderung des Spielsteins, also das umdrehen
+	auf die untere Seite kann sich das Zugverhalten eines Spielsteins jedoch ändern.
+
+	\vspace{0.2cm}
+	
+	\begin{flushleft}
+	Die 3 Bedeutungen im Detail: 
+	\end{flushleft}
+	
+	\vspace{0.2cm}
+	
+	\begin{tabular}{lcl}
+	\hline
+	Symbol & Wert & Bedeutung  \\  \hline
+									& 0 & weder Ziehen noch Schlagen \\
+	\textcolor{black}{$\circ$}		& 1 & Ziehen \\ 
+	\textcolor{black}{$\bullet$} 	& 2 & Ziehen und Schlagen  \\ 
+	\end{tabular}
+	 
+	\vspace{0.3cm}
+    
+    \begin{flushleft}
+    
+    Beide Seiten des Spielsteins können Beschriftet sein, die normale obere Seite muss 
+    markiert sein (Kreis unten rechts auf dem Stein oder Kreis rechts auf der unteren Kante).
+	Die untere Spielseite des Steins stellt den beförderten Stein da, die untere Seite darf 
+	von der Wertigkeit nicht geringer ausfallen als die obere Seite.
+	%TODO (Maximale Punkt Differenz zwischen den Seiten?)
+	%TODO Spielsteinwert = Topseite Wert + Differenz Rückseite??	
+	Das Verhalten des Spielsteins wird durch die momentan oben liegende Spielseite bestimmt.
+	
+	
+	Wieviel ein Spielstein Wert ist ergibt sich aus der Summe der generellen Wertigkeit + Wertigkeiten der einzelnen Richtungen für beide Spielstein Seiten.
+	%TODO Zum Beispiel: (TODO)
+	%TODO Bild Beispielstein zum Berechnen von Wert Vorder, Rückseite
+	\end{flushleft}
+	
+	%TODO Sonderformen: Königstein
+	%TODO Größe des Spielsteins
+	
+\subsection{Spielzüge}
+
+	Für einzelne Spielzüge werden Aktionspunkte kurz AP benötigt, diese werden durch Würfeln bestimmt oder werden vorgegeben.
+	Ein Spielzug besteht also aus dem ermitteln der Aktionspunkte und 3 Aktionsphasen die wie folgt definiert sind.
+	\begin{enumerate}
+	\item Bewegen \& Schlagen \\
+		  Eine Spielfigur bewegen und/oder gegnerische Spielfiguren schlagen. Dabei darf nur
+		  ein Spielstein in eine Richtung gezogen werden.
+	\item Befördern \\
+		  Eigene Spielfiguren befördern (Spielstein umdrehen)
+	\item Einsetzen \\
+		  Geschlagene Gegenerische Figuren werden gefangen genommen und können später
+		  wieder eingesetzt werden.
+	\end{enumerate}
+
+	Die Reihenfolge muss eingehalten werden, nach einer Beförderung oder dem Einsetzen darf nicht noch ein 
+	Spielstein gezogen oder geschlagen werden.
+	Die Kosten für die einzelne Aktionen belaufen sich wie folgt:
+	
+	\begin{tabular}{ll}
+	\hline
+	Aktion & Kosten \\ \hline
+	Bewegen &  1 AP \\
+	Spielfigur schlagen & 1 AP + Differenz der generellen Wertigkeit, Ersetzt Bewegen. \\
+	Befördern & Differenz der generellen Wertigkeit der 2 Seiten, min. 1 AP \\
+	Einsetzen 	 
+	& Generelle Wertigkeit des Spielsteins der eingesetzt werden soll \\ \hline
+	\end{tabular} 
+	
+	
+	%TODO Beispiele (TODO)
+	%TODO (Bewegen und Schlagen)
+	%TODO Bild Spielsituation: Bewegen zu Feld X, 1 Spielstein
+	%TODO Bild Spielsituation: 2 Spielsteine, schlagen
+	%TODO Bild Spielsituation befördern
+	%TODO Bild Spielsituation Sideboard + Board -> Einsetzen
+
+\subsection{Das Spielbrett}
+	Gespielt werden kann generell auf jedem kariertem Brett, empfohlene Standardgrößen sind
+	8x8 (Schach), 9x9 (Shogi) und 10x10.
+	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Spielen
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Das Spiel}
+
+	Ein Spiel ist in folgende Spielphasen unterteilt.
+
+	\begin{enumerate}
+	\item Spielstart \\
+	 	  Jeder Spieler wählt abwechselnd seine Spielsteine bis die passende Armee Größe erreicht ist.
+	\item Aufstellung \\
+	  	  Abwechselnd positioniert jeder Spieler einen Spielstein auf dem Spielbrett
+	\item Spiel \\
+	  	  Nach dem die Aufstellung komplett ist beginnt das eigentliche Spiel bis ein Spieler gewonnen hat.
+	  	  Ein Spielzug ist wiederum unterteilt 4 Phasen.
+	\end{enumerate}
+
+
+\subsection{Spielstart}
+	Vor Beginn jedes Spiels wird entschieden welche Spielart gespielt wird und wie groß die eingesetzte Armee sein darf,
+	dies bestimmt man durch eine Vorgabe an Punkten die den Wertigkeiten der Spielsteine entsprechen.
+	Jeder Spiel darf abwechselnd einen Spielstein wählen, dabei wird die Wertigkeit jedes Spielsteins addiert.
+	Sobald die festgelegte Punktzahl erreicht ist darf ein Spieler keine weiteren Spielsteine mehr wählen.
+	Dies wird so lange wiederholt bis beide Spieler ihre Armee als komplett ansehen.
+
+	Zudem müssen Gewinnbedingungen, zugelassene Spielsteine und eventuelle Handicaps abgeklärt werden. 
+
+	Folgende Elemente müssen geklärt werden:
+	\begin{itemize}
+	\item Spielbrett 
+	\item Armeegröße 
+	\item Handicaps 
+	\item Zugelassene Spielsteine 
+	\item Bestimmen der AP
+	\item Gewinnbedingungen
+	\end{itemize}
+	
+	Empfehlungen Armeegröße für Spielbretter:
+	
+	\begin{tabular}{ll}
+	\hline
+	Brettgröße & Empfohlene Armeepunktzahl \\ \hline
+	10x10 & 200 \\
+	9x9 & 150 \\
+	8x8 & 100 \\ 
+	\end{tabular} 
+	
+	\subsubsection{Spielvarianten}
+	\begin{tabular}{cc}
+    \hline 
+    Spielvariante &  \\ 
+    \hline 
+    Standard & Spielbrett 9x9, Armeegröße 150
+    \\ 
+	\hline 
+	\end{tabular} 
+	
+
+\subsection{Aufstellung}
+
+	Abwechselnd werden Spielsteine gesetzt, dabei dürfen nur die eigenen
+	hintersten 2-3 Reihen verwendet werden. Es müssen nicht alle Spielsteine
+	auf dem Feld gesetzt werden, jedem Spieler ist es überlassen wieviele Spielsteine
+	er aus seiner Auswahl im Sideboard lässt. Diese können später durch das bezahlen
+	von Aktionspunkten im Spiel eingesetzt werden.
+	
+	\begin{tabular}{ll}
+	\hline
+	Brettgröße & Reihen \\ \hline
+	10x10, 9x9 & 3 \\
+	8x8        & 2 \\ 
+	\end{tabular} 
+	
+	%TODO Bild Einsetzfläche von Spielsteinen
+	%TODO Bild Beispiel fertige Aufstellung
+	
+\subsection{Das Spiel}
+
+	Jeder Spiel vollzieht abwechselnd einen Spielzug, sobald alle Spieler am Zug waren
+	ist eine Spielrunde zu Ende. Ein Zug besteht also aus folgenden Phasen:
+	
+	\begin{enumerate}
+	\item Bestimmen der Aktionspunkte (AP) \\
+		  Die Aktionspunkte die ein Spieler für seinen Zug zur Verfügung hat können auf mehrere Arten bestimmt werden.
+		  Es kann jeder Spieler für sich einen W6 werfen, es kann ein W6 geworfen der die AP für die Spielrunde für alle Spieler bestimmt.
+		  Es kann alternativ auch eine feste Anzahl an AP für das gesamte Spiel festgelegt werden.
+		  
+	\item Bewegung mit einem Spielstein \\
+		  Pro Spielzug darf ein Spielstein bewegt werden, die Möglichkeiten sind allerdings durch die Aktionspunkte begrenzt.
+		   
+	\item Befördern von Spielsteinen \\
+		  Zum befördern wird ein Spielstein herum gedreht und fort an mit der unteren Seite weitergespielt.
+		  Die Beförderung ist nicht umkehrbar, außer der Spielstein wird geschlagen und neu eingesetzt.
+		  
+	\item Einsetzen von Spielsteinen \\
+		  Eingesetzt wird ein Spielstein immer mit der oberen Seite.
+	\end{enumerate}
+
+
+\subsection{Gewinnbedingungen}
+
+	\textit{Diese Sektion ist noch ein reiner DRAFT} \\
+	Bisher keine Empfehlungen, reine Ideensammlung.
+	
+	\begin{itemize}
+	\item Siegpunkte \\
+		  Für jeden geschlagenen Spielstein werden die Punkte aufgeschrieben und addiert.
+
+			% Idee Ansage vor dem (Würfel)Zug -> Verdoppeltn der Ergebnisse 
+	
+	\item Sobald eine gewisse Armeegröße (nach Punkten) gefangen genommen worden ist
+	
+	\item Schlagen eines Königsteins
+	
+	\item 'Heimbringen' von Spielsteinen \\
+	       Gewisse Anzahl von Punkten über das Spielfeld bringen
+	
+	\item Schlagen aller gegnerischen Spielsteine \\
+	      (Dauert zu lange?)	
+	\end{itemize}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Spielsteinliste
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Spielstein-Liste}
+	
+	Durch die freie Konfiguration der Spielsteine sind sehr viele Kombinationen möglich, 
+	aus diesem Grund gibt es hier eine vordefinierte Liste an Spielsteinen. Diese Spielsteine
+	müssen akzeptiert werden, andere Konfigurationen von Spielsteinen erfordern das Einverständnis
+	des Gegenspielers.
+	
+	\begin{tabular}{llll}
+	\hline
+	Vorderseite & Rückseite & Kürzel & Beschreibung \\ \hline
+	• & • & • \\ 
+	\hline
+	\end{tabular} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Notation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Notation}
+
+\textit{Diese Sektion ist noch ein reiner DRAFT}
+
+
+Pick-Phase:
+
+Pick N-NE-E-SE-S-SW-W-NW-V
+PI 110000014-220000025
+PI - 
+
+Place-Phase
+ 
+PL 110000015 8g
+PL -
+
+Game Phase:
+
+S* 8g-7g
+W 
+PL
+
+\begin{tabular}{|l|c||}
+\hline Zug & Werte \\ \hline
+• & • \\  
+\end{tabular} 
+
+
+\section{Etikette}
+	Verhaltensregeln während eines Spiels.
+	
+	
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Glossar
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Glossar}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Lizenz
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Lizenz}
+Creative Commons Lizenzvertrag
+Diese(s) Werk bzw. Inhalt von okard steht unter einer Creative Commons Namensnennung-NichtKommerziell-KeineBearbeitung 3.0 Unported Lizenz.
+\href{http://creativecommons.org/licenses/by-nc-nd/3.0/}{CC BY-NC-ND 3.0}
+
+
+
+\end{document}

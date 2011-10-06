@@ -1,0 +1,4 @@
+# CSV ; as Seperator # as Comment UTF8
+# Format: N-NE-E-SE-S-SW-W-NW-V; N-NE-E-SE-S-SW-W-NW-V; Acronym (Optional)
+
+120010013;220010024

@@ -1,0 +1,15 @@
+
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+     version="1.1" baseProfile="full">
+     
+        
+    
+    <use xlink:href="token.svg#example_token" transform="translate(111,104) scale(2.3)" />
+    <use xlink:href="board.svg#board3x3" transform="translate(0,0)" />
+    
+    <circle cx="50" cy="50" r="20" fill="black" stroke="black" stroke-width="1" />
+    <circle cx="150" cy="50" r="20" fill="white" stroke="black" stroke-width="1" />
+    <circle cx="250" cy="50" r="20" fill="black" stroke="black" stroke-width="1" />
+    <circle cx="150" cy="250" r="20" fill="white" stroke="black" stroke-width="1" />
+</svg>

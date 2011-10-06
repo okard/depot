@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+ 
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:ev="http://www.w3.org/2001/xml-events"
+     version="1.1" baseProfile="full"
+     width="30mm" height="40mm">
+ 
+    <defs>
+    <!-- Colors -->
+    
+    <!-- Basic Token Structure -->
+    <symbol id="token">
+        <!-- Token Polygon -->
+        <polygon points="17 0, 29 10, 34 40, 0 40, 4 10" fill="#EEE8AA" stroke="black" stroke-width="1px" />
+    
+        <g transform="translate(2,0)">
+            <!-- Star (Mittelpunkt: 15 22.5)-->
+            <line x1="15" y1="15" x2="15" y2="30" stroke="black" stroke-width="0.5"  />
+            <line x1="15" y1="15" x2="15" y2="30" transform="rotate(45 15 22.5)" stroke="black" stroke-width="0.5" />
+            <line x1="15" y1="15" x2="15" y2="30" transform="rotate(90 15 22.5)" stroke="black" stroke-width="0.5" />
+            <line x1="15" y1="15" x2="15" y2="30" transform="rotate(-45 15 22.5)" stroke="black" stroke-width="0.5" />
+            
+            <!-- Middle Point -->
+            <circle cx="15" cy="22.5" r="2" stroke="black" stroke-width="0.5" fill="gold" />
+            
+            <!-- The Circles -->
+            <!--N --><circle cx="15" cy="15" r="2"  />
+            <!--NE--><circle cx="15" cy="15" r="2" transform="rotate(45 15 22.5)" fill="white" stroke="black" stroke-width="0.5" />
+            <!--E --><circle cx="15" cy="15" r="2" transform="rotate(90 15 22.5)" />
+            <!--SE--><circle cx="15" cy="15" r="2" transform="rotate(135 15 22.5)" />
+            <!--S --><circle cx="15" cy="15" r="2" transform="rotate(180 15 22.5)" />
+            <!--SW--><circle cx="15" cy="15" r="2" transform="rotate(225 15 22.5)" />
+            <!--W --><circle cx="15" cy="15" r="2" transform="rotate(270 15 22.5)" />
+            <!--NW--><circle cx="15" cy="15" r="2" transform="rotate(315 15 22.5)" />
+        
+        </g>
+    </symbol>
+    
+    <!-- A example token -->
+    <symbol id="example_token">
+        <!-- Token Polygon -->
+        <polygon points="17 0, 29 10, 34 40, 0 40, 4 10" fill="#EEE8AA" stroke="black" stroke-width="1px" />
+    
+        <g transform="translate(2,0)">
+            <!-- Star (Mittelpunkt: 15 22.5)-->
+            <line x1="15" y1="15" x2="15" y2="30" stroke="black" stroke-width="0.5"  />
+            <line x1="15" y1="15" x2="15" y2="30" transform="rotate(45 15 22.5)" stroke="black" stroke-width="0.5" />
+            <line x1="15" y1="15" x2="15" y2="30" transform="rotate(90 15 22.5)" stroke="black" stroke-width="0.5" />
+            <line x1="15" y1="15" x2="15" y2="30" transform="rotate(-45 15 22.5)" stroke="black" stroke-width="0.5" />
+            
+            <!-- Middle Point -->
+            <circle cx="15" cy="22.5" r="2" stroke="black" stroke-width="0.5" fill="gold" />
+            
+            <!-- The Circles -->
+            <!--N --><circle cx="15" cy="15" r="2"  fill="white" stroke="black" stroke-width="0.5" />
+            <!--NE--><circle cx="15" cy="15" r="2" transform="rotate(45 15 22.5)" fill="black" stroke="black" stroke-width="0.5" />
+            <!--S --><circle cx="15" cy="15" r="2" transform="rotate(180 15 22.5)" fill="white" stroke="black" stroke-width="0.5" />/>
+            <!--NW--><circle cx="15" cy="15" r="2" transform="rotate(315 15 22.5)" fill="black" stroke="black" stroke-width="0.5" />
+        </g>
+    </symbol>
+    
+    
+    </defs>
+    
+    
+    <use xlink:href="#token" />
+    
+    <use xlink:href="#example_token" transform="translate(50,0)" />
+    
+</svg>
