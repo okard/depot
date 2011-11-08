@@ -1,6 +1,3 @@
-[submodule "C.Paketo/libcpr"]
-	path = C.Paketo/libcpr
-	url = git://github.com/okard/cpr.git
 [submodule "C.Pio/libcpr"]
 	path = C.Pio/libcpr
 	url = git://github.com/okard/cpr.git
