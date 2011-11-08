@@ -14,20 +14,29 @@
     You should have received a copy of the GNU General Public License
     along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
 */
+#pragma once
 #ifndef __LIBPKTO_REPOSITORY_H__
 #define __LIBPKTO_REPOSITORY_H__
 
-#include <pkto/pkto.h>
+#include <pkto/handle.h>
 
 /**
 * \defgroup Repository Repository Handling
 * @{
 */
 
+//Types
+// DB   //only meta data, informations
+// BIN  //binary package
+// SRC  //src packages
+// DEV  //dev packages -> folders with build files
+
+
+
 /**
 * Holds a repository
 */
-typedef struct pkto_repository
+typedef struct
 {
     /// Pkto Handle
     pkto_handle* handle;

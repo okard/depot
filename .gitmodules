@@ -4,3 +4,6 @@
 [submodule "C.Pio/libcpr"]
 	path = C.Pio/libcpr
 	url = git://github.com/okard/cpr.git
+[submodule "C.Uts/deps/libcpr"]
+	path = C.Uts/deps/libcpr
+	url = git://github.com/okard/cpr.git

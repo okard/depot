@@ -14,8 +14,9 @@
     You should have received a copy of the GNU General Public License
     along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef __LIBPKTO_PKTO_H__
-#define __LIBPKTO_PKTO_H__
+#pragma once
+#ifndef __LIBPKTO_HANDLE_H__
+#define __LIBPKTO_HANDLE_H__
 
 #include <pkto/error.h>
 

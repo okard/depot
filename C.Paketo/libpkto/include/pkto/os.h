@@ -16,10 +16,10 @@
     
     Platform independent function which are not available in standard c library
 */
+#pragma once
 #ifndef __LIBPKTO_OS_H__
 #define __LIBPKTO_OS_H__
 
-#include <cpr/dir.h>
 #include <cpr/process.h>
 
 /**

@@ -14,7 +14,7 @@
     You should have received a copy of the GNU General Public License
     along with libpkto.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include <pkto/pkto.h>
+#include <pkto/handle.h>
 #include <pkto/package.h>
 #include <pkto/action.h>
 

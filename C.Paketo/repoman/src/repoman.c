@@ -20,7 +20,7 @@
 #include <stdbool.h>
 #include <signal.h>
 
-#include <pkto/pkto.h>
+#include <pkto/handle.h>
 #include <pkto/error.h>
 #include <pkto/action.h>
 

@@ -16,6 +16,7 @@
     
     Utility Functions
 */
+#pragma once
 #ifndef __LIBPKTO_UTILS_H__
 #define __LIBPKTO_UTILS_H__
 

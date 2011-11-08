@@ -17,7 +17,7 @@
 
 #include <stdio.h>
 
-#include <pkto/pkto.h>
+#include <pkto/handle.h>
 
 #include "paketo.h"
 

@@ -17,7 +17,7 @@
 
 #include <kclangc.h>
 
-#include <pkto/pkto.h>
+#include <pkto/handle.h>
 #include <pkto/repository.h>
 
 

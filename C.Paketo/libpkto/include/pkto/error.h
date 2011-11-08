@@ -16,6 +16,7 @@
     
     error ids
 */
+#pragma once
 #ifndef __LIBPKTO_ERROR_H__
 #define __LIBPKTO_ERROR_H__
 

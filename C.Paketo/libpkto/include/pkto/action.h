@@ -16,10 +16,11 @@
     
     actions
 */
+#pragma once
 #ifndef __LIBPKTO_ACTION_H__
 #define __LIBPKTO_ACTION_H__
 
-#include <pkto/pkto.h>
+#include <pkto/handle.h>
 
 /**
 * \defgroup Action Paketo Actions
