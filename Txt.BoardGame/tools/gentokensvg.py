@@ -63,7 +63,7 @@ class SvgWriter:
 #############################################################################
 def writeToken(svg, token):
     
-    if(re.match('[0-2]{8}[1-5]', token) == None):
+    if(re.match('[0-2]{8}[0-5]', token) == None):
         print ('Invalid token: {0}\n'.format(token))
         return 
         
@@ -84,11 +84,12 @@ def writeToken(svg, token):
         svg.drawLine(15, 15, 15 ,30, "rotate({0} 15 22.5)".format(rot))
         
     # inner circle
-    valuecolor = "black"
-    if token[8] == '2': valuecolor = "green"
+    valuecolor = "white"
+    if token[8] == '1': valuecolor = "black"
+    elif token[8] == '2': valuecolor = "green"
     elif token[8] == '3': valuecolor = "red"
     elif token[8] == '4': valuecolor = "blue"
-    elif token[8] == '5': valuecolor = "yellow"
+    elif token[8] == '5': valuecolor = "#ffd700"
     
     svg.setFill(valuecolor)
     svg.drawCircle("15", "22.5", "2", None)
