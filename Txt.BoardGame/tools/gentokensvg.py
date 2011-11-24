@@ -19,6 +19,13 @@ class SvgWriter:
         self.file.write("xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:ev=\"http://www.w3.org/2001/xml-events\" ");
         self.file.write("version=\"1.1\" baseProfile=\"full\">\n")
         
+    def beginFormat(self, width, height):
+        self.file.write("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n")
+        self.file.write("<svg xmlns=\"http://www.w3.org/2000/svg\" ")
+        self.file.write("xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:ev=\"http://www.w3.org/2001/xml-events\" ");
+        self.file.write('width="{0}" height="{1}" '.format(width, height))
+        self.file.write("version=\"1.1\" baseProfile=\"full\">\n")
+        
     def end(self) : self.file.write('</svg>\n')
     
     def beginDefs(self) : self.file.write('<defs>\n')
@@ -69,19 +76,32 @@ def writeToken(svg, token):
         
     svg.beginSymbol(token)
     
-    #define sqare calculate token
-    center = { 'x': 15, 'y' : 22.5 }
+    
+    #calculate
+    rect = { 'width': 20, 'height': 25 }
+    center = { 'x': rect['width']/2, 'y' : 13.5 }
+    egde = 2.5
+    line = 5.0
+    radius = 1.5
     
     #outer frame
     svg.setFill("#EEE8AA")
     svg.setStroke("black", "1px")
-    svg.drawPolygon([17 ,0, 29, 10, 34, 40, 0, 40, 4, 10])
+    poly = []
+    poly.append(rect['width']/2); poly.append(0)
+    poly.append(rect['width']-egde); poly.append(egde)
+    poly.append(rect['width']); poly.append(rect['height'])
+    poly.append(0); poly.append(rect['height'])
+    poly.append(egde); poly.append(egde)
+    
+    #[rect['width']/2 ,0, 29, 10, 34, 40, 0, 40, 4, 10]
+    svg.drawPolygon(poly)
         
     #inner cross
     svg.setStroke("black", "0.5")
     for i in range(0, 4):
         rot = i*45
-        svg.drawLine(15, 15, 15 ,30, "rotate({0} 15 22.5)".format(rot))
+        svg.drawLine(center['x'], center['y']-line, center['x'] ,center['y']+line, "rotate({0} {1} {2})".format(rot, center['x'], center['y']))
         
     # inner circle
     valuecolor = "white"
@@ -92,7 +112,7 @@ def writeToken(svg, token):
     elif token[8] == '5': valuecolor = "#ffd700"
     
     svg.setFill(valuecolor)
-    svg.drawCircle("15", "22.5", "2", None)
+    svg.drawCircle(center['x'], center['y'], radius, None)
     
     #inner round of circles
     svg.setStroke("black", "0.5")
@@ -105,7 +125,7 @@ def writeToken(svg, token):
             svg.setFill("black")
             
         rot = i*45
-        svg.drawCircle("15", "15", "2", "rotate({0} 15 22.5)".format(rot))
+        svg.drawCircle(center['x'], center['y']-line, radius, "rotate({0} {1} {2})".format(rot, center['x'], center['y']))
     
     svg.endSymbol()
     
@@ -122,10 +142,14 @@ def printToken(svg, tokA, tokB):
 # command lib - create lib
 # command ov - create overview sheet
         
-if len(sys.argv) < 4:
-    sys.exit("Usage: script lib/ov SourceFile OutFile")    
+if len(sys.argv) < 2:
+    sys.exit("Usage: script lib/ov")     
     
 if sys.argv[1] == 'lib':
+    
+    if len(sys.argv) < 4:
+        sys.exit("Usage: script lib SourceFile OutFile")
+    
     print("Create lib...")
            
     deffile = open(sys.argv[2], "r")
@@ -164,13 +188,34 @@ if sys.argv[1] == 'lib':
     
     
 if sys.argv[1] == 'ov':
+    
+    if len(sys.argv) < 5:
+        sys.exit("Usage: script ov deffile libfile outfile")   
+    
     print("Create overview...")
     
     deffile = open(sys.argv[2], "r")
     
+    libfile = sys.argv[3]
+    
     #start svg file
-    svgfile = open(sys.argv[3], "w")
-    svg = SvgWriter(svgfile)    
+    outfile = open(sys.argv[4], "w")
+    svg = SvgWriter(outfile) 
+    svg.beginFormat('210mm', '297mm')
+    
+    x_pos = 0
+    y_pos = 0
+   
+    # calculate next position
+    def next():
+        step = 10
+        global x_pos
+        global y_pos
+        x_pos += step
+        if(x_pos >= 210):
+            x_pos = 0
+            y_pos += step
+        
 
     for line in deffile:
         line = line.strip()
@@ -180,6 +225,16 @@ if sys.argv[1] == 'ov':
         values = line.split(';')
 
         print("{0}-{1}".format(values[0], values[1]))
+        svg.file.write('<use  xlink:href="{0}#{1}" x="{2}mm" y="{3}mm" width="22mm" height="25mm" />\n'.format(libfile, values[0], x_pos, y_pos))
+        next()
+        
+        svg.file.write('<use  xlink:href="{0}#{1}" x="{2}mm" y="{3}mm" width="22mm" height="25mm" />\n'.format(libfile, values[1], x_pos, y_pos))
+        next()
+      
+        
+        # requires link to library
+        # 
+        
         
     #end svg file
     svg.end()
