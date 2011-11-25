@@ -23,7 +23,7 @@ class SvgWriter:
         self.file.write("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n")
         self.file.write("<svg xmlns=\"http://www.w3.org/2000/svg\" ")
         self.file.write("xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:ev=\"http://www.w3.org/2001/xml-events\" ");
-        self.file.write('width="{0}" height="{1}" '.format(width, height))
+        self.file.write('width="{0}" height="{1}" viewBox="0 0 210 297" '.format(width, height))
         self.file.write("version=\"1.1\" baseProfile=\"full\">\n")
         
     def end(self) : self.file.write('</svg>\n')
@@ -64,15 +64,32 @@ class SvgWriter:
     #set fill
     def setFill(self, color):
         self.fill_color = color
+        
+#############################################################################
+# check Token
+############################################################################# 
+def isValidToken(token):
+    if(re.match('[0-2]{8}[0-5]', token) == None):
+        print ('Invalid token: {0}\n'.format(token))
+        return False
+    else:
+        return True
+    
+def getValueColor(value):
+    if value == '1': return "black"
+    elif value == '2': return "green"
+    elif value == '3': return "red"
+    elif value == '4': return "blue"
+    elif value == '5': return "#ffd700"
+    else: return "white"
 
 #############################################################################
 # Write Token
 #############################################################################
-def writeToken(svg, token):
+def writeToken(svg, token, back_value=None):
     
-    if(re.match('[0-2]{8}[0-5]', token) == None):
-        print ('Invalid token: {0}\n'.format(token))
-        return 
+    if not isValidToken(token):
+        return;
         
     svg.beginSymbol(token)
     
@@ -85,8 +102,9 @@ def writeToken(svg, token):
     radius = 1.5
     
     #outer frame
-    svg.setFill("#EEE8AA")
-    svg.setStroke("black", "1px")
+    #svg.setFill("#EEE8AA")
+    svg.setFill("white")
+    svg.setStroke("black", "1")
     poly = []
     poly.append(rect['width']/2); poly.append(0)
     poly.append(rect['width']-egde); poly.append(egde)
@@ -96,6 +114,11 @@ def writeToken(svg, token):
     
     #[rect['width']/2 ,0, 29, 10, 34, 40, 0, 40, 4, 10]
     svg.drawPolygon(poly)
+    
+    #on front side draw upgrade info for backside
+    if not back_value == None:
+        svg.setStroke("black", "0.5")
+        svg.drawCircle(rect['width']-radius-1.5, rect['height']-radius-1, radius, None)
         
     #inner cross
     svg.setStroke("black", "0.5")
@@ -169,13 +192,19 @@ if sys.argv[1] == 'lib':
         
         values = line.split(';')
         
+        if not isValidToken(values[0]):
+            continue
+        
+        if not isValidToken(values[1]):
+            continue
+        
         #save token look for double fronts
         if values[0] in toklist:
             print("The first value {0} occurs twice".format(values[0]))
             continue
         
         toklist.add(values[0])
-        writeToken(svg, values[0])
+        writeToken(svg, values[0], values[1][8])
         writeToken(svg, values[1])
         
         print("{0}-{1}".format(values[0], values[1]))
@@ -203,18 +232,19 @@ if sys.argv[1] == 'ov':
     svg = SvgWriter(outfile) 
     svg.beginFormat('210mm', '297mm')
     
-    x_pos = 0
-    y_pos = 0
+    x_pos = 1.5
+    y_pos = 1.5
    
     # calculate next position
     def next():
-        step = 10
+        step_x = 8
+        step_y = 8
         global x_pos
         global y_pos
-        x_pos += step
-        if(x_pos >= 210):
-            x_pos = 0
-            y_pos += step
+        x_pos += step_x
+        if(x_pos >= 50):
+            x_pos = 1.5
+            y_pos += step_y
         
 
     for line in deffile:
@@ -225,15 +255,15 @@ if sys.argv[1] == 'ov':
         values = line.split(';')
 
         print("{0}-{1}".format(values[0], values[1]))
-        svg.file.write('<use  xlink:href="{0}#{1}" x="{2}mm" y="{3}mm" width="22mm" height="25mm" />\n'.format(libfile, values[0], x_pos, y_pos))
-        next()
         
-        svg.file.write('<use  xlink:href="{0}#{1}" x="{2}mm" y="{3}mm" width="22mm" height="25mm" />\n'.format(libfile, values[1], x_pos, y_pos))
-        next()
+        for i in range(0, 3):
+            svg.file.write('<use xlink:href="{0}#{1}" x="{2}mm" y="{3}mm" width="22mm" height="26mm" />\n'.format(libfile, values[0], x_pos, y_pos))
+            next()
+        
+            svg.file.write('<use xlink:href="{0}#{1}" x="{2}mm" y="{3}mm" width="22mm" height="27mm" />\n'.format(libfile, values[1], x_pos, y_pos))
+            next()
+        
       
-        
-        # requires link to library
-        # 
         
         
     #end svg file
