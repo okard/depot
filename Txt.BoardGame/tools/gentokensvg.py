@@ -42,20 +42,30 @@ class SvgWriter:
 
     def drawPolygon(self, points) : self.file.write('<polygon points="{0}" fill="{1}" stroke="{2}" stroke-width="{3}" />\n'.format(', '.join(map(str,points)), self.fill_color, self.stroke_color, self.stroke_width))
 
-    def drawLine(self, x1, y1, x2, y2, transform):
+    #draw line
+    def drawLine(self, x1, y1, x2, y2, transform = None):
         if transform == None:
             transform = ''
         else:
             transform = 'transform="{0}"'.format(transform)
         self.file.write('<line x1="{0}" y1="{1}" x2="{2}" y2="{3}" fill="{4}" stroke="{5}" stroke-width="{6}" {7} />\n'.format(x1, y1, x2, y2, self.fill_color, self.stroke_color, self.stroke_width, transform))     
 
-    def drawCircle(self, x, y, r, transform):
+    #draw circle
+    def drawCircle(self, x, y, r, transform = None):
         if transform == None:
             transform = ''
         else:
             transform = 'transform="{0}"'.format(transform)
         self.file.write('<circle cx="{0}" cy="{1}" r="{2}" fill="{3}" stroke="{4}" stroke-width="{5}" {6} />\n'.format(x, y, r, self.fill_color, self.stroke_color, self.stroke_width, transform))
 
+    #draw rect
+    def drawRect(self, x, y, width, height, transform = None):
+        if transform == None:
+            transform = ''
+        else:
+            transform = 'transform="{0}"'.format(transform)
+        self.file.write('<rect x="{0}" y="{1}" width="{2}" height="{3}" fill="{4}" stroke="{5}" stroke-width="{6}" {7}/>'.format(x, y, width, height, self.fill_color, self.stroke_color, self.stroke_width, transform))
+        
     #set stroke
     def setStroke(self, color, width):
         self.stroke_color = color
@@ -117,8 +127,11 @@ def writeToken(svg, token, back_value=None):
     
     #on front side draw upgrade info for backside
     if not back_value == None:
-        svg.setStroke("black", "0.5")
-        svg.drawCircle(rect['width']-radius-1.5, rect['height']-radius-1, radius, None)
+        radius_i = radius*1.5
+        svg.setStroke("#8D8D8D", "0.3")
+        svg.setFill(getValueColor(back_value))
+        svg.drawRect(rect['width']/2-radius_i, rect['height']-radius_i-0.5, radius_i*2, radius_i*0.70)
+        #svg.drawCircle(rect['width']-radius-1.5, rect['height']-radius-1, radius, None)
         
     #inner cross
     svg.setStroke("black", "0.5")
@@ -127,13 +140,7 @@ def writeToken(svg, token, back_value=None):
         svg.drawLine(center['x'], center['y']-line, center['x'] ,center['y']+line, "rotate({0} {1} {2})".format(rot, center['x'], center['y']))
         
     # inner circle
-    valuecolor = "white"
-    if token[8] == '1': valuecolor = "black"
-    elif token[8] == '2': valuecolor = "green"
-    elif token[8] == '3': valuecolor = "red"
-    elif token[8] == '4': valuecolor = "blue"
-    elif token[8] == '5': valuecolor = "#ffd700"
-    
+    valuecolor = getValueColor(token[8])
     svg.setFill(valuecolor)
     svg.drawCircle(center['x'], center['y'], radius, None)
     
@@ -167,7 +174,8 @@ def printToken(svg, tokA, tokB):
         
 if len(sys.argv) < 2:
     sys.exit("Usage: script lib/ov")     
-    
+
+# generate svg library
 if sys.argv[1] == 'lib':
     
     if len(sys.argv) < 4:
@@ -200,11 +208,17 @@ if sys.argv[1] == 'lib':
         
         #save token look for double fronts
         if values[0] in toklist:
-            print("The first value {0} occurs twice".format(values[0]))
+            print("The frontside token {0} occurs twice".format(values[0]))
+            continue
+        
+        if values[1] in toklist:
+            print("The backside token {0} occurs in frontside list".format(values[1]))
             continue
         
         toklist.add(values[0])
+        #frontside
         writeToken(svg, values[0], values[1][8])
+        #backside
         writeToken(svg, values[1])
         
         print("{0}-{1}".format(values[0], values[1]))
@@ -215,7 +229,8 @@ if sys.argv[1] == 'lib':
 
     deffile.close()
     
-    
+# generate an overview from list
+# for print out and so on
 if sys.argv[1] == 'ov':
     
     if len(sys.argv) < 5:
@@ -246,7 +261,7 @@ if sys.argv[1] == 'ov':
             x_pos = 1.5
             y_pos += step_y
         
-
+    # add a instance for each token pair in token db list
     for line in deffile:
         line = line.strip()
         if(line[:1] == '#'): continue
@@ -262,10 +277,7 @@ if sys.argv[1] == 'ov':
         
             svg.file.write('<use xlink:href="{0}#{1}" x="{2}mm" y="{3}mm" width="22mm" height="27mm" />\n'.format(libfile, values[1], x_pos, y_pos))
             next()
-        
-      
-        
-        
+           
     #end svg file
     svg.end()
 
