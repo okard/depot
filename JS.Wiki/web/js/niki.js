@@ -27,19 +27,33 @@ var niki =
             alert(data);
         });
     },
+    
+    pagelist: function()
+    {
+        $("sidebar_pagelist").empty();
+            
+        //request list    
+        
+    },
 
     /**
     * make a db request
     */
     dbRequest: function(req, callback)
-    {
+    {   
          $.ajax({
           type: 'POST',
+          dataType: 'json',
           url: this.server+"/$db",
           data: JSON.stringify(req),
           success: function(data, textStatus, jqXHR)
           {
             callback(data);
+          },
+          error: function(jqXHR, textStatus, errorThrown)
+          {
+              alert(textStatus);
+              alert(errorThrown);
           }
         });
     },
