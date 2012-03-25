@@ -29,10 +29,29 @@ using Vte;
 public class TerminalWindow : Window
 {
     //Tab Container
-    private Notebook tabs;
+    private Notebook tabs = new Notebook();
 
     // Context Menu
-    private Menu ctxMenu;
+    private TerminalMenu ctxMenu = new TerminalMenu();
+
+    // Config File
+    private static KeyFile config = new KeyFile();
+
+
+    /**
+    * Static ctor
+    */
+    static construct 
+    {
+        //Load config file
+        try
+        {
+            var file = findFile("vaterm.conf");
+            config.load_from_file(file.get_path(), KeyFileFlags.NONE);
+        }
+        catch(Error e){  stderr.printf ("Error: %s\n", e.message);}
+
+    }
     
     /**
     * Ctor
@@ -43,14 +62,15 @@ public class TerminalWindow : Window
         this.set_has_resize_grip(false);
         this.set_default_size(800, 600);
 
-        this.ctxMenu = new TerminalMenu();
+        //setup context menu
+        this.ctxMenu.on_new_tab.connect(addTerminalTab);
         
         //window try close? multiple tabs open -> security question
         this.key_press_event.connect(onKeyPress);
 
         this.button_press_event.connect(onButtonPress);
         
-        this.tabs = new Notebook();
+ 
         
         tabs.page_added.connect((child, index) => { tabs.set_show_tabs(tabs.get_n_pages() > 1 ? true : false); });
         

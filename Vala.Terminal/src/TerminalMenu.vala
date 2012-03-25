@@ -24,10 +24,54 @@ using Gtk;
 
 public class TerminalMenu : Menu
 {
+    public signal void on_new_tab();
+
     public TerminalMenu()
     {
-        var i = new MenuItem.with_label("test");
-        this.append(i);
+        //new tab
+        //new window
+        //new instance
+        //--------
+        //set tab name
+        //close tab
+        //close window
+        //--------
+        //Copy
+        //Paste
+        //
+
+        var nt = new MenuItem.with_label("new tab");
+        nt.activate.connect((e) => on_new_tab());
+        this.append(nt);
+
+        var nw = new MenuItem.with_label("new window");
+        this.append(nw);
+
+        var ni = new MenuItem.with_label("new instance");
+        this.append(ni);
+
+        this.append(new SeparatorMenuItem());
+
+        var stn = new MenuItem.with_label("set tab name");
+        this.append(stn);
+
+        this.append(new SeparatorMenuItem());
+
+        var ct = new MenuItem.with_label("close tab");
+        this.append(ct);
+
+        var cw = new MenuItem.with_label("close window");
+        this.append(cw);
+        
+        this.append(new SeparatorMenuItem());
+
+        var copy = new MenuItem.with_label("Copy");
+        this.append(copy);
+
+        var paste = new MenuItem.with_label("Paste");
+        this.append(paste);
+        
+
         this.show_all();
     }
 }
