@@ -30,6 +30,9 @@ public class TerminalWindow : Window
 {
     //Tab Container
     private Notebook tabs;
+
+    // Context Menu
+    private Menu ctxMenu;
     
     /**
     * Ctor
@@ -39,9 +42,13 @@ public class TerminalWindow : Window
         this.title = "Terminal";
         this.set_has_resize_grip(false);
         this.set_default_size(800, 600);
+
+        this.ctxMenu = new TerminalMenu();
         
         //window try close? multiple tabs open -> security question
         this.key_press_event.connect(onKeyPress);
+
+        this.button_press_event.connect(onButtonPress);
         
         this.tabs = new Notebook();
         
@@ -63,6 +70,20 @@ public class TerminalWindow : Window
         var vbox = new VBox (true, 0);
         vbox.add(tabs);
         add(vbox);
+    }
+
+    /**
+    * On Button Press Event
+    */
+    public bool onButtonPress(Gdk.EventButton ev)
+    {
+        if(ev.type == Gdk.EventType.BUTTON_PRESS 
+        && ev.button == 3)
+        {
+            ctxMenu.popup(null, null, null, ev.button, ev.time);
+            return true;
+        }
+        return false;
     }
     
     /**
@@ -130,7 +151,8 @@ public class TerminalWindow : Window
         term.child_exited.connect(() => {
             tabs.remove(term);
         });
-            
+        
+        term.button_press_event.connect(onButtonPress);  
             
         tabs.show_all();
     }
