@@ -79,7 +79,7 @@ class SvgWriter:
 # check Token
 ############################################################################# 
 def isValidToken(token):
-    if(re.match('[0-2]{8}[0-5]', token) == None):
+    if(re.match('[0-2]{8}[0-3X]', token) == None):
         print ('Invalid token: {0}\n'.format(token))
         return False
     else:
@@ -126,23 +126,31 @@ def writeToken(svg, token, back_value=None):
     svg.drawPolygon(poly)
     
     #on front side draw upgrade info for backside
+    
+    # strength of back side
+    # TODO light gray filled?
+    vrect_size = radius*0.80
+    svg.setStroke("#8a8a8a", "0.3")
+    svg.setFill("#8a8a8a")
     if not back_value == None:
-        radius_i = radius*1.5
-        svg.setStroke("#8D8D8D", "0.3")
-        svg.setFill(getValueColor(back_value))
-        svg.drawRect(rect['width']/2-radius_i, rect['height']-radius_i-0.5, radius_i*2, radius_i*0.70)
-        #svg.drawCircle(rect['width']-radius-1.5, rect['height']-radius-1, radius, None)
+        bstrength = int(3 if back_value == 'X' else back_value)
+        for i in range(0, bstrength):
+            svg.drawRect((rect['width']-2)-((2.5 * i)+vrect_size),  rect['height']-3, vrect_size, vrect_size)
         
+    # strength front side
+    svg.setStroke("black", "0.3")
+    svg.setFill("black")
+    fstrength = int(3 if token[8] == 'X' else token[8])
+    for i in range(0, fstrength):
+        svg.drawRect(2+(2.5 * i),  rect['height']-3, vrect_size, vrect_size)
+    
+    
     #inner cross
     svg.setStroke("black", "0.5")
     for i in range(0, 4):
         rot = i*45
         svg.drawLine(center['x'], center['y']-line, center['x'] ,center['y']+line, "rotate({0} {1} {2})".format(rot, center['x'], center['y']))
         
-    # inner circle
-    valuecolor = getValueColor(token[8])
-    svg.setFill(valuecolor)
-    svg.drawCircle(center['x'], center['y'], radius, None)
     
     #inner round of circles
     svg.setStroke("black", "0.5")
