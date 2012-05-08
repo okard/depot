@@ -21,7 +21,7 @@ using VocabTrainer::Application;
 Application::Application()
     : QApplication(0, 0)
 {
-    trayIcon.setParent(&vocabDisplay);
+    trayIcon.setParent(&mainWindow);
     trayIcon.setIcon(vocabDisplay.windowIcon());
     trayIcon.setVisible(true);
 }
@@ -29,19 +29,18 @@ Application::Application()
 Application::Application(const VocabTrainer::Application& app)
     : QApplication(0,0)
 {
-    trayIcon.hide();
+
 }
 
 Application::~Application()
 {
-
+    trayIcon.hide();
 }
 
 void Application::show()
 {
     vocabDisplay.show();
 }
-
 
 
 Application* Application::instance()

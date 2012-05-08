@@ -19,7 +19,7 @@
 #include <QDesktopWidget>
 #include <QMoveEvent>
 
-using VocabTrainer::VocableDisplay;
+using namespace VocabTrainer;
 
 
 VocableDisplay::VocableDisplay(QWidget* parent)

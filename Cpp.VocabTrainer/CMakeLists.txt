@@ -5,32 +5,20 @@ cmake_minimum_required(VERSION 2.8)
 
 project(VocabTrainer)
 
-
+#qt setup
 find_package(Qt4 REQUIRED)
-
-
 set(QT_USE_QTSQL true)
 
 # include dirs
 include(${QT_USE_FILE})
 
-
 # Sources
-set(VocabTrainer_src
-    src/main.cpp
-    src/Application.cpp
-    src/VocableDisplay.cpp
-)
-
+file(GLOB_RECURSE VocabTrainer_src src/*.cpp)
 # UI Files
-set(VocabTrainer_ui 
-    src/ui/VocableDisplay.ui
-)
-
+file(GLOB_RECURSE VocabTrainer_ui src/ui/*.ui)
 # Resources
-set(VocabTrainer_qrc
-    src/defaultResource.qrc
-)
+file(GLOB_RECURSE VocabTrainer_qrc src/*.qrc)
+
 
 # auto moc
 qt4_automoc(${VocabTrainer_src})

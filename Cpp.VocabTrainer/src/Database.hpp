@@ -35,7 +35,7 @@ public:
     virtual ~Database();
     
     /// Open Database
-    open(const char* file);
+    void open(const char* file);
     
 };
 

@@ -32,7 +32,7 @@ Database::~Database()
 }
 
 
-Database::open(const char* file)
+void Database::open(const char* file)
 {
     if(db.isOpen())
         db.close();

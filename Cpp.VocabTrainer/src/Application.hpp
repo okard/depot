@@ -20,6 +20,7 @@
 #include <QApplication>
 #include <QSystemTrayIcon>
 
+#include "MainWindow.hpp"
 #include "VocableDisplay.hpp"
 
 
@@ -33,6 +34,8 @@ private:
     
     ///Tray Icon
     QSystemTrayIcon trayIcon;
+
+    MainWindow mainWindow;
     
     ///The Vocable Display Window
     VocableDisplay vocabDisplay;
