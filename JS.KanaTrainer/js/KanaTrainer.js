@@ -3,7 +3,6 @@
 */
 
 /*TODO
-Seperate Queue for false entries faultQueue, faultQueue data
 Hepburn -> Kana Mode with three choose right buttons 
 statistics wrong, right, right in row, avg time to answer (right)
 tips first char, second char and so on
@@ -32,6 +31,13 @@ function KanaTrainer(pCanvas, pKanas)
         //fault handling
         faultQueue: [],
         faultLookup: {},
+        
+        tipStatus: 0,
+        
+        //Statistics
+        statRight: 0,
+        statWrong: 0,
+        statRightInRow: 0,
         
         /* Options */
         optKatakana: true,
@@ -67,12 +73,18 @@ function KanaTrainer(pCanvas, pKanas)
     self.validate = function(value)
     {
         if(value === prop.currentKana.hepburn)
+        {
+            prop.statRight++;
+            prop.statRightInRow++;
             return true;
+        }
         else
         {
             if(prop.faultLookup[value])
                 prop.faultQueue.push(prop.faultLookup[value]);
             
+            prop.statWrong++;
+            prop.statRightInRow=0;
             return false;
         }
     }
@@ -129,6 +141,14 @@ function KanaTrainer(pCanvas, pKanas)
         return prop.faultQueue.length;
     }
     
+    self.resetStats = function()
+    {
+        prop.statRight=0;
+        prop.statWrong=0;
+        prop.statRightInRow=0;
+    }
+    //get Statistics
+    
     //setOptions
     //tip();
     
@@ -153,8 +173,18 @@ function KanaTrainer(pCanvas, pKanas)
             //delete index
             indices.splice(rnd, 1);
             
-            //TODO Filter for options here
             var kana = prop.kanaData[id];
+            
+            //Filter for options
+            if(kana.type === "hiragana" && !prop.optHiragana)
+                continue;
+            if(kana.type === "katakana" && !prop.optKatakana)
+                continue;
+            if(kana.cat === "ext" && !prop.optExtended)
+                continue;
+            if(kana.cat === "yoon" && !prop.optYoon)
+                continue;
+            
             prop.kanaQueue.push(kana);
         }
         
