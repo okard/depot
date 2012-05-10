@@ -2,147 +2,135 @@
 * License AGPLv3
 */
 
-//to class? O_o
+/*TODO
+Seperate Queue for false entries faultQueue, faultQueue data
+make a lookup and add kana wrongly types faultLookup["wa"] = id(5)
+Hepburn -> Kana Mode with three choose right buttons 
+statistics wrong, right, right in row, size of faultQueue, avg time to answer (right)
+position/of
+tips first char, second char and so on
+*/
 
-var kanatrainer =
-{   
-    currentKana: undefined,
-    currentPos: 0,
-    kanaQueue: [],
-    kanaData: undefined,
+/**
+* KanaTrainer Class
+*/
+function KanaTrainer(pCanvas, pKanas)
+{
+    //wrapper variable
+    var self = this;
     
-    /*TODO
-    Seperate Queue for false entries faultQueue, faultQueue data
-    make a lookup and add kana wrongly types 
-    Hepburn -> Kana Mode with three choose right buttons 
-    */
-   
-    /* UI Elements */
-    txtAnswer: undefined,
-    lblSymbol: undefined,
-    
-    /* OPTION HANDLING */
-    optKatakana: true,
-    optHiragana: true,
-    optExtended: true,
-    optYoon: true,
-    
-     
-    /**
-    * Initialize
-    */
-    init: function()
+    //Private Properties
+    var prop =
     {
-        kanatrainer.txtAnswer.onkeypress=kanatrainer.onInput;  
-
-        kanatrainer.createQueue();
-        kanatrainer.next();
-    },
+        //basic kana data
+        kanaData: undefined,
+        //created kana queue
+        kanaQueue: [],
+        // current pos
+        currentPos: 0,
+        // current kana obj
+        currentKana: undefined,
+        
+        /* Options */
+        optKatakana: true,
+        optHiragana: true,
+        optExtended: true,
+        optYoon: true,
+        
+        /* UI */
+        uiCanvas: undefined,
+        uiContex: undefined,
+    };
+    
+    //Ctor
+    (function () 
+    {
+        //check input
+        prop.kanaData = pKanas;
+        
+        //prepare canvas
+        prop.uiCanvas = pCanvas;
+        prop.uiContex = pCanvas.getContext('2d');
+        
+        
+        createQueue();
+    })();
     
     
-    createQueue: function()
+    //Public Functions
+    
+    self.validate = function(value)
+    {
+        if(value === prop.currentKana.hepburn)
+            return true;
+        else
+            return false;
+    }
+    
+    self.next = function()
+    {
+        //when faultQueue has entries 50:50 Chance to use entry from faultQueue
+        
+        //go along queue
+        //when special queue has entries these first
+        prop.currentKana = prop.kanaQueue[prop.currentPos];
+        
+        prop.currentPos++;
+        if(prop.currentPos > prop.kanaQueue.length-1)
+             prop.currentPos = 0;
+ 
+        self.draw();
+    }
+    
+    //Draw Kana
+    self.draw = function()
+    {
+        //clear and centerized
+        
+        var ctx = prop.uiContex;
+        var w = prop.uiCanvas.width;
+        var h = prop.uiCanvas.height;
+       
+        ctx.clearRect(0, 0, w, h);
+        
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = 'italic 100px Calibri';
+        ctx.fillText(prop.currentKana.kana, w/2, h/2);
+    }
+    
+    //access to count and position of queue
+    
+    //Internal Functions
+    
+    function createQueue()
     {
         //fill kanaQueue with random data from kanaData
-        kanatrainer.kanaQueue = [];
-        kanatrainer.currentPos = 0;
+        prop.kanaQueue = [];
+        prop.currentPos = 0;
         
         //create indices list
         var indices=[];
-        for(var i=0; i<kanatrainer.kanaData.length; i++)
+        for(var i=0; i<prop.kanaData.length; i++)
             indices.push(i);
         
         //fill queue
         while(indices.length > 0)
         {
-            var rnd = kanatrainer.randomNumber(0, indices.length-1);
+            var rnd = randomNumber(0, indices.length-1);
             var id = indices[rnd];
             //delete index
             indices.splice(rnd, 1);
             
             //TODO Filter for options here
-            var kana = kanatrainer.kanaData[id];
-            kanatrainer.kanaQueue.push(kana);
+            var kana = prop.kanaData[id];
+            prop.kanaQueue.push(kana);
         }
         
-    },
+    }
     
-    /**
-    * Validate input and go to next if valid
-    */
-    validate:function()
-    {
-        var val = kanatrainer.txtAnswer.value;
-        
-        kanatrainer.txtAnswer.style.backgroundColor="transparent";
-        
-        if(val === kanatrainer.currentKana.hepburn)
-        {
-            //right
-            kanatrainer.txtAnswer.value = "";
-            return true;
-        }
-        else
-        {
-            //wrong
-            //Background color:
-            kanatrainer.txtAnswer.style.backgroundColor="#ff5656";
-            return false;
-        }
-    },
-    
-    /**
-    * Show next kana in queue
-    */
-    next: function()
-    {
-        //go along queue
-        //when special queue has entries these first
-        kanatrainer.currentKana = kanatrainer.kanaQueue[kanatrainer.currentPos];
-        kanatrainer.lblSymbol.innerHTML = kanatrainer.currentKana.kana;
-        
-        kanatrainer.currentPos++;
-        if(kanatrainer.currentPos > kanatrainer.kanaQueue.length-1)
-             kanatrainer.currentPos = 0;
-    },
-    
-    /**
-    * Answer Input Event from Textbox
-    * TODO clean up and move to setup only handle the input here
-    */
-    onInput: function(event)
-    {
-        //if(document.getElementById('txtInput').value.length >= 3)
-        //    return false;
-        
-        if(event.keyCode != 13)
-            return true;
-        
-        //limit to 3 in length?
-            
-            
-        if(kanatrainer.validate())
-            kanatrainer.next();
-    },
-    
-    //use canvas for drawing
-    
-    randomNumber: function(a,b)
+    function randomNumber(a,b)
     {
         return a + Math.floor(Math.random()*(b+a+1));
     }
 }
-
-
-//setup to seperate file
-
-//setup
-window.onload = function()
-{
-    //loading sounds
-    
-    //setup kanatrainer object:
-    kanatrainer.kanaData = getKanaData();
-    kanatrainer.txtAnswer = document.getElementById("txtInput");
-    kanatrainer.lblSymbol = document.getElementById("divSymbol");
-    kanatrainer.init();
-} 

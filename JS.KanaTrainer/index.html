@@ -6,36 +6,45 @@
     <link rel="stylesheet" href="style/default.css" type="text/css" />
     <script type="text/javascript" src="js/KanaTrainer.js"></script>
     <script type="text/javascript" src="js/KanaData.js"></script>
+    <script type="text/javascript" src="js/setup.js"></script>
   </head>
   <body>
 
-    <div>
-        <div id="divSymbol" class="symbolLabel">
-        </div>
-        
-        <input id="txtInput" class="inputBox" type="text" value="" />
-    </div>
 
-    <div id="divOptions">
-        <div class="optionEntry">
-        <input id="chkHiragana" type="checkbox" checked/>
-        <label for="chkHiragana">Hiragana</label>
-        </div>
+    <!-- Complete Container for KanaTrainer -->
+    <div id="kanaTrainer">
 
-        <div class="optionEntry">
-        <input id="chkKatakana" type="checkbox" checked/>
-        <label for="chkKatakana">Katakana</label>
-        </div>
-        
-        <div class="optionEntry">
-        <input id="chkExtended" type="checkbox" checked/>
-        <label for="chkExtended">Extended</label>
+        <!-- Main GUI -->
+        <div>
+            <canvas id="canvas" width="200" height="300"></canvas>
+            
+            <input id="txtInput" class="inputBox" type="text" value="" />
+            <!-- tip button, next button -->
         </div>
 
-        <div class="optionEntry">
-        <input id="chkYoon" type="checkbox" checked/>
-        <label for="chkYoon">Yoon</label>
+        <!-- Options -->
+        <div id="divOptions">
+            <div class="optionEntry">
+            <input id="chkHiragana" type="checkbox" checked/>
+            <label for="chkHiragana">Hiragana</label>
+            </div>
+
+            <div class="optionEntry">
+            <input id="chkKatakana" type="checkbox" checked/>
+            <label for="chkKatakana">Katakana</label>
+            </div>
+            
+            <div class="optionEntry">
+            <input id="chkExtended" type="checkbox" checked/>
+            <label for="chkExtended">Extended</label>
+            </div>
+
+            <div class="optionEntry">
+            <input id="chkYoon" type="checkbox" checked/>
+            <label for="chkYoon">Yoon</label>
+            </div>
         </div>
+
     </div>
   </body>
 </html>

@@ -15,7 +15,7 @@
 \author{tg}
 \date{\today}
 
-%\definecolor{}{rgb}{.7,1,.7} 
+\definecolor{silver}{rgb}{0.937,0.90,0.937} %239 232 239
 \linespread {1.25}
 
 \begin{document}
@@ -72,11 +72,9 @@
 	\begin{tabular}{lcl}
 	\hline
 	Farbe & Wertigkeit & Name \\ \hline 
-	\textcolor{black}{$\bullet$} Schwarz 	& 1 & Bauer \\ 
-	\textcolor{green}{$\bullet$} Grün	& 2 & Soldat \\ 
-	\textcolor{red}{$\bullet$} 	Rot	& 3 & Ritter \\ 
-	\textcolor{blue}{$\bullet$} Blau	& 4 & General \\ 
-	\textcolor{yellow}{$\bullet$} Gold	& 5 & Herrscher \\ 
+	\textcolor{black}{$\bullet$} 	Schwarz & 1 & Bauer \\ 
+	\textcolor{silver}{$\bullet$} 		Silber	& 3 & Ritter \\ 
+	\textcolor{yellow}{$\bullet$} 	Gold	& 5 & General \\ 
 	\end{tabular}
 
 	\end{flushleft}
@@ -136,8 +134,10 @@
 \subsection{Spielzüge}
 
 	Für einzelne Spielzüge werden Aktionspunkte kurz AP benötigt, diese werden durch Würfeln bestimmt oder werden vorgegeben.
-	Ein Spielzug besteht also aus dem ermitteln der Aktionspunkte und 3 Aktionsphasen die wie folgt definiert sind.
+	Ein Spielzug besteht also aus dem ermitteln der Aktionspunkte und 4 Aktionsphasen die wie folgt definiert sind.
 	\begin{enumerate}
+	\item Opfern \\
+		  Eine Spielfigur opfern um deren Wert als AP hinzuzugewinnen.
 	\item Bewegen \& Schlagen \\
 		  Eine Spielfigur bewegen und/oder gegnerische Spielfiguren schlagen. Dabei darf nur
 		  ein Spielstein in eine Richtung gezogen werden.
@@ -155,6 +155,7 @@
 	\begin{tabular}{ll}
 	\hline
 	Aktion & Kosten \\ \hline
+	Opfern & + AP der Wertigkeit der Figur (maximal 6 AP pro Zug) \\
 	Bewegen &  1 AP \\
 	Spielfigur schlagen & 1 AP + Differenz der generellen Wertigkeit, Ersetzt Bewegen. \\
 	Befördern & Differenz der generellen Wertigkeit der 2 Seiten, min. 1 AP \\

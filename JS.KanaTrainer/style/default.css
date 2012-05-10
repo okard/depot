@@ -8,21 +8,6 @@ input[type="text"] {
     display:block;
 }
 
-.symbolLabel {
-    border: 1px solid #eee;
-    height: 300px;
-    width: 200px; 
-    margin: 10px;
-    text-align:center;
-    font-size: 5em;
-    
-    /* Vertical Align CSS3 Firefox */
-    display:-moz-box;
-    -moz-box-orient:horizontal;
-    -moz-box-pack:center;
-    -moz-box-align:center;
-    /* need other hacks too*/
-}
 
 .optionEntry {
     
@@ -31,4 +16,9 @@ input[type="text"] {
 
 #divOptions {
     margin:10px;
+}
+
+
+#canvas {
+     border: 1px solid #eee;
 }
