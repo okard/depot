@@ -27,7 +27,12 @@ var kanadata =
     { kana:"せ", hepburn:"se", type:"hiragana", cat:"base" },
     { kana:"そ", hepburn:"so", type:"hiragana", cat:"base" },
     
-    //た ta    ち chi   つ tsu   て te    と to
+    { kana:"た", hepburn:"ta", type:"hiragana", cat:"base" },
+    { kana:"ち", hepburn:"chi", type:"hiragana", cat:"base" },
+    { kana:"つ", hepburn:"tsu", type:"hiragana", cat:"base" },
+    { kana:"て", hepburn:"te", type:"hiragana", cat:"base" },
+    { kana:"と", hepburn:"to", type:"hiragana", cat:"base" },
+    
     //な na    に ni    ぬ nu    ね ne    の no
     //は ha    ひ hi    ふ fu    へ he    ほ ho
     //ま ma    み mi    む mu    め me    も mo

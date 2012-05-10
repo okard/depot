@@ -10,6 +10,7 @@ function setup()
     var canvas = document.getElementById("canvas");
     var txtAnswer = document.getElementById("txtInput");
     var lblSymbol = document.getElementById("divSymbol");
+    var divStats = document.getElementById("divStats");
     
     var kanaTrainer = new KanaTrainer(canvas, getKanaData());
     
@@ -30,9 +31,21 @@ function setup()
         {
             txtAnswer.style.backgroundColor="#ff5656";
         }
+        
+        setStats();
+        
+        return true;
     }
     
     kanaTrainer.next();
+    setStats();
+    
+    
+    function setStats()
+    {
+        divStats.innerHTML = kanaTrainer.getQueuePos() + "/" + kanaTrainer.getQueueSize() + "-" + kanaTrainer.getFaultQueueSize();
+    }
+    
 }
 
 

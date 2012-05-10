@@ -4,10 +4,8 @@
 
 /*TODO
 Seperate Queue for false entries faultQueue, faultQueue data
-make a lookup and add kana wrongly types faultLookup["wa"] = id(5)
 Hepburn -> Kana Mode with three choose right buttons 
-statistics wrong, right, right in row, size of faultQueue, avg time to answer (right)
-position/of
+statistics wrong, right, right in row, avg time to answer (right)
 tips first char, second char and so on
 */
 
@@ -31,6 +29,10 @@ function KanaTrainer(pCanvas, pKanas)
         // current kana obj
         currentKana: undefined,
         
+        //fault handling
+        faultQueue: [],
+        faultLookup: {},
+        
         /* Options */
         optKatakana: true,
         optHiragana: true,
@@ -52,6 +54,9 @@ function KanaTrainer(pCanvas, pKanas)
         prop.uiCanvas = pCanvas;
         prop.uiContex = pCanvas.getContext('2d');
         
+        //setup fault lookup
+        for(var i=0; i<prop.kanaData.length; i++)
+            prop.faultLookup[prop.kanaData[i].hepburn] = i;
         
         createQueue();
     })();
@@ -64,20 +69,30 @@ function KanaTrainer(pCanvas, pKanas)
         if(value === prop.currentKana.hepburn)
             return true;
         else
+        {
+            if(prop.faultLookup[value])
+                prop.faultQueue.push(prop.faultLookup[value]);
+            
             return false;
+        }
     }
     
     self.next = function()
     {
-        //when faultQueue has entries 50:50 Chance to use entry from faultQueue
-        
-        //go along queue
-        //when special queue has entries these first
-        prop.currentKana = prop.kanaQueue[prop.currentPos];
-        
-        prop.currentPos++;
-        if(prop.currentPos > prop.kanaQueue.length-1)
-             prop.currentPos = 0;
+        //when faultQueue has entries 50:50 Chance to use entry from faultQueue  
+        if(prop.faultQueue.length > 0 && randomNumber(0,1))
+        {
+            prop.currentKana = prop.kanaData[prop.faultQueue.pop()];
+        }
+        else
+        {
+            //go along queue
+            prop.currentKana = prop.kanaQueue[prop.currentPos];
+            
+            prop.currentPos++;
+            if(prop.currentPos > prop.kanaQueue.length-1)
+                prop.currentPos = 0;
+        }
  
         self.draw();
     }
@@ -99,7 +114,23 @@ function KanaTrainer(pCanvas, pKanas)
         ctx.fillText(prop.currentKana.kana, w/2, h/2);
     }
     
-    //access to count and position of queue
+    self.getQueueSize = function()
+    {
+        return prop.kanaQueue.length;
+    }
+    
+    self.getQueuePos = function()
+    {
+        return prop.currentPos-1;
+    }
+    
+    self.getFaultQueueSize = function()
+    {
+        return prop.faultQueue.length;
+    }
+    
+    //setOptions
+    //tip();
     
     //Internal Functions
     
