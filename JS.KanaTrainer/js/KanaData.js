@@ -33,18 +33,57 @@ var kanadata =
     { kana:"て", hepburn:"te", type:"hiragana", cat:"base" },
     { kana:"と", hepburn:"to", type:"hiragana", cat:"base" },
     
-    //な na    に ni    ぬ nu    ね ne    の no
-    //は ha    ひ hi    ふ fu    へ he    ほ ho
-    //ま ma    み mi    む mu    め me    も mo
-    //や ya        ゆ yu        よ yo
-    //ら ra    り ri    る ru    れ re    ろ ro
-    //わ wa    (ゐ wi)      (ゑ we)  を o/wo
+    { kana:"な", hepburn:"na", type:"hiragana", cat:"base" },
+    { kana:"に", hepburn:"ni", type:"hiragana", cat:"base" },
+    { kana:"ぬ", hepburn:"nu", type:"hiragana", cat:"base" },
+    { kana:"ね", hepburn:"ne", type:"hiragana", cat:"base" },
+    { kana:"の", hepburn:"no", type:"hiragana", cat:"base" },
+    
+    { kana:"は", hepburn:"ha", type:"hiragana", cat:"base" },
+    { kana:"ひ", hepburn:"hi", type:"hiragana", cat:"base" },
+    { kana:"ふ", hepburn:"fu", type:"hiragana", cat:"base" },
+    { kana:"へ", hepburn:"he", type:"hiragana", cat:"base" },
+    { kana:"ほ", hepburn:"ho", type:"hiragana", cat:"base" },
+    
+    { kana:"ま", hepburn:"ma", type:"hiragana", cat:"base" },
+    { kana:"み", hepburn:"mi", type:"hiragana", cat:"base" },
+    { kana:"む", hepburn:"mu", type:"hiragana", cat:"base" },
+    { kana:"め", hepburn:"me", type:"hiragana", cat:"base" },
+    { kana:"も", hepburn:"mo", type:"hiragana", cat:"base" },
+    
+    { kana:"や", hepburn:"ya", type:"hiragana", cat:"base" },
+    { kana:"ゆ", hepburn:"yu", type:"hiragana", cat:"base" },
+    { kana:"よ", hepburn:"yo", type:"hiragana", cat:"base" },
+    
+    { kana:"ら", hepburn:"ra", type:"hiragana", cat:"base" },
+    { kana:"り", hepburn:"ri", type:"hiragana", cat:"base" },
+    { kana:"る", hepburn:"ru", type:"hiragana", cat:"base" },
+    { kana:"れ", hepburn:"re", type:"hiragana", cat:"base" },
+    { kana:"ろ", hepburn:"ro", type:"hiragana", cat:"base" },
+    
+    { kana:"わ", hepburn:"wa", type:"hiragana", cat:"base" },
+    //{ kana:"ゐ", hepburn:"wi", type:"hiragana", cat:"base" },
+    //{ kana:"ゑ", hepburn:"we", type:"hiragana", cat:"base" },
+    { kana:"を", hepburn:"wo", type:"hiragana", cat:"base" },
     
     /* Hiragana Extended*/
+    { kana:"が", hepburn:"ga", type:"hiragana", cat:"ext" },
+    { kana:"ぎ", hepburn:"gi", type:"hiragana", cat:"ext" },
+    { kana:"ぐ", hepburn:"gu", type:"hiragana", cat:"ext" },
+    { kana:"げ", hepburn:"ge", type:"hiragana", cat:"ext" },
+    { kana:"ご", hepburn:"go", type:"hiragana", cat:"ext" },
+    
     /* Hiragana Yoon*/
     
     /* Katakana Base*/
+    { kana:"ア", hepburn:"a", type:"katakana", cat:"base" },
+    { kana:"オ", hepburn:"o", type:"katakana", cat:"base" },
+    { kana:"エ", hepburn:"e", type:"katakana", cat:"base" },
+    { kana:"イ", hepburn:"i", type:"katakana", cat:"base" },
+    { kana:"ウ", hepburn:"u", type:"katakana", cat:"base" },
+    
     /* Katakana Extended*/
+    
     /* Katakana Yoon*/
 ];
 
