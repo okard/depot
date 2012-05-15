@@ -10,16 +10,19 @@
   </head>
   <body>
 
+    <noscript>Javascript is required</noscript>
 
     <!-- Complete Container for KanaTrainer -->
     <div id="kanaTrainer">
 
         <!-- Main GUI -->
         <div>
-            <canvas id="canvas" width="200" height="300"></canvas>
+            <canvas id="canvas" width="230" height="300"></canvas>
             
             <input id="txtInput" class="inputBox" type="text" value="" />
-            <!-- tip button, next button -->
+
+            <input id="btnTip" type="button" value="Tip" />
+            <input id="btnNext" type="button" value=">>" />
 
             <div id="divStats"></div>
         </div>
@@ -35,6 +38,11 @@
             <input id="chkKatakana" type="checkbox" checked/>
             <label for="chkKatakana">Katakana</label>
             </div>
+
+            <div class="optionEntry">
+            <input id="chkBase" type="checkbox" checked/>
+            <label for="chkBase">Base</label>
+            </div>
             
             <div class="optionEntry">
             <input id="chkExtended" type="checkbox" checked/>
@@ -43,7 +51,7 @@
 
             <div class="optionEntry">
             <input id="chkYoon" type="checkbox" checked/>
-            <label for="chkYoon">Yoon</label>
+            <label for="chkYoon">Yōon</label>
             </div>
         </div>
 

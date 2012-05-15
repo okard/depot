@@ -105,12 +105,30 @@ var kanadata =
     { kana:"きゅ", hepburn:"kyu", type:"hiragana", cat:"yoon" },
     { kana:"きょ", hepburn:"kyo", type:"hiragana", cat:"yoon" },
     
-    //しゃ sha  しゅ shu  しょ sho
-    //ちゃ cha  ちゅ chu  ちょ cho
-    //にゃ nya  にゅ nyu  にょ nyo
-    //ひゃ hya  ひゅ hyu  ひょ hyo
-    //みゃ mya  みゅ myu  みょ myo
-    //りゃ rya  りゅ ryu  りょ ryo
+    { kana:"しゃ", hepburn:"sha", type:"hiragana", cat:"yoon" },
+    { kana:"しゅ", hepburn:"shu", type:"hiragana", cat:"yoon" },
+    { kana:"しょ", hepburn:"sho", type:"hiragana", cat:"yoon" },
+    
+    { kana:"ちゃ", hepburn:"cha", type:"hiragana", cat:"yoon" },
+    { kana:"ちゅ", hepburn:"chu", type:"hiragana", cat:"yoon" },
+    { kana:"ちょ", hepburn:"cho", type:"hiragana", cat:"yoon" },
+    
+    { kana:"にゃ", hepburn:"nya", type:"hiragana", cat:"yoon" },
+    { kana:"にゅ", hepburn:"nyu", type:"hiragana", cat:"yoon" },
+    { kana:"にょ", hepburn:"nyo", type:"hiragana", cat:"yoon" },
+    
+    { kana:"ひゃ", hepburn:"hya", type:"hiragana", cat:"yoon" },
+    { kana:"ひゅ", hepburn:"hyu", type:"hiragana", cat:"yoon" },
+    { kana:"ひょ", hepburn:"hyo", type:"hiragana", cat:"yoon" },
+    
+    { kana:"みゃ", hepburn:"mya", type:"hiragana", cat:"yoon" },
+    { kana:"みゅ", hepburn:"myu", type:"hiragana", cat:"yoon" },
+    { kana:"みょ", hepburn:"myo", type:"hiragana", cat:"yoon" },
+    
+    { kana:"りゃ", hepburn:"rya", type:"hiragana", cat:"yoon" },
+    { kana:"りゅ", hepburn:"ryu", type:"hiragana", cat:"yoon" },
+    { kana:"りょ", hepburn:"ryo", type:"hiragana", cat:"yoon" },
+    
     //ぎゃ gya  ぎゅ gyu  ぎょ gyo
     //じゃ ja   じゅ ju   じょ jo
     //ぢゃ (ja) ぢゅ (ju) ぢょ (jo)
@@ -118,6 +136,7 @@ var kanadata =
     //ぴゃ pya  ぴゅ pyu  ぴょ pyo
     
     /* Katakana Base*/
+    
     { kana:"ア", hepburn:"a", type:"katakana", cat:"base" },
     { kana:"イ", hepburn:"i", type:"katakana", cat:"base" },
     { kana:"ウ", hepburn:"u", type:"katakana", cat:"base" },
@@ -180,7 +199,38 @@ var kanadata =
     
     /* Katakana Extended*/
     
+    { kana:"ガ", hepburn:"ga", type:"katakana", cat:"ext" },
+    { kana:"ギ", hepburn:"gi", type:"katakana", cat:"ext" },
+    { kana:"グ", hepburn:"gu", type:"katakana", cat:"ext" },
+    { kana:"ゲ", hepburn:"ge", type:"katakana", cat:"ext" },
+    { kana:"ゴ", hepburn:"go", type:"katakana", cat:"ext" },
+    
+    { kana:"ザ", hepburn:"za", type:"katakana", cat:"ext" },
+    { kana:"ジ", hepburn:"ji", type:"katakana", cat:"ext" },
+    { kana:"ズ", hepburn:"zu", type:"katakana", cat:"ext" },
+    { kana:"ゼ", hepburn:"ze", type:"katakana", cat:"ext" },
+    { kana:"ゾ", hepburn:"zo", type:"katakana", cat:"ext" },
+    
+    { kana:"ダ", hepburn:"da", type:"katakana", cat:"ext" },
+    //{ kana:"ヂ", hepburn:"ji", type:"katakana", cat:"ext" },
+    //{ kana:"ヅ", hepburn:"dzu", type:"katakana", cat:"ext" },
+    { kana:"デ", hepburn:"de", type:"katakana", cat:"ext" },
+    { kana:"ド", hepburn:"do", type:"katakana", cat:"ext" },
+    
+    { kana:"バ", hepburn:"ba", type:"katakana", cat:"ext" },
+    { kana:"ビ", hepburn:"bi", type:"katakana", cat:"ext" },
+    { kana:"ブ", hepburn:"bu", type:"katakana", cat:"ext" },
+    { kana:"ベ", hepburn:"be", type:"katakana", cat:"ext" },
+    { kana:"ボ", hepburn:"bo", type:"katakana", cat:"ext" },
+    
+    { kana:"パ", hepburn:"pa", type:"katakana", cat:"ext" },
+    { kana:"ピ", hepburn:"pi", type:"katakana", cat:"ext" },
+    { kana:"プ", hepburn:"pu", type:"katakana", cat:"ext" },
+    { kana:"ペ", hepburn:"pe", type:"katakana", cat:"ext" },
+    { kana:"ポ", hepburn:"po", type:"katakana", cat:"ext" },
+    
     /* Katakana Yoon*/
+    
 ];
 
 

@@ -5,7 +5,8 @@
 /*TODO
 Hepburn -> Kana Mode with three choose right buttons 
 statistics wrong, right, right in row, avg time to answer (right)
-tips first char, second char and so on
+localStorage, save statistics of kanas for next time and
+use it for queue creation
 */
 
 /**
@@ -42,6 +43,7 @@ function KanaTrainer(pCanvas, pKanas)
         /* Options */
         optKatakana: true,
         optHiragana: true,
+        optBase: true,
         optExtended: true,
         optYoon: true,
         
@@ -59,6 +61,9 @@ function KanaTrainer(pCanvas, pKanas)
         //prepare canvas
         prop.uiCanvas = pCanvas;
         prop.uiContex = pCanvas.getContext('2d');
+        prop.uiContex.textAlign = 'center';
+        prop.uiContex.textBaseline = 'middle';
+        prop.uiContex.font = 'italic 100px Calibri';
         
         //setup fault lookup
         for(var i=0; i<prop.kanaData.length; i++)
@@ -70,6 +75,9 @@ function KanaTrainer(pCanvas, pKanas)
     
     //Public Functions
     
+    /**
+     * Validate Input
+     */
     self.validate = function(value)
     {
         if(value === prop.currentKana.hepburn)
@@ -89,6 +97,9 @@ function KanaTrainer(pCanvas, pKanas)
         }
     }
     
+    /**
+     * Next kana in queue
+     */
     self.next = function()
     {
         //when faultQueue has entries 50:50 Chance to use entry from faultQueue  
@@ -106,10 +117,13 @@ function KanaTrainer(pCanvas, pKanas)
                 prop.currentPos = 0;
         }
  
+        prop.tipStatus = 0;
         self.draw();
     }
     
-    //Draw Kana
+    /**
+     * Draw Kana on canvas
+     */
     self.draw = function()
     {
         //clear and centerized
@@ -119,41 +133,67 @@ function KanaTrainer(pCanvas, pKanas)
         var h = prop.uiCanvas.height;
        
         ctx.clearRect(0, 0, w, h);
-        
-        ctx.textAlign = 'center';
-        ctx.textBaseline = 'middle';
-        ctx.font = 'italic 100px Calibri';
         ctx.fillText(prop.currentKana.kana, w/2, h/2);
     }
     
+    /**
+     * Get queue size
+     */
     self.getQueueSize = function()
     {
         return prop.kanaQueue.length;
     }
     
+    /**
+     * Get current queue position
+     */
     self.getQueuePos = function()
     {
         return prop.currentPos-1;
     }
     
+    /**
+     * Get the size of the fault queue
+     */
     self.getFaultQueueSize = function()
     {
         return prop.faultQueue.length;
     }
     
+    /**
+     * Reset statistics
+     */
     self.resetStats = function()
     {
         prop.statRight=0;
         prop.statWrong=0;
         prop.statRightInRow=0;
     }
-    //get Statistics
     
-    //setOptions
-    //tip();
+    //TODO get statistics functions
+    
+    /**
+     * Enable/Disable Option
+     */
+    self.setOption = function(key, value)
+    {
+        //switch key
+    }
+    
+    /**
+     * Tip Function
+     */
+    self.tip = function()
+    {
+        if(prop.tipStatus < prop.currentKana.hepburn.length)
+            prop.tipStatus++;
+        
+        return prop.currentKana.hepburn.substr(0, prop.tipStatus);
+    }
     
     //Internal Functions
     
+    /// Create the kana queue
     function createQueue()
     {
         //fill kanaQueue with random data from kanaData
@@ -190,6 +230,7 @@ function KanaTrainer(pCanvas, pKanas)
         
     }
     
+    /// Get random number
     function randomNumber(a,b)
     {
         return a + Math.floor(Math.random()*(b+a+1));
