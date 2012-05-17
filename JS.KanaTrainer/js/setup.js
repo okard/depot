@@ -12,6 +12,12 @@ function setup()
     var btnNext = document.getElementById("btnNext");
     var lblSymbol = document.getElementById("divSymbol");
     var divStats = document.getElementById("divStats");
+    //options:
+    var chkHiragana = document.getElementById("chkHiragana");
+    var chkKatakana = document.getElementById("chkKatakana");
+    var chkBase = document.getElementById("chkBase");
+    var chkExtended = document.getElementById("chkExtended");
+    var chkYoon = document.getElementById("chkYoon");
     
     //setup kana trainer object
     var kanaTrainer = new KanaTrainer(canvas, getKanaData());
@@ -30,6 +36,12 @@ function setup()
         setStats();
         return true;
     };
+    
+    chkHiragana.onclick = checkBoxHelper("hiragana", chkHiragana);
+    chkKatakana.onclick = checkBoxHelper("katakana", chkKatakana);
+    chkBase.onclick = checkBoxHelper("base", chkBase);
+    chkExtended.onclick = checkBoxHelper("ext", chkExtended);
+    chkYoon.onclick = checkBoxHelper("yoon", chkYoon);
     
     txtAnswer.onkeypress = function(event)
     {
@@ -54,6 +66,18 @@ function setup()
     
     kanaTrainer.next();
     setStats();
+    
+    
+    function checkBoxHelper(option, checkbox)
+    {
+        return function()
+        {
+            kanaTrainer.setOption(option, checkbox.checked);
+            kanaTrainer.next();
+            setStats();
+            return true;
+        }
+    }
     
     
     function setStats()

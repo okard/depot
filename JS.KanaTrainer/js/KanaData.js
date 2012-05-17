@@ -129,11 +129,20 @@ var kanadata =
     { kana:"りゅ", hepburn:"ryu", type:"hiragana", cat:"yoon" },
     { kana:"りょ", hepburn:"ryo", type:"hiragana", cat:"yoon" },
     
-    //ぎゃ gya  ぎゅ gyu  ぎょ gyo
-    //じゃ ja   じゅ ju   じょ jo
+    { kana:"ぎゃ", hepburn:"gya", type:"hiragana", cat:"yoon" },
+    { kana:"ぎゅ", hepburn:"gyu", type:"hiragana", cat:"yoon" },
+    { kana:"ぎょ", hepburn:"gyo", type:"hiragana", cat:"yoon" },
+    
+    { kana:"じゃ", hepburn:"ja", type:"hiragana", cat:"yoon" },
+    { kana:"じゅ", hepburn:"ju", type:"hiragana", cat:"yoon" },
+    { kana:"じょ", hepburn:"jo", type:"hiragana", cat:"yoon" },
+    
+    { kana:"ぴゃ", hepburn:"pya", type:"hiragana", cat:"yoon" },
+    { kana:"ぴゅ", hepburn:"pyu", type:"hiragana", cat:"yoon" },
+    { kana:"ぴょ", hepburn:"pyo", type:"hiragana", cat:"yoon" },
+    
     //ぢゃ (ja) ぢゅ (ju) ぢょ (jo)
     //ぢゃ (ja) ぢゅ (ju) ぢょ (jo)
-    //ぴゃ pya  ぴゅ pyu  ぴょ pyo
     
     /* Katakana Base*/
     

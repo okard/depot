@@ -7,6 +7,7 @@ Hepburn -> Kana Mode with three choose right buttons
 statistics wrong, right, right in row, avg time to answer (right)
 localStorage, save statistics of kanas for next time and
 use it for queue creation
+fix fault queue dbls -> with katakana&hiragana
 */
 
 /**
@@ -177,7 +178,29 @@ function KanaTrainer(pCanvas, pKanas)
      */
     self.setOption = function(key, value)
     {
-        //switch key
+        if(typeof(value) !== "boolean")
+            return;
+        
+        switch(key)
+        {
+            case "hiragana":
+                prop.optHiragana = value;
+                break;
+            case "katakana":
+                prop.optKatakana = value;
+                break;
+            case "base":
+                prop.optBase = value;
+                break;
+            case "ext":
+                prop.optExtended = value;
+                break;
+            case "yoon":
+                prop.optYoon = value;
+                break;
+        }
+        
+        createQueue();
     }
     
     /**
@@ -219,6 +242,8 @@ function KanaTrainer(pCanvas, pKanas)
             if(kana.type === "hiragana" && !prop.optHiragana)
                 continue;
             if(kana.type === "katakana" && !prop.optKatakana)
+                continue;
+            if(kana.cat === "base" && !prop.optBase)
                 continue;
             if(kana.cat === "ext" && !prop.optExtended)
                 continue;
