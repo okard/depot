@@ -11,7 +11,8 @@ function setup()
     var btnTip = document.getElementById("btnTip");
     var btnNext = document.getElementById("btnNext");
     var lblSymbol = document.getElementById("divSymbol");
-    var divStats = document.getElementById("divStats");
+    var divStatus = document.getElementById("divStatus");
+    var divStatistics = document.getElementById("divStatistics");
     //options:
     var chkHiragana = document.getElementById("chkHiragana");
     var chkKatakana = document.getElementById("chkKatakana");
@@ -37,6 +38,11 @@ function setup()
         return true;
     };
     
+    chkHiragana.checked = true;
+    chkKatakana.checked = true;
+    chkBase.checked = true;
+    chkExtended.checked = true;
+    chkYoon.checked = true;
     chkHiragana.onclick = checkBoxHelper("hiragana", chkHiragana);
     chkKatakana.onclick = checkBoxHelper("katakana", chkKatakana);
     chkBase.onclick = checkBoxHelper("base", chkBase);
@@ -45,7 +51,7 @@ function setup()
     
     txtAnswer.onkeypress = function(event)
     {
-        if(!(event.keyCode == 13 || event.keyCode == 32))
+        if(!(event.keyCode == 13 || event.charCode == 32))
             return true;
         
         txtAnswer.style.backgroundColor="transparent";
@@ -61,12 +67,8 @@ function setup()
         
         setStats();
         
-        return true;
+        return false;
     };
-    
-    kanaTrainer.next();
-    setStats();
-    
     
     function checkBoxHelper(option, checkbox)
     {
@@ -79,12 +81,16 @@ function setup()
         }
     }
     
-    
     function setStats()
     {
-        divStats.innerHTML = kanaTrainer.getQueuePos() + "/" + kanaTrainer.getQueueSize() + "-" + kanaTrainer.getFaultQueueSize();
+        divStatus.innerHTML = kanaTrainer.getQueuePos() + "/" + kanaTrainer.getQueueSize() + "-" + kanaTrainer.getFaultQueueSize();
+        var stats = kanaTrainer.getStatistics();
+        divStatistics.innerHTML = "Right: " + stats.right + " Wrong: " + stats.wrong + " Right in Row: " + stats.rightInRow;
     }
     
+    //initial
+    kanaTrainer.next();
+    setStats();
 }
 
 

@@ -171,7 +171,18 @@ function KanaTrainer(pCanvas, pKanas)
         prop.statRightInRow=0;
     }
     
-    //TODO get statistics functions
+    
+    /**
+    * get statistics
+    */
+    self.getStatistics = function()
+    {
+        return {
+            right: prop.statRight,
+            wrong: prop.statWrong,
+            rightInRow: prop.statRightInRow
+        };
+    }
     
     /**
      * Enable/Disable Option
