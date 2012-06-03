@@ -4,10 +4,12 @@
 
 /*TODO
 Hepburn -> Kana Mode with three choose right buttons 
-statistics wrong, right, right in row, avg time to answer (right)
+statistics  avg time to answer (right)
+timelimit for answers
 localStorage, save statistics of kanas for next time and
-use it for queue creation
+    use it for queue creation
 fix fault queue dbls -> with katakana&hiragana
+setFont
 */
 
 /**

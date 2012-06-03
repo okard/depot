@@ -5,6 +5,9 @@
 
 function setup()
 {
+    var snd_wrong = new Audio("67454__splashdust__negativebeep_edited.wav");
+    var snd_right = new Audio("26875__cfork__cf-fx-batch-jingle-glock-n-kloing_edited.wav");
+    
     //get ui elements
     var canvas = document.getElementById("canvas");
     var txtAnswer = document.getElementById("txtInput");
@@ -57,11 +60,13 @@ function setup()
         txtAnswer.style.backgroundColor="transparent";
         if(kanaTrainer.validate(txtAnswer.value))
         {
+            snd_right.play();
             txtAnswer.value = "";
-            kanaTrainer.next();
+            kanaTrainer.next();    
         }
         else
         {
+            snd_wrong.play();
             txtAnswer.style.backgroundColor="#ff5656";
         }
         
