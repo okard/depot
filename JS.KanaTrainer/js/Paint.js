@@ -17,14 +17,19 @@ function Paint(pCanvas)
     prop.uiCanvas = undefined;
     prop.uiContex = undefined;
     
-    //Stroke counter for validation
     
+    //MouseButton is pressed draw at mouse move
     prop.mouseDown = false;
+    prop.started = false;
+    //Stroke counter for validation
     prop.strokeCount = 0;
+    //drawing is allowed
+    prop.enabled = true;
     
     //color
-    //stroke weight
     
+    //stroke weight
+    //TODO change color with each stroke?
     
     /**
      * Ctor
@@ -35,21 +40,16 @@ function Paint(pCanvas)
         prop.uiCanvas = pCanvas;
         prop.uiContex = pCanvas.getContext('2d');
         
+        prop.uiContex.lineWidth = 5;
+        
         //mousedown and mouseup
         
         //register mouse move paint
         prop.uiCanvas.onmousemove = onMouseMove;
+        prop.uiCanvas.onmousedown = onMouseDown;
+        prop.uiCanvas.onmouseup = onMouseUp;
         
-        prop.uiCanvas.onmousedown = function(e)
-        {
-            prop.mouseDown = true;
-        };
-        
-        prop.uiCanvas.onmouseup = function(e)
-        {
-            prop.strokeCount++;
-            prop.mouseDown = false;
-        };
+        //TODO lost Focus same as mouseUp
         
     })();
     
@@ -66,10 +66,33 @@ function Paint(pCanvas)
         prop.strokeCount = 0;
     }
     
-    //get stroke count
+    self.disable = function() { prop.enabled = false; }
+    self.enable = function() { prop.enabled = true; }
+    
+    //TODO get stroke count
+    //TODO enable/disable drawings
+    
+    function onMouseDown(e)
+    {
+        if(!prop.enabled) return true;
+        
+        prop.mouseDown = true;
+    }
+    
+    function onMouseUp(e)
+    {
+        if(!prop.enabled) return true;
+        
+        prop.strokeCount++;
+        prop.mouseDown = false;
+        prop.started = false;
+        prop.uiContex.endPath();
+    }
     
     function onMouseMove(e)
     {
+        if(!prop.enabled) return true;
+        
         if(!prop.mouseDown)
             return true;
         
@@ -79,11 +102,17 @@ function Paint(pCanvas)
         var x = e.pageX - can.offsetLeft;
         var y = e.pageY - can.offsetTop;
         
-        //draw a circle
-        ctx.beginPath();
-        ctx.arc(x, y, 10, 0, Math.PI*2, true); 
-        ctx.closePath();
-        ctx.fill();
+        if(!prop.started)
+        {
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            prop.started = true;
+        }
+        else
+        {
+            ctx.lineTo(x, y);
+            ctx.stroke();
+        }
         
         return false;
     }
