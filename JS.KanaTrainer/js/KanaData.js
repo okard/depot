@@ -240,6 +240,52 @@ var kanadata =
     
     /* Katakana Yoon*/
     
+    { kana:"キャ", hepburn:"kya", type:"katakana", cat:"yoon" },
+    { kana:"キュ", hepburn:"kyu", type:"katakana", cat:"yoon" },
+    { kana:"キョ", hepburn:"kyo", type:"katakana", cat:"yoon" },
+    
+    { kana:"シャ", hepburn:"sha", type:"katakana", cat:"yoon" },
+    { kana:"シュ", hepburn:"shu", type:"katakana", cat:"yoon" },
+    { kana:"ショ", hepburn:"sho", type:"katakana", cat:"yoon" },
+    
+    { kana:"チャ", hepburn:"cha", type:"katakana", cat:"yoon" },
+    { kana:"チュ", hepburn:"chu", type:"katakana", cat:"yoon" },
+    { kana:"チョ", hepburn:"cho", type:"katakana", cat:"yoon" },
+    
+    { kana:"ニャ", hepburn:"nya", type:"katakana", cat:"yoon" },
+    { kana:"ニュ", hepburn:"nyu", type:"katakana", cat:"yoon" },
+    { kana:"ニョ", hepburn:"nyo", type:"katakana", cat:"yoon" },
+    
+    { kana:"ヒャ", hepburn:"hya", type:"katakana", cat:"yoon" },
+    { kana:"ヒュ", hepburn:"hyu", type:"katakana", cat:"yoon" },
+    { kana:"ヒョ", hepburn:"hyo", type:"katakana", cat:"yoon" },
+    
+    { kana:"ミャ", hepburn:"mya", type:"katakana", cat:"yoon" },
+    { kana:"ミュ", hepburn:"myu", type:"katakana", cat:"yoon" },
+    { kana:"ミョ", hepburn:"myo", type:"katakana", cat:"yoon" },
+    
+    { kana:"リャ", hepburn:"rya", type:"katakana", cat:"yoon" },
+    { kana:"リュ", hepburn:"ryu", type:"katakana", cat:"yoon" },
+    { kana:"リョ", hepburn:"ryo", type:"katakana", cat:"yoon" },    
+    
+    { kana:"ギャ", hepburn:"gya", type:"katakana", cat:"yoon" },
+    { kana:"ギュ", hepburn:"gyu", type:"katakana", cat:"yoon" },
+    { kana:"ギョ", hepburn:"gyo", type:"katakana", cat:"yoon" },   
+ 
+    { kana:"ジャ", hepburn:"ja", type:"katakana", cat:"yoon" },
+    { kana:"ジュ", hepburn:"ju", type:"katakana", cat:"yoon" },
+    { kana:"ジョ", hepburn:"jo", type:"katakana", cat:"yoon" },   
+    
+    { kana:"ビャ", hepburn:"bya", type:"katakana", cat:"yoon" },
+    { kana:"ビュ", hepburn:"byu", type:"katakana", cat:"yoon" },
+    { kana:"ビョ", hepburn:"byo", type:"katakana", cat:"yoon" },
+    
+    { kana:"ピャ", hepburn:"pya", type:"katakana", cat:"yoon" },
+    { kana:"ピュ", hepburn:"pyu", type:"katakana", cat:"yoon" },
+    { kana:"ピョ", hepburn:"pyo", type:"katakana", cat:"yoon" },   
+
+    //(ヰャ wya    ヰュ wyu  ヰョ wyo)
+    //ヂャ (ja)   ヂュ (ju)     ヂョ (jo)
 ];
 
 

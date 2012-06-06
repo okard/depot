@@ -60,12 +60,14 @@ function setup()
         txtAnswer.style.backgroundColor="transparent";
         if(kanaTrainer.validate(txtAnswer.value))
         {
+            snd_right.currentTime = 0;
             snd_right.play();
             txtAnswer.value = "";
             kanaTrainer.next();    
         }
         else
         {
+            snd_wrong.currentTime = 0;
             snd_wrong.play();
             txtAnswer.style.backgroundColor="#ff5656";
         }
