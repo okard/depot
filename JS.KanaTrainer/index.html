@@ -7,6 +7,7 @@
     <link rel="icon" href="favicon.png" type="image/png"/>
     <script type="text/javascript" src="js/KanaTrainer.js"></script>
     <script type="text/javascript" src="js/KanaData.js"></script>
+    <script type="text/javascript" src="js/Paint.js"></script>
     <script type="text/javascript" src="js/setup.js"></script>
   </head>
   <body>
@@ -18,8 +19,14 @@
 
         <!-- Main GUI -->
         <div>
-            <canvas id="canvas" width="230" height="300"></canvas>
+            <canvas id="canvasShow" width="230" height="300"></canvas>
+
+            <canvas id="canvasDraw" width="230" height="300"></canvas>
             
+        </div>
+
+        <!-- Controls -->
+        <div>
             <input id="txtInput" class="inputBox" type="text" value="" />
 
             <input id="btnTip" type="button" value="Tip" />

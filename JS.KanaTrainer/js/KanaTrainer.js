@@ -10,6 +10,8 @@ localStorage, save statistics of kanas for next time and
     use it for queue creation
 fix fault queue dbls -> with katakana&hiragana
 setFont
+error handling
+mode -> draw hebrun
 */
 
 /**

@@ -9,7 +9,8 @@ function setup()
     var snd_right = new Audio("26875__cfork__cf-fx-batch-jingle-glock-n-kloing_edited.wav");
     
     //get ui elements
-    var canvas = document.getElementById("canvas");
+    var canvas = document.getElementById("canvasShow");
+    var canvasDraw = document.getElementById("canvasDraw");
     var txtAnswer = document.getElementById("txtInput");
     var btnTip = document.getElementById("btnTip");
     var btnNext = document.getElementById("btnNext");
@@ -25,6 +26,9 @@ function setup()
     
     //setup kana trainer object
     var kanaTrainer = new KanaTrainer(canvas, getKanaData());
+    
+    //test code
+    var painter = new Paint(canvasDraw);
     
     //configure ui elements
     
@@ -64,6 +68,7 @@ function setup()
             snd_right.play();
             txtAnswer.value = "";
             kanaTrainer.next();    
+            painter.clear();
         }
         else
         {
@@ -98,6 +103,10 @@ function setup()
     //initial
     kanaTrainer.next();
     setStats();
+    txtAnswer.focus();
+    
+    
+
 }
 
 
