@@ -72,7 +72,12 @@ function KanaTrainer(pCanvas, pKanas)
         
         //setup fault lookup
         for(var i=0; i<prop.kanaData.length; i++)
-            prop.faultLookup[prop.kanaData[i].hepburn] = i;
+        {
+            var hepburn = prop.kanaData[i].hepburn;
+            if(!(prop.faultLookup[hepburn]))
+                prop.faultLookup[hepburn] = [];
+            prop.faultLookup[hepburn].push(i);
+        }
         
         createQueue();
     })();
@@ -94,7 +99,7 @@ function KanaTrainer(pCanvas, pKanas)
         else
         {
             if(prop.faultLookup[value])
-                prop.faultQueue.push(prop.faultLookup[value]);
+                prop.faultQueue.push.apply(prop.faultQueue, prop.faultLookup[value]);
             
             prop.statWrong++;
             prop.statRightInRow=0;
