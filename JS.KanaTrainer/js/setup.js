@@ -56,6 +56,15 @@ function setup()
     chkExtended.onclick = checkBoxHelper("ext", chkExtended);
     chkYoon.onclick = checkBoxHelper("yoon", chkYoon);
     
+    txtAnswer.onkeydown = function(event)
+    {
+        if(event.keyCode == 18)
+        {
+             btnTip.onclick();
+             return false;
+        }
+    };
+    
     txtAnswer.onkeypress = function(event)
     {
         if(!(event.keyCode == 13 || event.charCode == 32))

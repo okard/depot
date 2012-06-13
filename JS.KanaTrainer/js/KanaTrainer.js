@@ -112,8 +112,8 @@ function KanaTrainer(pCanvas, pKanas)
      */
     self.next = function()
     {
-        //when faultQueue has entries 50:50 Chance to use entry from faultQueue  
-        if(prop.faultQueue.length > 0 && randomNumber(0,1))
+        //when faultQueue has entries 65% Chance to use entry from faultQueue  
+        if(prop.faultQueue.length > 0 && Math.random() > 0.35)
         {
             prop.currentKana = prop.kanaData[prop.faultQueue.pop()];
         }
