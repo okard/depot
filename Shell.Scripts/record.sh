@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 
+
 #geometry = $(xwininfo | grep 'geometry' | awk '{print $2;}')
 
 ffmpeg -f alsa -ac 2 -i pulse -acodec aac -ab 192 \
--f x11grab -r 15 -s 1440x1080 -i :0.0+240,0 -vcodec libx264 -preset ultrafast \
+-f x11grab -show_region 1 -r 15 -s 1440x1080 -i :0.0+240,0 -vcodec libx264 -preset ultrafast \
 $1 
 
 #-aspect 4:3
