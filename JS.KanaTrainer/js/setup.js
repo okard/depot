@@ -73,16 +73,24 @@ function setup()
         txtAnswer.style.backgroundColor="transparent";
         if(kanaTrainer.validate(txtAnswer.value))
         {
-            snd_right.currentTime = 0;
-            snd_right.play();
+            try
+            {
+                snd_right.currentTime = 0;
+                snd_right.play();
+            }
+            catch(e){}
             txtAnswer.value = "";
             kanaTrainer.next();    
             painter.clear();
         }
         else
         {
-            snd_wrong.currentTime = 0;
-            snd_wrong.play();
+            try
+            {
+                snd_wrong.currentTime = 0;
+                snd_wrong.play();
+            }
+            catch(e){}
             txtAnswer.style.backgroundColor="#ff5656";
         }
         
