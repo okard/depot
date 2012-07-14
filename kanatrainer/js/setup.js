@@ -2,12 +2,12 @@
 * License AGPLv3
 */
 
+var snd_wrong = new Audio("67454__splashdust__negativebeep_edited.wav");
+var snd_right = new Audio("26875__cfork__cf-fx-batch-jingle-glock-n-kloing_edited.wav");
+    
 
 function setup()
 {
-    var snd_wrong = new Audio("67454__splashdust__negativebeep_edited.wav");
-    var snd_right = new Audio("26875__cfork__cf-fx-batch-jingle-glock-n-kloing_edited.wav");
-    
     //get ui elements
     var canvas = document.getElementById("canvasShow");
     var canvasDraw = document.getElementById("canvasDraw");
