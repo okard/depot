@@ -2,10 +2,6 @@
 * License AGPLv3
 */
 
-var snd_wrong = new Audio("67454__splashdust__negativebeep_edited.wav");
-var snd_right = new Audio("26875__cfork__cf-fx-batch-jingle-glock-n-kloing_edited.wav");
-    
-
 function setup()
 {
     //get ui elements
@@ -17,6 +13,9 @@ function setup()
     var lblSymbol = document.getElementById("divSymbol");
     var divStatus = document.getElementById("divStatus");
     var divStatistics = document.getElementById("divStatistics");
+    //get sound
+    var snd_right = document.getElementById("sndPos");
+    var snd_wrong = document.getElementById("sndNeg");
     //options:
     var chkHiragana = document.getElementById("chkHiragana");
     var chkKatakana = document.getElementById("chkKatakana");
