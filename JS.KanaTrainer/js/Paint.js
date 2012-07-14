@@ -15,7 +15,7 @@ function Paint(pCanvas)
     var prop = {};
     
     prop.uiCanvas = undefined;
-    prop.uiContex = undefined;
+    prop.uiContext = undefined;
     
     
     //MouseButton is pressed draw at mouse move
@@ -38,9 +38,9 @@ function Paint(pCanvas)
     {   
         //prepare canvas
         prop.uiCanvas = pCanvas;
-        prop.uiContex = pCanvas.getContext('2d');
+        prop.uiContext = pCanvas.getContext('2d');
         
-        prop.uiContex.lineWidth = 5;
+        prop.uiContext.lineWidth = 5;
         
         //mousedown and mouseup
         
@@ -58,7 +58,7 @@ function Paint(pCanvas)
     */
     self.clear = function()
     {
-        var ctx = prop.uiContex;
+        var ctx = prop.uiContext;
         var w = prop.uiCanvas.width;
         var h = prop.uiCanvas.height;
         ctx.clearRect(0, 0, w, h);
@@ -86,7 +86,7 @@ function Paint(pCanvas)
         prop.strokeCount++;
         prop.mouseDown = false;
         prop.started = false;
-        prop.uiContex.endPath();
+        prop.uiContext.closePath();
     }
     
     function onMouseMove(e)
@@ -96,7 +96,7 @@ function Paint(pCanvas)
         if(!prop.mouseDown)
             return true;
         
-        var ctx = prop.uiContex;
+        var ctx = prop.uiContext;
         var can = prop.uiCanvas;
         
         var x = e.pageX - can.offsetLeft;
