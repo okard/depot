@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <title>Kana Trainer</title>
+    <link rel="stylesheet" href="style/default.css" type="text/css" />
+    <link rel="icon" href="favicon.png" type="image/png"/>
+    <script type="text/javascript" src="js/KanaTrainer.js"></script>
+    <script type="text/javascript" src="js/KanaData.js"></script>
+    <script type="text/javascript" src="js/Paint.js"></script>
+    <script type="text/javascript" src="js/setup.js"></script>
+  </head>
+  <body>
+
+    <noscript>Javascript is required</noscript>
+
+    <!-- Complete Container for KanaTrainer -->
+    <div id="kanaTrainer">
+
+        <!-- Main GUI -->
+        <div>
+            <canvas id="canvasShow" width="230" height="300"></canvas>
+
+            <canvas id="canvasDraw" width="230" height="300"></canvas>
+            
+        </div>
+
+        <!-- Controls -->
+        <div>
+            <input id="txtInput" class="inputBox" type="text" value="" />
+
+            <input id="btnTip" type="button" value="Tip" />
+            <input id="btnNext" type="button" value=">>" />
+
+            <div id="divStatus"></div>
+            <div id="divStatistics"></div>
+        </div>
+
+        <!-- Options -->
+        <div id="divOptions">
+            <div class="optionEntry">
+            <input id="chkHiragana" type="checkbox" checked/>
+            <label for="chkHiragana">Hiragana</label>
+            </div>
+
+            <div class="optionEntry">
+            <input id="chkKatakana" type="checkbox" checked/>
+            <label for="chkKatakana">Katakana</label>
+            </div>
+
+            <div class="optionEntry">
+            <input id="chkBase" type="checkbox" checked/>
+            <label for="chkBase">Base</label>
+            </div>
+            
+            <div class="optionEntry">
+            <input id="chkExtended" type="checkbox" checked/>
+            <label for="chkExtended">Extended</label>
+            </div>
+
+            <div class="optionEntry">
+            <input id="chkYoon" type="checkbox" checked/>
+            <label for="chkYoon">Yōon</label>
+            </div>
+        </div>
+
+    </div>
+  </body>
+</html>
