@@ -35,8 +35,12 @@ std:
         ANY_CHARACTER = [^];
 
         INTEGER {
+            tok.integer = 0;
             //yylval.int_value = atoi(this->text().c_str());
             return TOKEN_INTEGER;
+        }
+        "def" { 
+            return TOKEN_KW_DEF; 
         }
         WS {
             goto std;
@@ -50,28 +54,7 @@ std:
 }
 
 /*
-
-        "var" { return TOKEN_KW_VAR; }
         "def" { return TOKEN_KW_DEF; }
-        "obj" { return TOKEN_KW_OBJ; }
-
-/*
-enum TokenType
-{
-    TOKEN_INTEGER,
-    TOKEN_STRING,
-    TOKEN_IDENTIFIER,
-    
-    TOKEN_KW_VAR,
-    TOKEN_KW_DEF,
-    TOKEN_KW_OBJ,
-    
-    //Keywords: if, for, while, 
-    
-    
-    TOKEN_EOF
-};
-
 */
 
 

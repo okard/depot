@@ -9,6 +9,8 @@
 using namespace sng;
 
 
+// uv_loop_t *loop = uv_loop_new();
+
 Shell::Shell()
 {
     this->parser_ = ::ParseAlloc(malloc);
@@ -32,6 +34,12 @@ void Shell::parse(char* line)
     //add to internal buffer
     Token tok;
     unsigned int tokId = lexer_.next(tok);
+    
+    if(tokId == 0)
+    {
+        //invalid token
+    }
+    
     ::Parse(this->parser_, tokId, &tok);
 }
 

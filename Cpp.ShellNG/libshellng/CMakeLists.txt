@@ -19,3 +19,4 @@ add_custom_target(lemon_parser COMMAND lemon -q ${CMAKE_CURRENT_LIST_DIR}/src/Pa
 include_directories(include)
 add_library(libshellng ${LIBSHELLNG_SOURCES})
 add_dependencies(libshellng re2c_lexer lemon_parser) #lemon_parser
+target_link_libraries(libshellng "uv")

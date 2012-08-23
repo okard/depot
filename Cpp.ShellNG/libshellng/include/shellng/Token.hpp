@@ -30,7 +30,13 @@ namespace sng {
 struct Token
 {
     unsigned int type;
-    unsigned char* value;
+    union
+    {
+        unsigned char* string;
+        unsigned char* identifier;
+        signed int integer;
+        bool boolean;
+    };
 };
 
 }

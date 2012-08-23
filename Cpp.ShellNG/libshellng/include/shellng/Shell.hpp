@@ -23,6 +23,7 @@ SOFTWARE.
 #define __SHELLNG_SHELL__
 
 #include "Lexer.hpp"
+#include "Context.hpp"
 
 namespace sng {
 
@@ -35,13 +36,15 @@ private:
     //Lexer
     Lexer lexer_;
     
+    //encapsulate in own class?
     //Lemon parser
     void* parser_;
     
     //prompt is a function call?
     
-    //current shell state
-    //Global State
+    
+    //currentContext
+    //rootContext
     
     //function pointer void RequestInput(Shell& shell)
 
@@ -53,6 +56,7 @@ public:
 
     const char* getPrompt();
     
+    //void do(Source& src)
     void parse(char* line);
     
     //ExecuteFile(const char* fileName);

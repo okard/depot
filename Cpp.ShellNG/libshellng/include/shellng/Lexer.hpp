@@ -23,6 +23,7 @@ SOFTWARE.
 #define __SHELLNG_LEXER__
 
 #include <shellng/Token.hpp>
+#include <shellng/Source.hpp>
 
 namespace sng {
 
@@ -35,13 +36,18 @@ class Lexer
 private:
     //SourceFile
     
+    Source* sourceFile;
+    
+    
     // buffer memory
     char* m_buffer;
+    
     // current position
     char* m_cursor;
     char* m_limit;
-    char* m_token;
     char* m_marker;
+    
+    char* m_token;
     int m_buffer_size;
     int m_lineno;
  

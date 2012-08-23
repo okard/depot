@@ -14,7 +14,7 @@
 Can be static linked
 
 * shellng library
-    - [pstreams](http://pstreams.sf.net/)
+    - [libuv](https://github.com/joyent/libuv)
 
 * shellng executable
     - [linenoise](https://github.com/antirez/linenoise/)

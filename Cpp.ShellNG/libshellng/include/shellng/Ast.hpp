@@ -69,7 +69,9 @@ class ObjDecl : Node
 */
 class BinaryExp : Node
 {
-    //op
+    //op 
+        //ShellOP | > < >> << ||
+        //BinOP + - * / ~ 
     //left
     //right
 };
