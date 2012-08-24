@@ -16,13 +16,26 @@
 unsigned int Lexer::next(Token& tok)
 {
 std:
-        m_token = m_cursor;
+
+    m_token = re2c_cursor_;
+
+    
+
+    //On entry, YYCURSOR is assumed to point to the first character of the current token. 
+    //On exit, YYCURSOR will point to the first character of the following token.
+
+    //Expression of type *YYCTYPE that marks the end of the buffer (YYLIMIT[-1] is the last character in the buffer). 
+    //The generated code repeatedly compares YYCURSOR to YYLIMIT to determine when the buffer needs (re)filling.
+    
+    //YYMARKER l-expression of type *YYCTYPE. 
+    //The generated code saves backtracking information in YYMARKER. 
+    //Some easy scanners might not use this.
 
     /*!re2c
         re2c:define:YYCTYPE = "char";
-        re2c:define:YYCURSOR = m_cursor;
-        re2c:define:YYMARKER = m_marker;
-        re2c:define:YYLIMIT = m_limit;
+        re2c:define:YYCURSOR = re2c_cursor_;
+        re2c:define:YYLIMIT = re2c_limit_;
+        re2c:define:YYMARKER = re2c_marker_;
         re2c:define:YYFILL:naked = 1;
         re2c:define:YYFILL@len = #;
         re2c:define:YYFILL = "if (!fill(#)) { return 0; }";
@@ -31,18 +44,27 @@ std:
         re2c:indent:string=" ";
 
         INTEGER = [1-9][0-9]*;
+        IDENTIFIER = [a-zA-Z][a-zA-Z0-9]*;
+        STRING_LITERAL = ".*";
         WS = [ \r\n\t\f];
         ANY_CHARACTER = [^];
 
+
+        "def" { 
+            return TOKEN_KW_DEF; 
+        }
+        IDENTIFIER {
+            tok.identifier = const_cast<char*>("");
+            return 0;
+        }
         INTEGER {
             tok.integer = 0;
             //yylval.int_value = atoi(this->text().c_str());
             return TOKEN_INTEGER;
         }
-        "def" { 
-            return TOKEN_KW_DEF; 
-        }
+        
         WS {
+            //count lines
             goto std;
         }
         ANY_CHARACTER {
@@ -53,11 +75,12 @@ std:
     */
 }
 
+
 /*
-        "def" { return TOKEN_KW_DEF; }
+ Save RE2C MAX FILL for internal buffer handling
 */
-
-
+/*!max:re2c */
+const unsigned int Lexer::RE2C_MAXFILL = YYMAXFILL;
 
 #endif
 

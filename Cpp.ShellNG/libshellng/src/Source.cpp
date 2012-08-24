@@ -18,34 +18,60 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
 SOFTWARE.
 */
-#pragma once
-#ifndef __SHELLNG_CONTEXT__
-#define __SHELLNG_CONTEXT__
+
+#include <shellng/Source.hpp>
 
 
-namespace sng {
-   
+
+using namespace sng;
+
+
 /**
-* Actual Context
+* Create a new instance of a SourceFile
 */
-class Context
-{  
-private:
-    //Shell&
-    //Source&
-    
-    //SymbolTable 
-    //std::map<string, DeclNode>
-    
-    //Context* nested contextes, stack of contexts?
-    
-public:
-    
-    
-    
-};
-    
+SourceFile::SourceFile()
+    : file_(NULL)
+{
 }
 
+/**
+* Destroy SourceFile object
+*/
+SourceFile::~SourceFile()
+{
+    if(file_ != NULL)
+        fclose(file_);
+}
 
-#endif
+/**
+* Open a file for reading
+*/
+void SourceFile::open(const char* fileName)
+{
+    if(file_ != NULL)
+        fclose(file_);
+    
+    file_ = fopen(fileName, "r");
+}
+
+void* SourceFile::read(size_t* len)
+{
+    (*len)=0;
+    return nullptr;
+}
+
+/**
+* Read from file into buffer
+*/
+size_t SourceFile::read(void* buffer, size_t len)
+{
+    return fread(buffer, 1, len, file_);
+}
+
+/**
+* Position is at end of file
+*/
+bool SourceFile::isEOF()
+{
+    return feof(file_);
+}

@@ -32,8 +32,8 @@ struct Token
     unsigned int type;
     union
     {
-        unsigned char* string;
-        unsigned char* identifier;
+        char* string;
+        char* identifier;
         signed int integer;
         bool boolean;
     };

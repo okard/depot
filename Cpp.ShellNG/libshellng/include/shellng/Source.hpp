@@ -22,6 +22,8 @@ SOFTWARE.
 #ifndef __SHELLNG_SOURCE__
 #define __SHELLNG_SOURCE__
 
+#include <cstdio>
+
 namespace sng {
  
 //Location    
@@ -32,12 +34,29 @@ namespace sng {
 * Or for files
 */
 class Source
-{
-private:
-    
+{   
 public:
-    //void read();
-    //get location
+    virtual ~Source(){};
+    
+    /**
+    * return a buffer with data len
+    * size depends on implementation
+    * buffer has to be freed after usage
+    */
+    virtual void* read(size_t* len)=0;
+    
+    /**
+    * Read a specific amount to buffer
+    * maximum len but can be less
+    */
+    virtual size_t read(void* buffer, size_t len)=0;
+    
+    /**
+    * No more data available
+    */
+    virtual bool isEOF()=0;
+    
+    //location info?
 };
 
 
@@ -48,9 +67,35 @@ public:
 class SourceFile : public Source
 {
 private:
+    FILE* file_;
     
 public:
+    /**
+    * Create a new instance of a SourceFile
+    */
+    SourceFile();
     
+    /**
+    * Destroy SourceFile object
+    */
+    virtual ~SourceFile();
+    
+    /**
+    * Open a file for reading
+    */
+    void open(const char* fileName);
+    
+    virtual void* read(size_t* len);
+    
+    /**
+    * Read from file into buffer
+    */
+    virtual size_t read(void* buffer, size_t len); 
+    
+    /**
+    * Position is at end of file
+    */
+    virtual bool isEOF();
 };
     
     

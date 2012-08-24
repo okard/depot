@@ -19,33 +19,38 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 #pragma once
-#ifndef __SHELLNG_CONTEXT__
-#define __SHELLNG_CONTEXT__
+#ifndef __SHELLNG_LINESOURCE_HPP__
+#define __SHELLNG_LINESOURCE_HPP__
 
+#include <shellng/Shell.hpp>
+#include <shellng/Source.hpp>
 
 namespace sng {
-   
+    
 /**
-* Actual Context
+* A source class to read
+* from line noise
 */
-class Context
-{  
+class LineSource : public Source
+{
 private:
-    //Shell&
-    //Source&
-    
-    //SymbolTable 
-    //std::map<string, DeclNode>
-    
-    //Context* nested contextes, stack of contexts?
+    const Shell& shell_;
     
 public:
+    LineSource(const Shell& shell);
     
+    virtual ~LineSource();
     
+    virtual void* read(size_t* len);
+        
+    virtual size_t read(void* buffer, size_t len);
     
+    virtual bool isEOF();
 };
+   
     
 }
+
 
 
 #endif

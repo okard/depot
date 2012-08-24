@@ -24,6 +24,8 @@ SOFTWARE.
 
 #include "Lexer.hpp"
 #include "Context.hpp"
+#include "Source.hpp"
+
 
 namespace sng {
 
@@ -54,7 +56,7 @@ public:
     Shell();
     ~Shell();
 
-    const char* getPrompt();
+    const char* getPrompt() const;
     
     //void do(Source& src)
     void parse(char* line);

@@ -36,22 +36,51 @@ class Lexer
 private:
     //SourceFile
     
-    Source* sourceFile;
+    /// Source
+    Source* src_;
+      
+    //re2c stuff
+    char* re2c_cursor_;
+    char* re2c_limit_;
+    char* re2c_marker_;
     
+    static const unsigned int RE2C_MAXFILL;
     
+    //buffer
+    void* buffer_;
+    size_t bufSize_;
+    
+    //what is required
     // buffer memory
     char* m_buffer;
-    
-    // current position
-    char* m_cursor;
-    char* m_limit;
-    char* m_marker;
-    
-    char* m_token;
+    char* m_token; //is is required?
     int m_buffer_size;
-    int m_lineno;
+    int m_lineno;  
  
 public:
+    /**
+    * Create a new lexer
+    */
+    Lexer();
+    
+    /**
+    * Destroy lexer
+    */
+    ~Lexer();
+    
+    /**
+    * Open source file for lexing
+    */
+    void open(Source* const src);
+    
+    /**
+    * Close source file
+    */
+    void close();
+    
+    /**
+    * Get next token
+    */
     unsigned int next(Token& tok);
     
 private:
@@ -59,6 +88,9 @@ private:
     //TODO callback to shell so shell can request more input?
     //But keeping internal buffer?
     
+    /**
+    * Fill in buffer from source file
+    */
     bool fill(int size);
     
 };
