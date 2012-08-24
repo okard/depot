@@ -54,6 +54,7 @@ void* LineSource::read(size_t* len)
     }
     
     *len = strlen(line);
+    linenoiseHistoryAdd(line);
     return line;
 }
 

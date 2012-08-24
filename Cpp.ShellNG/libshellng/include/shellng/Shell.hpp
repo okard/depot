@@ -58,7 +58,13 @@ public:
 
     const char* getPrompt() const;
     
-    //void do(Source& src)
+    /**
+    * Execute a source
+    * return bool?
+    */
+    void execute(Source* const src);
+    
+private:  
     void parse(char* line);
     
     //ExecuteFile(const char* fileName);

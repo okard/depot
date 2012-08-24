@@ -29,13 +29,37 @@ namespace sng {
 */
 class Node
 {
+public:
+    enum NodeType
+    {
+        //Declarations
+        TYPE_VARIABLE,
+        TYPE_FUNCTION,
+        TYPE_OBJECT,
+        
+        //Expressions
+        TYPE_COMMAND,
+    };
+    
+    
+    NodeType type;
+    
     //type
 };
 
 /**
-* Variable Declaration
+* Basic Declaration Node
 */
-class VarDecl : Node
+class Decl : public Node
+{
+    
+};
+
+/**
+* Variable Declaration
+* def foo: string
+*/
+class VarDecl : public Decl
 {
 private:
     
@@ -48,7 +72,7 @@ public:
 /**
 * Function Declaration
 */
-class FuncDecl : Node
+class FuncDecl : public Decl
 {
 
 };
@@ -62,12 +86,19 @@ class ObjDecl : Node
     //Variables
 };
 
+/**
+* Basic Expression Node
+*/
+class Expr : public Node
+{
+};
+
 //Literal Expression
 
 /**
 * Binary Expression
 */
-class BinaryExp : Node
+class BinaryExp : public Expr
 {
     //op 
         //ShellOP | > < >> << ||
@@ -80,7 +111,7 @@ class BinaryExp : Node
 * Command Expression
 * Executes a command/program
 */
-class CommandExp : Node
+class CommandExp : public Expr
 {
     //file
     //args

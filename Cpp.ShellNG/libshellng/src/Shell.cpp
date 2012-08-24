@@ -22,9 +22,12 @@ SOFTWARE.
 #include <shellng/Shell.hpp>
 #include <shellng/Lexer.hpp>
 
-#include <cstdlib>
-#include "Parser.c"
+#include <iostream>
 
+#include <cstdlib>
+
+#include "ParseContext.hpp"
+#include "Parser.c"
 
 using namespace sng;
 
@@ -39,7 +42,7 @@ Shell::Shell()
 
 Shell::~Shell()
 {
-    
+    ParseFree(this->parser_, free);
 }
 
 
@@ -49,19 +52,41 @@ const char* Shell::getPrompt() const
 }
 
 
-void Shell::parse(char* line)
+void Shell::execute(Source* const src)
 {
-    //add to internal buffer
-    Token tok;
-    unsigned int tokId = lexer_.next(tok);
+    lexer_.open(src);
     
-    if(tokId == 0)
+    ParseContext ctx(*this);
+    
+    while(ctx.ast == nullptr)
     {
-        //invalid token
+        Token tok;
+        
+        std::cout << "Lexer call" << std::endl;
+        unsigned int tokId = lexer_.next(tok);
+        std::cout << "Token: " << tokId << std::endl;
+        
+        if(tokId == 0)
+        {
+            //invalid token
+        }
+        
+        //bind current context
+        ::Parse(this->parser_, tokId, &tok, &ctx);
+        
+        std::cout << "AST: " << ctx.ast << std::endl;
+       
+        //parse 0 in the right moment to geht ide
+        //make source 
+       
+        if(ctx.error)
+            break;
     }
     
-    ::Parse(this->parser_, tokId, &tok);
+    
+    //interpreter->interpret(context.node, context)
 }
+
 
 /*
 
@@ -84,7 +109,5 @@ ParseTrace(stderr, (char*)"[Parser] >> ");
     }
     Parse(pParser, 0, yylval, &state);
     ParseFree(pParser, free);
-
-
 
 */

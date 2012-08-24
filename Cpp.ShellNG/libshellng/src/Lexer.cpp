@@ -23,6 +23,8 @@ SOFTWARE.
 #include <shellng/Lexer.hpp>
 #include <shellng/Token.hpp>
 
+#include<iostream>
+
 using namespace sng;
 
 
@@ -66,6 +68,15 @@ void Lexer::close()
 
 bool Lexer::fill(int size)
 {
+    std::cout << "Lexer::Fill(" << size << ")" << std::endl;
+    
+    if(src_->isEOF())
+    {
+        return false;
+    }
+    
+    //take a look into buffer and so on
+    
     //this is used to read a special length from source
     
     //RE2C:
@@ -82,7 +93,7 @@ bool Lexer::fill(int size)
     //source_
     
     
-    return false;
+    return true;
 }
 
 

@@ -19,15 +19,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#include <cstdlib>
-#include <cstring>
-
-
-extern "C" 
-{
-    #include <linenoise.h>
-}
-
 #include <shellng/Shell.hpp>
 #include <shellng/Source.hpp>
 
@@ -35,33 +26,18 @@ extern "C"
 
 using namespace sng;
 
-
-
-void RequestInput(Shell& shell)
-{
-    char* line = linenoise(shell.getPrompt());
-    shell.parse(line);
-    free(line);
-}
-
-
 int main()
 {
     Shell shell;
     LineSource source(shell);
     
     //shell.RequestInput = &RequestInput;
-
-    char *line;
-    while((line = linenoise(shell.getPrompt())) != NULL) 
+    
+    while(true)
     {
-        if (line[0] != '\0') 
-        {
-            shell.parse(line);
-            linenoiseHistoryAdd(line);
-        }
-        free(line);
+        shell.execute(&source);
     }
+
     
     return 0;
 }

@@ -45,6 +45,9 @@ public:
     */
     virtual void* read(size_t* len)=0;
     
+    //free buffers via source?
+    //virtual void free(void* buffer)=0;
+    
     /**
     * Read a specific amount to buffer
     * maximum len but can be less

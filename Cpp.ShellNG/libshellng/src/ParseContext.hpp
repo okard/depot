@@ -19,37 +19,26 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 #pragma once
-#ifndef __SHELLNG_CONTEXT__
-#define __SHELLNG_CONTEXT__
+#ifndef __SHELLNG_PARSECONTEXT__
+#define __SHELLNG_PARSECONTEXT__
 
+#include <shellng/Shell.hpp>
+#include <shellng/Ast.hpp>
 
 namespace sng {
     
-//parse context
-//  vs execution context
-   
-/**
-* Actual Context
-*/
-class Context
-{  
-private:
-    //Shell&
-    //Source&
+struct ParseContext
+{
+    Shell& shell;
+    Node* ast;
+    bool error;
     
-    //SymbolTable 
-    //std::map<string, DeclNode>
-    
-    //Context* nested contextes, stack of contexts?
-    
-    //node* ast
-public:
-    
-    
-    
+    ParseContext(Shell& shell)
+        :shell(shell), ast(nullptr), error(false)
+    {
+    }
 };
-    
-}
 
+}
 
 #endif

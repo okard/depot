@@ -16,6 +16,7 @@
 unsigned int Lexer::next(Token& tok)
 {
 std:
+    //doing fill by hand here?
 
     m_token = re2c_cursor_;
 
@@ -45,7 +46,7 @@ std:
 
         INTEGER = [1-9][0-9]*;
         IDENTIFIER = [a-zA-Z][a-zA-Z0-9]*;
-        STRING_LITERAL = ".*";
+        STRING_LITERAL = "^*";
         WS = [ \r\n\t\f];
         ANY_CHARACTER = [^];
 
@@ -55,7 +56,7 @@ std:
         }
         IDENTIFIER {
             tok.identifier = const_cast<char*>("");
-            return 0;
+            return TOKEN_IDENTIFIER;
         }
         INTEGER {
             tok.integer = 0;
