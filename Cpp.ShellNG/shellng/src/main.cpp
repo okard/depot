@@ -36,6 +36,7 @@ int main()
     while(true)
     {
         shell.execute(&source);
+        source.reset();
     }
 
     

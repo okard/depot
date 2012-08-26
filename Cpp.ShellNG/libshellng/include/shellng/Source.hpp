@@ -88,6 +88,9 @@ public:
     */
     void open(const char* fileName);
     
+    /**
+    *
+    */
     virtual void* read(size_t* len);
     
     /**

@@ -20,8 +20,6 @@ std:
 
     m_token = re2c_cursor_;
 
-    
-
     //On entry, YYCURSOR is assumed to point to the first character of the current token. 
     //On exit, YYCURSOR will point to the first character of the following token.
 
@@ -45,11 +43,16 @@ std:
         re2c:indent:string=" ";
 
         INTEGER = [1-9][0-9]*;
-        IDENTIFIER = [a-zA-Z][a-zA-Z0-9]*;
-        STRING_LITERAL = "^*";
+        IDENTIFIER = [a-zA-Z][a-zA-Z0-9_]*;
+        STRING_LITERAL = ".*";
         WS = [ \r\n\t\f];
         ANY_CHARACTER = [^];
+        NULLSTR = [\x00];
 
+        
+        NULLSTR {
+            return 0;
+        }
 
         "def" { 
             return TOKEN_KW_DEF; 
@@ -63,7 +66,6 @@ std:
             //yylval.int_value = atoi(this->text().c_str());
             return TOKEN_INTEGER;
         }
-        
         WS {
             //count lines
             goto std;

@@ -54,10 +54,35 @@ const char* Shell::getPrompt() const
 
 void Shell::execute(Source* const src)
 {
+    //open source file
     lexer_.open(src);
     
     ParseContext ctx(*this);
     
+    Token tok;
+    
+    //ParseTrace(stderr, (char*)"[Parser] >> ");
+    
+    while(unsigned int tokId = lexer_.next(tok))
+    {
+        //filter for first 0 token?
+        
+        std::cout << "Token: " << tokId << std::endl;
+        ::Parse(this->parser_, tokId, &tok, &ctx); 
+        
+        //if(ctx.error)
+            
+    }
+    ::Parse(this->parser_, 0, &tok, &ctx);
+    
+    if(ctx.ast != nullptr)
+    {
+        std::cout << "Interpret" << std::endl;
+        //interpreter->interpret()
+    }
+    
+    
+    /*
     while(ctx.ast == nullptr)
     {
         Token tok;
@@ -81,33 +106,5 @@ void Shell::execute(Source* const src)
        
         if(ctx.error)
             break;
-    }
-    
-    
-    //interpreter->interpret(context.node, context)
+    }*/
 }
-
-
-/*
-
-YYSTYPE yylval;
-Scanner scanner(&std::cin);
-    void *pParser = ParseAlloc(malloc);
-    int tokenID;
-
-#if 0
-ParseTrace(stderr, (char*)"[Parser] >> ");
-#endif
-
-    ParserState state;
-    // scanner.scan return 0 when get EOF.
-    while (tokenID = scanner.scan(yylval)) 
-    
-    {
-        // printf("GET TOKEN: %d\n", tokenID);
-        Parse(pParser, tokenID, yylval, &state);
-    }
-    Parse(pParser, 0, yylval, &state);
-    ParseFree(pParser, free);
-
-*/

@@ -21,7 +21,7 @@ SOFTWARE.
 
 #include <shellng/Source.hpp>
 
-
+#include <cstdlib>
 
 using namespace sng;
 
@@ -56,6 +56,12 @@ void SourceFile::open(const char* fileName)
 
 void* SourceFile::read(size_t* len)
 {
+    void* buffer = malloc(1024);
+    
+    *len = fread(buffer, 1, 1024, file_);
+    
+    
+    free(buffer);
     (*len)=0;
     return nullptr;
 }
@@ -75,3 +81,5 @@ bool SourceFile::isEOF()
 {
     return feof(file_);
 }
+
+//for reset  rewind (file_);

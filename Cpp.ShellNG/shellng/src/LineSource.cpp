@@ -33,7 +33,7 @@ using namespace sng;
 
 
 LineSource::LineSource(const Shell& shell)
-    : shell_(shell)
+    : shell_(shell), eof_(false)
 {
 }
     
@@ -43,6 +43,12 @@ LineSource::~LineSource()
 
 void* LineSource::read(size_t* len)
 {
+    if(eof_)
+    {
+        *len=0;
+        return nullptr;
+    }
+    
     //first use internal buffer
     
     char* line = linenoise(shell_.getPrompt());
@@ -50,9 +56,11 @@ void* LineSource::read(size_t* len)
     || line[0] == '\0')
     {
         *len = 0;
+        eof_=true;
         return nullptr;
     }
     
+    eof_=true;
     *len = strlen(line);
     linenoiseHistoryAdd(line);
     return line;
@@ -61,6 +69,9 @@ void* LineSource::read(size_t* len)
 
 size_t LineSource::read(void* buffer, size_t len)
 {
+    if(eof_)
+        return 0;
+    
     //first use internal buffer
     
     //full prompt or half prompt
@@ -69,42 +80,37 @@ size_t LineSource::read(void* buffer, size_t len)
     
     if(line == NULL || line[0] == '\0')
     {
-        //read again
+        eof_=true;
+        return 0;
     }
     
     auto inLen = strlen(line);
     
-    //check for internal buffer first
-    
-    
-    if( inLen==len)
+    //copy to buffer
+    if(inLen <= len)
     {
         strncpy (static_cast<char*>(buffer), line, inLen);
-    }
-    
-    //when inLen==len perfect
-    //when inLen>len okay copy len and rest to internal buffer
-    //when inLen<len okay have to read more from line in
-    
-    if(inLen > len)
-    {
-        strncpy (static_cast<char*>(buffer), line, len);
-        
-        //internal buffer
+        free(line);
+        return inLen;
     }
     else
     {
-        
+        throw "fail";
+        //copy len to buffer
+        //safe rest in internal buffer
     }
     
-    free(line);
-    
-    return inLen;
+    return 0;
 }
     
     
 bool LineSource::isEOF()
 {
-    //is never eof but blocks and read from stdin
-    return false;
+    return eof_;
+}
+
+
+void LineSource::reset()
+{
+    eof_=false;
 }

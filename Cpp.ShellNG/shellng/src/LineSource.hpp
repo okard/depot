@@ -35,6 +35,12 @@ class LineSource : public Source
 {
 private:
     const Shell& shell_;
+    bool eof_;
+    
+    void* buffer_;
+    size_t bufferSize_;
+    //begin ptr
+    //dataLength
     
 public:
     LineSource(const Shell& shell);
@@ -46,6 +52,8 @@ public:
     virtual size_t read(void* buffer, size_t len);
     
     virtual bool isEOF();
+    
+    void reset();
 };
    
     

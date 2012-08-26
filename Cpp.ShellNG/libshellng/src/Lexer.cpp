@@ -23,6 +23,7 @@ SOFTWARE.
 #include <shellng/Lexer.hpp>
 #include <shellng/Token.hpp>
 
+#include<exception>
 #include<iostream>
 
 using namespace sng;
@@ -48,9 +49,14 @@ void Lexer::open(Source* const src)
     
     //read initial buffer
     buffer_ = src_->read(&bufSize_);
-    re2c_cursor_=static_cast<char*>(buffer_);
-    re2c_marker_=static_cast<char*>(buffer_);
-    re2c_limit_=&static_cast<char*>(buffer_)[bufSize_];
+    
+    if(buffer_ != nullptr)
+    {
+        re2c_cursor_=static_cast<char*>(buffer_);
+        re2c_marker_=static_cast<char*>(buffer_);
+        //TODO is limit right set?
+        re2c_limit_=&static_cast<char*>(buffer_)[bufSize_+1]; 
+    }
 }
 
 
@@ -60,7 +66,10 @@ void Lexer::close()
     re2c_cursor_ = nullptr;
     re2c_limit_ = nullptr;
     re2c_marker_ = nullptr;
-    free(buffer_);
+    
+    if(buffer_ != nullptr)
+        free(buffer_);
+    
     bufSize_=0;
     buffer_=nullptr;
 }
@@ -68,12 +77,15 @@ void Lexer::close()
 
 bool Lexer::fill(int size)
 {
-    std::cout << "Lexer::Fill(" << size << ")" << std::endl;
+    std::cout << "Lexer::Fill(" << size << ") Eof: " << src_->isEOF() << std::endl;
     
     if(src_->isEOF())
     {
         return false;
     }
+    
+    //allocate buffer
+    //src_->read(buffer_, size);
     
     //take a look into buffer and so on
     

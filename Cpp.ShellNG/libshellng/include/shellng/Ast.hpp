@@ -22,6 +22,8 @@ SOFTWARE.
 #ifndef __SHELLNG_AST__
 #define __SHELLNG_AST__
 
+#include <string>
+
 namespace sng {
 
 /**
@@ -33,9 +35,9 @@ public:
     enum NodeType
     {
         //Declarations
-        TYPE_VARIABLE,
-        TYPE_FUNCTION,
-        TYPE_OBJECT,
+        DECL_VARIABLE,
+        DECL_FUNCTION,
+        DECL_OBJECT,
         
         //Expressions
         TYPE_COMMAND,
