@@ -37,6 +37,13 @@ struct Token
         signed int integer;
         bool boolean;
     };
+    
+    ~Token()
+    {
+        //delete token strings?
+        //use std::string?
+        //unicode!
+    }
 };
 
 }

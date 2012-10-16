@@ -42,15 +42,21 @@ private:
     //Lemon parser
     void* parser_;
     
-    //prompt is a function call?
     
+    
+    
+    
+    //event loop und jobs
+        //parse -> job -> enter eventloop
+        //Stdin is also an special job from libuv
+        //see also Shell::dispatch
+    
+    
+    //Root Context with Global 
+    Context rootContext;
     
     //currentContext
     //rootContext
-    
-    //function pointer void RequestInput(Shell& shell)
-
-    typedef void(*RequestInputFunc)(Shell& shell);
 
 public:
     Shell();
@@ -61,8 +67,24 @@ public:
     /**
     * Execute a source
     * return bool?
+    * enqueue?
     */
     void execute(Source* const src);
+    
+    //execute in seperate context for example sandboxed scripts
+    //void execute(Source* const src, Context* const ctx);
+    
+    //rename execute to enqueue?
+    //add a special prefined JobClass to do that?
+    //user worker threads to pull from queue
+    
+    
+    /**
+    * On tick for event loop
+    * return true or false?
+    */
+    void dispatch();
+    
     
 private:  
     void parse(char* line);

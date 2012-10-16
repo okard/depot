@@ -19,35 +19,64 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include <iostream>
+#include <cstdlib>
+
+#include <libuv/uv.h>
+
 #include <shellng/Shell.hpp>
 #include <shellng/Lexer.hpp>
 
-#include <iostream>
-
-#include <cstdlib>
 
 #include "ParseContext.hpp"
+
+
+//TODO include in Namespace?
+namespace Parser {
 #include "Parser.c"
+}
 
 using namespace sng;
 
 
 // uv_loop_t *loop = uv_loop_new();
+// uv_loop_t *loop = uv_default_loop();
+// uv_work_t req;
+// uv_queue_work(loop, &req, fib, after_fib);
+// req.data = (void*)bla;
+
+
 
 Shell::Shell()
 {
-    this->parser_ = ::ParseAlloc(malloc);
+    this->parser_ = Parser::ParseAlloc(malloc);
     
+    
+    //register default objects to rootContext
+    
+    //$env, 
+    //$sys
 }
 
 Shell::~Shell()
 {
-    ParseFree(this->parser_, free);
+    Parser::ParseFree(this->parser_, free);
 }
 
 
 const char* Shell::getPrompt() const
 {
+    //execute or get it depends of ast type
+    
+    //if ($sys.prompt.type == function, interpreter run()
+    //if ($sys.prompt.type == string -> print
+    
+    //still returns string?
+    
+    // $sys.prompt
+    
+    //execute underlying ast
+    
     return "shellng > ";
 }
 
@@ -57,8 +86,11 @@ void Shell::execute(Source* const src)
     //open source file
     lexer_.open(src);
     
+    //creates a parsing context used as proxy between shell and parser
     ParseContext ctx(*this);
     
+    
+    //create new token for every step and let lemon clena them up
     Token tok;
     
     //ParseTrace(stderr, (char*)"[Parser] >> ");
@@ -68,12 +100,12 @@ void Shell::execute(Source* const src)
         //filter for first 0 token?
         
         std::cout << "Token: " << tokId << std::endl;
-        ::Parse(this->parser_, tokId, &tok, &ctx); 
+        Parser::Parse(this->parser_, tokId, &tok, &ctx); 
         
         //if(ctx.error)
             
     }
-    ::Parse(this->parser_, 0, &tok, &ctx);
+    Parser::Parse(this->parser_, 0, &tok, &ctx);
     
     if(ctx.ast != nullptr)
     {
@@ -107,4 +139,14 @@ void Shell::execute(Source* const src)
         if(ctx.error)
             break;
     }*/
+}
+
+
+
+void Shell::dispatch()
+{
+    //run event loop
+    
+    //
+    //uv_run_once(uv_loop_t*);
 }

@@ -19,28 +19,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 #pragma once
-#ifndef __SHELLNG_PARSECONTEXT__
-#define __SHELLNG_PARSECONTEXT__
-
-#include <shellng/Shell.hpp>
-#include <shellng/Ast.hpp>
+#ifndef __SHELLNG_JOB__
+#define __SHELLNG_JOB__
 
 namespace sng {
     
-struct ParseContext
+/**
+* Represents a Job for the internal event loop
+* For example a running process
+* TODO Internal or External API
+*/
+class Job
 {
-    Shell& shell;
-    Node* ast;
-    bool error;
-    
-    std::ostream& errStream;
-    
-    ParseContext(Shell& shell)
-        :shell(shell), ast(nullptr), error(false), errStream(std::cerr)
-    {
-    }
+private:
+public:
 };
-
+    
 }
+
 
 #endif

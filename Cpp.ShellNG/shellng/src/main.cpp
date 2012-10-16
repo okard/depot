@@ -19,6 +19,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+#include <cstring>
+#include <iostream>
+
 #include <shellng/Shell.hpp>
 #include <shellng/Source.hpp>
 
@@ -26,17 +29,36 @@ SOFTWARE.
 
 using namespace sng;
 
-int main()
+int main(int argc, char **argv)
 {
+    //parse arguments
+    //- "-f" execute script file
+    
+    if(argc == 3 && !strcmp(argv[1], "-f"))
+    {
+        //open file from argv[2] as source and executes it
+        
+        return 0;
+    }
+    
+    
     Shell shell;
     LineSource source(shell);
     
-    //shell.RequestInput = &RequestInput;
     
     while(true)
     {
+        //create interactive stdin jobs and enqueue it
+        
+        //read into buffer from line until it can successful parsed
+        // Use a quiet errr parsing context
+        // successful ast creation get executed in rootContext? 
+            //aka succesful ast becoming a job in event loop
+        
         shell.execute(&source);
-        source.reset();
+        shell.dispatch();
+        
+        source.reset();  
     }
 
     

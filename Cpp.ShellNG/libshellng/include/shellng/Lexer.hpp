@@ -40,9 +40,13 @@ private:
     Source* src_;
       
     //re2c stuff
-    char* re2c_cursor_;
-    char* re2c_limit_;
-    char* re2c_marker_;
+    char*   re2c_cursor_;
+    char*   re2c_limit_;
+    char*   re2c_marker_;
+    
+    char    re2c_yych;
+    int     re2c_yyaccept;
+    
     
     static const unsigned int RE2C_MAXFILL;
     
@@ -80,6 +84,7 @@ public:
     
     /**
     * Get next token
+    * TODO Using a PushModel
     */
     unsigned int next(Token& tok);
     

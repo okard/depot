@@ -30,7 +30,7 @@ private:
     //Shell&
     
 public:
-    //void interpret(Node, Context)
+    //void interpret(Node*, Context&)
     
     //feedback when ready?
 };

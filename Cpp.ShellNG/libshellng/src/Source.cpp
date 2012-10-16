@@ -54,16 +54,18 @@ void SourceFile::open(const char* fileName)
     file_ = fopen(fileName, "r");
 }
 
+/**
+* Read try to read specific length
+* returns buffer
+* requires free after usage
+*/
 void* SourceFile::read(size_t* len)
 {
     void* buffer = malloc(1024);
     
     *len = fread(buffer, 1, 1024, file_);
     
-    
-    free(buffer);
-    (*len)=0;
-    return nullptr;
+    return buffer;
 }
 
 /**

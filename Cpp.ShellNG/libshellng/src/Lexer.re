@@ -30,6 +30,15 @@ std:
     //The generated code saves backtracking information in YYMARKER. 
     //Some easy scanners might not use this.
 
+    //YYGETSTATE()
+
+    //re2c:define:YYSETSTATE@state = #;
+    //re2c:define:YYSETSTATE       = "s->state = #;";
+
+    //re2c:define:YYGETSTATE       = "s->state";
+    //re2c:define:YYGETSTATE:naked = 1;
+    
+
     /*!re2c
         re2c:define:YYCTYPE = "char";
         re2c:define:YYCURSOR = re2c_cursor_;

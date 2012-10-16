@@ -43,6 +43,11 @@ private:
     //Context* nested contextes, stack of contexts?
     
     //node* ast
+    
+    //Enviroment Variables for processes and so on
+    
+    //objects
+    //variables (objects, numbers, strings)
 public:
     
     

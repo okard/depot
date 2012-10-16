@@ -9,28 +9,54 @@
 using namespace sng;
 }
 
+// also can make callbacks to notifier about parsing states
+%extra_argument { ParseContext *ctx }
+
+
 %token_prefix {TOKEN_}
 
 %token_type { Token* }
 
-// also can make callbacks to notifier about parsing states
-%extra_argument { ParseContext *ctx }
+//%token_destructor {delete $$;}
 
+
+//define the types for all non terminals
 %type program { Node* }
+//%destructor 
+
+/*
+* Parser Accepts
+*/
+
+%parse_accept {
+    ctx->errStream << "Parsing Complete" << std::endl;
+}
+
+/*
+ Error Handling Section
+*/
 
 %syntax_error {
     //call error on extra argument
     // ctx->syntaxError
     // which prints line and so on
     ctx->error = true;
-    fprintf(stderr, "Syntax error\n");
+    ctx->errStream << "Syntax error" << std::endl;
+    //fprintf(stderr, "Syntax error\n");
 }
 
 %parse_failure {
     //same here
     ctx->error = true;
-    fprintf(stderr,"Giving up. Parser is hopelessly lost...\n");
+    ctx->errStream << "Giving up. Parser is hopelessly lost..." << std::endl;
+    //fprintf(stderr,"Giving up. Parser is hopelessly lost...\n");
 }
+
+//%stack_overflow 
+
+/*
+* Syntax Starts here
+*/
 
 %start_symbol program
 
