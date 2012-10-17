@@ -5,15 +5,15 @@
 
 
 # create merged svg files
-for f in overview[0-9].svg; do 
+for f in generated/overview[0-9].svg; do 
     echo "Create merged svg for $f ..."; 
-    ./merge_svg.py $f tokenlib.svg
+    ./merge_svg.py $f tokenlib.svg generated/merged_$(basename "$f")
 done
 
 # create pdfs for the merged files
-for f in merged_overview[0-9].svg; do 
-    echo "Create pdffor $f ..."; 
-    convert -units PixelsPerInch -density 300 $f $f.pdf
+for f in generated/merged_overview[0-9].svg; do 
+    echo "Create pdf for $f ..."; 
+    convert -units PixelsPerInch -density 300 $f generated/$(basename "$f").pdf
 done
 
 

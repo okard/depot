@@ -305,6 +305,15 @@ if sys.argv[1] == 'ov':
     overviewFile = OverviewContext(sys.argv[4].format(overviewIndex))
     
     #TODO: create multiple page files
+    
+    def next_file():
+        print("Creating new Overview File...")
+        global overviewIndex
+        global overviewFile
+        overviewIndex += 1
+        del overviewFile
+        overviewFile = OverviewContext(sys.argv[4].format(overviewIndex))
+        
         
     # add a instance for each token pair in token db list
     for line in deffile:
@@ -316,16 +325,21 @@ if sys.argv[1] == 'ov':
 
         print("{0}-{1}".format(values[0], values[1]))
         
-        if overviewFile.space_left() == 0:
-            print('page full')
         
-        # this creates 6 
-        for i in range(0, 3):
+        # this creates 6 entries
+        for i in range(0, 3):  
+            if overviewFile.space_left() < 2:
+                next_file()
+            
             overviewFile.write(libfile, values[0])
             overviewFile.write(libfile, values[1])
     
     del overviewFile
     
     deffile.close()
+
+    
+# Create single images for each token? or double images with front and backside?
+# Create also latex db template
 
     

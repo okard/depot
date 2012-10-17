@@ -6,8 +6,8 @@ import xml.etree.ElementTree as ET
 
 #TODO extract tokenlib file from uses in overview?
 
-if len(sys.argv) < 3:
-    sys.exit("Usage: script overview.svg tokenlib.svg") 
+if len(sys.argv) < 4:
+    sys.exit("Usage: script overview.svg tokenlib.svg merged.svg") 
 
 
 overview = ET.parse(sys.argv[1])
@@ -19,7 +19,7 @@ tokendefs = tokenlib.findall('./{http://www.w3.org/2000/svg}defs')
 root.append(tokendefs[0])
 
 #write new merged file
-overview.write('merged_'+sys.argv[1])
+overview.write(sys.argv[3])
 
 
 
