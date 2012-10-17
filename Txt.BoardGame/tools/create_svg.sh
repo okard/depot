@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
+
+# Generate the Token Library
 ./gentokensvg.py lib tokendb.txt tokenlib.svg
+
+# Generate the overview sheet
 ./gentokensvg.py ov tokendb.txt tokenlib.svg overview.svg
-
-
-# for future extension
-# inkscape -z -f overview_test.svg --export-dpi=300 --export-pdf overview_test_2.pdf

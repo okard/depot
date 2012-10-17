@@ -130,8 +130,8 @@ def writeToken(svg, token, back_value=None):
     # strength of back side
     # TODO light gray filled?
     vrect_size = radius*0.80
-    svg.setStroke("#8a8a8a", "0.3")
-    svg.setFill("#8a8a8a")
+    svg.setStroke("#bbbaba", "0.3")
+    svg.setFill("#bbbaba")
     if not back_value == None:
         bstrength = int(3 if back_value == 'X' else back_value)
         for i in range(0, bstrength):
@@ -281,6 +281,7 @@ if sys.argv[1] == 'ov':
         
         for i in range(0, 3):
             svg.file.write('<use xlink:href="{0}#{1}" x="{2}mm" y="{3}mm" width="22mm" height="26mm" />\n'.format(libfile, values[0], x_pos, y_pos))
+            #line here
             next()
         
             svg.file.write('<use xlink:href="{0}#{1}" x="{2}mm" y="{3}mm" width="22mm" height="27mm" />\n'.format(libfile, values[1], x_pos, y_pos))
