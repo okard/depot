@@ -5,4 +5,4 @@
 ./gentokensvg.py lib tokendb.txt tokenlib.svg
 
 # Generate the overview sheet
-./gentokensvg.py ov tokendb.txt tokenlib.svg overview.svg
+./gentokensvg.py ov tokendb.txt tokenlib.svg overview{0}.svg

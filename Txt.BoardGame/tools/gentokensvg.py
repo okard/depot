@@ -239,35 +239,72 @@ if sys.argv[1] == 'lib':
     
 # generate an overview from list
 # for print out and so on
+
+class OverviewContext():
+    outfile = None
+    svg =  None
+    x_pos = 1.5
+    y_pos = 1.5
+    rows = 0
+    cols = 0
+    count = 0
+    
+    def __init__(self, fileName):
+        self.outfile = open(fileName, "w")
+        self.svg = SvgWriter(self.outfile) 
+        self.svg.beginFormat('210mm', '297mm')
+        
+    def __del__(self):
+        self.svg.end()
+        self.outfile.close()
+        
+    def next(self):
+        # width= 22mm height=27mm
+        # calculate the possible elements per column and row for din a4 paper
+        # 10 rows 7 columns currently doesn't make sense
+        self.count += 1
+        step_x = 8
+        step_y = 8
+        self.x_pos += step_x
+        self.cols += 1
+        if(self.x_pos >= 50):
+            self.cols = 0
+            self.rows += 1
+            self.x_pos = 1.5
+            self.y_pos += step_y
+    
+    def write(self, libfile, value):
+        self.svg.file.write('<use xlink:href="{0}#{1}" x="{2}mm" y="{3}mm" width="22mm" height="27mm" />\n'.format(libfile, value, self.x_pos, self.y_pos))
+        self.next()
+        
+    # possible elements left
+    def space_left(self):
+        return (10*7)- self.count
+        
+    
+    
+
 if sys.argv[1] == 'ov':
     
     if len(sys.argv) < 5:
         sys.exit("Usage: script ov deffile libfile outfile")   
+        
+    #check if sys.argv[4] has an index placeholder {0} element
+    if not "{0}" in sys.argv[4]:
+        sys.exit("Outfile required a index place holder '{0}' in name")
     
     print("Create overview...")
     
+    # the token db file
     deffile = open(sys.argv[2], "r")
-    
+    # required for referencing
     libfile = sys.argv[3]
     
-    #start svg file
-    outfile = open(sys.argv[4], "w")
-    svg = SvgWriter(outfile) 
-    svg.beginFormat('210mm', '297mm')
+    # overview{0}.svg
+    overviewIndex = 0
+    overviewFile = OverviewContext(sys.argv[4].format(overviewIndex))
     
-    x_pos = 1.5
-    y_pos = 1.5
-   
-    # calculate next position
-    def next():
-        step_x = 8
-        step_y = 8
-        global x_pos
-        global y_pos
-        x_pos += step_x
-        if(x_pos >= 50):
-            x_pos = 1.5
-            y_pos += step_y
+    #TODO: create multiple page files
         
     # add a instance for each token pair in token db list
     for line in deffile:
@@ -279,17 +316,16 @@ if sys.argv[1] == 'ov':
 
         print("{0}-{1}".format(values[0], values[1]))
         
-        for i in range(0, 3):
-            svg.file.write('<use xlink:href="{0}#{1}" x="{2}mm" y="{3}mm" width="22mm" height="26mm" />\n'.format(libfile, values[0], x_pos, y_pos))
-            #line here
-            next()
+        if overviewFile.space_left() == 0:
+            print('page full')
         
-            svg.file.write('<use xlink:href="{0}#{1}" x="{2}mm" y="{3}mm" width="22mm" height="27mm" />\n'.format(libfile, values[1], x_pos, y_pos))
-            next()
-           
-    #end svg file
-    svg.end()
-
+        # this creates 6 
+        for i in range(0, 3):
+            overviewFile.write(libfile, values[0])
+            overviewFile.write(libfile, values[1])
+    
+    del overviewFile
+    
     deffile.close()
 
     
