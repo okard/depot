@@ -4,6 +4,7 @@
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
 \usepackage{amsmath}
+\usepackage{MnSymbol}
 \usepackage{mathptmx} %times font
 \usepackage{graphicx}
 \usepackage{subfig}
@@ -12,13 +13,17 @@
 \usepackage{wrapfig}
  
 \title{Brettspiel}
-\author{tg}
+\author{Okard}
 \date{\today}
 
 \definecolor{silver}{rgb}{0.937,0.90,0.937} %239 232 239
 \linespread {1.25}
 
 \begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Einführung
@@ -52,38 +57,36 @@
 
 \subsection{Der Spielstein}
 		
-	\begin{wrapfigure}{l}{3cm}
+	\begin{wrapfigure}{l}{5cm}
 	\centering
-	\includegraphics[scale=0.5]{img/example_token.png}
+	\includegraphics[scale=2]{pdf/token.pdf}
+	\caption{Spielstein Vorder- und Rückseite}
 	\end{wrapfigure}
 	
 	Der Spielstein ist dem japanischem Sh\=ogi Spielstein nachempfunden. Beide Seiten eines Spielsteins können belegt sein.
 	Die Spitze zeigt die Spielrichtung und somit die Zugehörigkeit zum Spieler an.
 	Die äußeren Kreise an den Kreuzenden geben an in welche Richtung der Spielstein sich bewegen und schlagen kann.
-	Der Kreis in der Mitte gibt die generelle Wertigkeit des Spielsteins an. Diese Bestimmt wie sich die Spielsteine in Relation zueinander verhalten.
-	Für einen schwächeren Spielstein ist es zum Beispiel schwieriger einer höherwertigen Spielstein zu schlagen,
-		
+	Unten links ist in jedem Spielstein dessen Stärke und auf der Frontseite unten rechts die Stärke der Rückseite angegeben.
+	Die Stärke des Spielsteins bestimmt wie viel Aufwand nötig ist um mit diesem Spielstein einen anderen zu schlagen.
+	\\
+
 	\begin{flushleft}
-	
-	Für die generelle Wertigkeit, also den mittleren Kreis, gibt es folgende Varianten:
-	
-	\vspace{0.2cm}
+	Die Spielstärke definiert sich wie folgt:	
 	
 	\begin{tabular}{lcl}
 	\hline
-	Farbe & Wertigkeit & Name \\ \hline 
-	\textcolor{black}{$\bullet$} 	Schwarz & 1 & Bauer \\ 
-	\textcolor{silver}{$\bullet$} 		Silber	& 3 & Ritter \\ 
-	\textcolor{yellow}{$\bullet$} 	Gold	& 5 & General \\ 
+	Symbol & Wertigkeit & Name \\ \hline 
+	$\blacksquare$ & 1 & Bauer \\ 
+	$\blacksquare\blacksquare$ & 2 & Ritter \\ 
+	$\blacksquare\blacksquare\blacksquare$ & 3 & General \\ 
 	\end{tabular}
-
 	\end{flushleft}
 	
-	\vspace{0.2cm}
 	
-	\begin{wrapfigure}{l}{4cm}
-	\centering
-	\includegraphics[scale=0.3]{img/token_related_board.png}
+	
+	\begin{wrapfigure}{r}{6.2cm}
+  	\includegraphics[scale=1]{pdf/token_on_board.pdf}
+  	\caption{Spielstein und Brett}
 	\end{wrapfigure}
 	
 	Die maximal 8 äußeren Kreise geben an in welche Richtungen der Spielstein ziehen und 
@@ -93,7 +96,8 @@
 	Richtung kein Kreis vorhanden ist bedeutet dies das der Spielstein in diese Richtung
 	weder schlagen noch ziehen darf. Durch eine Beförderung des Spielsteins, also das umdrehen
 	auf die untere Seite kann sich das Zugverhalten eines Spielsteins jedoch ändern.
-
+	
+	
 	\vspace{0.2cm}
 	
 	\begin{flushleft}
@@ -133,11 +137,12 @@
 	
 \subsection{Spielzüge}
 
-	Für einzelne Spielzüge werden Aktionspunkte kurz AP benötigt, diese werden durch Würfeln bestimmt oder werden vorgegeben.
-	Ein Spielzug besteht also aus dem ermitteln der Aktionspunkte und 4 Aktionsphasen die wie folgt definiert sind.
+	Für einzelne Spielzüge werden \textbf{Aktionspunkte }kurz \textbf{AP} benötigt, diese werden durch Würfeln bestimmt oder werden vorgegeben.
+	Ein Spielzug besteht also aus dem ermitteln der Aktionspunkte und \textbf{4 Phasen} die wie folgt definiert sind.
 	\begin{enumerate}
 	\item Opfern \\
-		  Eine Spielfigur opfern um deren Wert als AP hinzuzugewinnen.
+		  Eine Spielfigur opfern um deren Wert als AP hinzuzugewinnen.\\
+		  Die Spielfigur wandert in den Besitz des Gegners (Oder wird aus dem Spiel entfernt)
 	\item Bewegen \& Schlagen \\
 		  Eine Spielfigur bewegen und/oder gegnerische Spielfiguren schlagen. Dabei darf nur
 		  ein Spielstein in eine Richtung gezogen werden.
@@ -148,21 +153,58 @@
 		  wieder eingesetzt werden.
 	\end{enumerate}
 
+	\begin{flushleft}
 	Die Reihenfolge muss eingehalten werden, nach einer Beförderung oder dem Einsetzen darf nicht noch ein 
 	Spielstein gezogen oder geschlagen werden.
 	Die Kosten für die einzelne Aktionen belaufen sich wie folgt:
-	
-	\begin{tabular}{ll}
+	\end{flushleft}
+
+	\begin{tabular}{lp{10cm}}
 	\hline
-	Aktion & Kosten \\ \hline
-	Opfern & + AP der Wertigkeit der Figur (maximal 6 AP pro Zug) \\
-	Bewegen &  1 AP \\
-	Spielfigur schlagen & 1 AP + Differenz der generellen Wertigkeit, Ersetzt Bewegen. \\
-	Befördern & Differenz der generellen Wertigkeit der 2 Seiten, min. 1 AP \\
-	Einsetzen 	 
-	& Generelle Wertigkeit des Spielsteins der eingesetzt werden soll \\ \hline
+	Aktion & 
+		Kosten \\ \hline
+	Opfern & 
+		+ n AP der Wertigkeit der Figur\newline pro Figur höchstens 3 (insgesamt höchstens 6 AP pro Zug) \\
+	Bewegen & 
+		- 1 AP \\
+	Spielfigur schlagen & 
+		- 1 AP - Differenz der generellen Wertigkeit, Ersetzt Bewegen. \\
+	Befördern & 
+		Differenz der generellen Wertigkeit der 2 Seiten, min. - 1 AP \\
+	Einsetzen & 
+		Generelle Wertigkeit des Spielsteins der eingesetzt werden soll \\ \hline
 	\end{tabular} 
 	
+	\subsubsection*{Beispiele}
+	
+	\begin{tabular}{llc}
+	Angreifer & Verteidiger & Kosten AP \\ \hline 
+	$\blacksquare$ & $\blacksquare$ & 2 \\
+	$\blacksquare$ & $\blacksquare\blacksquare$ & 3 \\
+	$\blacksquare$ & $\blacksquare\blacksquare\blacksquare$ & 4 \\
+	
+	$\blacksquare\blacksquare$ & $\blacksquare$ & 1 \\ 
+	$\blacksquare\blacksquare$ & $\blacksquare\blacksquare$ & 2 \\ 
+	$\blacksquare\blacksquare$ & $\blacksquare\blacksquare\blacksquare$ & 3 \\ 
+	
+	$\blacksquare\blacksquare\blacksquare$ & $\blacksquare$ & 1 \\ 
+	$\blacksquare\blacksquare\blacksquare$ & $\blacksquare\blacksquare$ & 1 \\ 
+	$\blacksquare\blacksquare\blacksquare$ & $\blacksquare\blacksquare\blacksquare$ & 2 \\ 
+	\end{tabular} 
+	
+	% 1 - 1 : 2
+	% 2 - 1 : 1
+	% 3 - 1 : 1
+	% 1 - 2 : 3
+	% 1 - 3 : 4
+	% 2 - 3 : 2
+	% 3 - 3 : 2
+	
+	\begin{figure}[h]
+	\includegraphics[scale=0.8]{pdf/board_situation1.pdf}
+	\end{figure}
+	
+
 	
 	%TODO Beispiele (TODO)
 	%TODO (Bewegen und Schlagen)
@@ -257,6 +299,9 @@
 	Jeder Spiel vollzieht abwechselnd einen Spielzug, sobald alle Spieler am Zug waren
 	ist eine Spielrunde zu Ende. Ein Zug besteht also aus folgenden Phasen:
 	
+	% ⚀ ⚁ ⚂ ⚃ ⚄ ⚅	
+	% ☖ ☗
+	
 	\begin{enumerate}
 	\item Bestimmen der Aktionspunkte (AP) \\
 		  Die Aktionspunkte die ein Spieler für seinen Zug zur Verfügung hat können auf mehrere Arten bestimmt werden.
@@ -273,6 +318,14 @@
 	\item Einsetzen von Spielsteinen \\
 		  Eingesetzt wird ein Spielstein immer mit der oberen Seite.
 	\end{enumerate}
+	
+	
+	
+	\textbf{DRAFT: Combo-Spiel}, um mehr Dynamik im Spiel zu haben, 
+	zum Beispiel ein Einsetzen$\rightarrow$Opfer$\rightarrow$Zug.
+	Somit kann man sich unter Einsatz von Figuren zusätzliche Züge erkaufen.
+	
+	
 
 
 \subsection{Gewinnbedingungen}
@@ -286,7 +339,8 @@
 
 			% Idee Ansage vor dem (Würfel)Zug -> Verdoppeltn der Ergebnisse 
 	
-	\item Sobald eine gewisse Armeegröße (nach Punkten) gefangen genommen worden ist
+	\item Sobald eine gewisse Armeegröße (nach Punkten) gefangen genommen worden ist \\
+		  Andere Variante der Siegpunkte, die Siegpunkte sind die gefangenen Figuren
 	
 	\item Schlagen eines Königsteins
 	
@@ -294,8 +348,15 @@
 	       Gewisse Anzahl von Punkten über das Spielfeld bringen
 	
 	\item Schlagen aller gegnerischen Spielsteine \\
-	      (Dauert zu lange?)	
+	      (Dauert zu lange?) Kann ewig dauern	
 	\end{itemize}
+	
+	%anpassen der spielstärke mit steinen?
+	%gewinnender spieler wird ab einem gewissen zeitpunkt
+	%stärker um das spiel beenden zu können
+	%combo play?
+	%opfern von figuren nach dem initial zug möglich?
+		%einsetzen -> opfern -> ziehen?
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -361,7 +422,7 @@ PL
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Lizenz}
 Creative Commons Lizenzvertrag
-Diese(s) Werk bzw. Inhalt von okard steht unter einer Creative Commons Namensnennung-NichtKommerziell-KeineBearbeitung 3.0 Unported Lizenz.
+Diese(s) Werk bzw. Inhalt von Okard steht unter einer Creative Commons Namensnennung-NichtKommerziell-KeineBearbeitung 3.0 Unported Lizenz.
 \href{http://creativecommons.org/licenses/by-nc-nd/3.0/}{CC BY-NC-ND 3.0}
 
 

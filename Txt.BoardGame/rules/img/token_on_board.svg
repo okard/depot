@@ -12,22 +12,22 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="210mm"
    height="297mm"
-   id="svg4541"
+   id="svg7086"
    version="1.1"
    inkscape:version="0.48.3.1 r9886"
-   sodipodi:docname="Neues Dokument 10">
+   sodipodi:docname="token_on_board.svg">
   <defs
-     id="defs3">
+     id="defs7088">
     <symbol
        id="220010023">
       <polygon
-         id="polygon6257"
+         id="polygon8872"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <rect
-         id="rect6259"
+         id="rect8874"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -36,7 +36,7 @@
          y="22"
          x="2.0" />
       <rect
-         id="rect6261"
+         id="rect8876"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -45,7 +45,7 @@
          y="22"
          x="4.5" />
       <rect
-         id="rect6263"
+         id="rect8878"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -54,7 +54,7 @@
          y="22"
          x="7.0" />
       <line
-         id="line6265"
+         id="line8880"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -64,7 +64,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6267"
+         id="line8882"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -74,7 +74,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6269"
+         id="line8884"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -84,7 +84,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6271"
+         id="line8886"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -94,7 +94,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6273"
+         id="circle8888"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -103,7 +103,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6275"
+         id="circle8890"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -112,7 +112,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6277"
+         id="circle8892"
          transform="rotate(180 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -121,7 +121,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6279"
+         id="circle8894"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -133,13 +133,13 @@
     <symbol
        id="120010011">
       <polygon
-         id="polygon6230"
+         id="polygon8845"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <rect
-         id="rect6232"
+         id="rect8847"
          stroke-width="0.3"
          stroke="#bbbaba"
          fill="#bbbaba"
@@ -148,7 +148,7 @@
          y="22"
          x="16.8" />
       <rect
-         id="rect6234"
+         id="rect8849"
          stroke-width="0.3"
          stroke="#bbbaba"
          fill="#bbbaba"
@@ -157,7 +157,7 @@
          y="22"
          x="14.3" />
       <rect
-         id="rect6236"
+         id="rect8851"
          stroke-width="0.3"
          stroke="#bbbaba"
          fill="#bbbaba"
@@ -166,7 +166,7 @@
          y="22"
          x="11.8" />
       <rect
-         id="rect6238"
+         id="rect8853"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -175,7 +175,7 @@
          y="22"
          x="2.0" />
       <line
-         id="line6240"
+         id="line8855"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -185,7 +185,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6242"
+         id="line8857"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -195,7 +195,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6244"
+         id="line8859"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -205,7 +205,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6246"
+         id="line8861"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -215,7 +215,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6248"
+         id="circle8863"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -224,7 +224,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6250"
+         id="circle8865"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -233,7 +233,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6252"
+         id="circle8867"
          transform="rotate(180 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -242,7 +242,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6254"
+         id="circle8869"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -254,13 +254,13 @@
     <symbol
        id="020101020">
       <polygon
-         id="polygon6211"
+         id="polygon8826"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line6213"
+         id="line8828"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -270,7 +270,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6215"
+         id="line8830"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -280,7 +280,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6217"
+         id="line8832"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -290,7 +290,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6219"
+         id="line8834"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -300,7 +300,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6221"
+         id="circle8836"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -309,7 +309,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6223"
+         id="circle8838"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -318,7 +318,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6225"
+         id="circle8840"
          transform="rotate(225 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -327,7 +327,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6227"
+         id="circle8842"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -339,13 +339,13 @@
     <symbol
        id="020000020">
       <polygon
-         id="polygon6196"
+         id="polygon8811"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line6198"
+         id="line8813"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -355,7 +355,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6200"
+         id="line8815"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -365,7 +365,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6202"
+         id="line8817"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -375,7 +375,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6204"
+         id="line8819"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -385,7 +385,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6206"
+         id="circle8821"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -394,7 +394,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6208"
+         id="circle8823"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -406,13 +406,13 @@
     <symbol
        id="110111010">
       <polygon
-         id="polygon6173"
+         id="polygon8788"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line6175"
+         id="line8790"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -422,7 +422,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6177"
+         id="line8792"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -432,7 +432,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6179"
+         id="line8794"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -442,7 +442,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6181"
+         id="line8796"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -452,7 +452,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6183"
+         id="circle8798"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -461,7 +461,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6185"
+         id="circle8800"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -470,7 +470,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6187"
+         id="circle8802"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -479,7 +479,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6189"
+         id="circle8804"
          transform="rotate(180 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -488,7 +488,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6191"
+         id="circle8806"
          transform="rotate(225 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -497,7 +497,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6193"
+         id="circle8808"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -509,13 +509,13 @@
     <symbol
        id="010101010">
       <polygon
-         id="polygon6154"
+         id="polygon8769"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line6156"
+         id="line8771"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -525,7 +525,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6158"
+         id="line8773"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -535,7 +535,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6160"
+         id="line8775"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -545,7 +545,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6162"
+         id="line8777"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -555,7 +555,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6164"
+         id="circle8779"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -564,7 +564,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6166"
+         id="circle8781"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -573,7 +573,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6168"
+         id="circle8783"
          transform="rotate(225 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -582,7 +582,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6170"
+         id="circle8785"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -594,13 +594,13 @@
     <symbol
        id="221202120">
       <polygon
-         id="polygon6129"
+         id="polygon8744"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line6131"
+         id="line8746"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -610,7 +610,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6133"
+         id="line8748"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -620,7 +620,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6135"
+         id="line8750"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -630,7 +630,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6137"
+         id="line8752"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -640,7 +640,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6139"
+         id="circle8754"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -649,7 +649,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6141"
+         id="circle8756"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -658,7 +658,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6143"
+         id="circle8758"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -667,7 +667,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6145"
+         id="circle8760"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -676,7 +676,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6147"
+         id="circle8762"
          transform="rotate(225 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -685,7 +685,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6149"
+         id="circle8764"
          transform="rotate(270 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -694,7 +694,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6151"
+         id="circle8766"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -706,13 +706,13 @@
     <symbol
        id="220202020">
       <polygon
-         id="polygon6108"
+         id="polygon8723"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line6110"
+         id="line8725"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -722,7 +722,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6112"
+         id="line8727"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -732,7 +732,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6114"
+         id="line8729"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -742,7 +742,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6116"
+         id="line8731"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -752,7 +752,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6118"
+         id="circle8733"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -761,7 +761,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6120"
+         id="circle8735"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -770,7 +770,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6122"
+         id="circle8737"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -779,7 +779,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6124"
+         id="circle8739"
          transform="rotate(225 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -788,7 +788,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6126"
+         id="circle8741"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -800,13 +800,13 @@
     <symbol
        id="210000010">
       <polygon
-         id="polygon6091"
+         id="polygon8706"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line6093"
+         id="line8708"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -816,7 +816,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6095"
+         id="line8710"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -826,7 +826,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6097"
+         id="line8712"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -836,7 +836,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6099"
+         id="line8714"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -846,7 +846,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6101"
+         id="circle8716"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -855,7 +855,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6103"
+         id="circle8718"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -864,7 +864,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6105"
+         id="circle8720"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -876,13 +876,13 @@
     <symbol
        id="010000010">
       <polygon
-         id="polygon6076"
+         id="polygon8691"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line6078"
+         id="line8693"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -892,7 +892,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6080"
+         id="line8695"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -902,7 +902,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6082"
+         id="line8697"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -912,7 +912,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6084"
+         id="line8699"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -922,7 +922,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6086"
+         id="circle8701"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -931,7 +931,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6088"
+         id="circle8703"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -943,13 +943,13 @@
     <symbol
        id="100020000">
       <polygon
-         id="polygon6061"
+         id="polygon8676"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line6063"
+         id="line8678"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -959,7 +959,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6065"
+         id="line8680"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -969,7 +969,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6067"
+         id="line8682"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -979,7 +979,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6069"
+         id="line8684"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -989,7 +989,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6071"
+         id="circle8686"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -998,7 +998,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6073"
+         id="circle8688"
          transform="rotate(180 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1010,13 +1010,13 @@
     <symbol
        id="100000000">
       <polygon
-         id="polygon6048"
+         id="polygon8663"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line6050"
+         id="line8665"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1026,7 +1026,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6052"
+         id="line8667"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1036,7 +1036,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6054"
+         id="line8669"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1046,7 +1046,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6056"
+         id="line8671"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1056,7 +1056,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6058"
+         id="circle8673"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1068,13 +1068,13 @@
     <symbol
        id="120111020">
       <polygon
-         id="polygon6025"
+         id="polygon8640"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line6027"
+         id="line8642"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1084,7 +1084,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6029"
+         id="line8644"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1094,7 +1094,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6031"
+         id="line8646"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1104,7 +1104,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6033"
+         id="line8648"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1114,7 +1114,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6035"
+         id="circle8650"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1123,7 +1123,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6037"
+         id="circle8652"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1132,7 +1132,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6039"
+         id="circle8654"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1141,7 +1141,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6041"
+         id="circle8656"
          transform="rotate(180 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1150,7 +1150,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6043"
+         id="circle8658"
          transform="rotate(225 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1159,7 +1159,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6045"
+         id="circle8660"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1171,13 +1171,13 @@
     <symbol
        id="120010020">
       <polygon
-         id="polygon6006"
+         id="polygon8621"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line6008"
+         id="line8623"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1187,7 +1187,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6010"
+         id="line8625"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1197,7 +1197,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6012"
+         id="line8627"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1207,7 +1207,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line6014"
+         id="line8629"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1217,7 +1217,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle6016"
+         id="circle8631"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1226,7 +1226,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6018"
+         id="circle8633"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1235,7 +1235,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6020"
+         id="circle8635"
          transform="rotate(180 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1244,7 +1244,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6022"
+         id="circle8637"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1256,13 +1256,13 @@
     <symbol
        id="212020210">
       <polygon
-         id="polygon5983"
+         id="polygon8598"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line5985"
+         id="line8600"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1272,7 +1272,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5987"
+         id="line8602"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1282,7 +1282,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5989"
+         id="line8604"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1292,7 +1292,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5991"
+         id="line8606"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1302,7 +1302,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle5993"
+         id="circle8608"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1311,7 +1311,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5995"
+         id="circle8610"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1320,7 +1320,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5997"
+         id="circle8612"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1329,7 +1329,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5999"
+         id="circle8614"
          transform="rotate(180 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1338,7 +1338,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6001"
+         id="circle8616"
          transform="rotate(270 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1347,7 +1347,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle6003"
+         id="circle8618"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1359,13 +1359,13 @@
     <symbol
        id="202020200">
       <polygon
-         id="polygon5964"
+         id="polygon8579"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <line
-         id="line5966"
+         id="line8581"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1375,7 +1375,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5968"
+         id="line8583"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1385,7 +1385,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5970"
+         id="line8585"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1395,7 +1395,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5972"
+         id="line8587"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1405,7 +1405,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle5974"
+         id="circle8589"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1414,7 +1414,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5976"
+         id="circle8591"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1423,7 +1423,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5978"
+         id="circle8593"
          transform="rotate(180 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1432,7 +1432,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5980"
+         id="circle8595"
          transform="rotate(270 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1444,13 +1444,13 @@
     <symbol
        id="102010202">
       <polygon
-         id="polygon5941"
+         id="polygon8556"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <rect
-         id="rect5943"
+         id="rect8558"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -1459,7 +1459,7 @@
          y="22"
          x="2.0" />
       <rect
-         id="rect5945"
+         id="rect8560"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -1468,7 +1468,7 @@
          y="22"
          x="4.5" />
       <line
-         id="line5947"
+         id="line8562"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1478,7 +1478,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5949"
+         id="line8564"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1488,7 +1488,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5951"
+         id="line8566"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1498,7 +1498,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5953"
+         id="line8568"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1508,7 +1508,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle5955"
+         id="circle8570"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1517,7 +1517,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5957"
+         id="circle8572"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1526,7 +1526,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5959"
+         id="circle8574"
          transform="rotate(180 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1535,7 +1535,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5961"
+         id="circle8576"
          transform="rotate(270 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1547,13 +1547,13 @@
     <symbol
        id="201020102">
       <polygon
-         id="polygon5914"
+         id="polygon8529"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <rect
-         id="rect5916"
+         id="rect8531"
          stroke-width="0.3"
          stroke="#bbbaba"
          fill="#bbbaba"
@@ -1562,7 +1562,7 @@
          y="22"
          x="16.8" />
       <rect
-         id="rect5918"
+         id="rect8533"
          stroke-width="0.3"
          stroke="#bbbaba"
          fill="#bbbaba"
@@ -1571,7 +1571,7 @@
          y="22"
          x="14.3" />
       <rect
-         id="rect5920"
+         id="rect8535"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -1580,7 +1580,7 @@
          y="22"
          x="2.0" />
       <rect
-         id="rect5922"
+         id="rect8537"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -1589,7 +1589,7 @@
          y="22"
          x="4.5" />
       <line
-         id="line5924"
+         id="line8539"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1599,7 +1599,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5926"
+         id="line8541"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1609,7 +1609,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5928"
+         id="line8543"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1619,7 +1619,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5930"
+         id="line8545"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1629,7 +1629,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle5932"
+         id="circle8547"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1638,7 +1638,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5934"
+         id="circle8549"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1647,7 +1647,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5936"
+         id="circle8551"
          transform="rotate(180 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1656,7 +1656,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5938"
+         id="circle8553"
          transform="rotate(270 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1668,13 +1668,13 @@
     <symbol
        id="222202223">
       <polygon
-         id="polygon5883"
+         id="polygon8498"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <rect
-         id="rect5885"
+         id="rect8500"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -1683,7 +1683,7 @@
          y="22"
          x="2.0" />
       <rect
-         id="rect5887"
+         id="rect8502"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -1692,7 +1692,7 @@
          y="22"
          x="4.5" />
       <rect
-         id="rect5889"
+         id="rect8504"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -1701,7 +1701,7 @@
          y="22"
          x="7.0" />
       <line
-         id="line5891"
+         id="line8506"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1711,7 +1711,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5893"
+         id="line8508"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1721,7 +1721,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5895"
+         id="line8510"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1731,7 +1731,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5897"
+         id="line8512"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1741,7 +1741,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle5899"
+         id="circle8514"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1750,7 +1750,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5901"
+         id="circle8516"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1759,7 +1759,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5903"
+         id="circle8518"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1768,7 +1768,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5905"
+         id="circle8520"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1777,7 +1777,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5907"
+         id="circle8522"
          transform="rotate(225 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1786,7 +1786,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5909"
+         id="circle8524"
          transform="rotate(270 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1795,7 +1795,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5911"
+         id="circle8526"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1807,13 +1807,13 @@
     <symbol
        id="020202021">
       <polygon
-         id="polygon5856"
+         id="polygon8471"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <rect
-         id="rect5858"
+         id="rect8473"
          stroke-width="0.3"
          stroke="#bbbaba"
          fill="#bbbaba"
@@ -1822,7 +1822,7 @@
          y="22"
          x="16.8" />
       <rect
-         id="rect5860"
+         id="rect8475"
          stroke-width="0.3"
          stroke="#bbbaba"
          fill="#bbbaba"
@@ -1831,7 +1831,7 @@
          y="22"
          x="14.3" />
       <rect
-         id="rect5862"
+         id="rect8477"
          stroke-width="0.3"
          stroke="#bbbaba"
          fill="#bbbaba"
@@ -1840,7 +1840,7 @@
          y="22"
          x="11.8" />
       <rect
-         id="rect5864"
+         id="rect8479"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -1849,7 +1849,7 @@
          y="22"
          x="2.0" />
       <line
-         id="line5866"
+         id="line8481"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1859,7 +1859,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5868"
+         id="line8483"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1869,7 +1869,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5870"
+         id="line8485"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1879,7 +1879,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5872"
+         id="line8487"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1889,7 +1889,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle5874"
+         id="circle8489"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1898,7 +1898,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5876"
+         id="circle8491"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1907,7 +1907,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5878"
+         id="circle8493"
          transform="rotate(225 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1916,7 +1916,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5880"
+         id="circle8495"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1928,13 +1928,13 @@
     <symbol
        id="200020002">
       <polygon
-         id="polygon5837"
+         id="polygon8452"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <rect
-         id="rect5839"
+         id="rect8454"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -1943,7 +1943,7 @@
          y="22"
          x="2.0" />
       <rect
-         id="rect5841"
+         id="rect8456"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -1952,7 +1952,7 @@
          y="22"
          x="4.5" />
       <line
-         id="line5843"
+         id="line8458"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1962,7 +1962,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5845"
+         id="line8460"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1972,7 +1972,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5847"
+         id="line8462"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1982,7 +1982,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5849"
+         id="line8464"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -1992,7 +1992,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle5851"
+         id="circle8466"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2001,7 +2001,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5853"
+         id="circle8468"
          transform="rotate(180 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2013,13 +2013,13 @@
     <symbol
        id="200000001">
       <polygon
-         id="polygon5818"
+         id="polygon8433"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <rect
-         id="rect5820"
+         id="rect8435"
          stroke-width="0.3"
          stroke="#bbbaba"
          fill="#bbbaba"
@@ -2028,7 +2028,7 @@
          y="22"
          x="16.8" />
       <rect
-         id="rect5822"
+         id="rect8437"
          stroke-width="0.3"
          stroke="#bbbaba"
          fill="#bbbaba"
@@ -2037,7 +2037,7 @@
          y="22"
          x="14.3" />
       <rect
-         id="rect5824"
+         id="rect8439"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -2046,7 +2046,7 @@
          y="22"
          x="2.0" />
       <line
-         id="line5826"
+         id="line8441"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2056,7 +2056,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5828"
+         id="line8443"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2066,7 +2066,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5830"
+         id="line8445"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2076,7 +2076,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5832"
+         id="line8447"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2086,7 +2086,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle5834"
+         id="circle8449"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2098,13 +2098,13 @@
     <symbol
        id="220010022">
       <polygon
-         id="polygon5795"
+         id="polygon8410"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <rect
-         id="rect5797"
+         id="rect8412"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -2113,7 +2113,7 @@
          y="22"
          x="2.0" />
       <rect
-         id="rect5799"
+         id="rect8414"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -2122,7 +2122,7 @@
          y="22"
          x="4.5" />
       <line
-         id="line5801"
+         id="line8416"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2132,7 +2132,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5803"
+         id="line8418"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2142,7 +2142,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5805"
+         id="line8420"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2152,7 +2152,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5807"
+         id="line8422"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2162,7 +2162,7 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle5809"
+         id="circle8424"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2171,7 +2171,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5811"
+         id="circle8426"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2180,7 +2180,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5813"
+         id="circle8428"
          transform="rotate(180 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2189,7 +2189,7 @@
          cy="8.5"
          cx="10.0" />
       <circle
-         id="circle5815"
+         id="circle8430"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2201,13 +2201,13 @@
     <symbol
        id="210010011">
       <polygon
-         id="polygon5770"
+         id="polygon8385"
          stroke-width="1"
          stroke="black"
          fill="white"
          points="10.0, 0, 17.5, 2.5, 20, 25, 0, 25, 2.5, 2.5" />
       <rect
-         id="rect5772"
+         id="rect8387"
          stroke-width="0.3"
          stroke="#bbbaba"
          fill="#bbbaba"
@@ -2216,7 +2216,7 @@
          y="22"
          x="16.8" />
       <rect
-         id="rect5774"
+         id="rect8389"
          stroke-width="0.3"
          stroke="#bbbaba"
          fill="#bbbaba"
@@ -2225,7 +2225,7 @@
          y="22"
          x="14.3" />
       <rect
-         id="rect5776"
+         id="rect8391"
          stroke-width="0.3"
          stroke="black"
          fill="black"
@@ -2234,7 +2234,7 @@
          y="22"
          x="2.0" />
       <line
-         id="line5778"
+         id="line8393"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2244,7 +2244,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5780"
+         id="line8395"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2254,7 +2254,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5782"
+         id="line8397"
          transform="rotate(90 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2264,7 +2264,7 @@
          y1="8.5"
          x1="10.0" />
       <line
-         id="line5784"
+         id="line8399"
          transform="rotate(135 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
@@ -2274,78 +2274,63 @@
          y1="8.5"
          x1="10.0" />
       <circle
-         id="circle5786"
+         id="circle8401"
          transform="rotate(0 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
          fill="black"
          r="1.5"
          cy="8.5"
-         cx="10.0"
-         d="M 11.5,8.5 C 11.5,9.3284271 10.828427,10 10,10 9.1715729,10 8.5,9.3284271 8.5,8.5 8.5,7.6715729 9.1715729,7 10,7 c 0.828427,0 1.5,0.6715729 1.5,1.5 z" />
+         cx="10.0" />
       <circle
-         id="circle5788"
+         id="circle8403"
          transform="rotate(45 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
          fill="white"
          r="1.5"
          cy="8.5"
-         cx="10.0"
-         d="M 11.5,8.5 C 11.5,9.3284271 10.828427,10 10,10 9.1715729,10 8.5,9.3284271 8.5,8.5 8.5,7.6715729 9.1715729,7 10,7 c 0.828427,0 1.5,0.6715729 1.5,1.5 z" />
+         cx="10.0" />
       <circle
-         id="circle5790"
+         id="circle8405"
          transform="rotate(180 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
          fill="white"
          r="1.5"
          cy="8.5"
-         cx="10.0"
-         d="M 11.5,8.5 C 11.5,9.3284271 10.828427,10 10,10 9.1715729,10 8.5,9.3284271 8.5,8.5 8.5,7.6715729 9.1715729,7 10,7 c 0.828427,0 1.5,0.6715729 1.5,1.5 z" />
+         cx="10.0" />
       <circle
-         id="circle5792"
+         id="circle8407"
          transform="rotate(315 10.0 13.5)"
          stroke-width="0.5"
          stroke="black"
          fill="white"
          r="1.5"
          cy="8.5"
-         cx="10.0"
-         d="M 11.5,8.5 C 11.5,9.3284271 10.828427,10 10,10 9.1715729,10 8.5,9.3284271 8.5,8.5 8.5,7.6715729 9.1715729,7 10,7 c 0.828427,0 1.5,0.6715729 1.5,1.5 z" />
+         cx="10.0" />
     </symbol>
   </defs>
   <sodipodi:namedview
-     inkscape:document-units="mm"
      id="base"
      pagecolor="#ffffff"
      bordercolor="#666666"
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="3.959798"
-     inkscape:cx="41.912399"
-     inkscape:cy="989.22388"
-     inkscape:current-layer="svg4541"
-     showgrid="true"
-     units="mm"
-     inkscape:window-width="1310"
-     inkscape:window-height="851"
-     inkscape:window-x="117"
-     inkscape:window-y="74"
-     inkscape:window-maximized="0">
-    <inkscape:grid
-       type="xygrid"
-       id="grid6555"
-       empspacing="5"
-       visible="true"
-       enabled="true"
-       snapvisiblegridlinesonly="true"
-       spacingx="5px"
-       spacingy="5px" />
-  </sodipodi:namedview>
+     inkscape:zoom="1.4"
+     inkscape:cx="230.03422"
+     inkscape:cy="872.12336"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="936"
+     inkscape:window-height="716"
+     inkscape:window-x="0"
+     inkscape:window-y="19"
+     inkscape:window-maximized="0" />
   <metadata
-     id="metadata4">
+     id="metadata7091">
     <rdf:RDF>
       <cc:Work
          rdf:about="">
@@ -2356,21 +2341,120 @@
       </cc:Work>
     </rdf:RDF>
   </metadata>
-  <use
-     id="use6553"
-     xlink:href="#210010011"
-     x="0"
-     y="0"
-     width="744.09448"
-     height="1052.3622"
-     transform="matrix(1.9487171,0,0,1.9487171,4.407964,4.6553136)" />
-  <use
-     transform="matrix(1.9487171,0,0,1.9487171,52.407961,4.6553136)"
-     height="1052.3622"
-     width="744.09448"
-     y="0"
-     x="0"
-     xlink:href="#220010022"
-     id="use6557"
-     style="opacity:0.7" />
+  <g
+     inkscape:label="Ebene 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#ffd42a;fill-opacity:0;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5266"
+       width="50"
+       height="50"
+       x="7.1428571"
+       y="20.219324" />
+    <rect
+       style="fill:#ffd42a;fill-opacity:0;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5266-1"
+       width="50"
+       height="50"
+       x="57.142857"
+       y="20.219324" />
+    <rect
+       style="fill:#ffd42a;fill-opacity:0;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5266-8"
+       width="50"
+       height="50"
+       x="107.14286"
+       y="20.219324" />
+    <rect
+       style="fill:#ffd42a;fill-opacity:0;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5266-4"
+       width="50"
+       height="50"
+       x="7.1428571"
+       y="70.219322" />
+    <rect
+       style="fill:#ffd42a;fill-opacity:0;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5266-1-5"
+       width="50"
+       height="50"
+       x="57.142857"
+       y="70.219322" />
+    <rect
+       style="fill:#ffd42a;fill-opacity:0;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5266-8-7"
+       width="50"
+       height="50"
+       x="107.14286"
+       y="70.219322" />
+    <rect
+       style="fill:#ffd42a;fill-opacity:0;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5266-17"
+       width="50"
+       height="50"
+       x="7.1428571"
+       y="120.21932" />
+    <rect
+       style="fill:#ffd42a;fill-opacity:0;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5266-1-0"
+       width="50"
+       height="50"
+       x="57.142857"
+       y="120.21932" />
+    <rect
+       style="fill:#ffd42a;fill-opacity:0;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="rect5266-8-0"
+       width="50"
+       height="50"
+       x="107.14286"
+       y="120.21932" />
+    <use
+       id="use7378"
+       xlink:href="#220010022"
+       x="0"
+       y="0"
+       width="744.09448"
+       height="1052.3622"
+       transform="matrix(1.8000001,0,0,1.8000001,64.285712,72.647888)" />
+    <path
+       sodipodi:type="arc"
+       style="opacity:0.7;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.55700004;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path9187"
+       sodipodi:cx="214.64285"
+       sodipodi:cy="114.86218"
+       sodipodi:rx="18.928572"
+       sodipodi:ry="18.928572"
+       d="m 233.57142,114.86218 a 18.928572,18.928572 0 1 1 -37.85714,0 18.928572,18.928572 0 1 1 37.85714,0 z"
+       transform="translate(-83.571429,-69.82143)" />
+    <path
+       transform="translate(-133.75,-69.82143)"
+       sodipodi:type="arc"
+       style="opacity:0.7;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.55700004;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path9187-7"
+       sodipodi:cx="214.64285"
+       sodipodi:cy="114.86218"
+       sodipodi:rx="18.928572"
+       sodipodi:ry="18.928572"
+       d="m 233.57142,114.86218 a 18.928572,18.928572 0 1 1 -37.85714,0 18.928572,18.928572 0 1 1 37.85714,0 z" />
+    <path
+       transform="translate(-183.92857,-69.82143)"
+       sodipodi:type="arc"
+       style="opacity:0.7;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:1.55700004;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path9187-77"
+       sodipodi:cx="214.64285"
+       sodipodi:cy="114.86218"
+       sodipodi:rx="18.928572"
+       sodipodi:ry="18.928572"
+       d="m 233.57142,114.86218 a 18.928572,18.928572 0 1 1 -37.85714,0 18.928572,18.928572 0 1 1 37.85714,0 z" />
+    <path
+       transform="translate(-132.78571,29.642853)"
+       sodipodi:type="arc"
+       style="opacity:0.7;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.55700004;stroke-linecap:butt;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path9187-77-8"
+       sodipodi:cx="214.64285"
+       sodipodi:cy="114.86218"
+       sodipodi:rx="18.928572"
+       sodipodi:ry="18.928572"
+       d="m 233.57142,114.86218 a 18.928572,18.928572 0 1 1 -37.85714,0 18.928572,18.928572 0 1 1 37.85714,0 z" />
+  </g>
 </svg>

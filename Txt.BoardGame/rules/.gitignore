@@ -3,6 +3,7 @@
 *.aux
 *.pdf
 *.out
+*.toc
 
 #script to generate images?
 *.png
