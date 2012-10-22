@@ -7,7 +7,7 @@
 # create merged svg files
 for f in generated/overview[0-9].svg; do 
     echo "Create merged svg for $f ..."; 
-    ./merge_svg.py $f tokenlib.svg generated/merged_$(basename "$f")
+    ./merge_svg.py $f generated/tokendb.svg generated/merged_$(basename "$f")
 done
 
 # create pdfs for the merged files

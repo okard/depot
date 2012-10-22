@@ -5,6 +5,9 @@ import re
 
 # Svg Library
 class SvgWriter:
+    
+    # track internal state
+    
     def __init__(self, file):
         self.file = file
         self.tabs = 0
@@ -20,6 +23,8 @@ class SvgWriter:
         self.file.write("version=\"1.1\" baseProfile=\"full\">\n")
         
     def beginFormat(self, width, height):
+        #todo fix viewbox
+        # dict as param
         self.file.write("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n")
         self.file.write("<svg xmlns=\"http://www.w3.org/2000/svg\" ")
         self.file.write("xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:ev=\"http://www.w3.org/2001/xml-events\" ");
@@ -74,6 +79,32 @@ class SvgWriter:
     #set fill
     def setFill(self, color):
         self.fill_color = color
+        
+
+# TokenDB
+class TokenDB:
+    
+    def __init__(self, fileName):
+        self.file = open(fileName, "r")
+    
+    def __del__(self):
+        self.file.close()
+    
+    def foreach(self, func):
+        #svg.file.seek(0)
+        for line in self.file:
+            line = line.strip()
+            if(line[:1] == '#'): continue
+            if(len(line) == 0): continue
+            values = line.split(';')
+            #valid step?
+            if not isValidToken(values[0]):
+                raise Exception("Invalid Front Side")
+            if not isValidToken(values[1]):
+                raise Exception("Invalid Back Side")
+            # values.
+            func(values[0], values[1])
+        
         
 #############################################################################
 # check Token
@@ -130,8 +161,8 @@ def writeToken(svg, token, back_value=None):
     # strength of back side
     # TODO light gray filled?
     vrect_size = radius*0.80
-    svg.setStroke("#bbbaba", "0.3")
-    svg.setFill("#bbbaba")
+    svg.setStroke("#7e7e7e", "0.3")
+    svg.setFill("#7e7e7e")
     if not back_value == None:
         bstrength = int(3 if back_value == 'X' else back_value)
         for i in range(0, bstrength):
@@ -179,6 +210,9 @@ def printToken(svg, tokA, tokB):
 
 # command lib - create lib
 # command ov - create overview sheet
+# command sv - single view
+# command com - command mode
+
         
 if len(sys.argv) < 2:
     sys.exit("Usage: script lib/ov")     
@@ -322,15 +356,13 @@ if sys.argv[1] == 'ov':
         if(len(line) == 0): continue
         
         values = line.split(';')
-
-        print("{0}-{1}".format(values[0], values[1]))
-        
-        
+ 
         # this creates 6 entries
         for i in range(0, 3):  
             if overviewFile.space_left() < 2:
                 next_file()
             
+            print("{0}-{1}".format(values[0], values[1]))
             overviewFile.write(libfile, values[0])
             overviewFile.write(libfile, values[1])
     
@@ -338,6 +370,49 @@ if sys.argv[1] == 'ov':
     
     deffile.close()
 
+
+# command mode
+
+if sys.argv[1] == 'com':
+    
+    if len(sys.argv) < 4:
+        sys.exit("Usage: script com CommandFile TokenLib.svg")
+   
+    
+# single view 
+
+if sys.argv[1] == 'sv':
+    
+    if len(sys.argv) < 4:
+        sys.exit("Usage: script sv TokenDB.txt OutputTemplate")
+        
+    def doit(front, back):
+        print("{0}-{1}".format(front,back))
+        # each token one svg file
+        # create name "generated/token_{0}_{1}.svg"
+        fileName = sys.argv[3].format(front, back)
+        svgfile = open(fileName, "w")
+        svg = SvgWriter(svgfile)    
+        svg.begin()
+        
+        # write symbols
+        svg.beginDefs()
+        writeToken(svg, front, back[8])
+        writeToken(svg, back)
+        svg.endDefs()
+        
+        # write drawings
+        svg.file.write('<use xlink:href="#{0}" x="{1}mm" y="{2}mm" width="22mm" height="27mm" />\n'.format(front, 0, 0))
+        svg.file.write('<use xlink:href="#{0}" x="{1}mm" y="{2}mm" width="22mm" height="27mm" />\n'.format(back, "7", 0))
+        
+        svg.end()
+        svgfile.close()
+        pass
+        
+    tdb = TokenDB(sys.argv[2])
+    tdb.foreach(doit)
+    del tdb
+       
     
 # Create single images for each token? or double images with front and backside?
 # Create also latex db template
