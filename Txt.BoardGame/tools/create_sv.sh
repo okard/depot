@@ -17,12 +17,20 @@ done
 # create tex 
 
 echo "Create tex list"
-echo "%generated" > ../rules/generated/tokendb.tex
-for f in ../rules/generated/token/token_*.pdf; do 
 
+file="../rules/generated/tokendb.tex"
+echo "%generated" > $file
+echo "\\begin{longtable}{llll}" >> $file
+echo "\\hline" >> $file 
+echo "Vorderseite \\& Rückseite & Kürzel & Beschreibung \\\\ \\hline" >> $file 
+
+for f in ../rules/generated/token/token_*.pdf; do 
     #\includegraphics[scale=3]{generated/token/token_120010011_220010023.pdf} & • & • \\ 
-    echo -n "\includegraphics[scale=3]{" >> ../rules/generated/tokendb.tex
-    echo -n ${f:9} >> ../rules/generated/tokendb.tex
-    echo "} & • & • \\\\" >> ../rules/generated/tokendb.tex
+    echo -n "\includegraphics[scale=3]{" >> $file
+    echo -n ${f:9} >> $file
+    echo "} & • & • \\\\" >> $file
 done
+
+echo "\\hline" >> $file
+echo "\\end{longtable}" >> $file
 
