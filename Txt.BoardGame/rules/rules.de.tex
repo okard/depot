@@ -11,6 +11,7 @@
 \usepackage{color}
 \usepackage{hyperref}
 \usepackage{wrapfig}
+\usepackage{longtable}
  
 \title{Brettspiel}
 \author{Okard}
@@ -59,7 +60,7 @@
 		
 	\begin{wrapfigure}{l}{5cm}
 	\centering
-	\includegraphics[scale=2]{pdf/token.pdf}
+	\includegraphics[scale=2]{generated/simple/token.pdf}
 	\caption{Spielstein Vorder- und Rückseite}
 	\end{wrapfigure}
 	
@@ -84,8 +85,9 @@
 	
 	
 	
+	
 	\begin{wrapfigure}{r}{6.2cm}
-  	\includegraphics[scale=1]{pdf/token_on_board.pdf}
+  	\includegraphics[scale=1]{generated/simple/token_on_board.pdf}
   	\caption{Spielstein und Brett}
 	\end{wrapfigure}
 	
@@ -201,7 +203,7 @@
 	% 3 - 3 : 2
 	
 	\begin{figure}[h]
-	\includegraphics[scale=0.8]{pdf/board_situation1.pdf}
+	\includegraphics[scale=0.8]{generated/simple/board_situation1.pdf}
 	\end{figure}
 	
 
@@ -369,12 +371,13 @@
 	müssen akzeptiert werden, andere Konfigurationen von Spielsteinen erfordern das Einverständnis
 	des Gegenspielers.
 	
-	\begin{tabular}{llll}
-	\hline
-	Vorderseite & Rückseite & Kürzel & Beschreibung \\ \hline
-	• & • & • \\ 
-	\hline
-	\end{tabular} 
+	\include{generated/tokendb}
+	
+	%\begin{longtable}{llll}
+	%\hline
+	%Vorderseite \& Rückseite & Kürzel & Beschreibung \\ \hline
+	%\hline
+	%\end{longtable} 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Notation

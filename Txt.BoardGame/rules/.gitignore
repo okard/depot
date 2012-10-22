@@ -5,5 +5,8 @@
 *.out
 *.toc
 
+#generated stuff
+generated/
+
 #script to generate images?
 *.png
