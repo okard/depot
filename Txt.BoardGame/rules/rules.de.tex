@@ -3,6 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
+
 \usepackage{amsmath}
 \usepackage{MnSymbol}
 \usepackage{mathptmx} %times font
@@ -19,6 +20,9 @@
 
 \definecolor{silver}{rgb}{0.937,0.90,0.937} %239 232 239
 \linespread {1.25}
+
+
+\newcommand{\todo}[1]{\textcolor{red}{\colorbox{yellow}{TODO:} #1\\}}
 
 \begin{document}
 
@@ -74,16 +78,14 @@
 	\begin{flushleft}
 	Die Spielstärke definiert sich wie folgt:	
 	
-	\begin{tabular}{lcl}
+	\begin{tabular}{lccl}
 	\hline
-	Symbol & Wertigkeit & Name \\ \hline 
-	$\blacksquare$ & 1 & Bauer \\ 
-	$\blacksquare\blacksquare$ & 2 & Ritter \\ 
-	$\blacksquare\blacksquare\blacksquare$ & 3 & General \\ 
+	Symbol 									& Stärke & Kosten & Name \\ \hline 
+	$\blacksquare$ 							& 1 & 1 & Bauer \\ 
+	$\blacksquare\blacksquare$ 				& 2 & 3 & Ritter \\ 
+	$\blacksquare\blacksquare\blacksquare$  & 3 & 5 & General \\ 
 	\end{tabular}
 	\end{flushleft}
-	
-	
 	
 	
 	\begin{wrapfigure}{r}{6.2cm}
@@ -96,8 +98,10 @@
 	Wenn ein Spielstein in einer Richtung schlagen darf, so darf er sich auch in 
 	diese Richtung bewegen ohne eine andere Figur schlagen zu müssen. Falls für eine
 	Richtung kein Kreis vorhanden ist bedeutet dies das der Spielstein in diese Richtung
-	weder schlagen noch ziehen darf. Durch eine Beförderung des Spielsteins, also das umdrehen
-	auf die untere Seite kann sich das Zugverhalten eines Spielsteins jedoch ändern.
+	weder schlagen noch ziehen darf. 
+	
+	%Durch eine Beförderung des Spielsteins, also das umdrehen
+	%auf die untere Seite kann sich das Zugverhalten eines Spielsteins jedoch ändern.
 	
 	
 	\vspace{0.2cm}
@@ -120,62 +124,90 @@
     
     \begin{flushleft}
     
-    Beide Seiten des Spielsteins können Beschriftet sein, die normale obere Seite muss 
-    markiert sein (Kreis unten rechts auf dem Stein oder Kreis rechts auf der unteren Kante).
-	Die untere Spielseite des Steins stellt den beförderten Stein da, die untere Seite darf 
-	von der Wertigkeit nicht geringer ausfallen als die obere Seite.
+    Beide Seiten des Spielsteins können Beschriftet sein.
+    
+    % die normale obere Seite muss 
+    %markiert sein (Kreis unten rechts auf dem Stein oder Kreis rechts auf der unteren Kante).
+	%Die untere Spielseite des Steins stellt den beförderten Stein da, die untere Seite darf 
+	%von der Wertigkeit nicht geringer ausfallen als die obere Seite.
 	%TODO (Maximale Punkt Differenz zwischen den Seiten?)
 	%TODO Spielsteinwert = Topseite Wert + Differenz Rückseite??	
 	Das Verhalten des Spielsteins wird durch die momentan oben liegende Spielseite bestimmt.
 	
 	
-	Wieviel ein Spielstein Wert ist ergibt sich aus der Summe der generellen Wertigkeit + Wertigkeiten der einzelnen Richtungen für beide Spielstein Seiten.
+	Wie viel ein Spielstein Wert ist ergibt sich aus der Summe der generellen Wertigkeit + Wertigkeiten der einzelnen Richtungen für beide Spielstein Seiten.
 	%TODO Zum Beispiel: (TODO)
 	%TODO Bild Beispielstein zum Berechnen von Wert Vorder, Rückseite
 	\end{flushleft}
+	
+	
 	
 	%TODO Sonderformen: Königstein
 	%TODO Größe des Spielsteins
 	
 \subsection{Spielzüge}
 
-	Für einzelne Spielzüge werden \textbf{Aktionspunkte }kurz \textbf{AP} benötigt, diese werden durch Würfeln bestimmt oder werden vorgegeben.
-	Ein Spielzug besteht also aus dem ermitteln der Aktionspunkte und \textbf{4 Phasen} die wie folgt definiert sind.
-	\begin{enumerate}
-	\item Opfern \\
-		  Eine Spielfigur opfern um deren Wert als AP hinzuzugewinnen.\\
-		  Die Spielfigur wandert in den Besitz des Gegners (Oder wird aus dem Spiel entfernt)
+	\todo{Klarstellen Spiel Möglichkeiten mit dem Stein, Spielzug anderes Kapitel}
+
+	%Für einzelne Spielzüge werden \textbf{Aktionspunkte }kurz \textbf{AP} benötigt, diese werden durch Würfeln bestimmt oder werden vorgegeben.
+	%Ein Spielzug besteht also aus dem ermitteln der Aktionspunkte und \textbf{4 Phasen} die wie folgt definiert sind.
+
+	Die Handlungsmöglichkeiten eines Spielsteins werden über die Aktionspunkte kurz AP bestimmt.
+	Manche Aktionen können zusätzliche AP bringen andere benötigen AP.
+	Was kann man mit einem Spielstein anfangen:
+
+	\begin{itemize}
 	\item Bewegen \& Schlagen \\
 		  Eine Spielfigur bewegen und/oder gegnerische Spielfiguren schlagen. Dabei darf nur
 		  ein Spielstein in eine Richtung gezogen werden.
-	\item Befördern \\
-		  Eigene Spielfiguren befördern (Spielstein umdrehen)
+		  
+	\item Opfern \\
+		  Eine Spielfigur opfern um deren Wert als AP hinzuzugewinnen.\\
+		  Die Spielfigur wandert in den eigenen Besitz, zählt allerdings nicht als Siegpunkt.
+	
 	\item Einsetzen \\
-		  Geschlagene Gegenerische Figuren werden gefangen genommen und können später
-		  wieder eingesetzt werden.
-	\end{enumerate}
+		  Geschlagene gegnerische werden gefangen genommen und können später wieder eingesetzt werden.
+		  Dies ist auch Möglich mit geopferten Figuren.
+		  
+		%\item Befördern \\
+	%	  Eigene Spielfiguren befördern (Spielstein umdrehen)\\
+	%	  \textcolor{red}{Befördern gestrichen um mehr einen Austausch Stil spielen zu können}
+	
+	\end{itemize}
 
 	\begin{flushleft}
-	Die Reihenfolge muss eingehalten werden, nach einer Beförderung oder dem Einsetzen darf nicht noch ein 
-	Spielstein gezogen oder geschlagen werden.
+	%Die Reihenfolge muss eingehalten werden, nach einer Beförderung oder dem Einsetzen darf nicht noch ein 
+	%Spielstein gezogen oder geschlagen werden.
 	Die Kosten für die einzelne Aktionen belaufen sich wie folgt:
 	\end{flushleft}
 
 	\begin{tabular}{lp{10cm}}
 	\hline
-	Aktion & 
-		Kosten \\ \hline
+	Aktion &  Kosten \\ \hline
 	Opfern & 
-		+ n AP der Wertigkeit der Figur\newline pro Figur höchstens 3 (insgesamt höchstens 6 AP pro Zug) \\
+			 + n AP der Wertigkeit der Figur\newline pro Figur höchstens 3 (insgesamt höchstens 6 AP pro Zug) \\
 	Bewegen & 
-		- 1 AP \\
+			 - 1 AP \\
 	Spielfigur schlagen & 
-		- 1 AP - Differenz der generellen Wertigkeit, Ersetzt Bewegen. \\
-	Befördern & 
-		Differenz der generellen Wertigkeit der 2 Seiten, min. - 1 AP \\
+			 - 1 AP - Differenz der generellen Wertigkeit, Ersetzt Bewegen. \\
+	%Befördern & 
+	%		 Differenz der generellen Wertigkeit der 2 Seiten, min. - 1 AP \\
 	Einsetzen & 
-		Generelle Wertigkeit des Spielsteins der eingesetzt werden soll \\ \hline
+			Generelle Wertigkeit des Spielsteins der eingesetzt werden soll \\ \hline
 	\end{tabular} 
+	
+	\vspace*{0.2cm}
+	
+	\begin{flushleft}
+	Notiz:\\
+	Angedacht war auch das Befördern des Spielsteins im laufenden Spiel. Also das wechseln
+	der Seite des Spielsteins. Da es schwierig ist im laufen Spiel zu bestimmten welche Seiten 
+	der Spielstein hat wurde dies geändert und nun ein ''Austausch'' System favorisiert.
+	Damit können zwei Seiten gespielt werden sind aber etwas einfacher zu Handeln. Auch 
+	ist dies Vorteilhaft für das Kombinationsspiel.
+	\end{flushleft}
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	
 	\subsubsection*{Beispiele}
 	
@@ -235,6 +267,9 @@
 	\item Spiel \\
 	  	  Nach dem die Aufstellung komplett ist beginnt das eigentliche Spiel bis ein Spieler gewonnen hat.
 	  	  Ein Spielzug ist wiederum unterteilt 4 Phasen.
+	\item Spielende \\
+		  Das Spiel ist beendet sobald einer der Spieler die Gewinnbedingen erreicht hat und somit
+		  das Spiel für sich entschieden hat.
 	\end{enumerate}
 
 
@@ -293,46 +328,64 @@
 	8x8        & 2 \\ 
 	\end{tabular} 
 	
-	%TODO Bild Einsetzfläche von Spielsteinen
-	%TODO Bild Beispiel fertige Aufstellung
+	\todo{Bild Einsetzfläche von Spielsteinen}
+	\todo{Bild Beispiel fertige Aufstellung}
 	
-\subsection{Das Spiel}
+\subsection{Der Spielzug}
 
-	Jeder Spiel vollzieht abwechselnd einen Spielzug, sobald alle Spieler am Zug waren
-	ist eine Spielrunde zu Ende. Ein Zug besteht also aus folgenden Phasen:
-	
 	% ⚀ ⚁ ⚂ ⚃ ⚄ ⚅	
 	% ☖ ☗
+	
+	Jeder Spieler vollzieht abwechselnd einen Spielzug, sobald alle Spieler am Zug waren
+	ist eine Spielrunde zu Ende. Ein Zug besteht also aus folgenden Phasen:
+
+	% AP ist festes Element	
+	
 	
 	\begin{enumerate}
 	\item Bestimmen der Aktionspunkte (AP) \\
 		  Die Aktionspunkte die ein Spieler für seinen Zug zur Verfügung hat können auf mehrere Arten bestimmt werden.
 		  Es kann jeder Spieler für sich einen W6 werfen, es kann ein W6 geworfen der die AP für die Spielrunde für alle Spieler bestimmt.
 		  Es kann alternativ auch eine feste Anzahl an AP für das gesamte Spiel festgelegt werden.
+
+	\item[-] \textit{Optional} Opfern für zusätzliche AP
 		  
 	\item Bewegung mit einem Spielstein \\
 		  Pro Spielzug darf ein Spielstein bewegt werden, die Möglichkeiten sind allerdings durch die Aktionspunkte begrenzt.
-		   
-	\item Befördern von Spielsteinen \\
-		  Zum befördern wird ein Spielstein herum gedreht und fort an mit der unteren Seite weitergespielt.
-		  Die Beförderung ist nicht umkehrbar, außer der Spielstein wird geschlagen und neu eingesetzt.
-		  
+	
+	\item[-] \textit{Optional}  Opfern
+	
+	\item[-] \textit{Nach Opfern} Bewegung mit einem Spielstein \textbf{oder} 
+			  
 	\item Einsetzen von Spielsteinen \\
 		  Eingesetzt wird ein Spielstein immer mit der oberen Seite.
+		  
 	\end{enumerate}
 	
+	Es ist in einem Spielzug nur ein Opfer erlaubt.
+	
+	\begin{wrapfigure}{l}{6.2cm}
+  	\includegraphics[scale=0.5]{generated/simple/move_decision_tree.pdf}
+  	\caption{Zug-Varianten}
+	\end{wrapfigure}
 	
 	
-	\textbf{DRAFT: Combo-Spiel}, um mehr Dynamik im Spiel zu haben, 
+	\textcolor{red}{DRAFT: Combo-Spiel}, um mehr Dynamik im Spiel zu haben, 
 	zum Beispiel ein Einsetzen$\rightarrow$Opfer$\rightarrow$Zug.
 	Somit kann man sich unter Einsatz von Figuren zusätzliche Züge erkaufen.
 	
+	\begin{itemize}
+	\item Bewegen \& Schlagen
+	\item 
+	\item Bewegen \& Schlagen $\rightarrow$ Opfern $\rightarrow$ Zug
+	\item Opfern $\rightarrow$  Bewegen \& Schlagen
+	\end{itemize}
 	
 
 
 \subsection{Gewinnbedingungen}
 
-	\textit{Diese Sektion ist noch ein reiner DRAFT} \\
+	\textcolor{red}{Diese Sektion ist noch ein reiner DRAFT} \\
 	Bisher keine Empfehlungen, reine Ideensammlung.
 	
 	\begin{itemize}
@@ -360,6 +413,14 @@
 	%opfern von figuren nach dem initial zug möglich?
 		%einsetzen -> opfern -> ziehen?
 
+\section{Strategie \& Taktik}
+	\textcolor{red}{Diese Sektion ist noch ein reiner DRAFT}\\
+	
+	Sichern von Gebiet und Steinen.
+	Kombinationsspiel
+	
+	
+	
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Spielsteinliste
@@ -384,7 +445,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Notation}
 
-\textit{Diese Sektion ist noch ein reiner DRAFT}
+\textcolor{red}{Diese Sektion ist noch ein reiner DRAFT}
 
 
 Pick-Phase:
