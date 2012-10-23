@@ -5,16 +5,27 @@ import re
 
 # Svg Library
 class SvgWriter:
+    """SVG Writer Class to create SVG Files"""
     
     # track internal state
+    # openTag: 'defs' 'symbol' 'svg' 'initial' 'end'
+    tabs = 0
+    stroke_color = "black"
+    stroke_width = "1px"
+    fill_color = "white"
+    ident = 0
     
-    def __init__(self, file):
-        self.file = file
-        self.tabs = 0
-        self.stroke_color = "black"
-        self.stroke_width = "1px"
-        self.fill_color = "white"
-        self.ident = 0
+    
+    def __init__(self, ostream):
+        
+        # open file if string
+        # else IOBase
+        # or exception
+        
+        # isinstance(ostream, io.IOBase)
+        # open(fileName, "w")
+        self.file = ostream
+   
         
     def begin(self):
         self.file.write("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n")
@@ -24,7 +35,7 @@ class SvgWriter:
         
     def beginFormat(self, width, height):
         #todo fix viewbox
-        # dict as param
+        # dict as param { unit:"" }
         self.file.write("<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n")
         self.file.write("<svg xmlns=\"http://www.w3.org/2000/svg\" ")
         self.file.write("xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:ev=\"http://www.w3.org/2001/xml-events\" ");
@@ -115,14 +126,22 @@ def isValidToken(token):
         return False
     else:
         return True
-    
-def getValueColor(value):
-    if value == '1': return "black"
-    elif value == '2': return "green"
-    elif value == '3': return "red"
-    elif value == '4': return "blue"
-    elif value == '5': return "#ffd700"
-    else: return "white"
+        
+# Calulcate Token Value
+def calcTokenValue(front, back):
+    v = { "1":1, "2":3, "3":5}
+    sum = 0
+    for i, c in enumerate(front):
+        if i == 8:
+            sum += v[c]
+        else:
+            sum += int(c)
+    for i, c in enumerate(back):
+         if i == 8:
+            sum += v[c]
+         else:
+            sum += int(c)
+    return sum
 
 #############################################################################
 # Write Token
@@ -133,7 +152,6 @@ def writeToken(svg, token, back_value=None):
         return;
         
     svg.beginSymbol(token)
-    
     
     #calculate
     rect = { 'width': 20, 'height': 25 }
@@ -198,11 +216,6 @@ def writeToken(svg, token, back_value=None):
     
     svg.endSymbol()
     
-#############################################################################
-# printToken
-#############################################################################
-def printToken(svg, tokA, tokB):
-    print("")
 
 #############################################################################
 # Main Program 
@@ -263,7 +276,7 @@ if sys.argv[1] == 'lib':
         #backside
         writeToken(svg, values[1])
         
-        print("{0}-{1}".format(values[0], values[1]))
+        print("{0}-{1}-{2}".format(values[0], values[1], calcTokenValue(values[0], values[1])))
         
     #end svg file
     svg.endDefs()
@@ -389,8 +402,9 @@ if sys.argv[1] == 'sv':
     def doit(front, back):
         print("{0}-{1}".format(front,back))
         # each token one svg file
-        # create name "generated/token_{0}_{1}.svg"
-        fileName = sys.argv[3].format(front, back)
+        # create name "generated/token_{0}_{1}_{2}.svg"
+        # calcTokenValue(front, back)
+        fileName = sys.argv[3].format(calcTokenValue(front, back), front, back)
         svgfile = open(fileName, "w")
         svg = SvgWriter(svgfile)    
         svg.begin()
