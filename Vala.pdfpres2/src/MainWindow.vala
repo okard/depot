@@ -6,12 +6,9 @@ namespace pdfpres
 
     public class MainWindow : Gtk.Window
     {
-        //poppler pdf doc
-        private Poppler.Document pdfDoc;
+        //presentation context
+        private Presentation presentation;
         
-        //current page of pdf
-        private int pdfPageIndex = 0;
-
         //presenter window
         private PresenterWindow presWin;
 
@@ -24,47 +21,20 @@ namespace pdfpres
             set_default_size (350, 70);
             destroy.connect (Gtk.main_quit);
 
-            presWin = new PresenterWindow(this);
+			//presentation
+			presentation = new Presentation();
+			//presenter window
+            presWin = new PresenterWindow(presentation);
             presWin.show_all();
 
 
+			//load presentation pdf
             var dia = new FileChooserDialog("test", this, FileChooserAction.OPEN,Stock.CANCEL, ResponseType.CANCEL, Stock.OPEN, ResponseType.ACCEPT);
 
             if (dia.run() == ResponseType.ACCEPT)   
-                Load(dia.get_filename());
-            dia.destroy ();
-
-            
+                presentation.Load(dia.get_filename());
+            dia.destroy ();            
         }
-
-
-        private void Load(string filename)
-        {
-            if(pdfDoc != null)
-            {
-                pdfDoc = null;
-            }
-
-            //try
-            
-            pdfDoc = new Poppler.Document.from_file(Filename.to_uri(filename), null);
-        }
-
-
-        /**
-        * Return current page if a document is loaded
-        */
-        public Poppler.Page CurrentPage
-        {
-            owned get {
-                if(pdfDoc != null)
-                    return pdfDoc.get_page(pdfPageIndex);
-                else
-                    return null;
-            }
-        }
-
-
 
         static int main (string[] args) 
         {
