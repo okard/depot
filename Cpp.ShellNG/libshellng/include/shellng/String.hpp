@@ -31,13 +31,23 @@ namespace sng {
 */
 class String : public Buffer
 {
+public:
+	enum Encoding {
+		ASCII_STRING,
+		UTF8_STRING,
+		UTF16_STRING,
+		UTF32_STRING
+	};
+
 private:
-	//encoding(ascii,utf8,utf16,utf32)
+	Encoding encoding_;
+
 	
 public:
 	
 	//convert between formats
 	
+	//compare
 
 };
 	

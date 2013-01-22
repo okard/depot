@@ -81,12 +81,21 @@ void Buffer::resize(std::size_t size)
 		
 		//check
 		if(buf_ == NULL)
+		{
+			buf_ = nullptr;
 			throw Exception("failed to alloc memory");
+		}
 		
 		memset (buf_, 0, size);
 		allocMem_ = size;
 		size_ = 0;
 		
+		return;
+	}
+	
+	if(size <= allocMem_)
+	{
+		size_ = size;
 		return;
 	}
 
@@ -102,6 +111,15 @@ void Buffer::resize(std::size_t size)
 	size_ = 0;
 	allocMem_ = size;
 }
+
+
+void Buffer::shrink()
+{
+	//TODO set allocMem size to size_
+	//realloc
+	
+}
+
 
 void Buffer::write(ubyte8* buf, std::size_t length)
 {

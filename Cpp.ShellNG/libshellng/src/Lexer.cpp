@@ -26,16 +26,42 @@ SOFTWARE.
 #include<exception>
 #include<iostream>
 
+#include "Parser.h"
+
 using namespace sng;
+
+
+inline bool isAlpha(const ubyte8 b)
+{
+	if( b >= 'A' && b <= 'Z')
+		return true;
+	if ( b >= 'a' && b <= 'z')
+		return true;
+		
+	return false;
+}
+
+inline bool isWhitespace(const ubyte8 b)
+{
+	if( b == ' '
+	||  b == '\r'
+	||  b == '\n')
+		return true;
+	
+	return false;
+}
+
+inline bool isNumeric(const ubyte8 b)
+{
+	if( b >= '0' && b <= '9')
+		return true;
+	return false;
+}
 
 
 Lexer::Lexer()
     : src_(nullptr),
-      re2c_cursor_(nullptr),
-      re2c_limit_(nullptr),
-      re2c_marker_(nullptr),
-      buffer_(nullptr),
-      bufSize_(0)
+      buf_(1024)
 {
 }
 
@@ -46,76 +72,139 @@ Lexer::~Lexer()
 void Lexer::open(Source* const src)
 {
     src_ = src;
-    
-    //read initial buffer
-    buffer_ = src_->read(&bufSize_);
-    
-    if(buffer_ != nullptr)
-    {
-        re2c_cursor_=static_cast<char*>(buffer_);
-        re2c_marker_=static_cast<char*>(buffer_);
-        //TODO is limit right set?
-        re2c_limit_=&static_cast<char*>(buffer_)[bufSize_+1]; 
-    }
+    //initial fill
+	fill();
 }
 
 
 void Lexer::close()
 {
     src_ = nullptr;
-    re2c_cursor_ = nullptr;
-    re2c_limit_ = nullptr;
-    re2c_marker_ = nullptr;
-    
-    if(buffer_ != nullptr)
-        free(buffer_);
-    
-    bufSize_=0;
-    buffer_=nullptr;
 }
 
 
-bool Lexer::fill(int size)
+bool Lexer::fill()
 {
-    std::cout << "Lexer::Fill(" << size << ") Eof: " << src_->isEOF() << std::endl;
+    std::cout << "Lexer::Fill() Eof: " << src_->isEOF() << std::endl;
     
     if(src_->isEOF())
     {
         return false;
     }
     
-    //allocate buffer
-    //src_->read(buffer_, size);
-    
-    //take a look into buffer and so on
-    
-    //this is used to read a special length from source
-    
-    //RE2C:
-    //YYFILL(n) should adjust YYCURSOR, YYLIMIT, YYMARKER
-    
-    //fill from buffer 
-    //for source files and son
-    //or fill it from command line
-    //via callback
-    
-    //initial read(size_t& size)
-    //then use internal buffer?
-    
-    //source_
-    
+    //read in first chunk of bytes
+    auto size = src_->read(reinterpret_cast<void*>(buf_.bufPtr()), buf_.allocatedMemory());
+    buf_.resize(size);
+    pos_ = 0;
     
     return true;
 }
 
 
-/**
-* The current marked token content
-*/
-const char* Lexer::getTokenContent()
+unsigned int Lexer::next(Token& tok)
 {
-	//return 
+	//move pos with buffer fill mechanism
+	
+	//whitespace
+	while(isWhitespace(buf_[pos_]))
+	{
+		if(buf_[pos_] == '\n')
+		{
+			lineNo_++;
+			colNo_ = 0;
+		}
+			
+		pos_++;
+	}
+	
+	//special chars
+	switch(buf_[pos_])
+	{
+		
+		case '+': break;
+		case '-': break;
+		case '*': break;
+		case '/': break;
+		case '$': break;
+		
+		case '(': break;
+		case ')': break;
+		case '{': break;
+		case '}': break;
+		case '[': break;
+		case ']': break;
+		
+		
+		case '"':
+			//read string
+			break;
+			
+	}
+	
+	//tokenize number
+	if(isNumeric(buf_[pos_]))
+	{
+	}
+	
+	//tokenize identifier and keywords
+	if(isAlpha(buf_[pos_]) 
+	|| buf_[pos_] == '_')
+	{
+		//to subfunction
+		
+		std::size_t tpos = pos_;
+		
+		while(isAlpha(buf_[pos_])  || buf_[pos_] == '_')
+		{
+			
+			if(pos_ == buf_.size())
+			{
+				tok.value.append (buf_[tpos], pos_-tpos);
+				if(fill())
+				{
+					tpos_ = pos_;
+				}
+				else
+				{
+					break;
+				}
+			}
+			else
+				pos_++;
+			
+			//append if buffer is at end reset tpos
+		}
+		
+		//append
+		tok.value.append (buf_[tpos], pos_-tpos);
+		
+		
+		//save temp pos
+		//read until end
+		//copy to string in tok
+		//parse id
+		
+		//before buffer skip copy
+		
+		//check for keywords
+		//TOKEN_KW_DEF
+		//int strncmp ( const char * str1, const char * str2, size_t num );
+		//int memcmp ( const void * ptr1, const void * ptr2, size_t num );
+		
+		//if(tok.value == "def")
+		
+		//tok.value std::string(const char* s, size_t n);
+		
+		tok.type = TOKEN_IDENTIFIER;
+		
+		return tok.type;
+	}
+	
+	
+	tok.type = 0;
+	
+	
+	return tok.type;
 }
 
 
-#include "Lexer_re2c.inc"

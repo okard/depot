@@ -24,6 +24,8 @@ SOFTWARE.
 
 #include <string>
 
+#include <shellng/String.hpp>
+
 namespace sng {
     
 /**
@@ -35,13 +37,6 @@ struct Token
     
     std::string value;
     
-    union
-    {
-        char* string;
-        char* identifier;
-        signed int integer;
-        bool boolean;
-    };
     
     ~Token()
     {

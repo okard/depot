@@ -11,7 +11,7 @@ file(GLOB_RECURSE LIBSHELLNG_SOURCES src/*.cpp)
 
 
 # lexer gen via re2c
-add_custom_target(re2c_lexer COMMAND re2c -o ${CMAKE_CURRENT_LIST_DIR}/src/Lexer_re2c.inc ${CMAKE_CURRENT_LIST_DIR}/src/Lexer.re WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
+# add_custom_target(re2c_lexer COMMAND re2c -o ${CMAKE_CURRENT_LIST_DIR}/src/Lexer_re2c.inc ${CMAKE_CURRENT_LIST_DIR}/src/Lexer.re WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
 # parser gen via lemon
 add_custom_target(lemon_parser COMMAND lemon -T/usr/share/lemon/lempar.c -q ${CMAKE_CURRENT_LIST_DIR}/src/Parser.yy  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
 

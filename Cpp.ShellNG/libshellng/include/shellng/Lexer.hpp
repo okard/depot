@@ -25,6 +25,8 @@ SOFTWARE.
 #include <shellng/Types.hpp>
 #include <shellng/Token.hpp>
 #include <shellng/Source.hpp>
+#include <shellng/Buffer.hpp>
+
 
 namespace sng {
 
@@ -39,29 +41,17 @@ private:
     
     /// Source
     Source* src_;
-      
-    //re2c stuff
-    char*   re2c_cursor_;
-    char*   re2c_limit_;
-    char*   re2c_marker_;
     
-    char    re2c_yych;
-    int     re2c_yyaccept;
+    // Buffer
+    Buffer buf_;
+    std::size_t pos_;
     
+    //line number
+    std::size_t lineNo_;
     
-    static const unsigned int RE2C_MAXFILL;
+    //column number
+    std::size_t colNo_;
     
-    //buffer
-    void* buffer_;
-    size_t bufSize_;
-    
-    //what is required
-    // buffer memory
-    char* m_buffer;
-    char* m_token; //is is required?
-    int m_buffer_size;
-    int m_lineno;  
- 
 public:
     /**
     * Create a new lexer
@@ -89,6 +79,9 @@ public:
     */
     unsigned int next(Token& tok);
     
+    
+    //unsigned int next(Token& tok);
+    
 private:
     
     //TODO callback to shell so shell can request more input?
@@ -97,13 +90,11 @@ private:
     /**
     * Fill in buffer from source file
     */
-    bool fill(int size);
+    bool fill();
     
-    /**
-    * The current marked token content
-    */
-    const char* getTokenContent();
-    
+    //unsigned int lexNumber(Token& tok);
+    //unsigned int lexId(Token& tok);
+    //unsigned int lexString(Token& tok);
 };
 
 

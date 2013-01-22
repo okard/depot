@@ -24,6 +24,8 @@ SOFTWARE.
 
 #include <cstdio>
 
+#include <shellng/Buffer.hpp>
+
 namespace sng {
  
 //Location    
@@ -60,6 +62,8 @@ public:
     virtual bool isEOF()=0;
     
     //location info?
+    //position
+    //reset
 };
 
 

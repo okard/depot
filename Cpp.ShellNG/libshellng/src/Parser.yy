@@ -62,7 +62,7 @@ using namespace sng;
 //%destructor program {delete $$; }
 
 program ::= INTEGER(a). {
-    a->integer=0;
+    a->value="";
     ctx->ast = new Node();
 }
 

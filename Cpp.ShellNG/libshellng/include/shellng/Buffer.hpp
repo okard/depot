@@ -53,12 +53,20 @@ public:
 
 	void copyTo(Buffer& buf, std::size_t pos, std::size_t length);
 	void resize(std::size_t size);
+	void shrink();
 	
 	void write(ubyte8* buf, std::size_t length);
 	void write(std::size_t pos, ubyte8* buf, std::size_t length);
 	
 	std::size_t read(ubyte8* buf, std::size_t length);
 	std::size_t read(std::size_t pos, ubyte8* buf, std::size_t length);
+	
+	inline ubyte8* const bufPtr() { return buf_; }
+	inline std::size_t size() { return size_; }
+	inline std::size_t allocatedMemory() { return allocMem_; }
+	
+	//memLeft()
+	
 };	
 
 	
