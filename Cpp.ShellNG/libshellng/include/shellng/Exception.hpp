@@ -19,50 +19,39 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 #pragma once
-#ifndef __SHELLNG_BUFFER__
-#define __SHELLNG_BUFFER__
+#ifndef __SHELLNG_EXCEPTION__
+#define __SHELLNG_EXCEPTION__
 
-#include <shellng/Types.hpp>
+#include <exception>
 
 namespace sng {
 
-/**
-* Memory Buffer Handling
-*/
-class Buffer
+
+class Exception : public std::exception
 {
 private:
-	//pointer to memory
-	ubyte8*  buf_;
-	
-	//actual content size
-	std::size_t size_;
-	
-	//allocated memory size
-	std::size_t allocMem_;
-	
+	/// exception msg
+	const char* msg;
+    
 public:
-	
-	Buffer();
-	Buffer(std::size_t size);
-	Buffer(const Buffer& buf);
-	
-	virtual ~Buffer();
-	
-	ubyte8 operator[](size_t offset);	
+	/**
+	* Constructor
+	*/
+	Exception(const char* msg)
+		: msg(msg)
+	{
+	}
+        
+    /**
+	* Description
+	*/
+	virtual const char* what() const throw()
+	{
+		return msg;
+	}
+};
 
-	void copyTo(Buffer& buf, std::size_t pos, std::size_t length);
-	void resize(std::size_t size);
-	
-	void write(ubyte8* buf, std::size_t length);
-	void write(std::size_t pos, ubyte8* buf, std::size_t length);
-	
-	std::size_t read(ubyte8* buf, std::size_t length);
-	std::size_t read(std::size_t pos, ubyte8* buf, std::size_t length);
-};	
 
-	
-
-} //end namespace sng
+}
 
 #endif
