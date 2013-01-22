@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2012 okard
+Copyright (c) 2013 okard
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in 
@@ -19,53 +19,47 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 #pragma once
-#ifndef __SHELLNG_CONTEXT__
-#define __SHELLNG_CONTEXT__
+#ifndef __SHELLNG_BUFFER__
+#define __SHELLNG_BUFFER__
 
+#include <shellng/Types.hpp>
 
 namespace sng {
-    
-//parse context
-//  vs execution context
-   
-/**
-* Actual Context
-*/
-class Context
-{  
-private:
-    //Shell&
-    //Source&
-    
-    //SymbolTable 
-    //std::map<string, DeclNode>
-    
-    //Root Context 
-		//std::shared_ptr<Context> root_; //weak?
-    //Child contexts 
-		//std::vector<std::shared_ptr<Context>> childs_;
-		
-		//mapped to Nodes?
-		
-    //parent contexts 
-		//std::shared_ptr<Context> parent_;
-    
-    
-    //Context* nested contextes, stack of contexts?
-    
-    //node* ast
-    
-    //Enviroment Variables for processes and so on (is a object in root context
-    
-    //objects
-    //variables (objects, numbers, strings)
-public:
-    
-    
-    
-};
-    
-}
 
+/**
+* Memory Buffer Handling
+*/
+class Buffer
+{
+private:
+	//pointer to memory
+	ubyte8*  buf_;
+	
+	//actual content size
+	std::size_t size_;
+	
+	//allocated memory size
+	std::size_t allocMem_;
+	
+public:
+	
+	//Buffer();
+	//Buffer(std::size_t size)
+	//virtual ~Buffer();
+	
+	//void copyTo(Buffer& buf, std::size_t pos, std::size_t length)
+	//void resize(std::size_t size)
+	
+	//index access
+	
+	//copy to
+	//resize
+	
+
+};	
+
+	
+
+} //end namespace sng
 
 #endif

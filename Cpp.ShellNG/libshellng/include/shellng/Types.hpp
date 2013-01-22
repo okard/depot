@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2012 okard
+Copyright (c) 2013 okard
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in 
@@ -19,53 +19,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 #pragma once
-#ifndef __SHELLNG_CONTEXT__
-#define __SHELLNG_CONTEXT__
+#ifndef __SHELLNG_TYPES__
+#define __SHELLNG_TYPES__
 
+#include <cstddef>
 
 namespace sng {
-    
-//parse context
-//  vs execution context
-   
-/**
-* Actual Context
-*/
-class Context
-{  
-private:
-    //Shell&
-    //Source&
-    
-    //SymbolTable 
-    //std::map<string, DeclNode>
-    
-    //Root Context 
-		//std::shared_ptr<Context> root_; //weak?
-    //Child contexts 
-		//std::vector<std::shared_ptr<Context>> childs_;
-		
-		//mapped to Nodes?
-		
-    //parent contexts 
-		//std::shared_ptr<Context> parent_;
-    
-    
-    //Context* nested contextes, stack of contexts?
-    
-    //node* ast
-    
-    //Enviroment Variables for processes and so on (is a object in root context
-    
-    //objects
-    //variables (objects, numbers, strings)
-public:
-    
-    
-    
-};
-    
+	
+	typedef unsigned char ubyte8;
+	typedef signed char byte8;
+	
+	
+	static_assert(sizeof(ubyte8) == 1)
+	static_assert(sizeof(byte8) == 1)
 }
 
-
-#endif
+#endif 

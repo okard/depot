@@ -23,8 +23,11 @@ SOFTWARE.
 #define __SHELLNG_AST__
 
 #include <string>
+#include <vector>
 
 namespace sng {
+	
+//std::shared_ptr
 
 /**
 * Basic Node
@@ -73,6 +76,7 @@ public:
 
 /**
 * Function Declaration
+* def abc: function(a,b,c)
 */
 class FuncDecl : public Decl
 {
@@ -81,6 +85,8 @@ class FuncDecl : public Decl
 
 /**
 * Object Declaration
+* def foo: object 	//new
+* def foo: $id		//clone
 */
 class ObjDecl : Node
 {
@@ -102,6 +108,12 @@ class Expr : public Node
 */
 class BinaryExp : public Expr
 {
+	enum Operator
+	{
+		OP_ASSIGN, //=
+		OP_PLUS,   //+
+	};
+	
     //op 
         //ShellOP | > < >> << ||
         //BinOP + - * / ~ 
@@ -115,6 +127,8 @@ class BinaryExp : public Expr
 */
 class CommandExp : public Expr
 {
+	//arguments can be expressions
+	std::vector<std::string> args;
     //file
     //args
 };

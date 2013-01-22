@@ -109,4 +109,13 @@ bool Lexer::fill(int size)
 }
 
 
+/**
+* The current marked token content
+*/
+const char* Lexer::getTokenContent()
+{
+	//return 
+}
+
+
 #include "Lexer_re2c.inc"

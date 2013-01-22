@@ -22,7 +22,7 @@ SOFTWARE.
 #include <iostream>
 #include <cstdlib>
 
-#include <libuv/uv.h>
+#include <uv.h>
 
 #include <shellng/Shell.hpp>
 #include <shellng/Lexer.hpp>
@@ -88,7 +88,6 @@ void Shell::execute(Source* const src)
     
     //creates a parsing context used as proxy between shell and parser
     ParseContext ctx(*this);
-    
     
     //create new token for every step and let lemon clena them up
     Token tok;

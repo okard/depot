@@ -52,7 +52,7 @@ std:
         re2c:indent:string=" ";
 
         INTEGER = [1-9][0-9]*;
-        IDENTIFIER = [a-zA-Z][a-zA-Z0-9_]*;
+        IDENTIFIER = [a-zA-Z_][a-zA-Z0-9_]*;
         STRING_LITERAL = ".*";
         WS = [ \r\n\t\f];
         ANY_CHARACTER = [^];

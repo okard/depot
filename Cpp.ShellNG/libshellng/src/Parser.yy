@@ -1,7 +1,6 @@
 
 
 %include {
-#include <cstdio>
 #include <cassert> /* required for building */
 #include <shellng/Token.hpp>
 #include <shellng/Ast.hpp>
@@ -13,16 +12,11 @@ using namespace sng;
 %extra_argument { ParseContext *ctx }
 
 
+//Token Settings
 %token_prefix {TOKEN_}
-
 %token_type { Token* }
-
 //%token_destructor {delete $$;}
 
-
-//define the types for all non terminals
-%type program { Node* }
-//%destructor 
 
 /*
 * Parser Accepts
@@ -60,6 +54,13 @@ using namespace sng;
 
 %start_symbol program
 
+////////////////////////////////////////////////////////////////////////
+// Program
+////////////////////////////////////////////////////////////////////////
+
+%type program { Node* }
+//%destructor program {delete $$; }
+
 program ::= INTEGER(a). {
     a->integer=0;
     ctx->ast = new Node();
@@ -68,6 +69,22 @@ program ::= INTEGER(a). {
 program ::= KW_DEF IDENTIFIER. {
     ctx->ast = new Node();
 }
+
+program ::= command. {
+	ctx->ast = new Node();
+}
+
+////////////////////////////////////////////////////////////////////////
+// Command 
+////////////////////////////////////////////////////////////////////////
+
+%type command { Node* }
+
+command(c) ::= IDENTIFIER. {
+	c = new Node();
+}
+
+
 
 /*
 program ::= def

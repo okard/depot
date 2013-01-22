@@ -22,6 +22,7 @@ SOFTWARE.
 #ifndef __SHELLNG_LEXER__
 #define __SHELLNG_LEXER__
 
+#include <shellng/Types.hpp>
 #include <shellng/Token.hpp>
 #include <shellng/Source.hpp>
 
@@ -97,6 +98,11 @@ private:
     * Fill in buffer from source file
     */
     bool fill(int size);
+    
+    /**
+    * The current marked token content
+    */
+    const char* getTokenContent();
     
 };
 

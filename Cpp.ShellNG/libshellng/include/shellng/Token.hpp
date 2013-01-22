@@ -22,6 +22,8 @@ SOFTWARE.
 #ifndef __SHELLNG_TOKEN__
 #define __SHELLNG_TOKEN__
 
+#include <string>
+
 namespace sng {
     
 /**
@@ -30,6 +32,9 @@ namespace sng {
 struct Token
 {
     unsigned int type;
+    
+    std::string value;
+    
     union
     {
         char* string;
