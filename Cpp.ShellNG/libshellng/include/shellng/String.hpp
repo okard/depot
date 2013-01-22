@@ -24,7 +24,7 @@ SOFTWARE.
 
 #include <shellng/Buffer.hpp>
 
-namespace snd {
+namespace sng {
 	
 /**
 * Internal String Representation

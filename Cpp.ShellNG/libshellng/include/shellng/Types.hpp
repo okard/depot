@@ -30,8 +30,8 @@ namespace sng {
 	typedef signed char byte8;
 	
 	
-	static_assert(sizeof(ubyte8) == 1)
-	static_assert(sizeof(byte8) == 1)
+	static_assert((sizeof(ubyte8) == 1), "Wrong Size");
+	static_assert((sizeof(byte8) == 1), "Wrong Size");
 }
 
 #endif 
