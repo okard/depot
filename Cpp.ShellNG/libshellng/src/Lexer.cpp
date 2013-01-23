@@ -87,14 +87,15 @@ bool Lexer::fill()
 {
     std::cout << "Lexer::Fill() Eof: " << src_->isEOF() << std::endl;
     
+    if(src_ == nullptr)
+		return false;
+    
     if(src_->isEOF())
-    {
         return false;
-    }
     
     //read in first chunk of bytes
     auto size = src_->read(reinterpret_cast<void*>(buf_.bufPtr()), buf_.allocatedMemory());
-    buf_.resize(size);
+    buf_.resize(size); //set right content size
     pos_ = 0;
     
     return true;
@@ -188,7 +189,7 @@ TokID Lexer::lexId(Token& tok)
 		if(pos_ == buf_.size())
 		{
 			//append if buffer is at end reset tpos
-			tok.value.append (buf_[tpos], pos_-tpos);
+			tok.value.append (reinterpret_cast<const char*>(buf_.bufPtr(tpos)), pos_-tpos);
 			if(fill())
 			{
 				tpos = pos_;
@@ -203,7 +204,7 @@ TokID Lexer::lexId(Token& tok)
 	}
 	
 	//append
-	tok.value.append (buf_[tpos], pos_-tpos);
+	tok.value.append (reinterpret_cast<const char*>(buf_.bufPtr(tpos)), pos_-tpos);
 	
 	
 	//check for keywords
@@ -233,7 +234,7 @@ TokID Lexer::lexString(Token& tok)
 		
 	}
 	
-	tok.value.append (buf_[tpos], pos_-tpos);
+	tok.value.append (reinterpret_cast<const char*>(buf_.bufPtr(tpos)), pos_-tpos);
 	
 }
 

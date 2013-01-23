@@ -35,7 +35,7 @@ Buffer::Buffer()
 
 Buffer::Buffer(std::size_t size)
 {
-	this->resize(size);
+	this->alloc(size);
 }
 
 Buffer::Buffer(const Buffer& buf)
@@ -52,8 +52,6 @@ Buffer::~Buffer()
 	
 	if(buf_ != nullptr)
 		free(buf_);
-		
-
 }
 
 ubyte8 Buffer::operator[](size_t offset)
@@ -73,6 +71,20 @@ void Buffer::copyTo(Buffer& buf, std::size_t pos, std::size_t length)
 }
 
 void Buffer::resize(std::size_t size)
+{	
+	//set the size to current content size
+	if(size <= allocMem_)
+	{
+		size_ = size;
+		return;
+	}
+
+	//if require more space alloc size
+	alloc(size);
+	size_ = size;
+}
+
+void Buffer::alloc(std::size_t size)
 {
 	//no buffer allocated start new
 	if(buf_ == nullptr)
@@ -89,35 +101,31 @@ void Buffer::resize(std::size_t size)
 		memset (buf_, 0, size);
 		allocMem_ = size;
 		size_ = 0;
-		
 		return;
 	}
 	
-	if(size <= allocMem_)
-	{
-		size_ = size;
-		return;
-	}
-
 	//reallocated memory
 	void* tmp = realloc(buf_, size);
 	
 	if(tmp == NULL)
 		throw Exception("failed to realloc memory");
-	
-	//memset new allocated memory
-	
-	buf_ = reinterpret_cast<ubyte8*>(tmp);
-	size_ = 0;
+		
+	buf_ = reinterpret_cast<ubyte8*>(tmp);		
 	allocMem_ = size;
+	
+	//null new memory part of size > size_
+	if(size > size_)
+		memset (&buf_[size_+1], 0, size-size_);
+	
+	//shrink size if required
+	if(size < size_)
+		size_ = size;
 }
-
 
 void Buffer::shrink()
 {
-	//TODO set allocMem size to size_
-	//realloc
-	
+	//set allocated size to size_
+	alloc(size_);
 }
 
 
@@ -127,20 +135,15 @@ void Buffer::write(ubyte8* buf, std::size_t length)
 }
 
 void Buffer::write(std::size_t pos, ubyte8* buf, std::size_t length)
-{
-	//check size
-	//realloc
-	//copy
-	
+{	
 	//allocate more memory if required
+	//or set new size if required
 	if(pos+length > allocMem_)
 		resize(pos+length);
+	else if (pos + length > size_)
+		size_ = pos + length;
 		
 	memcpy (&buf_[pos], buf, length);
-	
-	//set a new size if buffer content is now bigger
-	if(pos + length > size_)
-		size_ = pos + length;
 }
 
 std::size_t Buffer::read(ubyte8* buf, std::size_t length)
@@ -158,6 +161,6 @@ std::size_t Buffer::read(std::size_t pos, ubyte8* buf, std::size_t length)
 		
 	memcpy(buf, &buf_[pos], length);
 	
-	return 0;
+	return length;
 }
 	

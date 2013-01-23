@@ -35,7 +35,7 @@ private:
 	//pointer to memory
 	ubyte8*  buf_;
 	
-	//actual content size
+	//current content size
 	std::size_t size_;
 	
 	//allocated memory size
@@ -46,14 +46,16 @@ public:
 	Buffer();
 	Buffer(std::size_t size);
 	Buffer(const Buffer& buf);
+	//Buffer(const ubyte* const, std::size_t length);
 	
 	virtual ~Buffer();
 	
 	ubyte8 operator[](size_t offset);	
 
 	void copyTo(Buffer& buf, std::size_t pos, std::size_t length);
-	void resize(std::size_t size);
-	void shrink();
+	void resize(std::size_t size);	//control content size
+	void alloc(std::size_t size);   //control allocated memory
+	void shrink();					//shrink memory to content size
 	
 	void write(ubyte8* buf, std::size_t length);
 	void write(std::size_t pos, ubyte8* buf, std::size_t length);
@@ -62,6 +64,12 @@ public:
 	std::size_t read(std::size_t pos, ubyte8* buf, std::size_t length);
 	
 	inline ubyte8* const bufPtr() { return buf_; }
+	inline ubyte8* const bufPtr(std::size_t offset) 
+	{ 
+		if(offset >= size_)
+			return nullptr; //exception?
+		return &buf_[offset];
+	}
 	inline std::size_t size() { return size_; }
 	inline std::size_t allocatedMemory() { return allocMem_; }
 	
