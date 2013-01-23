@@ -22,10 +22,11 @@ SOFTWARE.
 #ifndef __SHELLNG_SHELL__
 #define __SHELLNG_SHELL__
 
-#include "Lexer.hpp"
-#include "Context.hpp"
 #include "Source.hpp"
+#include "Lexer.hpp"
+#include "Parser.hpp"
 
+#include "Context.hpp"
 
 namespace sng {
 
@@ -38,12 +39,7 @@ private:
     //Lexer
     Lexer lexer_;
     
-    //encapsulate in own class?
-    //Lemon parser
-    void* parser_;
-    
-    
-    
+    Parser parser_;
     
     
     //event loop und jobs
@@ -52,7 +48,7 @@ private:
         //see also Shell::dispatch
     
     
-    //Root Context with Global 
+    //Root Context with Global Objects
     Context rootContext;
     
     //currentContext
@@ -84,6 +80,8 @@ public:
     * return true or false?
     */
     void dispatch();
+    
+    //void run();
     
     
 private:  

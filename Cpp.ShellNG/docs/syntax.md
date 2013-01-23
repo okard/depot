@@ -45,49 +45,48 @@ type
 	
 # EBNF
 
-program := definition
-		 | statement
-		 | expression
-		 | command
+program := { definition | statement }
 		 
-	
-definition := "def", identifier, ":", def_type;
-
 
 definition_obj := "def", identifier, ":", "object", [ "{", { obj_def }, "}"];
+definition_obj := "def", identifier, ":", "function", [ "{", { function_def }, "}"];
+definition_obj := "def", identifier, ":", "string", [ "=", expression];
+definition_obj := "def", identifier, ":", "number", [ "=", expression];
 
-definition_function := 
-
-def_type := "object"
-		  | "function"
-		  | "string"
-		  | "number"
-		  | "#" identifier;
 		  
 statement := statement_if
            | statement_for
            | statement_while;
+           | statement_command
            
 expression := expression_assign
             | expression_binary
+            | expression_command
             
             
 expression_access := "$", identifier, {".", identifier};
+
+
+expression_command := "$", "(", command, ")";
              
 		  
-command := identifier, { identifier };
+statement_command := identifier, { identifier };
 
 argument := """, {all_char} ,"""
 		  | identifier
 		  | number
 		  | "$", identifier;
 
+
+
 		  
 identifier := char, { char | digit };
+com_identifier := all_char, { all_char };
 number_int := digit, { digit };
 number_float := number_int, ".f" | number_int, ".", digit, {digit};
 digit = ? [0-9] ?;
-char = ? [a-zA-Z_-] ?;
+char = ? [a-zA-Z_] ?;
+all_char = ? all readable chars exclude control characters ? 
 
 
 	

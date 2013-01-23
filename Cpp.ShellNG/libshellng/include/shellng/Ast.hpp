@@ -52,6 +52,11 @@ public:
     //type
 };
 
+class Program : public Node
+{
+	//list of nodes
+};
+
 /**
 * Basic Declaration Node
 */
@@ -80,7 +85,7 @@ public:
 */
 class FuncDecl : public Decl
 {
-
+	//has a new context
 };
 
 /**
@@ -92,6 +97,26 @@ class ObjDecl : Node
 {
     //Function
     //Variables
+    
+    //has a new context
+};
+
+
+class Stmt : public Node
+{
+};
+
+
+class IfStmt : public Stmt
+{
+};
+
+class ForStmt : public Stmt
+{
+};
+
+class WhileStmt : public Stmt
+{
 };
 
 /**

@@ -30,8 +30,12 @@ namespace sng {
 struct ParseContext
 {
     Shell& shell;
+    //Lexer& lexer;
     Node* ast;
     bool error;
+    
+    //last successful parsed node
+    //Node* last 
     
     std::ostream& errStream;
     

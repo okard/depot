@@ -54,6 +54,8 @@ int main(int argc, char **argv)
         // Use a quiet errr parsing context
         // successful ast creation get executed in rootContext? 
             //aka succesful ast becoming a job in event loop
+            
+        //add a idle job that executes LineSource File
         
         shell.execute(&source);
         shell.dispatch();

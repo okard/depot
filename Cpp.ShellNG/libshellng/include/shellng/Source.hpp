@@ -25,6 +25,7 @@ SOFTWARE.
 #include <cstdio>
 
 #include <shellng/Buffer.hpp>
+#include <shellng/Types.hpp>
 
 namespace sng {
  
@@ -61,9 +62,10 @@ public:
     */
     virtual bool isEOF()=0;
     
-    //location info?
-    //position
-    //reset
+    /**
+    * Encoding 
+    */
+    virtual Encoding getEncoding() = 0;
 };
 
 
@@ -106,6 +108,11 @@ public:
     * Position is at end of file
     */
     virtual bool isEOF();
+    
+    /**
+    * Encoding
+    */ 
+    virtual Encoding getEncoding();
 };
     
     

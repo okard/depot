@@ -31,14 +31,6 @@ namespace sng {
 */
 class String : public Buffer
 {
-public:
-	enum Encoding {
-		ASCII_STRING,
-		UTF8_STRING,
-		UTF16_STRING,
-		UTF32_STRING
-	};
-
 private:
 	Encoding encoding_;
 
@@ -46,9 +38,11 @@ private:
 public:
 	
 	//convert between formats
+	//
 	
-	//compare
-
+	//compare Const char* 
+	//make sure last byte is a \0
+	
 };
 	
 } //end namespace sng

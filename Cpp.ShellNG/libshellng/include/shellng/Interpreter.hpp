@@ -24,6 +24,9 @@ SOFTWARE.
 
 namespace sng {
 
+/**
+* Execute AST
+*/
 class Interpreter
 {
 private:

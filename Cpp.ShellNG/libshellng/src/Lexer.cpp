@@ -26,8 +26,6 @@ SOFTWARE.
 #include<exception>
 #include<iostream>
 
-#include "Parser.h"
-
 using namespace sng;
 
 
@@ -56,6 +54,35 @@ inline bool isNumeric(const ubyte8 b)
 	if( b >= '0' && b <= '9')
 		return true;
 	return false;
+}
+
+//all printable ascii chars 33-126
+inline bool isAsciiChar(const ubyte8 b)
+{
+	if(b >= '!' && b <= '~')
+		return true;
+	return false;
+}
+
+inline ubyte8 utf8CharSize(const ubyte8 b)
+{
+	//4byte utf8
+	if((b & 0xF0) == 0xF0)
+		return 4;
+	
+	//3 byte utf8
+	if((b & 0xE0) == 0xE0)
+		return 3;
+		
+	//2 byte utf8
+	if((b & 0xC0) == 0xC0)
+		return 2;
+		
+	// if 10 it is follow byte
+	if((b >> 7) == 1)
+		return 0;
+	else
+		return 1; //standard ascii/utf8 char
 }
 
 
@@ -92,6 +119,8 @@ bool Lexer::fill()
     
     if(src_->isEOF())
         return false;
+        
+	//first read detect BOM
     
     //read in first chunk of bytes
     auto size = src_->read(reinterpret_cast<void*>(buf_.bufPtr()), buf_.allocatedMemory());
@@ -102,7 +131,7 @@ bool Lexer::fill()
 }
 
 
-unsigned int Lexer::next(Token& tok)
+TokenID Lexer::next(Token& tok)
 {
 	//move pos with buffer fill mechanism
 	
@@ -127,6 +156,7 @@ unsigned int Lexer::next(Token& tok)
 		case '*': break;
 		case '/': break;
 		case '$': break; //make $id a special token?
+						 // after a $ a id is expected
 		
 		case '(': break;
 		case ')': break;
@@ -158,30 +188,32 @@ unsigned int Lexer::next(Token& tok)
 	}
 	
 	
-	tok.type = 0;
+	tok.id = TOKEN_UNKOWN;
 	
 	
-	return tok.type;
+	return tok.id;
 }
 
 
-TokID Lexer::lexNumber(Token& tok)
+TokenID Lexer::lexNumber(Token& tok)
 {
 	//while(isNumeric())
 	
 	
-	tok.type = 0;
-	return tok.type;
+	tok.id = TOKEN_UNKOWN;
+	return tok.id;
 }
 
-TokID Lexer::lexId(Token& tok)
+TokenID Lexer::lexId(Token& tok)
 {
 	//notice id are all chars exclude whitespaces?
 	// and exclude $
+	// unicode utf8!
 	
 	//save start position of id
 	std::size_t tpos = pos_;
 	
+	//now numbers are allowed
 	while(isAlpha(buf_[pos_])  || buf_[pos_] == '_')
 	{
 		//if position is at the end of the current buffer
@@ -216,12 +248,19 @@ TokID Lexer::lexId(Token& tok)
 	
 	//tok.value std::string(const char* s, size_t n);
 	
-	tok.type = TOKEN_IDENTIFIER;
+	tok.id = TOKEN_IDENTIFIER;
 	
-	return tok.type;
+	return tok.id;
 }
 
-TokID Lexer::lexString(Token& tok)
+TokenID Lexer::lexCommandId(Token& tok)
+{
+	
+	
+	return tok.id;
+}
+
+TokenID Lexer::lexString(Token& tok)
 {
 	std::size_t tpos = pos_;
 	
@@ -235,6 +274,5 @@ TokID Lexer::lexString(Token& tok)
 	}
 	
 	tok.value.append (reinterpret_cast<const char*>(buf_.bufPtr(tpos)), pos_-tpos);
-	
 }
 

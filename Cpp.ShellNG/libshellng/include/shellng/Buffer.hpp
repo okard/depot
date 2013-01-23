@@ -33,7 +33,7 @@ class Buffer
 {
 private:
 	//pointer to memory
-	ubyte8*  buf_;
+	ubyte8* buf_;
 	
 	//current content size
 	std::size_t size_;
@@ -67,13 +67,13 @@ public:
 	inline ubyte8* const bufPtr(std::size_t offset) 
 	{ 
 		if(offset >= size_)
-			return nullptr; //exception?
+			return nullptr; //TODO exception?
 		return &buf_[offset];
 	}
 	inline std::size_t size() { return size_; }
 	inline std::size_t allocatedMemory() { return allocMem_; }
 	
-	//memLeft()
+	//residualMemory() allocMem_-size_
 	
 };	
 

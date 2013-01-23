@@ -77,7 +77,7 @@ public:
     * Get next token
     * TODO Using a PushModel
     */
-    TokID next(Token& tok);
+    TokenID next(Token& tok);
     
     
     //unsigned int next(Token& tok);
@@ -93,9 +93,10 @@ private:
     bool fill();
     
     
-    TokID lexNumber(Token& tok);
-    TokID lexId(Token& tok);
-    TokID lexString(Token& tok);
+    TokenID lexNumber(Token& tok);
+    TokenID lexId(Token& tok);
+    TokenID lexCommandId(Token& tok);
+    TokenID lexString(Token& tok);
 };
 
 

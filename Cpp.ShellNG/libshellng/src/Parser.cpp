@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2012 okard
+Copyright (c) 2013 okard
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of
 this software and associated documentation files (the "Software"), to deal in 
@@ -18,49 +18,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
 SOFTWARE.
 */
-#pragma once
-#ifndef __SHELLNG_LINESOURCE_HPP__
-#define __SHELLNG_LINESOURCE_HPP__
 
-#include <shellng/Shell.hpp>
-#include <shellng/Source.hpp>
+#include <shellng/Parser.hpp>
 
-namespace sng {
-    
-/**
-* A source class to read
-* from line noise
-*/
-class LineSource : public Source
+using namespace sng;
+
+
+void Parser::parse()
 {
-private:
-    const Shell& shell_;
-    bool eof_;
-    
-    void* buffer_;
-    size_t bufferSize_;
-    //begin ptr
-    //dataLength
-    
-public:
-    LineSource(const Shell& shell);
-    
-    virtual ~LineSource();
-    
-    virtual void* read(size_t* len);
-        
-    virtual size_t read(void* buffer, size_t len);
-    
-    virtual bool isEOF();
-    
-    virtual Encoding getEncoding();
-    
-    void reset();
-};
-   
-    
+	
 }
-
-
-
-#endif

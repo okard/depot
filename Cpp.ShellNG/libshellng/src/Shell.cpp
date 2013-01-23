@@ -30,12 +30,6 @@ SOFTWARE.
 
 #include "ParseContext.hpp"
 
-
-//TODO include in Namespace?
-namespace Parser {
-#include "Parser.c"
-}
-
 using namespace sng;
 
 
@@ -49,8 +43,6 @@ using namespace sng;
 
 Shell::Shell()
 {
-    this->parser_ = Parser::ParseAlloc(malloc);
-    
     
     //register default objects to rootContext
     
@@ -60,7 +52,6 @@ Shell::Shell()
 
 Shell::~Shell()
 {
-    Parser::ParseFree(this->parser_, free);
 }
 
 
@@ -99,12 +90,10 @@ void Shell::execute(Source* const src)
         //filter for first 0 token?
         
         std::cout << "Token: " << tokId << std::endl;
-        Parser::Parse(this->parser_, tokId, &tok, &ctx); 
         
         //if(ctx.error)
             
     }
-    Parser::Parse(this->parser_, 0, &tok, &ctx);
     
     if(ctx.ast != nullptr)
     {
@@ -148,4 +137,5 @@ void Shell::dispatch()
     
     //
     //uv_run_once(uv_loop_t*);
+    
 }

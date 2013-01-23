@@ -27,21 +27,31 @@ SOFTWARE.
 #include <shellng/String.hpp>
 
 namespace sng {
+
+enum TokenID
+{
+	TOKEN_UNKOWN,
+	TOKEN_IDENTIFIER
 	
-typedef unsigned int TokID;
+};
     
 /**
 * Token
 */
 struct Token
 {
-    TokID type;
+    TokenID id;
     
     std::string value;
     
     bool error; //invalid token
     
 };
+
+
+
+
+
 
 }
 #endif //__SHELLNG_TOKEN__

@@ -84,4 +84,11 @@ bool SourceFile::isEOF()
     return feof(file_);
 }
 
+
+Encoding SourceFile::getEncoding()
+{
+	//default UTF8
+	return ENCODING_UTF8;
+}
+
 //for reset  rewind (file_);

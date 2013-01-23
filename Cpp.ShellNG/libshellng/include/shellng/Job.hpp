@@ -32,7 +32,9 @@ namespace sng {
 class Job
 {
 private:
+
 public:
+
 };
     
 }

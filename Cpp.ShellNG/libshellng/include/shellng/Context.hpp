@@ -30,6 +30,7 @@ namespace sng {
    
 /**
 * Actual Context
+* (is a symboltable?)
 */
 class Context
 {  
@@ -41,15 +42,14 @@ private:
     //std::map<string, DeclNode>
     
     //Root Context 
-		//std::shared_ptr<Context> root_; //weak?
+		//std::shared_ptr<Context> root_; //weak_ptr?
+		
     //Child contexts 
-		//std::vector<std::shared_ptr<Context>> childs_;
-		
 		//mapped to Nodes?
-		
+		//std::vector<std::shared_ptr<Context>> childs_;
+			
     //parent contexts 
 		//std::shared_ptr<Context> parent_;
-    
     
     //Context* nested contextes, stack of contexts?
     
@@ -60,8 +60,6 @@ private:
     //objects
     //variables (objects, numbers, strings)
 public:
-    
-    
     
 };
     

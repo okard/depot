@@ -75,6 +75,7 @@ size_t LineSource::read(void* buffer, size_t len)
     //first use internal buffer
     
     //full prompt or half prompt
+    //shell.rootContext["sys"]["prompt"].toString()
     
     char* line = linenoise(shell_.getPrompt());
     
@@ -107,6 +108,12 @@ size_t LineSource::read(void* buffer, size_t len)
 bool LineSource::isEOF()
 {
     return eof_;
+}
+
+Encoding LineSource::getEncoding()
+{
+	 //look into LANG Enviroment Variable?
+	 return ENCODING_UTF8;
 }
 
 
