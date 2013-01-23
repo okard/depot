@@ -27,23 +27,20 @@ SOFTWARE.
 #include <shellng/String.hpp>
 
 namespace sng {
+	
+typedef unsigned int TokID;
     
 /**
 * Token
 */
 struct Token
 {
-    unsigned int type;
+    TokID type;
     
     std::string value;
     
+    bool error; //invalid token
     
-    ~Token()
-    {
-        //delete token strings?
-        //use std::string?
-        //unicode!
-    }
 };
 
 }

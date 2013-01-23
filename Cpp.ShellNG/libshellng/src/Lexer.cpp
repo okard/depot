@@ -125,7 +125,7 @@ unsigned int Lexer::next(Token& tok)
 		case '-': break;
 		case '*': break;
 		case '/': break;
-		case '$': break;
+		case '$': break; //make $id a special token?
 		
 		case '(': break;
 		case ')': break;
@@ -136,6 +136,7 @@ unsigned int Lexer::next(Token& tok)
 		
 		
 		case '"':
+			return lexString(tok);
 			//read string
 			break;
 			
@@ -144,6 +145,7 @@ unsigned int Lexer::next(Token& tok)
 	//tokenize number
 	if(isNumeric(buf_[pos_]))
 	{
+		return lexNumber(tok);
 	}
 	
 	//tokenize identifier and keywords
@@ -151,53 +153,7 @@ unsigned int Lexer::next(Token& tok)
 	|| buf_[pos_] == '_')
 	{
 		//to subfunction
-		
-		std::size_t tpos = pos_;
-		
-		while(isAlpha(buf_[pos_])  || buf_[pos_] == '_')
-		{
-			
-			if(pos_ == buf_.size())
-			{
-				tok.value.append (buf_[tpos], pos_-tpos);
-				if(fill())
-				{
-					tpos_ = pos_;
-				}
-				else
-				{
-					break;
-				}
-			}
-			else
-				pos_++;
-			
-			//append if buffer is at end reset tpos
-		}
-		
-		//append
-		tok.value.append (buf_[tpos], pos_-tpos);
-		
-		
-		//save temp pos
-		//read until end
-		//copy to string in tok
-		//parse id
-		
-		//before buffer skip copy
-		
-		//check for keywords
-		//TOKEN_KW_DEF
-		//int strncmp ( const char * str1, const char * str2, size_t num );
-		//int memcmp ( const void * ptr1, const void * ptr2, size_t num );
-		
-		//if(tok.value == "def")
-		
-		//tok.value std::string(const char* s, size_t n);
-		
-		tok.type = TOKEN_IDENTIFIER;
-		
-		return tok.type;
+		return lexId(tok);
 	}
 	
 	
@@ -207,4 +163,77 @@ unsigned int Lexer::next(Token& tok)
 	return tok.type;
 }
 
+
+TokID Lexer::lexNumber(Token& tok)
+{
+	//while(isNumeric())
+	
+	
+	tok.type = 0;
+	return tok.type;
+}
+
+TokID Lexer::lexId(Token& tok)
+{
+	//notice id are all chars exclude whitespaces?
+	// and exclude $
+	
+	//save start position of id
+	std::size_t tpos = pos_;
+	
+	while(isAlpha(buf_[pos_])  || buf_[pos_] == '_')
+	{
+		//if position is at the end of the current buffer
+		// append the current value and go forward with the next buffer
+		if(pos_ == buf_.size())
+		{
+			//append if buffer is at end reset tpos
+			tok.value.append (buf_[tpos], pos_-tpos);
+			if(fill())
+			{
+				tpos = pos_;
+			}
+			else
+			{
+				break;
+			}
+		}
+		else
+			pos_++;	
+	}
+	
+	//append
+	tok.value.append (buf_[tpos], pos_-tpos);
+	
+	
+	//check for keywords
+	//TOKEN_KW_DEF
+	//int strncmp ( const char * str1, const char * str2, size_t num );
+	//int memcmp ( const void * ptr1, const void * ptr2, size_t num );
+	
+	//if(tok.value == "def")
+	
+	//tok.value std::string(const char* s, size_t n);
+	
+	tok.type = TOKEN_IDENTIFIER;
+	
+	return tok.type;
+}
+
+TokID Lexer::lexString(Token& tok)
+{
+	std::size_t tpos = pos_;
+	
+	
+	while(buf_[pos_] != '"')
+	{
+		//TODO Escaping
+		
+		pos_++;
+		
+	}
+	
+	tok.value.append (buf_[tpos], pos_-tpos);
+	
+}
 
