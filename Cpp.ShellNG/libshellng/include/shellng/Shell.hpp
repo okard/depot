@@ -23,7 +23,6 @@ SOFTWARE.
 #define __SHELLNG_SHELL__
 
 #include "Source.hpp"
-#include "Lexer.hpp"
 #include "Parser.hpp"
 
 #include "Context.hpp"
@@ -36,9 +35,7 @@ namespace sng {
 class Shell
 {
 private:
-    //Lexer
-    Lexer lexer_;
-    
+	//parser
     Parser parser_;
     
     
@@ -85,7 +82,6 @@ public:
     
     
 private:  
-    void parse(char* line);
     
     //ExecuteFile(const char* fileName);
 

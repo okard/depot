@@ -22,10 +22,15 @@ SOFTWARE.
 #ifndef __SHELLNG_AST__
 #define __SHELLNG_AST__
 
-#include <string>
+#include <memory>
 #include <vector>
+#include <string>
+
+
 
 namespace sng {
+	
+
 	
 //std::shared_ptr
 
@@ -51,6 +56,13 @@ public:
     
     //type
 };
+
+//ast ptr
+typedef std::shared_ptr<Node> NodePtr;
+
+//weak NodePtr?
+
+
 
 class Program : public Node
 {

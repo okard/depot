@@ -74,59 +74,14 @@ const char* Shell::getPrompt() const
 
 void Shell::execute(Source* const src)
 {
-    //open source file
-    lexer_.open(src);
+	//open source file
+	parser_.getLexer().open(src);
     
-    //creates a parsing context used as proxy between shell and parser
-    ParseContext ctx(*this);
-    
-    //create new token for every step and let lemon clena them up
-    Token tok;
-    
-    //ParseTrace(stderr, (char*)"[Parser] >> ");
-    
-    while(unsigned int tokId = lexer_.next(tok))
-    {
-        //filter for first 0 token?
-        
-        std::cout << "Token: " << tokId << std::endl;
-        
-        //if(ctx.error)
-            
-    }
-    
-    if(ctx.ast != nullptr)
-    {
-        std::cout << "Interpret" << std::endl;
-        //interpreter->interpret()
-    }
+    NodePtr ast = parser_.parse();
     
     
-    /*
-    while(ctx.ast == nullptr)
-    {
-        Token tok;
-        
-        std::cout << "Lexer call" << std::endl;
-        unsigned int tokId = lexer_.next(tok);
-        std::cout << "Token: " << tokId << std::endl;
-        
-        if(tokId == 0)
-        {
-            //invalid token
-        }
-        
-        //bind current context
-        ::Parse(this->parser_, tokId, &tok, &ctx);
-        
-        std::cout << "AST: " << ctx.ast << std::endl;
-       
-        //parse 0 in the right moment to geht ide
-        //make source 
-       
-        if(ctx.error)
-            break;
-    }*/
+    //Interpreter.execute()
+    
 }
 
 

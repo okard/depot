@@ -31,8 +31,22 @@ namespace sng {
 enum TokenID
 {
 	TOKEN_UNKOWN,
-	TOKEN_IDENTIFIER
+	TOKEN_IDENTIFIER,
+	TOKEN_IDENTEFIER_ID,
+	TOKEN_IDENTIFIER_COM,
+	TOKEN_NUMBER,
 	
+	TOKEN_COBRACKET, // {
+	TOKEN_CCBRACKET, // }
+	TOKEN_ROBRACKET, // (
+	TOKEN_RCBRACKET, // )
+	TOKEN_SOBRACKET, // [
+	TOKEN_SCBRACKET, // ]
+	
+	TOKEN_KW_DEF,    //def
+	
+	
+	TOKEN_EOF		//no more token available
 };
     
 /**
@@ -42,10 +56,8 @@ struct Token
 {
     TokenID id;
     
+    //change to internal string
     std::string value;
-    
-    bool error; //invalid token
-    
 };
 
 

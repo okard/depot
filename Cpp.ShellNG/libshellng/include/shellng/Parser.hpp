@@ -24,6 +24,7 @@ SOFTWARE.
 
 #include <shellng/Types.hpp>
 #include <shellng/Lexer.hpp>
+#include <shellng/Ast.hpp>
 
 namespace sng {
 
@@ -33,14 +34,19 @@ private:
 	Lexer lexer_;
 
 	//buffer token?
-	
+	Token curTok_;
 
 public:	
 
-	void parse();
+	NodePtr parse();
+	
+	inline Lexer& getLexer() { return lexer_; }
 	
 	
-	void parseDeclaration(){}
+private:
+
+	NodePtr parseDeclaration();
+	
 	void parseStatement(){}
 	void parseIfStatement(){}
 	void parseForStatement(){}
@@ -48,6 +54,10 @@ public:
 	
 	void parseExpression(){}
 	void parseBinaryExpression(){}
+	
+	
+	//helper
+
 
 };
 

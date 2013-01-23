@@ -24,7 +24,30 @@ SOFTWARE.
 using namespace sng;
 
 
-void Parser::parse()
+NodePtr Parser::parse()
 {
+	lexer_.next(curTok_);
 	
+	if(curTok_.id == TOKEN_KW_DEF)
+		return parseDeclaration();
+	
+	//else return parseStatement
+	
+	
+	NodePtr ptr(new Node());
+	
+	return ptr;
+}
+
+
+NodePtr Parser::parseDeclaration()
+{
+	//object
+	//function
+	//string
+	//number
+	//clone
+	
+	NodePtr decl(new Decl());
+	return decl;
 }
