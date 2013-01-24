@@ -41,47 +41,92 @@ type
 	echo $foo
 	echo "$foo"
 	
-	
+    detect wildcards
+    
+    special: 
+        && 
+        || 
+        | 
+        <
+        >
+        >>
+        &
+        
+## Special internal objects
+    $sys
+        $sys.prompt     //shell prompt
+        $sys.process    //shell process see $process object
+        $sys.file       //current executed file if available
+        $sys.cwd        //current working directory
+        
+        $sys.exit(int)  //exit shell process with id
+        
+    $process
+        $process.pid    //process id
+        $process.gid    //group id
+        $process.uid    //user id
+        
+    $env    //enviroment variables
+    
+    $fs
+    
+    $date    
+        
 	
 # EBNF
 
 program := { definition | statement }
 		 
+         
+definition := definition_obj
+            | definition_func
+            | definition_str
+            | definition_num;
 
 definition_obj := "def", identifier, ":", "object", [ "{", { obj_def }, "}"];
-definition_obj := "def", identifier, ":", "function", [ "{", { function_def }, "}"];
-definition_obj := "def", identifier, ":", "string", [ "=", expression];
-definition_obj := "def", identifier, ":", "number", [ "=", expression];
+definition_func := "def", identifier, ":", "function", [ "{", { function_def }, "}"];
+definition_str := "def", identifier, ":", "string", [ "=", expression];
+definition_num := "def", identifier, ":", "number", [ "=", expression];
+definition_arr := "def", identifier, ":", "array", [ "=", expression];
+definition_map := "def", identifier, ":", "map", [ "=", expression];
 
-		  
 statement := statement_if
            | statement_for
-           | statement_while;
+           | statement_while
            | statement_command
-           
-expression := expression_assign
-            | expression_binary
-            | expression_command
-            
-            
-expression_access := "$", identifier, {".", identifier};
+           | statement_expression;
+         
+         
+statement_command := com_part , { com_part };
 
+com_part := string
+          | com_identifier;  
+           
+        
+expression := expression_binary
+            | expression_unary
+            | expression_command
+            | expression_id
+            | expression_call
+            | expression_index;
+                     
+expression_id := "$", identifier, {".", identifier};
 
 expression_command := "$", "(", command, ")";
              
-		  
-statement_command := identifier, { identifier };
+expression_binary := expression binary_operator expression;
 
-argument := """, {all_char} ,"""
-		  | identifier
-		  | number
-		  | "$", identifier;
+expression_unary := expression unary_operator
+                  | unary_operator expression;
+                  
+expression_call := expression, "(", {expression}, ")";
+
+expression_index := expression, "[", {expression}, "]";
 
 
-
-		  
 identifier := char, { char | digit };
 com_identifier := all_char, { all_char };
+string := """, ? all chars exclude " ?, """ 
 number_int := digit, { digit };
 number_float := number_int, ".f" | number_int, ".", digit, {digit};
 digit = ? [0-9] ?;
