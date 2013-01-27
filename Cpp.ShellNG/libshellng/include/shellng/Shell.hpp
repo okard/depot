@@ -62,7 +62,7 @@ public:
     * return bool?
     * enqueue?
     */
-    void execute(Source* const src);
+    void execute(const std::shared_ptr<Source>& src);
     
     //execute in seperate context for example sandboxed scripts
     //void execute(Source* const src, Context* const ctx);

@@ -21,4 +21,53 @@ SOFTWARE.
 
 #include <shellng/String.hpp>
 
+#include <string>
+
 using namespace sng;
+
+
+String::String()
+	: encoding_(ENCODING_UTF8)
+{
+}
+
+String::String(const String& str)
+{
+	//str.copyTo(*this, 0, str.size());
+}
+
+String::String(const char* str)
+{
+	auto size = std::char_traits<char>::length(str);
+	char* sstr = const_cast<char*>(str);
+	write(reinterpret_cast<ubyte8*>(sstr), size);
+}
+
+String::~String()
+{
+}
+
+String& String::operator=(const String& str)
+{
+	 if (this != &str) 
+	 {
+	 }
+	 return *this;
+}
+
+String& String::operator=(const char* str)
+{
+	
+	return *this;
+}
+
+bool String::operator==(const String& str)
+{
+	return false;
+}
+
+bool String::operator==(const char* str)
+{
+	return false;
+}
+	

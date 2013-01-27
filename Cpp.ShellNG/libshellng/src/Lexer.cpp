@@ -96,7 +96,7 @@ Lexer::~Lexer()
 { 
 }
     
-void Lexer::open(Source* const src)
+void Lexer::open(const std::shared_ptr<Source>& src)
 {
     src_ = src;
     //initial fill

@@ -22,6 +22,8 @@ SOFTWARE.
 #ifndef __SHELLNG_LEXER__
 #define __SHELLNG_LEXER__
 
+#include <memory>
+
 #include <shellng/Types.hpp>
 #include <shellng/Token.hpp>
 #include <shellng/Source.hpp>
@@ -40,7 +42,7 @@ private:
     //SourceFile
     
     /// Source
-    Source* src_;
+    std::shared_ptr<Source> src_;
     
     // Buffer
     Buffer buf_;
@@ -66,7 +68,7 @@ public:
     /**
     * Open source file for lexing
     */
-    void open(Source* const src);
+    void open(const std::shared_ptr<Source>& src);
     
     /**
     * Close source file

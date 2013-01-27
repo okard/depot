@@ -43,7 +43,9 @@ int main(int argc, char **argv)
     
     
     Shell shell;
-    LineSource source(shell);
+    
+	std::shared_ptr<Source> source(new LineSource(shell));
+    //LineSource source(shell);
     
     
     while(true)
@@ -57,7 +59,7 @@ int main(int argc, char **argv)
             
         //add a idle job that executes LineSource File
         
-        shell.execute(&source);
+        shell.execute(source);
         shell.dispatch();
         
         source.reset();  

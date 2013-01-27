@@ -36,6 +36,19 @@ private:
 
 	
 public:
+
+	String();
+	String(const String& str);
+	String(const char* str);
+	
+	virtual ~String();
+	
+	
+	String& operator=(const String& str);
+	String& operator=(const char* str);
+	
+	bool operator==(const String& str);
+	bool operator==(const char* str);
 	
 	//convert between formats
 	//

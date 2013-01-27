@@ -63,7 +63,6 @@ typedef std::shared_ptr<Node> NodePtr;
 //weak NodePtr?
 
 
-
 class Program : public Node
 {
 	//list of nodes
@@ -83,8 +82,6 @@ class Decl : public Node
 */
 class VarDecl : public Decl
 {
-private:
-    
 public:
     //name
     //type
@@ -145,17 +142,17 @@ class Expr : public Node
 */
 class BinaryExp : public Expr
 {
+	//ShellOP | > < >> << ||
+    //BinOP + - * / ~ 
 	enum Operator
 	{
 		OP_ASSIGN, //=
 		OP_PLUS,   //+
 	};
 	
-    //op 
-        //ShellOP | > < >> << ||
-        //BinOP + - * / ~ 
-    //left
-    //right
+	Operator op;
+	NodePtr left;
+	NodePtr right;
 };
 
 /**

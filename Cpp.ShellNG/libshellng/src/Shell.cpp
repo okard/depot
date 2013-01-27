@@ -72,7 +72,7 @@ const char* Shell::getPrompt() const
 }
 
 
-void Shell::execute(Source* const src)
+void Shell::execute(const std::shared_ptr<Source>& src)
 {
 	//open source file
 	parser_.getLexer().open(src);
