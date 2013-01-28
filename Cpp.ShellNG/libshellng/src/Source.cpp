@@ -23,6 +23,8 @@ SOFTWARE.
 
 #include <cstdlib>
 
+#include <shellng/Exception.hpp>
+
 using namespace sng;
 
 
@@ -52,6 +54,10 @@ void SourceFile::open(const char* fileName)
         fclose(file_);
     
     file_ = fopen(fileName, "r");
+    
+    
+	if(file_ == NULL)
+		throw Exception("Can't open file");
 }
 
 /**
@@ -79,15 +85,16 @@ size_t SourceFile::read(void* buffer, size_t len)
 /**
 * Position is at end of file
 */
-bool SourceFile::isEOF()
+bool SourceFile::isEOF() const
 {
     return feof(file_);
 }
 
 
-Encoding SourceFile::getEncoding()
+Encoding SourceFile::getEncoding() const
 {
 	//default UTF8
+	//check bom etc
 	return ENCODING_UTF8;
 }
 

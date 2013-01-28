@@ -60,8 +60,8 @@ public:
 	void write(ubyte8* buf, std::size_t length);
 	void write(std::size_t pos, ubyte8* buf, std::size_t length);
 	
-	std::size_t read(ubyte8* buf, std::size_t length);
-	std::size_t read(std::size_t pos, ubyte8* buf, std::size_t length);
+	std::size_t read(ubyte8* buf, std::size_t length) const;
+	std::size_t read(std::size_t pos, ubyte8* buf, std::size_t length) const;
 	
 	inline ubyte8* const bufPtr() { return buf_; }
 	inline ubyte8* const bufPtr(std::size_t offset) 
@@ -70,8 +70,8 @@ public:
 			return nullptr; //TODO exception?
 		return &buf_[offset];
 	}
-	inline std::size_t size() { return size_; }
-	inline std::size_t allocatedMemory() { return allocMem_; }
+	inline std::size_t size() const { return size_; }
+	inline std::size_t allocatedMemory() const { return allocMem_; }
 	
 	//residualMemory() allocMem_-size_
 	

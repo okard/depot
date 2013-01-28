@@ -60,12 +60,12 @@ public:
     /**
     * No more data available
     */
-    virtual bool isEOF()=0;
+    virtual bool isEOF() const =0;
     
     /**
     * Encoding 
     */
-    virtual Encoding getEncoding() = 0;
+    virtual Encoding getEncoding() const = 0;
 };
 
 
@@ -107,12 +107,12 @@ public:
     /**
     * Position is at end of file
     */
-    virtual bool isEOF();
+    virtual bool isEOF() const;
     
     /**
     * Encoding
     */ 
-    virtual Encoding getEncoding();
+    virtual Encoding getEncoding() const;
 };
     
     

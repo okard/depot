@@ -31,25 +31,23 @@ using namespace sng;
 
 int main(int argc, char **argv)
 {
-    //parse arguments
-    //- "-f" execute script file
+	
+	Shell shell;
+    std::shared_ptr<Source> source;
     
-    if(argc == 3 && !strcmp(argv[1], "-f"))
+    //parse arguments
+    //- "-f" execute script file 
+    if(argc == 3 && !strncmp("-f", argv[1], 2))
     {
         //open file from argv[2] as source and executes it
-        
-        return 0;
+		source.reset(new SourceFile());
+		static_cast<SourceFile*>(source.get())->open(argv[2]);
     }
+    else
+		source.reset(new LineSource(shell));
+		
     
-    
-    Shell shell;
-    
-	std::shared_ptr<Source> source(new LineSource(shell));
-    //LineSource source(shell);
-    
-    
-    while(true)
-    {
+   
         //create interactive stdin jobs and enqueue it
         
         //read into buffer from line until it can successful parsed
@@ -61,9 +59,8 @@ int main(int argc, char **argv)
         
         shell.execute(source);
         shell.dispatch();
-        
-        source.reset();  
-    }
+    
+    //shell event loop
 
     
     return 0;

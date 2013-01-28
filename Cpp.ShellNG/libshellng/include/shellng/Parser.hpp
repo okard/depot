@@ -47,13 +47,13 @@ private:
 
 	NodePtr parseDeclaration();
 	
-	void parseStatement(){}
-	void parseIfStatement(){}
-	void parseForStatement(){}
-	void parseCommandStatement(){}
+	NodePtr parseStatement();
+	NodePtr parseIfStatement();
+	NodePtr parseForStatement();
+	NodePtr parseCommandStatement();
 	
-	void parseExpression(){}
-	void parseBinaryExpression(){}
+	NodePtr parseExpression();
+	NodePtr parseBinaryExpression();
 	
 	
 	//helper

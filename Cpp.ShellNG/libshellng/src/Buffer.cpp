@@ -34,11 +34,13 @@ Buffer::Buffer()
 }
 
 Buffer::Buffer(std::size_t size)
+	: buf_(nullptr), size_(0), allocMem_(0)
 {
 	this->alloc(size);
 }
 
 Buffer::Buffer(const Buffer& buf)
+	: buf_(nullptr), size_(0), allocMem_(0)
 {
 	//copy
 	//buf.copyTo(*this, 0, buf.size_);
@@ -146,12 +148,12 @@ void Buffer::write(std::size_t pos, ubyte8* buf, std::size_t length)
 	memcpy (&buf_[pos], buf, length);
 }
 
-std::size_t Buffer::read(ubyte8* buf, std::size_t length)
+std::size_t Buffer::read(ubyte8* buf, std::size_t length) const
 {
 	return read(0, buf, length);
 }
 
-std::size_t Buffer::read(std::size_t pos, ubyte8* buf, std::size_t length)
+std::size_t Buffer::read(std::size_t pos, ubyte8* buf, std::size_t length) const
 {
 	//check own size
 	

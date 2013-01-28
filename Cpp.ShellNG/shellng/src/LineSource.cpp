@@ -105,12 +105,12 @@ size_t LineSource::read(void* buffer, size_t len)
 }
     
     
-bool LineSource::isEOF()
+bool LineSource::isEOF() const
 {
     return eof_;
 }
 
-Encoding LineSource::getEncoding()
+Encoding LineSource::getEncoding() const
 {
 	 //look into LANG Enviroment Variable?
 	 return ENCODING_UTF8;

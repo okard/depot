@@ -23,10 +23,13 @@ SOFTWARE.
 #define __SHELLNG_EXCEPTION__
 
 #include <exception>
+#include <string>
 
 namespace sng {
 
-
+/**
+* Static Message Exception
+*/
 class Exception : public std::exception
 {
 private:
@@ -51,7 +54,37 @@ public:
 	}
 };
 
+/**
+* String Exception which saves string
+*/
+class StrException : public std::exception
+{
+private:
+	std::string str_;
+    
+public:
+	/**
+	* Constructor
+	*/
+	StrException(const char* msg)
+		: str_(msg)
+	{
+	}
+	
+	StrException(const std::string& str)
+		: str_(str)
+	{
+	}
+        
+    /**
+	* Description
+	*/
+	virtual const char* what() const throw()
+	{
+		return str_.c_str();
+	}
+};
 
-}
+} //end namespace sng
 
-#endif
+#endif // __SHELLNG_EXCEPTION__

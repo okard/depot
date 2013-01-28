@@ -128,6 +128,11 @@ class WhileStmt : public Stmt
 {
 };
 
+class ExprStmt : public Stmt
+{
+	NodePtr expr;
+};
+
 /**
 * Basic Expression Node
 */

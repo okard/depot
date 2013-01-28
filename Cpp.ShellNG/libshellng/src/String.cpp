@@ -22,6 +22,8 @@ SOFTWARE.
 #include <shellng/String.hpp>
 
 #include <string>
+#include <cstring>
+#include <cassert>
 
 using namespace sng;
 
@@ -41,6 +43,8 @@ String::String(const char* str)
 	auto size = std::char_traits<char>::length(str);
 	char* sstr = const_cast<char*>(str);
 	write(reinterpret_cast<ubyte8*>(sstr), size);
+	
+	assert(this[this->size()] == '\0');
 }
 
 String::~String()
@@ -63,11 +67,25 @@ String& String::operator=(const char* str)
 
 bool String::operator==(const String& str)
 {
+	if(str.size() != this->size())
+		return false;
+	
+	if (strncmp(reinterpret_cast<const char*>(bufPtr()), reinterpret_cast<const char*>(str.size()), this->size()) == 0);
+		return true;
+		
 	return false;
 }
 
 bool String::operator==(const char* str)
 {
+	auto size = std::char_traits<char>::length(str);
+	
+	if(size != this->size())
+		return false;
+	
+	if (strncmp(reinterpret_cast<const char*>(bufPtr()), str, this->size()) == 0);
+		return true;
+		
 	return false;
 }
 	

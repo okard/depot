@@ -21,6 +21,9 @@ SOFTWARE.
 
 #include <shellng/Parser.hpp>
 
+
+#include <iostream>
+
 using namespace sng;
 
 
@@ -30,9 +33,10 @@ NodePtr Parser::parse()
 	
 	if(curTok_.id == TOKEN_KW_DEF)
 		return parseDeclaration();
+	else
+		return parseStatement();
 	
 	//else return parseStatement
-	
 	
 	NodePtr ptr(new Node());
 	
@@ -42,6 +46,8 @@ NodePtr Parser::parse()
 
 NodePtr Parser::parseDeclaration()
 {
+	std::cout << "parseDeclaration()" << std::endl;
+	
 	//object
 	//function
 	//string
@@ -50,4 +56,64 @@ NodePtr Parser::parseDeclaration()
 	
 	NodePtr decl(new Decl());
 	return decl;
+}
+
+
+NodePtr Parser::parseStatement()
+{
+	std::cout << "parseStatement()" << std::endl;
+	
+	switch(curTok_.id)
+	{
+		case TOKEN_KW_IF:
+			return parseIfStatement();
+		case TOKEN_KW_FOR:
+			return parseForStatement();
+		//case TOKEN_KW_WHILE:
+		//	
+	}
+	
+	//if Identifier_ID
+	//else 
+	//parse expr
+	
+	
+	NodePtr stmt(new Stmt());
+	return stmt;
+}
+
+NodePtr Parser::parseIfStatement()
+{
+	NodePtr stmt(new IfStmt());
+	return stmt;
+}
+
+NodePtr Parser::parseForStatement()
+{
+	NodePtr stmt(new ForStmt());
+	return stmt;
+}
+
+NodePtr Parser::parseCommandStatement()
+{
+	NodePtr stmt(new Stmt());
+	return stmt;
+}
+
+NodePtr Parser::parseExpression()
+{
+	//if $expr a normal expression
+	
+	//if number
+	//else commandExpression
+	
+	
+	NodePtr expr(new Expr());
+	return expr;
+}
+
+NodePtr Parser::parseBinaryExpression()
+{
+	NodePtr expr(new Expr());
+	return expr;
 }

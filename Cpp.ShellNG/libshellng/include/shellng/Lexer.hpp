@@ -25,12 +25,28 @@ SOFTWARE.
 #include <memory>
 
 #include <shellng/Types.hpp>
+#include <shellng/Exception.hpp>
 #include <shellng/Token.hpp>
 #include <shellng/Source.hpp>
 #include <shellng/Buffer.hpp>
 
 
 namespace sng {
+	
+/**
+* Lexer Exception
+*/
+class LexerException : public Exception
+{
+public:
+	/**
+	* Constructor
+	*/
+	LexerException(const char* msg)
+		: Exception(msg)
+	{
+	}
+};
 
 /**
 * Lexer
@@ -77,7 +93,7 @@ public:
     
     /**
     * Get next token
-    * TODO Using a PushModel
+    * set scope (comid/id)
     */
     TokenID next(Token& tok);
     
@@ -94,6 +110,12 @@ private:
     */
     bool fill();
     
+    inline ubyte8 nextChar();
+    
+    inline bool nextLine();
+    
+    //end of buffer
+    inline bool isEOB();
     
     TokenID lexNumber(Token& tok);
     TokenID lexId(Token& tok);

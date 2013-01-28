@@ -51,9 +51,9 @@ public:
         
     virtual size_t read(void* buffer, size_t len);
     
-    virtual bool isEOF();
+    virtual bool isEOF() const;
     
-    virtual Encoding getEncoding();
+    virtual Encoding getEncoding() const;
     
     void reset();
 };

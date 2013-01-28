@@ -32,9 +32,24 @@ enum TokenID
 {
 	TOKEN_UNKOWN,
 	TOKEN_IDENTIFIER,
-	TOKEN_IDENTEFIER_ID,
+	TOKEN_IDENTIFIER_ID,  //$<identifier>
 	TOKEN_IDENTIFIER_COM,
 	TOKEN_NUMBER,
+	
+	TOKEN_PLUS,
+	TOKEN_MINUS,
+	TOKEN_MUL,
+	TOKEN_DIV,
+	
+	// =
+	// ==
+	// &
+	// &&
+	// |
+	// ||
+	// >
+	// >>
+	// <
 	
 	TOKEN_COBRACKET, // {
 	TOKEN_CCBRACKET, // }
@@ -44,6 +59,10 @@ enum TokenID
 	TOKEN_SCBRACKET, // ]
 	
 	TOKEN_KW_DEF,    //def
+	TOKEN_KW_IF,
+	TOKEN_KW_ELSE,
+	TOKEN_KW_FOR,
+	TOKEN_KW_WHILE,
 	
 	
 	TOKEN_EOF		//no more token available

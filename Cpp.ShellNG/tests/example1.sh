@@ -16,7 +16,6 @@ def foo : object
 
 }
 
-
 def bar : $foo
 {
 }

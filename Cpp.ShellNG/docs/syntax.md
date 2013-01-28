@@ -65,6 +65,7 @@ type
         $process.pid    //process id
         $process.gid    //group id
         $process.uid    //user id
+        $process.kill(signal) 
         
     $env    //enviroment variables
     
