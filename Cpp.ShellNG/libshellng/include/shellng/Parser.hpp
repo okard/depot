@@ -22,6 +22,8 @@ SOFTWARE.
 #ifndef __SHELLNG_PARSER__
 #define __SHELLNG_PARSER__
 
+#include <vector>
+
 #include <shellng/Types.hpp>
 #include <shellng/Lexer.hpp>
 #include <shellng/Ast.hpp>
@@ -33,10 +35,12 @@ class Parser
 private:
 	Lexer lexer_;
 
-	//buffer token?
-	Token curTok_;
+	std::vector<Token> token_;
+	std::size_t tokenIndex_;
 
 public:	
+	Parser();
+	virtual ~Parser();
 
 	NodePtr parse();
 	
@@ -44,6 +48,9 @@ public:
 	
 	
 private:
+
+	inline Token& curTok();
+	inline Token& nextTok();
 
 	NodePtr parseDeclaration();
 	

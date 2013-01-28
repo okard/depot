@@ -89,6 +89,17 @@ inline ubyte8 utf8CharSize(const ubyte8 b)
 	return 1; //standard ascii/utf8 char 0x00 - 0x7F
 }
 
+void checkKeywords(Token& tok)
+{
+	if(tok.value == "def")
+		tok.id = TOKEN_KW_DEF;
+	else if (tok.value == "if")
+		tok.id = TOKEN_KW_IF;
+	else if (tok.value == "object")
+		tok.id = TOKEN_KW_OBJECT;
+}
+
+
 
 Lexer::Lexer()
     : src_(nullptr),
@@ -103,8 +114,6 @@ Lexer::~Lexer()
 void Lexer::open(const std::shared_ptr<Source>& src)
 {
     src_ = src;
-    //initial fill
-	fill();
 }
 
 
@@ -152,14 +161,8 @@ bool Lexer::nextLine()
 	while(nextChar() && buf_[pos_] != '\n');
 }
 
-ubyte8 Lexer::nextChar()
-{
-	if(buf_[pos_] == '\n')
-	{
-		lineNo_++;
-		colNo_ = 0;
-	}
-		
+ubyte8 Lexer::nextChar(bool autofill) 
+{		
 	//at end of buffer
 	if(pos_ == buf_.size())
 		return 0x00;
@@ -179,6 +182,8 @@ ubyte8 Lexer::nextChar()
 			break;
 	}
 	
+	assert(skip > 0);
+	
 	//goes over current buffer
 	if( pos_ + skip > buf_.size())
 		return 0x00;
@@ -186,22 +191,41 @@ ubyte8 Lexer::nextChar()
 	pos_ += skip;
 	colNo_++;
 	
+	if(buf_[pos_] == '\n')
+	{
+		lineNo_++;
+		colNo_ = 0;
+	}
+	
 	return buf_[pos_];
 }
 
 
-TokenID Lexer::next(Token& tok)
+TokenID Lexer::next(Token& tok, bool com_identifier)
 {
+	tok.id = TOKEN_UNKOWN;
+	tok.value.clear();
+	
+	if(!src_)
+		throw LexerException("No Source File");
+	
 	//buffer is empty and no more todo
-	if(isEOB() && (!src_ || src_->isEOF()))
+	if(isEOB() && src_->isEOF())
 	{
 		tok.id = TOKEN_EOF;
 		return tok.id;
 	}
 	
+	//try to fill
+	if(isEOB() && !fill())
+	{
+		//can not happen?
+		assert(false);
+	}
+	
 	//move pos with buffer fill mechanism
 	
-	//whitespace
+	//whitespace is also irrelevant for command identifier
 	while(isWhitespace(buf_[pos_]))
 	{
 		nextChar();
@@ -221,43 +245,64 @@ TokenID Lexer::next(Token& tok)
 	//special chars
 	switch(buf_[pos_])
 	{
-		
 		case '+': 
 			tok.id = TOKEN_PLUS;
+			nextChar();
 			return tok.id;
 		case '-': 
 			tok.id = TOKEN_MINUS;
+			nextChar();
 			return tok.id;
 		case '*':
 			tok.id = TOKEN_MUL;
+			nextChar();
 			return tok.id;
 		case '/': 
 			tok.id = TOKEN_DIV;
+			nextChar();
+			
+			//check for comments
+			// // and /*
+			
 			return tok.id;
 		case '$': 
-			pos_++;
+			nextChar();
 			lexId(tok);
 			tok.id = TOKEN_IDENTIFIER_ID;
+			nextChar();
+			return tok.id;	
+		case ':':
+			tok.id = TOKEN_COLON;
+			nextChar();
 			return tok.id;
-		
 		case '(': 
-			tok.id= TOKEN_ROBRACKET;
+			tok.id = TOKEN_ROBRACKET;
+			nextChar();
 			return tok.id;
 		case ')': 
 			tok.id = TOKEN_RCBRACKET;
+			nextChar();
 			return tok.id;
 		case '{': 
 			tok.id = TOKEN_COBRACKET;
+			nextChar();
 			return tok.id;
 		case '}':
 			tok.id = TOKEN_CCBRACKET;
+			nextChar();
 			return tok.id;
 		case '[':
 			tok.id = TOKEN_SOBRACKET;
+			nextChar();
 			return tok.id;
 		case ']': 
 			tok.id = TOKEN_SCBRACKET;
+			nextChar();
 			return tok.id;
+			
+		case '\\':
+			//lex escape line end
+			break;
 			
 		//skip shebang line
 		case '#':
@@ -267,7 +312,6 @@ TokenID Lexer::next(Token& tok)
 			
 			break;
 		
-		
 		case '"':
 			return lexString(tok);
 			//read string
@@ -275,38 +319,35 @@ TokenID Lexer::next(Token& tok)
 			
 	}
 	
-	//tokenize number
-	if(isNumeric(buf_[pos_]))
+	//command identifier when requested
+	if(com_identifier && (isAsciiChar(buf_[pos_]) || utf8CharSize(buf_[pos_]) > 1))
 	{
-		return lexNumber(tok);
-	}
-	
-	
-	//com id here
-	
-	//default parse com identifier
-	// set scope via parameter to parse_identifier
-	
-	//tokenize identifier and keywords
-	if(isAlpha(buf_[pos_]) 
-	|| buf_[pos_] == '_')
-	{
-		lexId(tok);
-		
-		//keyword check
-		if(tok.value == "def")
-			tok.id = TOKEN_KW_DEF;
-		else if (tok.value == "if")
-			tok.id = TOKEN_KW_IF;
-		
-		//to subfunction
+		lexCommandId(tok);
+		checkKeywords(tok); //todo not all keywords
+		nextChar();
 		return tok.id;
 	}
 	
+	//tokenize number
+	if(!com_identifier && isNumeric(buf_[pos_]))
+	{
+		lexNumber(tok);
+		nextChar();
+		return tok.id;
+	}
 	
+	//tokenize identifier and keywords
+	if(!com_identifier && (isAlpha(buf_[pos_])  || buf_[pos_] == '_'))
+	{
+		lexId(tok);
+		checkKeywords(tok);
+		nextChar();
+		return tok.id;
+	}
+	
+	//unkown token == error
 	tok.id = TOKEN_UNKOWN;
-	
-	
+	nextChar();
 	return tok.id;
 }
 
@@ -315,8 +356,13 @@ TokenID Lexer::lexNumber(Token& tok)
 {
 	//while(isNumeric())
 	
+	while(isNumeric(buf_[pos_]))
+	{
+		nextChar();
+		
+	}
 	
-	tok.id = TOKEN_UNKOWN;
+	tok.id = TOKEN_NUMBER;
 	return tok.id;
 }
 
@@ -334,7 +380,7 @@ TokenID Lexer::lexId(Token& tok)
 	{
 		//if position is at the end of the current buffer
 		// append the current value and go forward with the next buffer
-		if(pos_ == buf_.size())
+		if(isEOB())
 		{
 			//append if buffer is at end reset tpos
 			tok.value.append (reinterpret_cast<const char*>(buf_.bufPtr(tpos)), pos_-tpos);
@@ -348,24 +394,13 @@ TokenID Lexer::lexId(Token& tok)
 			}
 		}
 		else
-			pos_++;	
+			nextChar();	
 	}
 	
 	//append
 	tok.value.append (reinterpret_cast<const char*>(buf_.bufPtr(tpos)), pos_-tpos);
 	
-	
-	//check for keywords
-	//TOKEN_KW_DEF
-	//int strncmp ( const char * str1, const char * str2, size_t num );
-	//int memcmp ( const void * ptr1, const void * ptr2, size_t num );
-	
-	//if(tok.value == "def")
-	
-	//tok.value std::string(const char* s, size_t n);
-	
 	tok.id = TOKEN_IDENTIFIER;
-	
 	return tok.id;
 }
 
@@ -379,7 +414,7 @@ TokenID Lexer::lexCommandId(Token& tok)
 		
 	}
 	
-	
+	tok.id = TOKEN_IDENTIFIER_COM;
 	return tok.id;
 }
 
@@ -387,7 +422,7 @@ TokenID Lexer::lexString(Token& tok)
 {
 	assert(buf_[pos_] == '"');
 	
-	pos_++; //skip "
+	nextChar(); //skip "
 	
 	std::size_t tpos = pos_;
 	
@@ -396,8 +431,9 @@ TokenID Lexer::lexString(Token& tok)
 	while(buf_[pos_] != '"')
 	{
 		//TODO Escaping
+		//if(buf_[pos_] == '\\')
 		
-		if(pos_ == buf_.size())
+		if(isEOB())
 		{
 			//append if buffer is at end reset tpos
 			tok.value.append (reinterpret_cast<const char*>(buf_.bufPtr(tpos)), pos_-tpos);
@@ -410,11 +446,12 @@ TokenID Lexer::lexString(Token& tok)
 				throw LexerException("Invalid String Token");
 			}
 		}
-
-		pos_++;
-		
+		else
+			nextChar();
 	}
 	
 	tok.value.append (reinterpret_cast<const char*>(buf_.bufPtr(tpos)), pos_-tpos);
+	
+	assert(buf_[pos_] == '"');
 }
 

@@ -95,7 +95,7 @@ public:
     * Get next token
     * set scope (comid/id)
     */
-    TokenID next(Token& tok);
+    TokenID next(Token& tok, bool com_identifier = true);
     
     
     //unsigned int next(Token& tok);
@@ -110,7 +110,7 @@ private:
     */
     bool fill();
     
-    inline ubyte8 nextChar();
+    inline ubyte8 nextChar(bool autofill = true);
     
     inline bool nextLine();
     

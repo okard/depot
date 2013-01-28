@@ -31,9 +31,9 @@ namespace sng {
 enum TokenID
 {
 	TOKEN_UNKOWN,
-	TOKEN_IDENTIFIER,
-	TOKEN_IDENTIFIER_ID,  //$<identifier>
-	TOKEN_IDENTIFIER_COM,
+	TOKEN_IDENTIFIER,	   //<identifier>
+	TOKEN_IDENTIFIER_ID,   //$<identifier>
+	TOKEN_IDENTIFIER_COM,  //identifier xxx
 	TOKEN_NUMBER,
 	
 	TOKEN_PLUS,
@@ -51,6 +51,8 @@ enum TokenID
 	// >>
 	// <
 	
+	TOKEN_COLON,	 // :
+	
 	TOKEN_COBRACKET, // {
 	TOKEN_CCBRACKET, // }
 	TOKEN_ROBRACKET, // (
@@ -58,7 +60,8 @@ enum TokenID
 	TOKEN_SOBRACKET, // [
 	TOKEN_SCBRACKET, // ]
 	
-	TOKEN_KW_DEF,    //def
+	TOKEN_KW_DEF,    // def
+	TOKEN_KW_OBJECT, // object
 	TOKEN_KW_IF,
 	TOKEN_KW_ELSE,
 	TOKEN_KW_FOR,

@@ -21,17 +21,32 @@ SOFTWARE.
 
 #include <shellng/Parser.hpp>
 
-
+#include <cassert>
 #include <iostream>
+
+#include <shellng/Exception.hpp>
 
 using namespace sng;
 
 
+Parser::Parser()
+	: token_(5), tokenIndex_(0)
+{
+}
+
+Parser::~Parser()
+{
+	
+}
+	
+	
+
 NodePtr Parser::parse()
 {
-	lexer_.next(curTok_);
+	//initial token
+	nextTok();
 	
-	if(curTok_.id == TOKEN_KW_DEF)
+	if(curTok().id == TOKEN_KW_DEF)
 		return parseDeclaration();
 	else
 		return parseStatement();
@@ -43,16 +58,52 @@ NodePtr Parser::parse()
 	return ptr;
 }
 
+Token& Parser::curTok()
+{
+	return token_[tokenIndex_];
+}
+
+Token& Parser::nextTok()
+{
+	//TODO check token index
+	lexer_.next(token_[tokenIndex_]);
+}
+
 
 NodePtr Parser::parseDeclaration()
 {
+	//def identifier : <type> ...
 	std::cout << "parseDeclaration()" << std::endl;
+	assert(curTok().id == TOKEN_KW_DEF);
 	
-	//object
-	//function
-	//string
-	//number
-	//clone
+	//save tokenIndex_
+	tokenIndex_++;
+	if(nextTok().id != TOKEN_IDENTIFIER)
+	{
+		throw Exception("parseDeclaration(): Expected IDENTIFIER");
+	}
+	
+	tokenIndex_++;
+	if(nextTok().id != TOKEN_COLON)
+	{
+		throw Exception("parseDeclaration(): Expected COLON");
+	}
+	
+	//switch over declaration type
+	switch(nextTok().id)
+	{
+		case TOKEN_KW_OBJECT:
+			break;
+		
+		//object
+		//function
+		//string
+		//number
+		//clone $idexpr
+			
+		default:
+			throw Exception("parseDeclaration(): Invalid definition type");
+	}
 	
 	NodePtr decl(new Decl());
 	return decl;
@@ -63,7 +114,7 @@ NodePtr Parser::parseStatement()
 {
 	std::cout << "parseStatement()" << std::endl;
 	
-	switch(curTok_.id)
+	switch(curTok().id)
 	{
 		case TOKEN_KW_IF:
 			return parseIfStatement();
