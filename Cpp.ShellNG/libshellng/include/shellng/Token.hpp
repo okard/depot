@@ -24,22 +24,28 @@ SOFTWARE.
 
 #include <string>
 
+#include <shellng/Types.hpp>
 #include <shellng/String.hpp>
 
 namespace sng {
+	
+//enum class
 
-enum TokenID
+enum class TokenID : ubyte8
 {
 	TOKEN_UNKOWN,
-	TOKEN_IDENTIFIER,	   //<identifier>
-	TOKEN_IDENTIFIER_ID,   //$<identifier>
-	TOKEN_IDENTIFIER_COM,  //identifier xxx
+	TOKEN_IDENTIFIER,	   	//<identifier>
+	TOKEN_IDENTIFIER_ID,   	//$<identifier>
+	TOKEN_IDENTIFIER_COM,  	//identifier xxx
 	TOKEN_NUMBER,
+	String,					// "string"
 	
-	TOKEN_PLUS,
-	TOKEN_MINUS,
-	TOKEN_MUL,
-	TOKEN_DIV,
+	TOKEN_PLUS,				//+
+	TOKEN_MINUS,			//-
+	TOKEN_MUL,				//*
+	TOKEN_DIV,				// /
+	
+	Assign,					// =
 	
 	// =
 	// ==
@@ -51,7 +57,9 @@ enum TokenID
 	// >>
 	// <
 	
-	TOKEN_COLON,	 // :
+	Colon,	 		 // :
+	Dot,			 // .
+	Semicolon,		 // ;
 	
 	TOKEN_COBRACKET, // {
 	TOKEN_CCBRACKET, // }
@@ -67,8 +75,8 @@ enum TokenID
 	TOKEN_KW_FOR,
 	TOKEN_KW_WHILE,
 	
-	
-	TOKEN_EOF		//no more token available
+	TEOL,		//end of line also required
+	TEOF			//no more token available
 };
     
 /**

@@ -30,7 +30,7 @@ using namespace sng;
 
 
 Parser::Parser()
-	: token_(5), tokenIndex_(0)
+	: token_(5), tokenIndex_(0), com_id_mode_(true)
 {
 }
 
@@ -46,7 +46,7 @@ NodePtr Parser::parse()
 	//initial token
 	nextTok();
 	
-	if(curTok().id == TOKEN_KW_DEF)
+	if(curTok().id == TokenID::TOKEN_KW_DEF)
 		return parseDeclaration();
 	else
 		return parseStatement();
@@ -66,7 +66,7 @@ Token& Parser::curTok()
 Token& Parser::nextTok()
 {
 	//TODO check token index
-	lexer_.next(token_[tokenIndex_]);
+	lexer_.next(token_[tokenIndex_], com_id_mode_);
 }
 
 
@@ -74,17 +74,17 @@ NodePtr Parser::parseDeclaration()
 {
 	//def identifier : <type> ...
 	std::cout << "parseDeclaration()" << std::endl;
-	assert(curTok().id == TOKEN_KW_DEF);
+	assert(curTok().id == TokenID::TOKEN_KW_DEF);
 	
 	//save tokenIndex_
 	tokenIndex_++;
-	if(nextTok().id != TOKEN_IDENTIFIER)
+	if(nextTok().id != TokenID::TOKEN_IDENTIFIER)
 	{
 		throw Exception("parseDeclaration(): Expected IDENTIFIER");
 	}
 	
 	tokenIndex_++;
-	if(nextTok().id != TOKEN_COLON)
+	if(nextTok().id != TokenID::Colon)
 	{
 		throw Exception("parseDeclaration(): Expected COLON");
 	}
@@ -92,7 +92,7 @@ NodePtr Parser::parseDeclaration()
 	//switch over declaration type
 	switch(nextTok().id)
 	{
-		case TOKEN_KW_OBJECT:
+		case TokenID::TOKEN_KW_OBJECT:
 			break;
 		
 		//object
@@ -116,9 +116,9 @@ NodePtr Parser::parseStatement()
 	
 	switch(curTok().id)
 	{
-		case TOKEN_KW_IF:
+		case TokenID::TOKEN_KW_IF:
 			return parseIfStatement();
-		case TOKEN_KW_FOR:
+		case TokenID::TOKEN_KW_FOR:
 			return parseForStatement();
 		//case TOKEN_KW_WHILE:
 		//	

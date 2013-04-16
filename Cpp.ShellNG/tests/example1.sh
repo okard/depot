@@ -1,6 +1,5 @@
 #!/usr/bin/env shellng
 
-
 /*
 Comment
 */
@@ -16,7 +15,7 @@ def foo : object
 
 }
 
-def bar : $foo
+def bar : $foo //copy of foo
 {
 }
 
@@ -33,6 +32,6 @@ $result = $calc(6);
 
 echo $result
 
+ls -alh $env["HOME"]
 
-ls
 

@@ -100,6 +100,8 @@ public:
     
     //unsigned int next(Token& tok);
     
+    static void print(const Token& tok);
+    
 private:
     
     //TODO callback to shell so shell can request more input?
@@ -111,6 +113,7 @@ private:
     bool fill();
     
     inline ubyte8 nextChar(bool autofill = true);
+    inline ubyte8 peekChar(size_t offset);
     
     inline bool nextLine();
     
@@ -121,6 +124,8 @@ private:
     TokenID lexId(Token& tok);
     TokenID lexCommandId(Token& tok);
     TokenID lexString(Token& tok);
+    
+    inline ubyte8 currentChar();
 };
 
 

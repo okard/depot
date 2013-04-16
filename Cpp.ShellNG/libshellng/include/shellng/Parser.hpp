@@ -37,6 +37,8 @@ private:
 
 	std::vector<Token> token_;
 	std::size_t tokenIndex_;
+	
+	bool com_id_mode_;
 
 public:	
 	Parser();

@@ -62,6 +62,10 @@ public:
     */
     virtual bool isEOF() const =0;
     
+    //for reading from stdin/sockets/etc
+    //isContinues();
+    //continue();
+    
     /**
     * Encoding 
     */

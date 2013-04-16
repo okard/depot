@@ -6,17 +6,23 @@ project(libshellng)
 # C++11
 set(CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -std=c++11")
 
-# Set up executable
+# Set up sources
 file(GLOB_RECURSE LIBSHELLNG_SOURCES src/*.cpp)
 
 
-# lexer gen via re2c
-# add_custom_target(re2c_lexer COMMAND re2c -o ${CMAKE_CURRENT_LIST_DIR}/src/Lexer_re2c.inc ${CMAKE_CURRENT_LIST_DIR}/src/Lexer.re WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
-# parser gen via lemon
-#add_custom_target(lemon_parser COMMAND lemon -T/usr/share/lemon/lempar.c -q ${CMAKE_CURRENT_LIST_DIR}/src/Parser.yy  WORKING_DIRECTORY ${CMAKE_CURRENT_LIST_DIR})
-
-
+#include dir
 include_directories(include)
-add_library(libshellng ${LIBSHELLNG_SOURCES})
-add_dependencies(libshellng re2c_lexer lemon_parser) #lemon_parser
+
+# set up the static library
+add_library(libshellng STATIC ${LIBSHELLNG_SOURCES})
+set_target_properties(libshellng PROPERTIES OUTPUT_NAME "shellng")
 target_link_libraries(libshellng "uv")
+
+# set up dynamic library
+#add_library(libshellng SHARED ${LIBSHELLNG_SOURCES})
+
+# copy lib to folder
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/lib/)
+get_target_property(LIBSHELLNG_LIB libshellng LOCATION)
+add_custom_command(TARGET libshellng POST_BUILD COMMAND cp ARGS ${LIBSHELLNG_LIB} ${CMAKE_CURRENT_LIST_DIR}/lib/)
+

@@ -45,8 +45,9 @@ inline bool isWhitespace(const ubyte8 b)
 	// 0x00 - 0x20 ??? 0x7F
 	
 	if( b == ' '
+	||  b == '\t'
 	||  b == '\r'
-	||  b == '\n')
+	/*||  b == '\n'*/)
 		return true;
 	
 	return false;
@@ -92,11 +93,11 @@ inline ubyte8 utf8CharSize(const ubyte8 b)
 void checkKeywords(Token& tok)
 {
 	if(tok.value == "def")
-		tok.id = TOKEN_KW_DEF;
+		tok.id = TokenID::TOKEN_KW_DEF;
 	else if (tok.value == "if")
-		tok.id = TOKEN_KW_IF;
+		tok.id = TokenID::TOKEN_KW_IF;
 	else if (tok.value == "object")
-		tok.id = TOKEN_KW_OBJECT;
+		tok.id = TokenID::TOKEN_KW_OBJECT;
 }
 
 
@@ -114,6 +115,9 @@ Lexer::~Lexer()
 void Lexer::open(const std::shared_ptr<Source>& src)
 {
     src_ = src;
+    
+    //TODO skip shebang line already here?
+    //TODO first read detect BOM and skip?
 }
 
 
@@ -141,34 +145,45 @@ bool Lexer::fill()
     if(!src_)
 		throw LexerException("No Source File");
 		
-	 std::cout << "Lexer::Fill() Eof: " << src_->isEOF() << std::endl;
+	std::cout << "Lexer::Fill() Eof: " << src_->isEOF() << std::endl;
     
     if(src_->isEOF())
         return false;
-        
-	//first read detect BOM
     
     //read in first chunk of bytes
     auto size = src_->read(reinterpret_cast<void*>(buf_.bufPtr()), buf_.allocatedMemory());
     buf_.resize(size); //set right content size
     pos_ = 0;
     
+    std::cout.write(reinterpret_cast<const char*>(buf_.bufPtr()), buf_.size());
+    
     return true;
 }
 
 bool Lexer::nextLine()
 {
-	while(nextChar() && buf_[pos_] != '\n');
+	while(buf_[pos_] != '\n')
+		nextChar();
+	
+	std::cout << "nextline: pos: " << pos_ << std::endl;
 }
 
+//result?
 ubyte8 Lexer::nextChar(bool autofill) 
 {		
 	//at end of buffer
-	if(pos_ == buf_.size())
+	if(isEOB() && !autofill)
+	{
 		return 0x00;
+	}
+	else if(isEOB())
+	{
+		fill();
+		return currentChar();
+	}
+	
 	
 	size_t skip = 1;
-	
 	switch(src_->getEncoding())
 	{
 		case ENCODING_UTF8:
@@ -185,25 +200,40 @@ ubyte8 Lexer::nextChar(bool autofill)
 	assert(skip > 0);
 	
 	//goes over current buffer
+	
 	if( pos_ + skip > buf_.size())
+	{
+		std::cerr << "SKIP over Buffer" << std::endl;
 		return 0x00;
+	}
 	
 	pos_ += skip;
 	colNo_++;
 	
+	//handle at next
 	if(buf_[pos_] == '\n')
 	{
 		lineNo_++;
 		colNo_ = 0;
 	}
 	
+	//std::cout << "nextchar: pos: " << pos_ << std::endl;
+	
 	return buf_[pos_];
 }
 
+inline ubyte8 Lexer::peekChar(size_t offset)
+{
+	if(offset + pos_ < 0 || offset + pos_ >= buf_.size())
+		return 0x00;
+
+	return buf_[pos_+offset];
+}
 
 TokenID Lexer::next(Token& tok, bool com_identifier)
 {
-	tok.id = TOKEN_UNKOWN;
+	//clear the token 
+	tok.id = TokenID::TOKEN_UNKOWN;
 	tok.value.clear();
 	
 	if(!src_)
@@ -212,14 +242,14 @@ TokenID Lexer::next(Token& tok, bool com_identifier)
 	//buffer is empty and no more todo
 	if(isEOB() && src_->isEOF())
 	{
-		tok.id = TOKEN_EOF;
+		tok.id = TokenID::TEOF;
 		return tok.id;
 	}
 	
-	//try to fill
+	//at the end of buffer try to fill
 	if(isEOB() && !fill())
 	{
-		//can not happen?
+		//can not happen? the source file has to be eof then
 		assert(false);
 	}
 	
@@ -229,74 +259,110 @@ TokenID Lexer::next(Token& tok, bool com_identifier)
 	while(isWhitespace(buf_[pos_]))
 	{
 		nextChar();
-		
-		if(isEOB() && !src_ && !src_->isEOF())
-		{
-			fill();
-		}
-		else
-		{
-			//no more todo
-			tok.id = TOKEN_EOF;
+	}
+	
+	
+	//chars with higher priority as com_identifier /* // $
+	switch(buf_[pos_])
+	{
+		case '$': 
+			nextChar();
+			lexId(tok);
+			tok.id = TokenID::TOKEN_IDENTIFIER_ID;
+			nextChar();
 			return tok.id;
-		}
+			
+		case '/':
+			if(peekChar(1) == '/')
+			{
+				nextLine();
+				return next(tok, com_identifier);
+			}
+			break;
+			
+		case '"':
+			return lexString(tok);
+	}
+	
+	//pay attention to commandline args
+	//command identifier when requested
+	// $ is not allowed
+	if(com_identifier &&((isAsciiChar(buf_[pos_]) || utf8CharSize(buf_[pos_]) > 1)))
+	{
+		lexCommandId(tok);
+		nextChar();
+		checkKeywords(tok); //todo not all keywords
+		return tok.id;
 	}
 	
 	//special chars
 	switch(buf_[pos_])
 	{
 		case '+': 
-			tok.id = TOKEN_PLUS;
+			tok.id = TokenID::TOKEN_PLUS;
 			nextChar();
 			return tok.id;
 		case '-': 
-			tok.id = TOKEN_MINUS;
+			tok.id = TokenID::TOKEN_MINUS;
 			nextChar();
 			return tok.id;
 		case '*':
-			tok.id = TOKEN_MUL;
+			tok.id = TokenID::TOKEN_MUL;
 			nextChar();
 			return tok.id;
 		case '/': 
-			tok.id = TOKEN_DIV;
+			tok.id = TokenID::TOKEN_DIV;
 			nextChar();
-			
-			//check for comments
-			// // and /*
-			
+			//comments handled above
 			return tok.id;
-		case '$': 
+			
+		case '=':
+			tok.id = TokenID::Assign;
 			nextChar();
-			lexId(tok);
-			tok.id = TOKEN_IDENTIFIER_ID;
-			nextChar();
-			return tok.id;	
+			return tok.id;
+					
 		case ':':
-			tok.id = TOKEN_COLON;
+			tok.id = TokenID::Colon;
 			nextChar();
 			return tok.id;
+			
+		case '.':
+			tok.id = TokenID::Dot;
+			nextChar();
+			return tok.id;
+			
+		case ';':
+			tok.id = TokenID::Semicolon;
+			nextChar();
+			return tok.id;
+			
 		case '(': 
-			tok.id = TOKEN_ROBRACKET;
+			tok.id = TokenID::TOKEN_ROBRACKET;
 			nextChar();
 			return tok.id;
+			
 		case ')': 
-			tok.id = TOKEN_RCBRACKET;
+			tok.id = TokenID::TOKEN_RCBRACKET;
 			nextChar();
 			return tok.id;
+			
 		case '{': 
-			tok.id = TOKEN_COBRACKET;
+			tok.id = TokenID::TOKEN_COBRACKET;
 			nextChar();
 			return tok.id;
+			
 		case '}':
-			tok.id = TOKEN_CCBRACKET;
+			tok.id = TokenID::TOKEN_CCBRACKET;
 			nextChar();
 			return tok.id;
+			
 		case '[':
-			tok.id = TOKEN_SOBRACKET;
+			tok.id = TokenID::TOKEN_SOBRACKET;
 			nextChar();
 			return tok.id;
+			
 		case ']': 
-			tok.id = TOKEN_SCBRACKET;
+			tok.id = TokenID::TOKEN_SCBRACKET;
 			nextChar();
 			return tok.id;
 			
@@ -304,28 +370,18 @@ TokenID Lexer::next(Token& tok, bool com_identifier)
 			//lex escape line end
 			break;
 			
+		case '\n':
+			tok.id = TokenID::TEOL;
+			nextChar();
+			return tok.id;
+			
 		//skip shebang line
 		case '#':
-			if(nextChar() == '!')
+			if(peekChar(1) == '!')
 				nextLine();
-			return next(tok);
+			return next(tok, com_identifier);
 			
-			break;
-		
-		case '"':
-			return lexString(tok);
-			//read string
-			break;
-			
-	}
-	
-	//command identifier when requested
-	if(com_identifier && (isAsciiChar(buf_[pos_]) || utf8CharSize(buf_[pos_]) > 1))
-	{
-		lexCommandId(tok);
-		checkKeywords(tok); //todo not all keywords
-		nextChar();
-		return tok.id;
+			break;		
 	}
 	
 	//tokenize number
@@ -340,13 +396,15 @@ TokenID Lexer::next(Token& tok, bool com_identifier)
 	if(!com_identifier && (isAlpha(buf_[pos_])  || buf_[pos_] == '_'))
 	{
 		lexId(tok);
-		checkKeywords(tok);
 		nextChar();
+		checkKeywords(tok);
 		return tok.id;
 	}
 	
+	
+	std::cout << "unkown char: <" << buf_[pos_] << ">" << std::endl;
 	//unkown token == error
-	tok.id = TOKEN_UNKOWN;
+	tok.id = TokenID::TOKEN_UNKOWN;
 	nextChar();
 	return tok.id;
 }
@@ -362,16 +420,12 @@ TokenID Lexer::lexNumber(Token& tok)
 		
 	}
 	
-	tok.id = TOKEN_NUMBER;
+	tok.id = TokenID::TOKEN_NUMBER;
 	return tok.id;
 }
 
 TokenID Lexer::lexId(Token& tok)
-{
-	//notice id are all chars exclude whitespaces?
-	// and exclude $
-	// unicode utf8!
-	
+{	
 	//save start position of id
 	std::size_t tpos = pos_;
 	
@@ -394,27 +448,43 @@ TokenID Lexer::lexId(Token& tok)
 			}
 		}
 		else
-			nextChar();	
+			nextChar(false);	
 	}
 	
 	//append
 	tok.value.append (reinterpret_cast<const char*>(buf_.bufPtr(tpos)), pos_-tpos);
 	
-	tok.id = TOKEN_IDENTIFIER;
+	tok.id = TokenID::TOKEN_IDENTIFIER;
 	return tok.id;
 }
 
 TokenID Lexer::lexCommandId(Token& tok)
 {
-	
+	//contains complex characters not only ascii [a-zA-Z_]
 	std::size_t tpos = pos_;
 	
 	while(isAsciiChar(buf_[pos_]) || utf8CharSize(buf_[pos_]) > 1)
 	{
-		
+		if(isEOB())
+		{
+			//append if buffer is at end reset tpos
+			tok.value.append (reinterpret_cast<const char*>(buf_.bufPtr(tpos)), pos_-tpos);
+			
+			if(fill())
+			{
+					tpos = pos_;
+			}
+			else
+			{
+				break;
+			}
+		}
+		else 
+			nextChar(false);
 	}
+	tok.value.append (reinterpret_cast<const char*>(buf_.bufPtr(tpos)), pos_-tpos);
 	
-	tok.id = TOKEN_IDENTIFIER_COM;
+	tok.id = TokenID::TOKEN_IDENTIFIER_COM;
 	return tok.id;
 }
 
@@ -430,6 +500,7 @@ TokenID Lexer::lexString(Token& tok)
 	
 	while(buf_[pos_] != '"')
 	{
+		//std::cout << "lex string: pos: " << pos_ << std::endl;
 		//TODO Escaping
 		//if(buf_[pos_] == '\\')
 		
@@ -437,6 +508,7 @@ TokenID Lexer::lexString(Token& tok)
 		{
 			//append if buffer is at end reset tpos
 			tok.value.append (reinterpret_cast<const char*>(buf_.bufPtr(tpos)), pos_-tpos);
+			
 			if(fill())
 			{
 				tpos = pos_;
@@ -447,11 +519,52 @@ TokenID Lexer::lexString(Token& tok)
 			}
 		}
 		else
-			nextChar();
+			nextChar(false);
 	}
-	
 	tok.value.append (reinterpret_cast<const char*>(buf_.bufPtr(tpos)), pos_-tpos);
 	
 	assert(buf_[pos_] == '"');
+	
+	//skip ending "
+	nextChar();
+	
+	tok.id = TokenID::String;
+	return tok.id;
 }
 
+
+ubyte8 Lexer::currentChar()
+{
+	return buf_[pos_];
+}
+
+
+void Lexer::print(const Token& tok)
+{
+	switch(tok.id)
+	{
+		case TokenID::TOKEN_IDENTIFIER:
+			std::cerr << "IDENTIFIER: " << tok.value;
+			break;
+			
+		case TokenID::TOKEN_IDENTIFIER_ID:
+			std::cerr << "ID_IDENTIFIER: " << tok.value;
+			break;
+			
+		case TokenID::TOKEN_IDENTIFIER_COM:
+			std::cerr << "COM_IDENTIFIER: " << tok.value;
+			break;
+			
+		case TokenID::String:
+			std::cerr << "String: " << tok.value;
+			break;
+			
+		case TokenID::TEOL:
+			std::cerr << "End of Line"; break;
+		
+		default:
+			std::cerr << "Not configured Token:" << static_cast<int>(tok.id);
+	}
+	
+	std::cerr << std::endl;
+}

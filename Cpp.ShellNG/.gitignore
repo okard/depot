@@ -5,3 +5,4 @@ libshellng/src/Parser.c
 libshellng/src/Parser.h
 libshellng/src/Lexer_re2c.inc
 
+libshellng/lib
