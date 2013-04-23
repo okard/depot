@@ -16,9 +16,22 @@ and writes to standard output for 5 seconds of data.
 //44100
 const int CHANNELS = 2;
 const int SAMPLERATE = 44100;
-const snd_pcm_format_t FORMAT = SND_PCM_FORMAT_S16_LE;
-const int SNDFILE_FORMAT = SF_FORMAT_FLAC | SF_FORMAT_PCM_16 | SF_ENDIAN_LITTLE;
-const int SAMPLESIZE = 2; //2 byte
+const snd_pcm_format_t FORMAT = SND_PCM_FORMAT_S24_LE;
+const int SNDFILE_FORMAT = SF_FORMAT_FLAC | SF_FORMAT_PCM_24 | SF_ENDIAN_LITTLE;
+const int SAMPLESIZE = 4; //3 byte for 24 bit double free or corruption
+
+//pay attention to 24 byte aligment -> 4 byte aligment
+
+/*
+The full list of formats present the snd_pcm_format_t type. 
+* The 24-bit linear samples use 32-bit physical space, but the sample is stored in the lower three bytes.
+*  Some hardware does not support processing of full range, thus you may get the significant bits for 
+* linear samples via snd_pcm_hw_params_get_sbits() function. 
+* The example: ICE1712 chips support 32-bit sample processing, but low byte is ignored (playback) or 
+* zero (capture). The function snd_pcm_hw_params_get_sbits() returns 24 in this case.
+*/
+
+//for 24 also 4 byte size
 
   // 16 bit -> 2 byte * 2 channels 
   // 24 bit -> 3 byte * 2 channels 
@@ -76,9 +89,7 @@ int main()
   /* Write the parameters to the driver */
   rc = snd_pcm_hw_params(handle, params);
   if (rc < 0) {
-    fprintf(stderr,
-            "unable to set hw parameters: %s\n",
-            snd_strerror(rc));
+    fprintf(stderr, "unable to set hw parameters: %s\n", snd_strerror(rc));
     exit(1);
   }
 
@@ -87,13 +98,15 @@ int main()
   size = frames * SAMPLESIZE * CHANNELS; /* 2 bytes/sample, 2 channels */ 
   //pay attention to this
 
-  
   buffer = (char *) malloc(size);
 
   /* We want to loop for 5 seconds */
   snd_pcm_hw_params_get_period_time(params, &val, &dir);
   loops = 5000000 / val;
   
+  printf("size: %d\n", size);
+  printf("frames: %d\n", frames);
+  printf("loops: %d\n", loops);
   
   SF_INFO sndfile_info;
   sndfile_info.samplerate = SAMPLERATE;
@@ -121,19 +134,20 @@ int main()
       /* EPIPE means overrun */
       fprintf(stderr, "overrun occurred\n");
       snd_pcm_prepare(handle);
-    } else if (rc < 0) {
-      fprintf(stderr,
-              "error from read: %s\n",
-              snd_strerror(rc));
-    } else if (rc != (int)frames) {
+    } 
+    else if (rc < 0) {
+      fprintf(stderr, "error from read: %s\n", snd_strerror(rc));
+    } 
+    else if (rc != (int)frames) {
       fprintf(stderr, "short read, read %d frames\n", rc);
     }
     
     //sf_count_t rc = sf_write_raw(sndfile, buffer, size);
-    sf_count_t rc = sf_writef_short(sndfile, (short*)buffer, frames) ;
+    sf_count_t rc = sf_writef_int(sndfile, (int*)buffer, frames) ;
+    if( rc != frames) fprintf(stderr, "short write not enough frames: wrote %d frames\n", rc);
+		
     //rc = write(1, buffer, size);
-    if (rc != size)
-      fprintf(stderr, "short write: wrote %d bytes\n", rc);
+    //if (rc != size) fprintf(stderr, "short write: wrote %d bytes\n", rc);
   }
   
   sf_write_sync(sndfile);

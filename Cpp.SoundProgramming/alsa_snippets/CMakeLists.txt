@@ -18,3 +18,7 @@ target_link_libraries (alsa_record "asound")
 # alsa libsndfile record
 add_executable (alsa_libsndfile_record src/alsa_libsndfile_record.c)
 target_link_libraries (alsa_libsndfile_record "asound" "sndfile") 
+
+# alsa libsndfile record
+add_executable (portaudio_libsndfile_play src/portaudio_libsndfile_play.c)
+target_link_libraries (portaudio_libsndfile_play "portaudio" "sndfile") 
