@@ -1,0 +1,6 @@
+build/
+
+*.flac
+*.wav
+*.raw
+
