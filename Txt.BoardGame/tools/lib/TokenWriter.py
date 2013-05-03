@@ -102,9 +102,14 @@ def writeTokenBack(svg, token):
     
     #draw circle
     
-    svg.drawCircle(center['x'], center['y'], 4)
+    svg.setStroke("black", "0.5")
+    svg.drawCircle(center['x'], center['y'], 6)
     
     #draw values tok.calcValue(), Lvl win points, id
-    
+    svg.setFill("black");
+    svg.setStroke("black", "0");
+    svg.drawText(2.5, rect['height']-2, token.idno);
+    svg.drawText(rect['width']-5.5, rect['height']-2, token.calcValue())
+        
     svg.endSymbol()
     

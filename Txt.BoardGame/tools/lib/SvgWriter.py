@@ -11,6 +11,8 @@ class SvgWriter:
     fill_color = "white"
     ident = 0
     
+    font_family = 'Arial'
+    font_size = '1mm'
     
     def __init__(self, ostream):
         
@@ -77,7 +79,14 @@ class SvgWriter:
         else:
             transform = 'transform="{0}"'.format(transform)
         self.file.write('<rect x="{0}" y="{1}" width="{2}" height="{3}" fill="{4}" stroke="{5}" stroke-width="{6}" {7}/>'.format(x, y, width, height, self.fill_color, self.stroke_color, self.stroke_width, transform))
-        
+    
+    def drawText(self, x, y, text, transform = None):
+        if transform == None:
+            transform = ''
+        else:
+            transform = 'transform="{0}"'.format(transform)
+        self.file.write('<text x="{0}" y="{1}" fill="{2}" stroke="{3}" stroke-width="{4}" style="{5}" {6}>{7}</text>'.format(x, y, self.fill_color, self.stroke_color, self.stroke_width, self.getFontStyle(), transform, text))  
+     
     #set stroke
     def setStroke(self, color, width):
         self.stroke_color = color
@@ -86,4 +95,7 @@ class SvgWriter:
     #set fill
     def setFill(self, color):
         self.fill_color = color
+        
+    def getFontStyle(self):
+        return  "font-family: {0}; font-size: {1};".format(self.font_family, self.font_size);
   

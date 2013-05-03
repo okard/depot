@@ -3,6 +3,8 @@
 
 #this script creates overview pdfs
 
+mkdir -v -p generated
+
 # Generate the Token Library
 echo 'Generate Token Library'
 ./genLibrary.py tokendb.txt generated/tokendb.svg
@@ -11,7 +13,7 @@ echo 'Generate Token Library'
 # Generate the overview sheet
 # tokenlib.svg is only used as filename so no directory needed
 echo 'Generate Token Overviews'
-./gentokensvg.py tokendb.txt tokendb.svg generated/overview{0}.svg
+./genOverView.py tokendb.txt tokendb.svg generated/overview{0}.svg
 
 #Template: overview%1.svg files
 
@@ -22,12 +24,13 @@ for f in generated/overview[0-9].svg; do
 done
 
 # create pdfs for the merged files
+# imagemagick convert tool
 for f in generated/merged_overview[0-9].svg; do 
     echo "Create pdf for $f ..."; 
-    convert -units PixelsPerInch -density 300 $f generated/$(basename "$f").pdf
+    #convert -units PixelsPerInch -density 300 $f generated/$(basename "$f").pdf
+    #convert seems to be not working?
+    inkscape -z -f $f --export-dpi=300 --export-pdf generated/$(basename "$f").pdf
 done
 
-
 #convert -units PixelsPerInch -density 300 overview_merged.svg overview.pdf
-
 #inkscape -z -f overview_merged.svg--export-dpi=300 --export-pdf overview.pdf

@@ -3,16 +3,18 @@
 
 # create single view svgs
 mkdir -v -p generated/token
-./gentokensvg.py sv tokendb.txt "generated/token/token_{0}_{1}_{2}.svg"
+./genSingleView.py tokendb.txt "generated/token/token_{0}.svg"
+
 
 # convert each single view svg to pdf
 for f in generated/token/token_*.svg; do 
     echo "Create pdf for $f ..."; 
 
     # rules/generated/token/
-    inkscape -z -f $f -D --export-dpi=300 --export-pdf ../rules/${f%.svg}.pdf
+    inkscape -z -f $f -D --export-dpi=300 --export-pdf ../rules/generated/token/${f%.svg}.pdf
 done
 
+exit
 
 # create tex 
 
