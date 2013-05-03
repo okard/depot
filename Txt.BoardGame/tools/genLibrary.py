@@ -8,11 +8,9 @@ from lib.Token import TokenDB, Token
 from lib.TokenWriter import writeTokenFront, writeTokenBack
 
 
-
 if len(sys.argv) < 3:
-        sys.exit("Usage: genLibrary TokenDB.txt OutFile.svg")
+	sys.exit("Usage: genLibrary TokenDB.txt SingelView.svg")
     
-
 print("Create svg library...")
 	   
 #start svg file
@@ -21,8 +19,6 @@ svg = SvgWriter(svgfile)
 svg.begin()
 svg.beginDefs()
 
-toklist = set()
-
 #the function to write the definitions
 def doit(token):
 	
@@ -30,6 +26,10 @@ def doit(token):
 	writeTokenFront(svg, token)
 	#backside
 	writeTokenBack(svg, token)
+	
+	
+	
+	
 	
 	print("{0}-{1}-{2}-{3}".format(token.idno, token.directions, token.attack, token.defense))
 	

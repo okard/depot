@@ -1,8 +1,19 @@
 #!/usr/bin/env bash
 
 
-# overview%1.svg files
+#this script creates overview pdfs
 
+# Generate the Token Library
+echo 'Generate Token Library'
+./genLibrary.py tokendb.txt generated/tokendb.svg
+
+
+# Generate the overview sheet
+# tokenlib.svg is only used as filename so no directory needed
+echo 'Generate Token Overviews'
+./gentokensvg.py tokendb.txt tokendb.svg generated/overview{0}.svg
+
+#Template: overview%1.svg files
 
 # create merged svg files
 for f in generated/overview[0-9].svg; do 
