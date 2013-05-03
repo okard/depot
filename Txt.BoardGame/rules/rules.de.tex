@@ -5,7 +5,8 @@
 \usepackage[ngerman]{babel}
 
 \usepackage{amsmath}
-\usepackage{MnSymbol}
+\usepackage{amssymb}
+%\usepackage{MnSymbol}
 \usepackage{mathptmx} %times font
 \usepackage{graphicx}
 \usepackage{subfig}
@@ -64,15 +65,19 @@
 		
 	\begin{wrapfigure}{l}{5cm}
 	\centering
-	\includegraphics[scale=2]{generated/simple/token.pdf}
+	\includegraphics[scale=1]{generated/simple/token.pdf}
 	\caption{Spielstein Vorder- und Rückseite}
 	\end{wrapfigure}
 	
-	Der Spielstein ist dem japanischem Sh\=ogi Spielstein nachempfunden. Beide Seiten eines Spielsteins können belegt sein.
+	Der Spielstein ist dem japanischem Sh\=ogi Spielstein nachempfunden. 
+	
 	Die Spitze zeigt die Spielrichtung und somit die Zugehörigkeit zum Spieler an.
 	Die äußeren Kreise an den Kreuzenden geben an in welche Richtung der Spielstein sich bewegen und schlagen kann.
-	Unten links ist in jedem Spielstein dessen Stärke und auf der Frontseite unten rechts die Stärke der Rückseite angegeben.
-	Die Stärke des Spielsteins bestimmt wie viel Aufwand nötig ist um mit diesem Spielstein einen anderen zu schlagen.
+	Unten links ist in jedem Spielstein dessen Angriffsstärke und auf der Frontseite unten rechts die Verteidigungsstärke angegeben.
+	
+	Die Angriffswerte und Verteidigungswerte des Spielsteins bestimmen wie viel Aufwand nötig ist um mit diesem Spielstein einen anderen zu schlagen oder von einem anderen geschlagen zu werden.
+
+	Die Rückseite wird für Aktionssteine genutzt in dem bei Benutzung ein farbiger Marker in das runde Feld gelegt wird. Die Zahlen liefern ID (links) und Wertigkeitspunkte (rechts) für die Figur. (Begrenzung wie viele im Spiel sein dürfen? Siegespunkte?)
 	\\
 
 	\begin{flushleft}
@@ -81,7 +86,7 @@
 	\begin{tabular}{lccl}
 	\hline
 	Symbol 									& Stärke & Kosten & Name \\ \hline 
-	$\blacksquare$ 							& 1 & 1 & Bauer \\ 
+	$\blacksquare $ 							& 1 & 1 & Bauer \\ 
 	$\blacksquare\blacksquare$ 				& 2 & 3 & Ritter \\ 
 	$\blacksquare\blacksquare\blacksquare$  & 3 & 5 & General \\ 
 	\end{tabular}
@@ -89,7 +94,7 @@
 	
 	
 	\begin{wrapfigure}{r}{6.2cm}
-  	\includegraphics[scale=1]{generated/simple/token_on_board.pdf}
+  	%\includegraphics[scale=1]{generated/simple/token_on_board.pdf}
   	\caption{Spielstein und Brett}
 	\end{wrapfigure}
 	
@@ -169,6 +174,15 @@
 		  Geschlagene gegnerische werden gefangen genommen und können später wieder eingesetzt werden.
 		  Dies ist auch Möglich mit geopferten Figuren.
 		  
+	\item Aktionsstein \\
+		Der Spielstein wird auf die andere Seite gedreht und ein Aktionsmarker wird eingesetzt.
+		\begin{itemize}
+		 \item (rot)Bombenfalle - Umliegende Spielsteine werden zerstört
+		 \item (schwarz)Mauer - Der Stein ist unzerstörbar und kann nicht überwunden werden
+		 \item 
+		 \end{itemize} 
+		
+		  
 		%\item Befördern \\
 	%	  Eigene Spielfiguren befördern (Spielstein umdrehen)\\
 	%	  \textcolor{red}{Befördern gestrichen um mehr einen Austausch Stil spielen zu können}
@@ -200,11 +214,8 @@
 	
 	\begin{flushleft}
 	Notiz:\\
-	Angedacht war auch das Befördern des Spielsteins im laufenden Spiel. Also das wechseln
-	der Seite des Spielsteins. Da es schwierig ist im laufen Spiel zu bestimmten welche Seiten 
-	der Spielstein hat wurde dies geändert und nun ein ''Austausch'' System favorisiert.
-	Damit können zwei Seiten gespielt werden sind aber etwas einfacher zu Handeln. Auch 
-	ist dies Vorteilhaft für das Kombinationsspiel.
+	Rückseite kann nun für Aktionssteine verwendet werden
+	Es waren mal 2 bespielbare Seiten angedacht, da jedoch egal in welcher Kombination das zu unübersichtlich und unberechenbar sowie schwer zu handeln war wurde nun die Rückseite als Platzhalter für besondere Aktionen umdeklariert.
 	\end{flushleft}
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -235,7 +246,7 @@
 	% 3 - 3 : 2
 	
 	\begin{figure}[h]
-	\includegraphics[scale=0.8]{generated/simple/board_situation1.pdf}
+%	\includegraphics[scale=0.8]{generated/simple/board_situation1.pdf}
 	\end{figure}
 	
 
@@ -365,7 +376,7 @@
 	Es ist in einem Spielzug nur ein Opfer erlaubt.
 	
 	\begin{wrapfigure}{l}{6.2cm}
-  	\includegraphics[scale=0.5]{generated/simple/move_decision_tree.pdf}
+%  	\includegraphics[scale=0.5]{generated/simple/move_decision_tree.pdf}
   	\caption{Zug-Varianten}
 	\end{wrapfigure}
 	
@@ -432,7 +443,7 @@
 	müssen akzeptiert werden, andere Konfigurationen von Spielsteinen erfordern das Einverständnis
 	des Gegenspielers.
 	
-	\include{generated/tokendb}
+%	\include{generated/tokendb}
 	
 	%\begin{longtable}{llll}
 	%\hline
