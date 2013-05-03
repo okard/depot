@@ -5,3 +5,5 @@
 # generated
 generated/
 
+# python
+__pycache__

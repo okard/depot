@@ -92,6 +92,20 @@ class SvgWriter:
         self.fill_color = color
         
 
+# represents a token entry in token db
+class Token:
+	def __init__(self):
+		pass
+		
+	def valid(self):
+		if(re.match('[0-2]{8}', self.directions) == None):
+			print ('Invalid token: {0} directions: {1}\n'.format(self.idno, self.directions))
+			return False
+		elif 
+		else:
+			return True	
+
+
 # TokenDB
 class TokenDB:
     
@@ -108,24 +122,24 @@ class TokenDB:
             if(line[:1] == '#'): continue
             if(len(line) == 0): continue
             values = line.split(';')
-            #valid step?
-            if not isValidToken(values[0]):
+            
+            # assign to token class
+            tok = Token()
+            tok.directions = values[0]
+            tok.attack = values[1]
+            tok.defense = values[2]
+            tok.idno = values[3]
+            
+            if values[4]:
+				tok.desc = values[4]
+            
+            if not self.valid():
                 raise Exception("Invalid Front Side")
-            if not isValidToken(values[1]):
-                raise Exception("Invalid Back Side")
-            # values.
-            func(values[0], values[1])
+
+            # callback
+            func(tok)
         
         
-#############################################################################
-# check Token
-############################################################################# 
-def isValidToken(token):
-    if(re.match('[0-2]{8}[0-3X]', token) == None):
-        print ('Invalid token: {0}\n'.format(token))
-        return False
-    else:
-        return True
         
 # Calulcate Token Value
 def calcTokenValue(front, back):
@@ -284,6 +298,7 @@ if sys.argv[1] == 'lib':
 
     deffile.close()
     
+########################################################################################################
 # generate an overview from list
 # for print out and so on
 
