@@ -7,11 +7,13 @@ mkdir -v -p generated/token
 
 
 # convert each single view svg to pdf
+mkdir -v -p ../rules/generated/token/
 for f in generated/token/token_*.svg; do 
     echo "Create pdf for $f ..."; 
 
+	# this shell command automatically generated the right folder as in the following pattern
     # rules/generated/token/
-    inkscape -z -f $f -D --export-dpi=300 --export-pdf ../rules/generated/token/${f%.svg}.pdf
+    inkscape -z -f $f -D --export-dpi=300 --export-pdf ../rules/${f%.svg}.pdf
 done
 
 exit

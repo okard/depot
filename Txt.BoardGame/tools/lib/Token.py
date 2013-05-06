@@ -10,6 +10,15 @@ class Token:
 		if(re.match('[0-2]{8}', self.directions) == None):
 			print ('Invalid token: {0} directions: {1}\n'.format(self.idno, self.directions))
 			return False
+		elif 0 > int(self.attack) > 3:
+			print ('Invalid token: {0} attack: {1}\n'.format(self.idno, self.attack))
+			return False
+		elif 0 > int(self.defense) > 3:
+			print ('Invalid token: {0} attack: {1}\n'.format(self.idno, self.defense))
+			return False
+		elif re.match('[0-1]{8}', self.directions) and int(self.attack) > 0:
+			print ('Invalid token: {0} has attack but not required: {1}\n'.format(self.idno, self.defense))
+			return False
 		#elf if check rest
 		else:
 			return True	
