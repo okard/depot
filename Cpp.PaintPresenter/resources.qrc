@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="pen">images/icon_pen.png</file>
+        <file alias="trash">images/icon_trash.png</file>
+        <file alias="screenshot">images/icon_screenshot.png</file>
+        <file>images/icon_screenshot_clear.png</file>
+        <file>images/icon_clear.png</file>
+        <file>images/icon_black.png</file>
+    </qresource>
+</RCC>
