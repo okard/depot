@@ -33,7 +33,11 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionPen"/>
+   <addaction name="actionToolPen"/>
+   <addaction name="actionToolHighlight"/>
+   <addaction name="actionToolRectangle"/>
+   <addaction name="actionToolText"/>
+   <addaction name="actionToolErease"/>
    <addaction name="separator"/>
    <addaction name="actionPenColorBlack"/>
    <addaction name="actionPenColorRed"/>
@@ -45,11 +49,10 @@
    <addaction name="separator"/>
    <addaction name="actionScreenshot"/>
    <addaction name="actionScreenShotClear"/>
+   <addaction name="separator"/>
+   <addaction name="actionSaveImage"/>
   </widget>
-  <action name="actionPen">
-   <property name="checkable">
-    <bool>true</bool>
-   </property>
+  <action name="actionToolPen">
    <property name="icon">
     <iconset resource="../resources.qrc">
      <normaloff>:/icons/pen</normaloff>:/icons/pen</iconset>
@@ -128,6 +131,51 @@
    </property>
    <property name="text">
     <string>Pen Color Yellow</string>
+   </property>
+  </action>
+  <action name="actionToolRectangle">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/images/icon_draw_rectangle.png</normaloff>:/icons/images/icon_draw_rectangle.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rectangle</string>
+   </property>
+  </action>
+  <action name="actionToolHighlight">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/images/icon_highlighter.png</normaloff>:/icons/images/icon_highlighter.png</iconset>
+   </property>
+   <property name="text">
+    <string>Highlight</string>
+   </property>
+  </action>
+  <action name="actionToolText">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/images/icon_draw_text.png</normaloff>:/icons/images/icon_draw_text.png</iconset>
+   </property>
+   <property name="text">
+    <string>Text</string>
+   </property>
+  </action>
+  <action name="actionSaveImage">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/images/icon_save.png</normaloff>:/icons/images/icon_save.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save Image</string>
+   </property>
+  </action>
+  <action name="actionToolErease">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/images/icon_ereaser.png</normaloff>:/icons/images/icon_ereaser.png</iconset>
+   </property>
+   <property name="text">
+    <string>Erease</string>
    </property>
   </action>
  </widget>

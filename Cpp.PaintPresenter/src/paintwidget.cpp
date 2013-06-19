@@ -11,6 +11,8 @@ PaintWidget::PaintWidget(QWidget *parent)
     , image_(size(), QImage::Format_ARGB32)
 {
 
+    paintTool_ = PaintTool::Pen;
+
     //this->setMouseTracking(true);
     penColor_.setRgb(255,0,0);
     penWidth_ = 3;
@@ -47,6 +49,23 @@ void PaintWidget::setPenColor(const QColor &color)
     penColor_ = color;
 }
 
+void PaintWidget::setPenWidth(int penWidth)
+{
+    //clamp to 1-10
+    penWidth_ = penWidth < 0 ? 1 : penWidth_ > 10 ? 10 : penWidth_;
+}
+
+void PaintWidget::setTool(PaintTool tool)
+{
+    //finish current action?
+    if(isPainting_)
+    {
+        isPainting_ = false;
+    }
+
+    paintTool_ = tool;
+}
+
 void PaintWidget::paintEvent(QPaintEvent* event)
 {
      QRect dirtyRect = event->rect();
@@ -65,6 +84,15 @@ void PaintWidget::paintEvent(QPaintEvent* event)
      auto size = this->size();
      painter.scale( (qreal)size.width() / (qreal)image_.width(), (qreal)size.height() / (qreal)image_.height());
      painter.drawImage(dirtyRect, image_, dirtyRect);
+
+
+     //draw temporary stuff
+     if(isPainting_ && paintTool_ == PaintTool::Rectangle)
+     {
+        QColor color(penColor_);
+        color.setAlpha(100);
+        painter.fillRect(rectTool, color);
+     }
 }
 
 void PaintWidget::resizeEvent(QResizeEvent* event)
@@ -82,8 +110,19 @@ void PaintWidget::mouseMoveEvent(QMouseEvent *event)
 {
 
     if ((event->buttons() & Qt::LeftButton) && isPainting_)
+    {
+        switch(paintTool_)
+        {
+        case PaintTool::Pen:
             drawLineTo(event->pos());
-
+            break;
+        case PaintTool::Rectangle:
+            rectTool.setWidth(event->x()-rectTool.x());
+            rectTool.setHeight(event->y()-rectTool.y());
+            this->update();
+            break;
+        }
+    }
 }
 
 void PaintWidget::mousePressEvent(QMouseEvent *event)
@@ -91,7 +130,17 @@ void PaintWidget::mousePressEvent(QMouseEvent *event)
 
     if (event->button() == Qt::LeftButton)
     {
-        lastPoint_ = event->pos();
+
+        switch(paintTool_)
+        {
+        case PaintTool::Pen:
+            penLastPoint_ = event->pos();
+            break;
+        case PaintTool::Rectangle:
+            rectTool.setX(event->x());
+            rectTool.setY(event->y());
+            break;
+        }
         isPainting_ = true;
     }
 }
@@ -101,8 +150,20 @@ void PaintWidget::mouseReleaseEvent(QMouseEvent *event)
 
     if (event->button() == Qt::LeftButton && isPainting_)
     {
-           drawLineTo(event->pos());
-           isPainting_ = false;
+        switch(paintTool_)
+        {
+        case PaintTool::Pen:
+            drawLineTo(event->pos());
+            break;
+        case PaintTool::Rectangle:
+            painter_.begin(&image_);
+            QColor color(penColor_);
+            color.setAlpha(100);
+            painter_.fillRect(rectTool, color);
+            painter_.end();
+            break;
+        }
+        isPainting_ = false;
     }
 }
 
@@ -111,12 +172,12 @@ void PaintWidget::drawLineTo(const QPoint &endPoint)
 {
     painter_.begin(&image_);
     painter_.setPen(QPen(penColor_, penWidth_, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-    painter_.drawLine(lastPoint_, endPoint);
+    painter_.drawLine(penLastPoint_, endPoint);
     painter_.end();
 
     //modified = true;
 
     int rad = (penWidth_ / 2) + 2;
-    this->update(QRect(lastPoint_, endPoint).normalized().adjusted(-rad, -rad, +rad, +rad));
-    lastPoint_ = endPoint;
+    this->update(QRect(penLastPoint_, endPoint).normalized().adjusted(-rad, -rad, +rad, +rad));
+    penLastPoint_ = endPoint;
 }

@@ -22,6 +22,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionPenColorGreen, &QAction::triggered, [=]() { paintWidget->setPenColor(QColor::fromRgb(0,255,0)); }  );
     connect(ui->actionPenColorBlue, &QAction::triggered, [=]() { paintWidget->setPenColor(QColor::fromRgb(0,0,255)); }  );
     connect(ui->actionPenColorYellow, &QAction::triggered, [=]() { paintWidget->setPenColor(QColor::fromRgb(255,255,0)); }  );
+    //connect(ui->actionToolErease, &QAction::triggered, [=]() { paintWidget->setPenColor(QColor::fromRgb(0,0,0,0)); }  );
+
+    connect(ui->actionToolPen, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Pen); }  );
+    connect(ui->actionToolRectangle, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Rectangle); }  );
 }
 
 MainWindow::~MainWindow()

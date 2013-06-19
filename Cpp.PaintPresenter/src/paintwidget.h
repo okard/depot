@@ -7,6 +7,16 @@
 #include <QPainter>
 #include <QColor>
 
+enum class PaintTool
+{
+    Pen,
+    Rectangle,
+    Highlight,
+    Text,
+    Erease
+};
+
+
 class PaintWidget : public QWidget
 {
     Q_OBJECT
@@ -15,19 +25,25 @@ private:
     //core paint stuff
     QImage image_;
     QPainter painter_;
-    bool isPainting_;
-    QPoint lastPoint_;
 
+
+    bool isPainting_;
+
+
+    bool drawScreenhot_;
     QPixmap screenhot_;
 
     //pdf support
     //paint settings
     //current paint mode? pen/rect/etc
+    PaintTool paintTool_;
 
     QColor penColor_;
     int penWidth_;
+    QPoint penLastPoint_;
 
-    bool drawScreenhot_;
+    QRect rectTool;
+
 
 public:
     explicit PaintWidget(QWidget *parent = 0);
@@ -52,6 +68,9 @@ public slots:
     void clearDrawings();
 
     void setPenColor(const QColor& color);
+    void setPenWidth(int penWidth);
+
+    void setTool(PaintTool tool);
 
     //change drawing mode?
 
