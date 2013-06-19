@@ -87,6 +87,9 @@
    <property name="text">
     <string>Clear Drawings</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Space</string>
+   </property>
   </action>
   <action name="actionPenColorBlack">
    <property name="icon">

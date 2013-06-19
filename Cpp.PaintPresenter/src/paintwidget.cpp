@@ -117,8 +117,12 @@ void PaintWidget::mouseMoveEvent(QMouseEvent *event)
             drawLineTo(event->pos());
             break;
         case PaintTool::Highlight:
-            drawLineTo(event->pos());
+        {
+            QPoint p = event->pos();
+            p.setY(penLastPoint_.y());
+            drawLineTo(p);
             break;
+        }
         case PaintTool::Rectangle:
             rectTool.setWidth(event->x()-rectTool.x());
             rectTool.setHeight(event->y()-rectTool.y());
@@ -162,8 +166,12 @@ void PaintWidget::mouseReleaseEvent(QMouseEvent *event)
             drawLineTo(event->pos());
             break;
         case PaintTool::Highlight:
-            drawLineTo(event->pos());
+        {
+            QPoint p = event->pos();
+            p.setY(penLastPoint_.y());
+            drawLineTo(p);
             break;
+        }
         case PaintTool::Rectangle:
             painter_.begin(&image_);
             QColor color(penColor_);
