@@ -16,5 +16,6 @@
         <file>images/icon_draw_text.png</file>
         <file>images/icon_draw_rectangle.png</file>
         <file>images/icon_blue.png</file>
+        <file>images/icon_windows.png</file>
     </qresource>
 </RCC>
