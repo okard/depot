@@ -6,5 +6,15 @@
         <file>images/icon_screenshot_clear.png</file>
         <file>images/icon_clear.png</file>
         <file>images/icon_black.png</file>
+        <file>images/icon_yellow.png</file>
+        <file>images/icon_save.png</file>
+        <file>images/icon_red.png</file>
+        <file>images/icon_pen2.png</file>
+        <file>images/icon_highlighter.png</file>
+        <file>images/icon_green.png</file>
+        <file>images/icon_ereaser.png</file>
+        <file>images/icon_draw_text.png</file>
+        <file>images/icon_draw_rectangle.png</file>
+        <file>images/icon_blue.png</file>
     </qresource>
 </RCC>

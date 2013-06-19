@@ -34,7 +34,12 @@
     <bool>false</bool>
    </attribute>
    <addaction name="actionPen"/>
+   <addaction name="separator"/>
    <addaction name="actionPenColorBlack"/>
+   <addaction name="actionPenColorRed"/>
+   <addaction name="actionPenColorBlue"/>
+   <addaction name="actionPenColorGreen"/>
+   <addaction name="actionPenColorYellow"/>
    <addaction name="separator"/>
    <addaction name="actionClearDrawings"/>
    <addaction name="separator"/>
@@ -87,6 +92,42 @@
    </property>
    <property name="text">
     <string>Pen Color Black</string>
+   </property>
+  </action>
+  <action name="actionPenColorBlue">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/images/icon_blue.png</normaloff>:/icons/images/icon_blue.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pen Color Blue</string>
+   </property>
+  </action>
+  <action name="actionPenColorGreen">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/images/icon_green.png</normaloff>:/icons/images/icon_green.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pen Color Green</string>
+   </property>
+  </action>
+  <action name="actionPenColorRed">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/images/icon_red.png</normaloff>:/icons/images/icon_red.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pen Color Red</string>
+   </property>
+  </action>
+  <action name="actionPenColorYellow">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/images/icon_yellow.png</normaloff>:/icons/images/icon_yellow.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pen Color Yellow</string>
    </property>
   </action>
  </widget>

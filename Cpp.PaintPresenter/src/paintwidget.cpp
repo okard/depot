@@ -70,7 +70,7 @@ void PaintWidget::paintEvent(QPaintEvent* event)
 void PaintWidget::resizeEvent(QResizeEvent* event)
 {
 
-    std::cout << "resize" << std::endl;
+    //std::cout << "resize" << std::endl;
     auto size = this->size();
     image_ = image_.scaled(size.width(), size.height());
 
