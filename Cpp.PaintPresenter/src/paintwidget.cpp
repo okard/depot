@@ -116,6 +116,9 @@ void PaintWidget::mouseMoveEvent(QMouseEvent *event)
         case PaintTool::Pen:
             drawLineTo(event->pos());
             break;
+        case PaintTool::Highlight:
+            drawLineTo(event->pos());
+            break;
         case PaintTool::Rectangle:
             rectTool.setWidth(event->x()-rectTool.x());
             rectTool.setHeight(event->y()-rectTool.y());
@@ -134,6 +137,9 @@ void PaintWidget::mousePressEvent(QMouseEvent *event)
         switch(paintTool_)
         {
         case PaintTool::Pen:
+            penLastPoint_ = event->pos();
+            break;
+        case PaintTool::Highlight:
             penLastPoint_ = event->pos();
             break;
         case PaintTool::Rectangle:
@@ -155,6 +161,9 @@ void PaintWidget::mouseReleaseEvent(QMouseEvent *event)
         case PaintTool::Pen:
             drawLineTo(event->pos());
             break;
+        case PaintTool::Highlight:
+            drawLineTo(event->pos());
+            break;
         case PaintTool::Rectangle:
             painter_.begin(&image_);
             QColor color(penColor_);
@@ -170,14 +179,22 @@ void PaintWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void PaintWidget::drawLineTo(const QPoint &endPoint)
 {
+    int width =  paintTool_ == PaintTool::Highlight ? 20 : penWidth_;
+
     painter_.begin(&image_);
-    painter_.setPen(QPen(penColor_, penWidth_, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    painter_.setPen(QPen(penColor_, width, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    if(paintTool_ == PaintTool::Highlight)
+    {
+        QColor color(penColor_);
+        color.setAlpha(100);
+        painter_.setPen(QPen(color, width, Qt::SolidLine, Qt::FlatCap, Qt::BevelJoin));
+    }
     painter_.drawLine(penLastPoint_, endPoint);
     painter_.end();
 
     //modified = true;
 
-    int rad = (penWidth_ / 2) + 2;
+    int rad = (width / 2) + 2;
     this->update(QRect(penLastPoint_, endPoint).normalized().adjusted(-rad, -rad, +rad, +rad));
     penLastPoint_ = endPoint;
 }

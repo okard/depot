@@ -26,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionToolPen, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Pen); }  );
     connect(ui->actionToolRectangle, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Rectangle); }  );
+    connect(ui->actionToolHighlight, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Highlight); }  );
 }
 
 MainWindow::~MainWindow()

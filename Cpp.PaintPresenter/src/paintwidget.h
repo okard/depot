@@ -23,13 +23,10 @@ class PaintWidget : public QWidget
 
 private:
     //core paint stuff
-    QImage image_;
+    QImage image_; //overlay image
     QPainter painter_;
 
-
-    bool isPainting_;
-
-
+    //screenshot
     bool drawScreenhot_;
     QPixmap screenhot_;
 
@@ -38,11 +35,17 @@ private:
     //current paint mode? pen/rect/etc
     PaintTool paintTool_;
 
+    bool isPainting_;
+
+    //pen stuff
     QColor penColor_;
     int penWidth_;
     QPoint penLastPoint_;
 
+    //rectangle stuff
     QRect rectTool;
+
+    //erease stuff
 
 
 public:
