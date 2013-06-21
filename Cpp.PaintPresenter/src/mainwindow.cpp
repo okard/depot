@@ -2,8 +2,6 @@
 #include "ui_mainwindow.h"
 #include "paintwidget.h"
 
-#include <QSignalMapper>
-
 #include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -38,7 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionToolPen, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Pen); }  );
     connect(ui->actionToolRectangle, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Rectangle); }  );
     connect(ui->actionToolHighlight, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Highlight); }  );
-    //connect(ui->actionToolErease, &QAction::triggered, [=]() { paintWidget->setPenColor(QColor::fromRgb(0,0,0,0)); }  );
+    connect(ui->actionToolText, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Text); }  );
+    connect(ui->actionToolErease, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Erease);  }  );
 
     //handle timer stuff
     connect(timer_, &QTimer::timeout, this, &MainWindow::timerInterval);

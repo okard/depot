@@ -231,6 +231,9 @@ border-color: rgb(0, 0, 0);s</string>
    <property name="text">
     <string>Pen</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+1</string>
+   </property>
   </action>
   <action name="actionScreenshot">
    <property name="icon">
@@ -315,6 +318,9 @@ border-color: rgb(0, 0, 0);s</string>
    <property name="text">
     <string>Rectangle</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+3</string>
+   </property>
   </action>
   <action name="actionToolHighlight">
    <property name="icon">
@@ -323,6 +329,9 @@ border-color: rgb(0, 0, 0);s</string>
    </property>
    <property name="text">
     <string>Highlight</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+2</string>
    </property>
   </action>
   <action name="actionToolText">

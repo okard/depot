@@ -28,7 +28,7 @@ private:
 
     //screenshot
     bool drawScreenhot_;
-    QPixmap screenhot_;
+    QPixmap screenshot_;
 
     //pdf support
     //paint settings

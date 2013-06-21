@@ -26,7 +26,9 @@ void PaintWidget::makeScreenshot()
     QScreen *screen = QGuiApplication::primaryScreen();
     if (screen)
     {
-        screenhot_ = screen->grabWindow(0);
+        screenshot_ = screen->grabWindow(0);
+
+        //std::cout << "screenshot: " << screenshot_.width()<< "," << screenshot_.height() << std::endl;
         drawScreenhot_ = true;
         this->update();
     }
@@ -74,17 +76,28 @@ void PaintWidget::paintEvent(QPaintEvent* event)
      //draw screenshot if enabled
      if(drawScreenhot_)
      {
-        //scale keep dimensions
-        //draw in center
-        //scale right?
-        painter.drawPixmap(dirtyRect, screenhot_, dirtyRect);
+        painter.save();
+        painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+        //painter.setRenderHint(QPainter::HighQualityAntialiasing, true);
+        painter.setRenderHint(QPainter::Antialiasing, true);
+
+        auto size = painter.viewport().size();
+
+        QSize s = screenshot_.size();
+        s.scale(size.width(), size.height(), Qt::KeepAspectRatio);
+        int x = s.width() < size.width() ? (qreal)(size.width() - s.width())/(qreal)2 : 0;
+        int y = s.height() < size.height() ? (qreal)(size.height() - s.height())/(qreal)2 : 0;
+        QRect r(x, y, s.width(), s.height());
+
+        painter.drawPixmap(r,screenshot_);
+        painter.restore();
      }
 
-     //draw the draw image
+     painter.save();
+     //draw the overlay image
      auto size = this->size();
      painter.scale( (qreal)size.width() / (qreal)image_.width(), (qreal)size.height() / (qreal)image_.height());
      painter.drawImage(dirtyRect, image_, dirtyRect);
-
 
      //draw temporary stuff
      if(isPainting_ && paintTool_ == PaintTool::Rectangle)
@@ -93,6 +106,7 @@ void PaintWidget::paintEvent(QPaintEvent* event)
         color.setAlpha(100);
         painter.fillRect(rectTool, color);
      }
+     painter.restore();
 }
 
 void PaintWidget::resizeEvent(QResizeEvent* event)
