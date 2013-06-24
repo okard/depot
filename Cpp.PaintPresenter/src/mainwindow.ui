@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>475</width>
+    <width>692</width>
     <height>775</height>
    </rect>
   </property>
@@ -61,6 +61,10 @@
    <addaction name="separator"/>
    <addaction name="actionScreenshot"/>
    <addaction name="actionScreenShotClear"/>
+   <addaction name="separator"/>
+   <addaction name="actionOpenPDF"/>
+   <addaction name="actionPdfNextPage"/>
+   <addaction name="actionPdfPrevPage"/>
    <addaction name="separator"/>
    <addaction name="actionSaveImage"/>
    <addaction name="actionWindowsMenu"/>
@@ -185,7 +189,7 @@
       <string notr="true">background-color: rgba(255, 255, 255, 0);</string>
      </property>
      <property name="currentSection">
-      <enum>QDateTimeEdit::MinuteSection</enum>
+      <enum>QDateTimeEdit::HourSection</enum>
      </property>
      <property name="displayFormat">
       <string>HH:mm:ss</string>
@@ -208,7 +212,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>475</width>
+     <width>692</width>
      <height>23</height>
     </rect>
    </property>
@@ -373,6 +377,33 @@ border-color: rgb(0, 0, 0);s</string>
    </property>
    <property name="text">
     <string>Window Menu</string>
+   </property>
+  </action>
+  <action name="actionOpenPDF">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/images/icon_pdf.png</normaloff>:/icons/images/icon_pdf.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open PDF</string>
+   </property>
+  </action>
+  <action name="actionPdfNextPage">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/images/icon_next.png</normaloff>:/icons/images/icon_next.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pdf Next Page</string>
+   </property>
+  </action>
+  <action name="actionPdfPrevPage">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/images/icon_prev.png</normaloff>:/icons/images/icon_prev.png</iconset>
+   </property>
+   <property name="text">
+    <string>Pdf Prev Page</string>
    </property>
   </action>
  </widget>

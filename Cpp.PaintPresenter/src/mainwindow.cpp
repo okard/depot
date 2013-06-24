@@ -2,6 +2,8 @@
 #include "ui_mainwindow.h"
 #include "paintwidget.h"
 
+#include <QFileDialog>
+
 #include <iostream>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -23,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //screen shot and clear
     connect(ui->actionScreenshot, SIGNAL(triggered()), paintWidget, SLOT(makeScreenshot()));
     connect(ui->actionScreenShotClear, SIGNAL(triggered()), paintWidget, SLOT(clearScreenshot()));
-    connect(ui->actionClearDrawings, SIGNAL(triggered()), paintWidget, SLOT(clearDrawings()));
+    connect(ui->actionClearDrawings, SIGNAL(triggered()), paintWidget, SLOT(clearDrawOverlay()));
 
     //choose color
     connect(ui->actionPenColorBlack, &QAction::triggered, [=]() { paintWidget->setPenColor(QColor::fromRgb(0,0,0)); }  );
@@ -44,6 +46,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->btnTimerStart, &QPushButton::clicked, [=]{std::cout << "start\n"; timer_->start(1000); } );
     connect(ui->btnTimerPause, &QPushButton::clicked, [=]{timer_->stop();} );
     connect(ui->btnTimerReset, &QPushButton::clicked, [=]{timer_->stop(); time_ = QTime(0,0); }  );
+
+    connect(ui->actionOpenPDF, &QAction::triggered, this, &MainWindow::openPdfFile);
+    connect(ui->actionPdfNextPage, &QAction::triggered, paintWidget, &PaintWidget::nextPdfPage);
+    connect(ui->actionPdfPrevPage, &QAction::triggered, paintWidget, &PaintWidget::prevPdfPage);
 
 
     connect(ui->actionWindowsMenu, &QAction::triggered, [=]{ui->menuWindows->popup(QCursor::pos() ,ui->actionWindowsMenu);});
@@ -68,5 +74,12 @@ void MainWindow::timerInterval()
             //QSound::play("mysounds/bells.wav");
             std::cout << "beep" << std::endl;
         }
+}
+
+void MainWindow::openPdfFile()
+{
+    auto fileName = QFileDialog::getOpenFileName(this, tr("Open Pdf File"), nullptr, tr("Pdf Files (*.pdf)"));
+
+    paintWidget->openPdfFile(fileName);
 }
 

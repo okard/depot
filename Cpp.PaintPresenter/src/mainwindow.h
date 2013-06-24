@@ -22,6 +22,8 @@ public:
 private slots:
     void timerInterval();
 
+    void openPdfFile();
+
 private:
     Ui::MainWindow *ui;
     PaintWidget* paintWidget;

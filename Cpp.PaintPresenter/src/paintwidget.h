@@ -7,6 +7,9 @@
 #include <QPainter>
 #include <QColor>
 
+
+namespace Poppler { class Document; }
+
 enum class PaintTool
 {
     Pen,
@@ -23,6 +26,7 @@ class PaintWidget : public QWidget
 
 private:
     //core paint stuff
+    QSize outputSize_;
     QImage image_; //overlay image
     QPainter painter_;
 
@@ -30,14 +34,19 @@ private:
     bool drawScreenhot_;
     QPixmap screenshot_;
 
-    //pdf support
-    //paint settings
-    //current paint mode? pen/rect/etc
-    PaintTool paintTool_;
+    //pdf
+    bool drawPdf_;
+    Poppler::Document* pdfDocument_;
+    unsigned int pdfCurrentPage_;
+    QImage pdfImage_;
 
-    bool isPainting_;
+
+    //paint settings
+    PaintTool paintTool_;   //current paint tool
+    bool isPainting_;       //is currently painting
 
     //pen stuff
+    //QPen
     QColor penColor_;
     int penWidth_;
     QPoint penLastPoint_;
@@ -50,7 +59,7 @@ private:
 
 public:
     explicit PaintWidget(QWidget *parent = 0);
-
+    virtual ~PaintWidget();
 
 protected:
     void paintEvent(QPaintEvent *event);
@@ -63,23 +72,35 @@ protected:
     void drawLineTo(const QPoint &endPoint);
 
 signals:
+    //paint update event (for presentation window)
     
 public slots:
+    //resize
+
     //pen color slot?
     void makeScreenshot();
     void clearScreenshot();
-    void clearDrawings();
+    void clearDrawOverlay();
 
     void setPenColor(const QColor& color);
     void setPenWidth(int penWidth);
 
     void setTool(PaintTool tool);
 
+
+    void openPdfFile(const QString& filename);
+    void closePdfFile();
     //change drawing mode?
 
+    void nextPdfPage();
+    void prevPdfPage();
+
+    //set output size
     //save
     //clearAll();
     //set width
+private:
+    void makePdfImage();
 };
 
 #endif // PAINTWIDGET_H

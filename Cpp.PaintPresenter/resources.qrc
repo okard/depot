@@ -17,5 +17,8 @@
         <file>images/icon_draw_rectangle.png</file>
         <file>images/icon_blue.png</file>
         <file>images/icon_windows.png</file>
+        <file>images/icon_pdf.png</file>
+        <file>images/icon_prev.png</file>
+        <file>images/icon_next.png</file>
     </qresource>
 </RCC>
