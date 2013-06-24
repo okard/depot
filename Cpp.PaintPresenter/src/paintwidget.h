@@ -27,8 +27,9 @@ class PaintWidget : public QWidget
 private:
     //core paint stuff
     QSize outputSize_;
-    QImage image_; //overlay image
+
     QPainter painter_;
+    QImage image_; //overlay image //save for pdf pages
 
     //screenshot
     bool drawScreenhot_;
@@ -61,6 +62,10 @@ public:
     explicit PaintWidget(QWidget *parent = 0);
     virtual ~PaintWidget();
 
+
+    //void drawTo(QPainter& painter);
+
+    //properties: current page, paintool, etc
 protected:
     void paintEvent(QPaintEvent *event);
     void resizeEvent(QResizeEvent *event);
@@ -72,35 +77,31 @@ protected:
     void drawLineTo(const QPoint &endPoint);
 
 signals:
-    //paint update event (for presentation window)
+    //paint update event (for presentation window) (dirtyrect?)
     
 public slots:
     //resize
-
-    //pen color slot?
-    void makeScreenshot();
-    void clearScreenshot();
-    void clearDrawOverlay();
-
-    void setPenColor(const QColor& color);
-    void setPenWidth(int penWidth);
+    //set output size
 
     void setTool(PaintTool tool);
+    void setPenColor(const QColor& color);
+    void setPenWidth(int penWidth);
+    void clearDrawOverlay();
 
+    void makeScreenshot();
+    void clearScreenshot();
 
     void openPdfFile(const QString& filename);
     void closePdfFile();
-    //change drawing mode?
-
     void nextPdfPage();
     void prevPdfPage();
+    //hide pdf?
 
-    //set output size
-    //save
+    //saveOverlayImage(filename)
     //clearAll();
     //set width
 private:
-    void makePdfImage();
+    void makePdfImage(); //rename to updatePdfImage();
 };
 
 #endif // PAINTWIDGET_H

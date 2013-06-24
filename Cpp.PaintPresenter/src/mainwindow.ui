@@ -396,6 +396,9 @@ border-color: rgb(0, 0, 0);s</string>
    <property name="text">
     <string>Pdf Next Page</string>
    </property>
+   <property name="shortcut">
+    <string>Right</string>
+   </property>
   </action>
   <action name="actionPdfPrevPage">
    <property name="icon">
@@ -404,6 +407,9 @@ border-color: rgb(0, 0, 0);s</string>
    </property>
    <property name="text">
     <string>Pdf Prev Page</string>
+   </property>
+   <property name="shortcut">
+    <string>Left</string>
    </property>
   </action>
  </widget>

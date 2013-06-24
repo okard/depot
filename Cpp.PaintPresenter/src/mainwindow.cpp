@@ -2,23 +2,26 @@
 #include "ui_mainwindow.h"
 #include "paintwidget.h"
 
+#include "PresentationDialog.hpp"
+
 #include <QFileDialog>
 
 #include <iostream>
 
-MainWindow::MainWindow(QWidget *parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow)
-  , timer_(new QTimer(this))
+MainWindow::MainWindow(QWidget *parent)
+    : QMainWindow(parent)
+    , ui(new Ui::MainWindow)
+    , timer_(new QTimer(this))
 {
+    presentationDialog = new PresentationDialog(this);
+    paintWidget = new PaintWidget(this);
+
     ui->setupUi(this);
     ui->menuBar->hide();
     ui->actionWindowsMenu->setMenu(ui->menuWindows);
     ui->menuWindows->addAction(ui->dockTimer->toggleViewAction());
     //ui->actionWindowsMenu->set
     //toolButton->setPopupMode(QToolButton::InstantPopup);
-
-    paintWidget= new PaintWidget();
 
     this->setCentralWidget(paintWidget);
 
@@ -42,6 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionToolErease, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Erease);  }  );
 
     //handle timer stuff
+    time_ = QTime(0,0);
     connect(timer_, &QTimer::timeout, this, &MainWindow::timerInterval);
     connect(ui->btnTimerStart, &QPushButton::clicked, [=]{std::cout << "start\n"; timer_->start(1000); } );
     connect(ui->btnTimerPause, &QPushButton::clicked, [=]{timer_->stop();} );
@@ -54,12 +58,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionWindowsMenu, &QAction::triggered, [=]{ui->menuWindows->popup(QCursor::pos() ,ui->actionWindowsMenu);});
 
-    this->showFullScreen();
+    //for presentationdialog: QDesktopWidget screenCountChanged(int newCount) isVirtualDesktop() const
 }
 
 MainWindow::~MainWindow()
 {
     delete timer_;
+    delete presentationDialog;
     delete paintWidget;
     delete ui;
 }

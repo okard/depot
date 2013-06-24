@@ -163,10 +163,13 @@ void PaintWidget::prevPdfPage()
 void PaintWidget::makePdfImage()
 {
     //TODO calculate right dpi for output size
-    int xdpi = QApplication::desktop()->physicalDpiX();
-    int ydpi = QApplication::desktop()->physicalDpiY();
     auto page = pdfDocument_->page(pdfCurrentPage_);
-    pdfImage_  = page->renderToImage(xdpi*3.f, ydpi*3.f);
+    auto size = page->pageSize(); //page size in points, 72 dpi == each point one pixel
+    auto rect = calcDrawArea(size, outputSize_); //scale up to size
+    //extract factor
+    float xfactor = 72.0 * ((qreal)rect.width()/(qreal)size.width());
+    float yfactor = 72.0 * ((qreal)rect.height()/(qreal)size.height());
+    pdfImage_  = page->renderToImage(xfactor, yfactor);
     delete page;
 }
 
@@ -220,11 +223,8 @@ void PaintWidget::paintEvent(QPaintEvent* event)
 
 void PaintWidget::resizeEvent(QResizeEvent* event)
 {
-
-    //std::cout << "resize" << std::endl;
-    auto size = this->size();
-    image_ = image_.scaled(size.width(), size.height());
-
+    outputSize_ = this->size();
+    image_ = image_.scaled(outputSize_.width(), outputSize_.height());
 
     QWidget::resizeEvent(event);
 }
@@ -251,6 +251,10 @@ void PaintWidget::mouseMoveEvent(QMouseEvent *event)
             rectTool.setHeight(event->y()-rectTool.y());
             this->update();
             break;
+        case PaintTool::Text:
+            break;
+        case PaintTool::Erease:
+            break;
         }
     }
 }
@@ -272,6 +276,10 @@ void PaintWidget::mousePressEvent(QMouseEvent *event)
         case PaintTool::Rectangle:
             rectTool.setX(event->x());
             rectTool.setY(event->y());
+            break;
+        case PaintTool::Text:
+            break;
+        case PaintTool::Erease:
             break;
         }
         isPainting_ = true;
@@ -296,11 +304,17 @@ void PaintWidget::mouseReleaseEvent(QMouseEvent *event)
             break;
         }
         case PaintTool::Rectangle:
+        {
             painter_.begin(&image_);
             QColor color(penColor_);
             color.setAlpha(100);
             painter_.fillRect(rectTool, color);
             painter_.end();
+            break;
+        }
+        case PaintTool::Text:
+            break;
+        case PaintTool::Erease:
             break;
         }
         isPainting_ = false;

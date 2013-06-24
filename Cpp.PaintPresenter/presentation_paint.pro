@@ -21,10 +21,12 @@ LIBS += "-L/home/master/20.Dev/10.Projects/10.Depot/Cpp.PaintPresenter/poppler-q
 
 SOURCES += src/main.cpp\
         src/mainwindow.cpp \
-    src/paintwidget.cpp
+    src/paintwidget.cpp \
+    src/PresentationDialog.cpp
 
 HEADERS  += src/mainwindow.h \
-    src/paintwidget.h
+    src/paintwidget.h \
+    src/PresentationDialog.hpp
 
 FORMS    += src/mainwindow.ui
 

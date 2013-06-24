@@ -10,6 +10,7 @@ class MainWindow;
 }
 
 class PaintWidget;
+class PresentationDialog;
 
 class MainWindow : public QMainWindow
 {
@@ -24,9 +25,12 @@ private slots:
 
     void openPdfFile();
 
+    //void togglePresentationWindow?
+
 private:
     Ui::MainWindow *ui;
     PaintWidget* paintWidget;
+    PresentationDialog* presentationDialog;
     //presenter window?
 
     QTime time_;

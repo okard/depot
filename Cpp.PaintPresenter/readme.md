@@ -2,7 +2,6 @@
 # Presenter Paint Tool
 
 ## TODOS
-* add poppler-qt5 pdf support
 * timer to own widget
 * add seperate PresentationDialog
 * add a notice dock
@@ -10,10 +9,13 @@
   - maybe fixed overlay size?
   - down scaling in main window with docks and so on
 * add a preview widget for pdf
-* add configuration
+* add configuration and config dialog
 * add pen size chooser
 * better pop menus for toolbar buttons
 * add also cmake build?
 * write some documentation
-* single application support with screenshot command
+* single application support with screenshot command (simple udp receiver?)
+* add a PDF TOC DockWidget
+* save drawings for pdf pages
+* add a status dock? pdf pages, sizes pdf/overlay/screenshot and so on? painttool
 
