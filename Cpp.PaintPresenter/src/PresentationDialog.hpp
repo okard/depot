@@ -10,9 +10,9 @@ public:
     explicit PresentationDialog(QWidget *parent = 0);
     
 signals:
-    
+    //resize signal?
 public slots:
-    //void toggleVisibility()?
+    void toggleVisibility();
 };
 
 #endif // PRESENTATIONDIALOG_HPP

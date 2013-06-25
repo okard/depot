@@ -18,4 +18,5 @@
 * add a PDF TOC DockWidget
 * save drawings for pdf pages
 * add a status dock? pdf pages, sizes pdf/overlay/screenshot and so on? painttool
+* rename classes
 

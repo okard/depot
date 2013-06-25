@@ -19,6 +19,8 @@ enum class PaintTool
     Erease
 };
 
+//16:9, 4:3 enum?
+
 
 class PaintWidget : public QWidget
 {
@@ -28,8 +30,8 @@ private:
     //core paint stuff
     QSize outputSize_;
 
-    QPainter painter_;
-    QImage image_; //overlay image //save for pdf pages
+    QPainter overlayPainter_;
+    QImage overlayImage_; //overlay image //save for pdf pages
 
     //screenshot
     bool drawScreenhot_;
@@ -41,13 +43,12 @@ private:
     unsigned int pdfCurrentPage_;
     QImage pdfImage_;
 
-
     //paint settings
     PaintTool paintTool_;   //current paint tool
     bool isPainting_;       //is currently painting
 
     //pen stuff
-    //QPen
+    //QPen pen_;
     QColor penColor_;
     int penWidth_;
     QPoint penLastPoint_;
@@ -57,6 +58,8 @@ private:
 
     //erease stuff
 
+    bool autoOutputSize_ = true;
+
 
 public:
     explicit PaintWidget(QWidget *parent = 0);
@@ -64,6 +67,9 @@ public:
 
 
     //void drawTo(QPainter& painter);
+
+
+    bool& autoOutputSize() { return autoOutputSize_; }
 
     //properties: current page, paintool, etc
 protected:
@@ -82,15 +88,19 @@ signals:
 public slots:
     //resize
     //set output size
+    void updateOutputSize(const QSize& size);
 
+    //overlay tools
     void setTool(PaintTool tool);
     void setPenColor(const QColor& color);
     void setPenWidth(int penWidth);
     void clearDrawOverlay();
 
+    //screenshot tools
     void makeScreenshot();
     void clearScreenshot();
 
+    //pdf tools
     void openPdfFile(const QString& filename);
     void closePdfFile();
     void nextPdfPage();
@@ -101,7 +111,7 @@ public slots:
     //clearAll();
     //set width
 private:
-    void makePdfImage(); //rename to updatePdfImage();
+    void updatePdfPageImage();
 };
 
 #endif // PAINTWIDGET_H

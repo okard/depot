@@ -20,13 +20,14 @@ INCLUDEPATH += poppler-qt5/include
 LIBS += "-L/home/master/20.Dev/10.Projects/10.Depot/Cpp.PaintPresenter/poppler-qt5" -lpoppler-qt5
 
 SOURCES += src/main.cpp\
-        src/mainwindow.cpp \
-    src/paintwidget.cpp \
-    src/PresentationDialog.cpp
+    src/PresentationDialog.cpp \
+    src/MainWindow.cpp \
+    src/PaintWidget.cpp
 
-HEADERS  += src/mainwindow.h \
-    src/paintwidget.h \
-    src/PresentationDialog.hpp
+HEADERS  += \
+    src/PresentationDialog.hpp \
+    src/MainWindow.hpp \
+    src/PaintWidget.hpp
 
 FORMS    += src/mainwindow.ui
 

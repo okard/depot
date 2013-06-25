@@ -1,4 +1,4 @@
-#include "mainwindow.h"
+#include "MainWindow.hpp"
 #include "ui_mainwindow.h"
 #include "paintwidget.h"
 
@@ -59,6 +59,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionWindowsMenu, &QAction::triggered, [=]{ui->menuWindows->popup(QCursor::pos() ,ui->actionWindowsMenu);});
 
     //for presentationdialog: QDesktopWidget screenCountChanged(int newCount) isVirtualDesktop() const
+
+    //paintWidget->autoOutputSize() = false;
 }
 
 MainWindow::~MainWindow()

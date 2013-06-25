@@ -1,4 +1,4 @@
-#include "paintwidget.h"
+#include "PaintWidget.hpp"
 
 #include <QMouseEvent>
 #include <QScreen>
@@ -31,7 +31,7 @@ static inline T clamp(T value, T min, T max)
 
 PaintWidget::PaintWidget(QWidget *parent)
     : QWidget(parent)
-    , image_(size(), QImage::Format_ARGB32)
+    , overlayImage_(size(), QImage::Format_ARGB32)
 {
     drawPdf_ = false;
     pdfCurrentPage_ = 0;
@@ -45,7 +45,7 @@ PaintWidget::PaintWidget(QWidget *parent)
     isPainting_ = false;
 
     //alpha overlay
-    image_.fill(QColor::fromRgb(0,0,0,0));
+    overlayImage_.fill(QColor::fromRgb(0,0,0,0));
 }
 
 PaintWidget::~PaintWidget()
@@ -74,7 +74,7 @@ void PaintWidget::clearScreenshot()
 
 void PaintWidget::clearDrawOverlay()
 {
-    image_.fill(QColor::fromRgb(0,0,0,0));
+    overlayImage_.fill(QColor::fromRgb(0,0,0,0));
     this->update();
 }
 
@@ -123,7 +123,7 @@ void PaintWidget::openPdfFile(const QString &filename)
     drawPdf_ = true;
 
     //initial pdf image
-    makePdfImage();
+    updatePdfPageImage();
 
 }
 
@@ -144,7 +144,7 @@ void PaintWidget::nextPdfPage()
         return;
 
     pdfCurrentPage_ = clamp<int>(pdfCurrentPage_ + 1, 0, pdfDocument_->numPages()-1);
-    makePdfImage();
+    updatePdfPageImage();
     clearDrawOverlay();
     this->update();
 }
@@ -155,13 +155,16 @@ void PaintWidget::prevPdfPage()
         return;
 
     pdfCurrentPage_ = clamp<int>(pdfCurrentPage_ - 1, 0, pdfDocument_->numPages()-1);
-    makePdfImage();
+    updatePdfPageImage();
     clearDrawOverlay();
     this->update();
 }
 
-void PaintWidget::makePdfImage()
+void PaintWidget::updatePdfPageImage()
 {
+    if(pdfDocument_ == nullptr)
+        return;
+
     //TODO calculate right dpi for output size
     auto page = pdfDocument_->page(pdfCurrentPage_);
     auto size = page->pageSize(); //page size in points, 72 dpi == each point one pixel
@@ -208,8 +211,8 @@ void PaintWidget::paintEvent(QPaintEvent* event)
      painter.save();
      //draw the overlay image
      auto size = this->size();
-     painter.scale( (qreal)size.width() / (qreal)image_.width(), (qreal)size.height() / (qreal)image_.height());
-     painter.drawImage(dirtyRect, image_, dirtyRect);
+     painter.scale( (qreal)size.width() / (qreal)overlayImage_.width(), (qreal)size.height() / (qreal)overlayImage_.height());
+     painter.drawImage(dirtyRect, overlayImage_, dirtyRect);
 
      //draw temporary stuff
      if(isPainting_ && paintTool_ == PaintTool::Rectangle)
@@ -223,9 +226,8 @@ void PaintWidget::paintEvent(QPaintEvent* event)
 
 void PaintWidget::resizeEvent(QResizeEvent* event)
 {
-    outputSize_ = this->size();
-    image_ = image_.scaled(outputSize_.width(), outputSize_.height());
-
+    if(autoOutputSize_)
+        updateOutputSize(this->size());
     QWidget::resizeEvent(event);
 }
 
@@ -305,11 +307,11 @@ void PaintWidget::mouseReleaseEvent(QMouseEvent *event)
         }
         case PaintTool::Rectangle:
         {
-            painter_.begin(&image_);
+            overlayPainter_.begin(&overlayImage_);
             QColor color(penColor_);
             color.setAlpha(100);
-            painter_.fillRect(rectTool, color);
-            painter_.end();
+            overlayPainter_.fillRect(rectTool, color);
+            overlayPainter_.end();
             break;
         }
         case PaintTool::Text:
@@ -326,20 +328,27 @@ void PaintWidget::drawLineTo(const QPoint &endPoint)
 {
     int width =  paintTool_ == PaintTool::Highlight ? 20 : penWidth_;
 
-    painter_.begin(&image_);
-    painter_.setPen(QPen(penColor_, width, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
+    overlayPainter_.begin(&overlayImage_);
+    overlayPainter_.setPen(QPen(penColor_, width, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
     if(paintTool_ == PaintTool::Highlight)
     {
         QColor color(penColor_);
         color.setAlpha(100);
-        painter_.setPen(QPen(color, width, Qt::SolidLine, Qt::FlatCap, Qt::BevelJoin));
+        overlayPainter_.setPen(QPen(color, width, Qt::SolidLine, Qt::FlatCap, Qt::BevelJoin));
     }
-    painter_.drawLine(penLastPoint_, endPoint);
-    painter_.end();
+    overlayPainter_.drawLine(penLastPoint_, endPoint);
+    overlayPainter_.end();
 
     //modified = true;
 
     int rad = (width / 2) + 2;
     this->update(QRect(penLastPoint_, endPoint).normalized().adjusted(-rad, -rad, +rad, +rad));
     penLastPoint_ = endPoint;
+}
+
+void PaintWidget::updateOutputSize(const QSize& size)
+{
+    outputSize_ = size;
+    overlayImage_ = overlayImage_.scaled(outputSize_.width(), outputSize_.height());
+    updatePdfPageImage();
 }
