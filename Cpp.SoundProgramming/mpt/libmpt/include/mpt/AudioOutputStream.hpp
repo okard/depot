@@ -3,7 +3,8 @@
 #ifndef MPT_AUDIOOUTPUTSTREAM_HPP
 #define MPT_AUDIOOUTPUTSTREAM_HPP
 
-struct PaStream;
+//typedef void PaStream
+//struct PaStream;
 
 namespace mpt {
 	
@@ -13,10 +14,12 @@ namespace mpt {
 class AudioOutputStream
 {
 private:
-	 PaStream* stream;
+	 //PaStream* stream;
 public:
 	//takes device
 	//takes AudioSource
+	
+	//typedef int PaStreamCallback(const void *input, void *output, unsigned long frameCount, const PaStreamCallbackTimeInfo *timeInfo, PaStreamCallbackFlags statusFlags, void *userData)
 	
 };
 	
