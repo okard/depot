@@ -57,6 +57,7 @@ function setup()
     
     txtAnswer.onkeydown = function(event)
     {
+		//key alt
         if(event.keyCode == 18)
         {
              btnTip.onclick();
@@ -66,6 +67,7 @@ function setup()
     
     txtAnswer.onkeypress = function(event)
     {
+		//space and enter
         if(!(event.keyCode == 13 || event.charCode == 32))
             return true;
         
