@@ -282,7 +282,22 @@ function KanaTrainer(pCanvas, pKanas)
 		
         for(var i=0; i<prop.kanaData.length; i++)
         {
-            var hepburn = prop.kanaData[i].hepburn;
+			var kana = prop.kanaData[i];
+			
+			 //Filter for options
+            if(kana.type === "hiragana" && !prop.optHiragana)
+                continue;
+            if(kana.type === "katakana" && !prop.optKatakana)
+                continue;
+            if(kana.cat === "base" && !prop.optBase)
+                continue;
+            if(kana.cat === "ext" && !prop.optExtended)
+                continue;
+            if(kana.cat === "yoon" && !prop.optYoon)
+                continue;
+                
+            //add to fault lookup table
+            var hepburn = kana.hepburn;
             if(!(prop.faultLookup[hepburn]))
                 prop.faultLookup[hepburn] = [];
             prop.faultLookup[hepburn].push(i);
