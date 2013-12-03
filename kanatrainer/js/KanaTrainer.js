@@ -8,7 +8,6 @@ statistics  avg time to answer (right)
 timelimit for answers
 localStorage, save statistics of kanas for next time and
     use it for queue creation
-fix fault queue dbls -> with katakana&hiragana
 setFont
 error handling
 mode -> draw hebrun
@@ -70,15 +69,7 @@ function KanaTrainer(pCanvas, pKanas)
         prop.uiContex.textBaseline = 'middle';
         prop.uiContex.font = 'italic 100px Calibri';
         
-        //setup fault lookup
-        for(var i=0; i<prop.kanaData.length; i++)
-        {
-            var hepburn = prop.kanaData[i].hepburn;
-            if(!(prop.faultLookup[hepburn]))
-                prop.faultLookup[hepburn] = [];
-            prop.faultLookup[hepburn].push(i);
-        }
-        
+        setupFaultLookup();
         createQueue();
     })();
     
@@ -221,6 +212,7 @@ function KanaTrainer(pCanvas, pKanas)
         }
         
         createQueue();
+        setupFaultLookup();
     }
     
     /**
@@ -239,6 +231,8 @@ function KanaTrainer(pCanvas, pKanas)
     /// Create the kana queue
     function createQueue()
     {
+		prop.faultQueue = [];
+		
         //fill kanaQueue with random data from kanaData
         prop.kanaQueue = [];
         prop.currentPos = 0;
@@ -280,4 +274,18 @@ function KanaTrainer(pCanvas, pKanas)
     {
         return a + Math.floor(Math.random()*(b+a+1));
     }
+    
+    ///setup fault lookup
+    function setupFaultLookup()
+    {
+		prop.faultLookup = [];
+		
+        for(var i=0; i<prop.kanaData.length; i++)
+        {
+            var hepburn = prop.kanaData[i].hepburn;
+            if(!(prop.faultLookup[hepburn]))
+                prop.faultLookup[hepburn] = [];
+            prop.faultLookup[hepburn].push(i);
+        }
+	}
 }

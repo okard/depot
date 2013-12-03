@@ -15,6 +15,7 @@ var kanadata =
     { kana:"う", hepburn:"u", type:"hiragana", cat:"base" },
     { kana:"え", hepburn:"e", type:"hiragana", cat:"base" },
     { kana:"お", hepburn:"o", type:"hiragana", cat:"base" },
+    { kana:"ん", hepburn:"n", type:"hiragana", cat:"base" },
     
     { kana:"か", hepburn:"ka", type:"hiragana", cat:"base" },
     { kana:"き", hepburn:"ki", type:"hiragana", cat:"base" },
@@ -151,6 +152,7 @@ var kanadata =
     { kana:"ウ", hepburn:"u", type:"katakana", cat:"base" },
     { kana:"エ", hepburn:"e", type:"katakana", cat:"base" },
     { kana:"オ", hepburn:"o", type:"katakana", cat:"base" },
+    { kana:"ン", hepburn:"n", type:"katakana", cat:"base" },
     
     { kana:"カ", hepburn:"ka", type:"katakana", cat:"base" },
     { kana:"キ", hepburn:"ki", type:"katakana", cat:"base" },
