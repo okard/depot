@@ -14,10 +14,10 @@ TEMPLATE = app
 QMAKE_CXXFLAGS += -std=c++11
 
 
-INCLUDEPATH += poppler-qt5/include
+#INCLUDEPATH += poppler-qt5/include
 #LIBPATH += poppler-qt5
 #LIBS += -lpoppler-qt5.so
-LIBS += "-L/home/master/20.Dev/10.Projects/10.Depot/Cpp.PaintPresenter/poppler-qt5" -lpoppler-qt5
+LIBS +=  -lpoppler-qt5
 
 SOURCES += src/main.cpp\
     src/PresentationDialog.cpp \
@@ -27,7 +27,9 @@ SOURCES += src/main.cpp\
 HEADERS  += \
     src/PresentationDialog.hpp \
     src/MainWindow.hpp \
-    src/PaintWidget.hpp
+    src/PaintWidget.hpp \
+    src/View.hpp \
+    src/PaintTool.hpp
 
 FORMS    += src/mainwindow.ui
 
@@ -35,4 +37,26 @@ RESOURCES += \
     resources.qrc
 
 OTHER_FILES += \
-    readme.md
+    readme.md \
+    qml/MainWindow.qml \
+    images/icon_yellow.png \
+    images/icon_windows.png \
+    images/icon_trash.png \
+    images/icon_screenshot_clear.png \
+    images/icon_screenshot.png \
+    images/icon_save.png \
+    images/icon_red.png \
+    images/icon_prev.png \
+    images/icon_presentation.png \
+    images/icon_pen2.png \
+    images/icon_pen.png \
+    images/icon_pdf.png \
+    images/icon_next.png \
+    images/icon_highlighter.png \
+    images/icon_green.png \
+    images/icon_ereaser.png \
+    images/icon_draw_text.png \
+    images/icon_draw_rectangle.png \
+    images/icon_clear.png \
+    images/icon_blue.png \
+    images/icon_black.png

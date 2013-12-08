@@ -1,2 +1,4 @@
 build/
 poppler-qt5/
+
+*pro.user.*

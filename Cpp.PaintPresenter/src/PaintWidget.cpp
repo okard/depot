@@ -7,7 +7,7 @@
 #include <QDesktopWidget>
 #include <QApplication>
 
-#include <poppler-qt5.h>
+#include <poppler/qt5/poppler-qt5.h>
 
 #include <iostream>
 
@@ -37,11 +37,15 @@ PaintWidget::PaintWidget(QWidget *parent)
     pdfCurrentPage_ = 0;
     pdfDocument_ = nullptr;
 
-    paintTool_ = PaintTool::Pen;
+    paintTool_ = PaintToolType::Pen;
 
     //this->setMouseTracking(true);
-    penColor_.setRgb(255,0,0);
-    penWidth_ = 3;
+    pen_.setColor(QColor(255,0,0));
+    pen_.setWidth(3);
+    pen_.setStyle(Qt::SolidLine);
+    pen_.setCapStyle(Qt::RoundCap);
+    pen_.setJoinStyle(Qt::RoundJoin);
+
     isPainting_ = false;
 
     //alpha overlay
@@ -80,16 +84,17 @@ void PaintWidget::clearDrawOverlay()
 
 void PaintWidget::setPenColor(const QColor &color)
 {
-    penColor_ = color;
+    pen_.setColor(color);
 }
 
 void PaintWidget::setPenWidth(int penWidth)
 {
     //clamp to 1-10
-    penWidth_ = penWidth < 0 ? 1 : penWidth_ > 10 ? 10 : penWidth_;
+    int penWidthNew = penWidth < 0 ? 1 : pen_.width() > 10 ? 10 : pen_.width();
+    pen_.setWidth(penWidthNew);
 }
 
-void PaintWidget::setTool(PaintTool tool)
+void PaintWidget::setTool(PaintToolType tool)
 {
     //finish current action?
     if(isPainting_)
@@ -160,6 +165,53 @@ void PaintWidget::prevPdfPage()
     this->update();
 }
 
+void PaintWidget::paintTo(const QRect &dirtyRect, QPainter &painter)
+{
+    painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
+    painter.setRenderHint(QPainter::Antialiasing, true);
+    //painter.setRenderHint(QPainter::HighQualityAntialiasing, true);
+
+    //draw screenshot if enabled
+    if(drawScreenhot_)
+    {
+       painter.save();
+
+       auto size = painter.viewport().size();
+       QSize s = screenshot_.size();
+       QRect r = calcDrawArea(s, size);
+
+       painter.drawPixmap(r,screenshot_);
+       painter.restore();
+    }
+
+    //draw pdf if available
+    if(drawPdf_ && pdfDocument_)
+    {
+       QSize s(4, 3);
+       QRect area = calcDrawArea(s, painter.viewport().size());
+       //std::cout << area.x() << ' ' << area.y() << ' ' << area.width() << ' ' << area.height() << std::endl;
+       painter.drawImage(area, pdfImage_);
+    }
+
+    painter.save();
+
+    //draw the overlay image
+    auto size = this->size();
+    painter.scale( (qreal)size.width() / (qreal)overlayImage_.width(), (qreal)size.height() / (qreal)overlayImage_.height());
+    painter.drawImage(dirtyRect, overlayImage_, dirtyRect);
+
+    //draw temporary stuff
+    if(isPainting_ && paintTool_ == PaintToolType::Rectangle)
+    {
+       QColor color(pen_.color());
+       color.setAlpha(100);
+       painter.fillRect(rectTool, color);
+    }
+
+    painter.restore();
+}
+
+// update the pdf image
 void PaintWidget::updatePdfPageImage()
 {
     if(pdfDocument_ == nullptr)
@@ -179,55 +231,16 @@ void PaintWidget::updatePdfPageImage()
 void PaintWidget::paintEvent(QPaintEvent* event)
 {
      QRect dirtyRect = event->rect();
-
      QPainter painter(this);
-
-     painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
-     painter.setRenderHint(QPainter::Antialiasing, true);
-     //painter.setRenderHint(QPainter::HighQualityAntialiasing, true);
-
-     //draw screenshot if enabled
-     if(drawScreenhot_)
-     {
-        painter.save();
-
-        auto size = painter.viewport().size();
-        QSize s = screenshot_.size();
-        QRect r = calcDrawArea(s, size);
-
-        painter.drawPixmap(r,screenshot_);
-        painter.restore();
-     }
-
-     //draw pdf if available
-     if(drawPdf_ && pdfDocument_)
-     {
-        QSize s(4, 3);
-        QRect area = calcDrawArea(s, painter.viewport().size());
-        //std::cout << area.x() << ' ' << area.y() << ' ' << area.width() << ' ' << area.height() << std::endl;
-        painter.drawImage(area, pdfImage_);
-     }
-
-     painter.save();
-     //draw the overlay image
-     auto size = this->size();
-     painter.scale( (qreal)size.width() / (qreal)overlayImage_.width(), (qreal)size.height() / (qreal)overlayImage_.height());
-     painter.drawImage(dirtyRect, overlayImage_, dirtyRect);
-
-     //draw temporary stuff
-     if(isPainting_ && paintTool_ == PaintTool::Rectangle)
-     {
-        QColor color(penColor_);
-        color.setAlpha(100);
-        painter.fillRect(rectTool, color);
-     }
-     painter.restore();
+     paintTo(dirtyRect, painter);
 }
 
 void PaintWidget::resizeEvent(QResizeEvent* event)
 {
+    //when auto-size is enabled set the "output" size to the current paint widget size
     if(autoOutputSize_)
         updateOutputSize(this->size());
+
     QWidget::resizeEvent(event);
 }
 
@@ -236,26 +249,28 @@ void PaintWidget::mouseMoveEvent(QMouseEvent *event)
 
     if ((event->buttons() & Qt::LeftButton) && isPainting_)
     {
+        //TODO calculate mouse position
+
         switch(paintTool_)
         {
-        case PaintTool::Pen:
+        case PaintToolType::Pen:
             drawLineTo(event->pos());
             break;
-        case PaintTool::Highlight:
+        case PaintToolType::Highlight:
         {
             QPoint p = event->pos();
             p.setY(penLastPoint_.y());
             drawLineTo(p);
             break;
         }
-        case PaintTool::Rectangle:
+        case PaintToolType::Rectangle:
             rectTool.setWidth(event->x()-rectTool.x());
             rectTool.setHeight(event->y()-rectTool.y());
             this->update();
             break;
-        case PaintTool::Text:
+        case PaintToolType::Text:
             break;
-        case PaintTool::Erease:
+        case PaintToolType::Erease:
             break;
         }
     }
@@ -266,22 +281,23 @@ void PaintWidget::mousePressEvent(QMouseEvent *event)
 
     if (event->button() == Qt::LeftButton)
     {
+        //TODO calculate mouse position
 
         switch(paintTool_)
         {
-        case PaintTool::Pen:
+        case PaintToolType::Pen:
             penLastPoint_ = event->pos();
             break;
-        case PaintTool::Highlight:
+        case PaintToolType::Highlight:
             penLastPoint_ = event->pos();
             break;
-        case PaintTool::Rectangle:
+        case PaintToolType::Rectangle:
             rectTool.setX(event->x());
             rectTool.setY(event->y());
             break;
-        case PaintTool::Text:
+        case PaintToolType::Text:
             break;
-        case PaintTool::Erease:
+        case PaintToolType::Erease:
             break;
         }
         isPainting_ = true;
@@ -293,30 +309,32 @@ void PaintWidget::mouseReleaseEvent(QMouseEvent *event)
 
     if (event->button() == Qt::LeftButton && isPainting_)
     {
+        //TODO calculate mouse position
+
         switch(paintTool_)
         {
-        case PaintTool::Pen:
+        case PaintToolType::Pen:
             drawLineTo(event->pos());
             break;
-        case PaintTool::Highlight:
+        case PaintToolType::Highlight:
         {
             QPoint p = event->pos();
             p.setY(penLastPoint_.y());
             drawLineTo(p);
             break;
         }
-        case PaintTool::Rectangle:
+        case PaintToolType::Rectangle:
         {
             overlayPainter_.begin(&overlayImage_);
-            QColor color(penColor_);
+            QColor color(pen_.color());
             color.setAlpha(100);
             overlayPainter_.fillRect(rectTool, color);
             overlayPainter_.end();
             break;
         }
-        case PaintTool::Text:
+        case PaintToolType::Text:
             break;
-        case PaintTool::Erease:
+        case PaintToolType::Erease:
             break;
         }
         isPainting_ = false;
@@ -326,13 +344,16 @@ void PaintWidget::mouseReleaseEvent(QMouseEvent *event)
 
 void PaintWidget::drawLineTo(const QPoint &endPoint)
 {
-    int width =  paintTool_ == PaintTool::Highlight ? 20 : penWidth_;
+    int width =  paintTool_ == PaintToolType::Highlight ? 30 : pen_.width();
+
+    if(overlayImage_.isNull())
+        std::cout << "Null image" << std::endl;
 
     overlayPainter_.begin(&overlayImage_);
-    overlayPainter_.setPen(QPen(penColor_, width, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin));
-    if(paintTool_ == PaintTool::Highlight)
+    overlayPainter_.setPen(pen_);
+    if(paintTool_ == PaintToolType::Highlight)
     {
-        QColor color(penColor_);
+        QColor color(pen_.color());
         color.setAlpha(100);
         overlayPainter_.setPen(QPen(color, width, Qt::SolidLine, Qt::FlatCap, Qt::BevelJoin));
     }
@@ -342,13 +363,30 @@ void PaintWidget::drawLineTo(const QPoint &endPoint)
     //modified = true;
 
     int rad = (width / 2) + 2;
-    this->update(QRect(penLastPoint_, endPoint).normalized().adjusted(-rad, -rad, +rad, +rad));
+
+    QRect dirtyRect = QRect(penLastPoint_, endPoint).normalized().adjusted(-rad, -rad, +rad, +rad);
+    this->update(dirtyRect);
+    emit drawingsChanged(dirtyRect);
     penLastPoint_ = endPoint;
 }
 
+// set the "output" size of the data
+// update overlay format and pdf image
 void PaintWidget::updateOutputSize(const QSize& size)
 {
+    std::cout << "size: " << size.width() << " " << size.height() << std::endl;
+
+    //set the output size
     outputSize_ = size;
+
+    //overlay stuff
     overlayImage_ = overlayImage_.scaled(outputSize_.width(), outputSize_.height());
+
+    //Iterate over all current overlay images
+
+    //setup pdf image
     updatePdfPageImage();
+
+    //repaint
+    this->update();
 }

@@ -20,5 +20,6 @@
         <file>images/icon_pdf.png</file>
         <file>images/icon_prev.png</file>
         <file>images/icon_next.png</file>
+        <file>images/icon_presentation.png</file>
     </qresource>
 </RCC>

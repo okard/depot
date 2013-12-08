@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QTime>
 #include <QTimer>
+#include <QComboBox>
 
 namespace Ui {
 class MainWindow;
@@ -21,17 +22,22 @@ public:
     ~MainWindow();
     
 private slots:
-    void timerInterval();
+    void timerInterval(); //move to timer widget
 
     void openPdfFile();
 
-    //void togglePresentationWindow?
+
+    void togglePresentationDialog();
 
 private:
     Ui::MainWindow *ui;
     PaintWidget* paintWidget;
     PresentationDialog* presentationDialog;
-    //presenter window?
+
+    QComboBox views_;
+    QComboBox overlays_;
+    QComboBox presentationSize_;
+
 
     QTime time_;
     QTimer* timer_;

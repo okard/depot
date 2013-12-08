@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>692</width>
+    <width>936</width>
     <height>775</height>
    </rect>
   </property>
@@ -33,14 +33,23 @@
   </property>
   <widget class="QWidget" name="centralWidget"/>
   <widget class="QToolBar" name="mainToolBar">
+   <property name="windowTitle">
+    <string>Toolbar</string>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(255, 255, 255);</string>
+   </property>
    <property name="movable">
     <bool>false</bool>
    </property>
    <property name="allowedAreas">
-    <set>Qt::LeftToolBarArea</set>
+    <set>Qt::TopToolBarArea</set>
    </property>
    <attribute name="toolBarArea">
-    <enum>LeftToolBarArea</enum>
+    <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
     <bool>false</bool>
@@ -68,6 +77,8 @@
    <addaction name="separator"/>
    <addaction name="actionSaveImage"/>
    <addaction name="actionWindowsMenu"/>
+   <addaction name="actionTooglePresentation"/>
+   <addaction name="separator"/>
   </widget>
   <widget class="QDockWidget" name="dockTimer">
    <property name="minimumSize">
@@ -212,8 +223,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>692</width>
-     <height>23</height>
+     <width>936</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuWindows">
@@ -410,6 +421,15 @@ border-color: rgb(0, 0, 0);s</string>
    </property>
    <property name="shortcut">
     <string>Left</string>
+   </property>
+  </action>
+  <action name="actionTooglePresentation">
+   <property name="icon">
+    <iconset resource="../resources.qrc">
+     <normaloff>:/icons/images/icon_presentation.png</normaloff>:/icons/images/icon_presentation.png</iconset>
+   </property>
+   <property name="text">
+    <string>Presentation</string>
    </property>
   </action>
  </widget>

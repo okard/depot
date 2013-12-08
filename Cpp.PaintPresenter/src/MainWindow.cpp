@@ -1,6 +1,6 @@
 #include "MainWindow.hpp"
 #include "ui_mainwindow.h"
-#include "paintwidget.h"
+#include "PaintWidget.hpp"
 
 #include "PresentationDialog.hpp"
 
@@ -13,13 +13,26 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
     , timer_(new QTimer(this))
 {
-    presentationDialog = new PresentationDialog(this);
     paintWidget = new PaintWidget(this);
+    presentationDialog = new PresentationDialog(*paintWidget);
 
     ui->setupUi(this);
     ui->menuBar->hide();
     ui->actionWindowsMenu->setMenu(ui->menuWindows);
     ui->menuWindows->addAction(ui->dockTimer->toggleViewAction());
+    ui->menuWindows->addAction(presentationDialog->toggleViewAction());
+
+    ui->mainToolBar->addWidget(&views_);
+    ui->mainToolBar->addWidget(&presentationSize_);
+
+
+
+    //TODO add resolultion handling and events
+    presentationSize_.addItem("Widget");
+    presentationSize_.addItem("PresentionDialog");
+    presentationSize_.addItem("1024x768");
+    presentationSize_.addItem("1600x900");
+
     //ui->actionWindowsMenu->set
     //toolButton->setPopupMode(QToolButton::InstantPopup);
 
@@ -38,11 +51,11 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionPenColorYellow, &QAction::triggered, [=]() { paintWidget->setPenColor(QColor::fromRgb(255,255,0)); }  );
 
     //choose tools
-    connect(ui->actionToolPen, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Pen); }  );
-    connect(ui->actionToolRectangle, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Rectangle); }  );
-    connect(ui->actionToolHighlight, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Highlight); }  );
-    connect(ui->actionToolText, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Text); }  );
-    connect(ui->actionToolErease, &QAction::triggered, [=]() { paintWidget->setTool(PaintTool::Erease);  }  );
+    connect(ui->actionToolPen, &QAction::triggered, [=]() { paintWidget->setTool(PaintToolType::Pen); }  );
+    connect(ui->actionToolRectangle, &QAction::triggered, [=]() { paintWidget->setTool(PaintToolType::Rectangle); }  );
+    connect(ui->actionToolHighlight, &QAction::triggered, [=]() { paintWidget->setTool(PaintToolType::Highlight); }  );
+    connect(ui->actionToolText, &QAction::triggered, [=]() { paintWidget->setTool(PaintToolType::Text); }  );
+    connect(ui->actionToolErease, &QAction::triggered, [=]() { paintWidget->setTool(PaintToolType::Erease);  }  );
 
     //handle timer stuff
     time_ = QTime(0,0);
@@ -60,7 +73,21 @@ MainWindow::MainWindow(QWidget *parent)
 
     //for presentationdialog: QDesktopWidget screenCountChanged(int newCount) isVirtualDesktop() const
 
+    connect(ui->actionTooglePresentation, &QAction::triggered, this, &MainWindow::togglePresentationDialog);
+
+    //toggle presentation dialog
     //paintWidget->autoOutputSize() = false;
+
+    connect(presentationDialog, &QDialog::open, [=]() {
+        paintWidget->autoOutputSize() = false;
+        paintWidget->updateOutputSize(presentationDialog->size());
+    });
+
+    connect(presentationDialog, &QDialog::finished, [=](int r) {
+        paintWidget->autoOutputSize() = true;
+        paintWidget->updateOutputSize(paintWidget->size());
+    });
+
 }
 
 MainWindow::~MainWindow()
@@ -88,5 +115,23 @@ void MainWindow::openPdfFile()
     auto fileName = QFileDialog::getOpenFileName(this, tr("Open Pdf File"), nullptr, tr("Pdf Files (*.pdf)"));
 
     paintWidget->openPdfFile(fileName);
+}
+
+void MainWindow::togglePresentationDialog()
+{
+
+    if(presentationDialog->isVisible())
+    {
+        std::cout << "off" << std::endl;
+        presentationDialog->close();
+    }
+    else
+    {
+        std::cout << "on" << std::endl;
+        presentationDialog->showFullScreen();
+        presentationDialog->raise();
+        presentationDialog->activateWindow();
+        this->activateWindow();
+    }
 }
 

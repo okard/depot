@@ -7,10 +7,14 @@
 #include <QPainter>
 #include <QColor>
 
+#include "View.hpp"
+#include "PaintTool.hpp"
+
 
 namespace Poppler { class Document; }
 
-enum class PaintTool
+
+enum class PaintToolType
 {
     Pen,
     Rectangle,
@@ -19,38 +23,51 @@ enum class PaintTool
     Erease
 };
 
-//16:9, 4:3 enum?
+enum class Scaling
+{
+    AcademyRatio, // 4:3
+    Widescreen    // 16:9
+};
 
 
+/**
+ * @brief The PaintWidget class
+ */
 class PaintWidget : public QWidget
 {
     Q_OBJECT
 
 private:
     //core paint stuff
-    QSize outputSize_;
+    QSize outputSize_;  //fixed?
+
+
+    //list of views
 
     QPainter overlayPainter_;
     QImage overlayImage_; //overlay image //save for pdf pages
 
+    //std::unordered_map<int, QImage> overlays_;
+
     //screenshot
-    bool drawScreenhot_;
-    QPixmap screenshot_;
+    bool drawScreenhot_;    //draw screenshot or not
+    QPixmap screenshot_;    //buffer for screenshot
 
     //pdf
-    bool drawPdf_;
-    Poppler::Document* pdfDocument_;
-    unsigned int pdfCurrentPage_;
-    QImage pdfImage_;
+    bool drawPdf_; //draw the pdf
+    Poppler::Document* pdfDocument_;    //the pdfDocument (use std::unique_ptr)
+    unsigned int pdfCurrentPage_;       //current page
+    QImage pdfImage_;                   //the pdf page as image
 
     //paint settings
-    PaintTool paintTool_;   //current paint tool
+    PaintToolType paintTool_;   //current paint tool
     bool isPainting_;       //is currently painting
 
     //pen stuff
-    //QPen pen_;
-    QColor penColor_;
-    int penWidth_;
+    QPen pen_;
+    //QColor penColor_;
+    //int penWidth_;
+
     QPoint penLastPoint_;
 
     //rectangle stuff
@@ -71,7 +88,17 @@ public:
 
     bool& autoOutputSize() { return autoOutputSize_; }
 
-    //properties: current page, paintool, etc
+    //current view
+    //current overlay
+
+    //views list
+    //overlays list
+
+    //current tool
+
+
+    //properties: current page, paintool, has pdf etc
+
 protected:
     void paintEvent(QPaintEvent *event);
     void resizeEvent(QResizeEvent *event);
@@ -83,7 +110,12 @@ protected:
     void drawLineTo(const QPoint &endPoint);
 
 signals:
-    //paint update event (for presentation window) (dirtyrect?)
+    // change event for active drawings
+    void drawingsChanged(const QRect& dirtyRect);
+
+    //view changed
+    //overlay changed
+
     
 public slots:
     //resize
@@ -91,7 +123,7 @@ public slots:
     void updateOutputSize(const QSize& size);
 
     //overlay tools
-    void setTool(PaintTool tool);
+    void setTool(PaintToolType tool);
     void setPenColor(const QColor& color);
     void setPenWidth(int penWidth);
     void clearDrawOverlay();
@@ -106,6 +138,9 @@ public slots:
     void nextPdfPage();
     void prevPdfPage();
     //hide pdf?
+
+    //paint the current view to painter
+    void paintTo(const QRect& dirtyRect, QPainter& painter);
 
     //saveOverlayImage(filename)
     //clearAll();
