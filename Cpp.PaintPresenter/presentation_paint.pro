@@ -4,32 +4,37 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+TEMPLATE = app
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+QT       += core gui declarative widgets qml quick
 
 TARGET = presentation_paint
-TEMPLATE = app
 
 QMAKE_CXXFLAGS += -std=c++11
 
+# whats wrong????
+#unix:INCLUDEPATH += "/usr/include/qt/QtQml"
+#unix:INCLUDEPATH += "/usr/include/qt/QtQuick"
+#LIBS += -lQt5Qml
+#LIBS += -lQt5Quick
 
-#INCLUDEPATH += poppler-qt5/include
-#LIBPATH += poppler-qt5
-#LIBS += -lpoppler-qt5.so
 LIBS +=  -lpoppler-qt5
 
 SOURCES += src/main.cpp\
+    src/PaintTool.cpp \
     src/PresentationDialog.cpp \
     src/MainWindow.cpp \
-    src/PaintWidget.cpp
+    src/PaintWidget.cpp \
+    src/PresentationViewer.cpp
+
 
 HEADERS  += \
     src/PresentationDialog.hpp \
     src/MainWindow.hpp \
     src/PaintWidget.hpp \
     src/View.hpp \
-    src/PaintTool.hpp
+    src/PaintTool.hpp \
+    src/PresentationViewer.hpp
 
 FORMS    += src/mainwindow.ui
 
@@ -59,4 +64,6 @@ OTHER_FILES += \
     images/icon_draw_rectangle.png \
     images/icon_clear.png \
     images/icon_blue.png \
-    images/icon_black.png
+    images/icon_black.png \
+    qml/PresenterWidget.qml \
+    qml/MainWindow.js

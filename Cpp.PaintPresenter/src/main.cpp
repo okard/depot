@@ -1,17 +1,24 @@
-#include "MainWindow.hpp"
+
 #include <QApplication>
+#include <QQmlApplicationEngine>
+
+#include "MainWindow.hpp"
+#include "PresentationViewer.hpp"
 
 int main(int argc, char *argv[])
 {
-    /*
-    QApplication app(argc, argv);
-    QQmlApplicationEngine engine("main.qml");
-    return app.exec();
-    */
 
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.showFullScreen();
+
+    QApplication app(argc, argv);
+
+    // QT Window
+    //MainWindow w;
+
+    qmlRegisterType<PresentationViewer>("PP", 1, 0, "PresentationViewer");
+    //register ScreenshotView, PdfView
+
+    // QML Window
+    QQmlApplicationEngine engine("qml/MainWindow.qml");
     
-    return a.exec();
+    return app.exec();
 }

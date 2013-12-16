@@ -27,3 +27,6 @@
         - Filesystem Interface
     - redesign the draw tool stuff
     - add view mode (None, Pdf, Screenshot)
+
+* QML Rewrite?
+    - add qml/js to resources?

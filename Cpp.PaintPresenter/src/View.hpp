@@ -9,7 +9,6 @@
 namespace Poppler { class Document; }
 
 
-
 //Type of views
 enum class ViewType
 {
@@ -20,10 +19,14 @@ enum class ViewType
 
 
 //interface?
-class View
+class View : public QObject
 {
+    Q_OBJECT
+    //Q_PROPERTY(QString name_ READ name)
+
 private:
-    ViewType type_;
+    ViewType type_ = ViewType::None;
+    QString name_;
 public:
 
     //events
