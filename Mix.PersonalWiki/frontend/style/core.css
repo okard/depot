@@ -1,0 +1,49 @@
+
+*, body {
+	padding:0;
+	margin:0;
+}
+
+a {
+	text-decoration:none;
+	color: blue;
+}
+
+a:hover {
+	color: orange;
+}
+
+
+
+#headerMain {
+	background-color: #1a1a1a;
+	color: white;
+	margin:0.5%;
+	padding:0.5%;
+	border-radius: 10px;
+}
+
+#sidebarLeft {
+	width: 19%;
+	float:left;
+	padding: 1em .5% 1em .5%;
+}
+
+#contentMain {
+	margin-left: 20%;
+	max-width: 79%;
+	width: 79%;
+	min-width:79%;
+	padding:0.5%;
+}
+
+
+/*  sidebar list */
+#sidebarLeft ul {
+	list-style-type: none;
+}
+
+#sidebarLeft li {
+	list-style-type: none;
+	padding-left:1em;
+}
