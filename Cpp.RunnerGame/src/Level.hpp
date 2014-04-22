@@ -12,6 +12,10 @@
 class Level
 {
 private:
+	//resources:
+	sf::Texture texPlant_;
+	sf::Texture texStone_;
+
 
 	//complete level size from 0,0 to size_
 	sf::Vector2f size_;
@@ -24,7 +28,9 @@ private:
 	float speed_ = 0.5f;
 
 	// actual drawings block
-	std::deque<sf::RectangleShape> blocks_;
+	std::deque<sf::Sprite> blocks_;
+	
+	float baseHeight_ = 138.0f;
 
 	//grad
 

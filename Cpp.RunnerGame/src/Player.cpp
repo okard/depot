@@ -9,6 +9,8 @@ Player::Player()
 	: sprite_(sf::Vector2f(50, 120))
 {
 	sprite_.setFillColor(sf::Color::Green);
+	
+	sprite_.setOrigin(0, sprite_.getSize().y);
 }
 
 Player::~Player()
@@ -17,7 +19,7 @@ Player::~Player()
 
 void Player::setPosition(float x, float y)
 {
-	sprite_.setPosition(x,y-sprite_.getSize().y);
+	sprite_.setPosition(x,y- baseHeight_);
 }
 
 sf::FloatRect Player::getBoundingBox()
@@ -55,24 +57,28 @@ void Player::update(unsigned int elapsedTimeMS)
 	if(moving_)
 	{
 		float moveY = -(elapsedTimeMS * acceleration_);
-		sprite_.move(0.f, moveY);
-		acceleration_ -= gravity_;
+		sprite_.move(0.f, moveY); //move in accl direction
+		acceleration_ -= gravity_; //accelaration slowed down by gravity
 
-		if(sprite_.getPosition().y > -sprite_.getSize().y)
+		auto bottomPosition = sprite_.getPosition().y;
+		std::cout << "bottomPos: " << bottomPosition << std::endl;
+
+		if(bottomPosition > -baseHeight_)
 		{
-			sprite_.setPosition(sprite_.getPosition().x, -sprite_.getSize().y);
+			setPosition(sprite_.getPosition().x, 0.f);
 			moving_ = false;
 		}
+		
 	}
 
-	if(crouching_)
+	if(crouching_) //todo manual time
 	{
 		acceleration_ -= gravity_;
 
 		if(acceleration_ < 0.f)
 		{
 			sprite_.setSize(sf::Vector2f(sprite_.getSize().x, sprite_.getSize().y*2.f));
-			setPosition(0.f, 0.f);
+			setPosition(sprite_.getPosition().x, 0.f); //todo fix this
 			crouching_ = false;
 		}
 	}

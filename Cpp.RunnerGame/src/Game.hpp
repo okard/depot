@@ -7,6 +7,7 @@
 
 #include "Player.hpp"
 #include "Level.hpp"
+#include "Background.hpp"
 
 
 enum class GameState
@@ -25,6 +26,7 @@ private:
 	sf::View camera_;
 	sf::Clock timer_;
 
+	Background background_;
 	Player player_;
 	Level level_;
 
@@ -42,6 +44,7 @@ public:
 private:
 	void handleEvents(const sf::Event& event);
 	void draw();
+	void update(unsigned int timeElapsedMS);
 
 };
 

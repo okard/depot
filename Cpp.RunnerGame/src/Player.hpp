@@ -18,6 +18,8 @@ private:
 	float speed_ = 0.f; //relative speed
 	float acceleration_ = 0.f;
 	const float gravity_ = 0.03f;
+	
+	float baseHeight_ = 138.0f;
 
 public:
 
