@@ -61,7 +61,7 @@ void Player::update(unsigned int elapsedTimeMS)
 		acceleration_ -= gravity_; //accelaration slowed down by gravity
 
 		auto bottomPosition = sprite_.getPosition().y;
-		std::cout << "bottomPos: " << bottomPosition << std::endl;
+		//std::cout << "bottomPos: " << bottomPosition << std::endl;
 
 		if(bottomPosition > -baseHeight_)
 		{
