@@ -12,6 +12,7 @@
     <link href="style/tabs.css" type="text/css" rel="stylesheet">
     
     <script src="js/jquery-2.1.0.min.js"></script>
+    <script src="js/markdown.min.js"></script>
     <script src="js/wiki.js"></script>
     <script src="js/setup.js"></script>
 </head>
@@ -27,6 +28,7 @@
 	<nav id="sidebarLeft">
         <ul>
             <li><a href="#" onclick="wiki.openPage('main_page'); return false;">Main Page</a></li>
+            <li><a href="#" onclick="frontend.newPage(); return false;">New Page</a></li>
             
             <li><a href="#">Categories</a>
 				<ul>
@@ -49,9 +51,9 @@
             <li><a href="#" onclick="modeSwitch('show'); return false;">Show</a></li>
             <li><a href="#" onclick="modeSwitch('edit'); return false;">Edit</a></li>
             <li><a href="#" onclick="modeSwitch('history'); return false;">History</a></li>
-            <li><a href="#" onclick="modeSwitch('attachments'); return false;">Attachments</a></li>
             <li><a href="#" onclick="modeSwitch('subpages'); return false;">Subpages</a></li>
             <li><a href="#" onclick="modeSwitch('meta'); return false;">Metadata</a></li>
+            <!-- Debug tab? -->
         </ul>
         
         <div id="page" class="tabcontent">
@@ -61,21 +63,24 @@
 			
 			<div id="page_edit" style="display:none">
 				<h1>edit</h1>
+				
+				<!-- Editor Toolbar? -->
+				<textarea name="content" cols="50" rows="30"></textarea>
+				<br/>
+				
+				<!-- Attached Files -->
+			
 				<!-- 
-					toolbar? (for markdown)
-					content
 					file upload
 					attachements here?
 					save cancel button		
 				-->
+				
+				<input type="button" value="Save" />
 			</div>
 			
 			<div id="page_history" style="display:none">
 				<h1>history</h1>
-			</div>
-			
-			<div id="page_attachments" style="display:none">
-				<h1>attachments</h1>
 			</div>
 			
 			<div id="page_subpages" style="display:none">

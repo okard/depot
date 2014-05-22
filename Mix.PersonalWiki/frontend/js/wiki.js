@@ -1,21 +1,29 @@
 
 
-
+/**
+* represents a wiki page
+*/
 function Page()
 {
 	var obj = 
 	{
-		//content_type
+		content: undefined,
+		type: "markdown",
+		id: undefined,
+		
 		//meta
 		//name
-		//content
+		
+		
 		
 	};
 	
 	return obj;
 }
 
-
+/**
+* main wiki object
+*/
 
 function Wiki() 
 {
@@ -27,14 +35,25 @@ function Wiki()
 		
 		//mode: Show, Edit, History, Attachments, Subpages, Metadata
 
+		//load page
 		openPage: function(page)
 		{
 			alert('open page: ' + page);
+			//load a page and return it?
+			
+			return new Page();
 		},
+		
+		page_to_string: function(page)
+		{
+			return JSON.stringify(page);
+		}
 		
 		//get categories
 		
 		//render function? (markdown)
+		
+		//backend
 	};
 	
 	
