@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 
-rustc --crate-type=lib src/libshellng/lib.rs 
-rustc -L . -o shellng src/shellng/main.rs
+rustc -g --crate-type=lib src/libshellng/lib.rs 
+rustc -g -L . -o shellng src/shellng/main.rs

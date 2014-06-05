@@ -5,6 +5,7 @@ use std::io::Buffer;
 
 //import lexer
 use lexer::{Lexer};
+use parse;
 
 /*
 * Shell State
@@ -26,10 +27,10 @@ impl<'a> ShellState<'a>
 {	
 	fn step(&mut self) -> bool
 	{
-		//parse one tree
-		self.lexer.tokenize();
+		//parse a complete syntax tree:
+		let tree = parse::parse(&mut self.lexer);
 		
-		// tree = parse(self.lexer);
+		//execute the tree
 		// exec(state, tree);
 		
 		//prompt

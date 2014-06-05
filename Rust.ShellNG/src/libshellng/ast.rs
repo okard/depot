@@ -9,5 +9,11 @@
 
 //command -> process
 
+pub enum AstNode
+{
+	Empty,
+	
+}
+
 
 
