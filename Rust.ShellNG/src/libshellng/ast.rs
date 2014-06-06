@@ -2,16 +2,22 @@
 
 //objects
 
-//process
+//process -> runtime object
 //variable/value
-//arrays
+//arrays/list
 //maps
 
-//command -> process
+//pathes?
+
+//definition?
+
+//command nodes will be executed -> become process
 
 pub enum AstNode
 {
 	Empty,
+	Command,
+	
 	
 }
 

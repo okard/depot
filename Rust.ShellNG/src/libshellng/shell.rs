@@ -28,7 +28,7 @@ impl<'a> ShellState<'a>
 	fn step(&mut self) -> bool
 	{
 		//parse a complete syntax tree:
-		let tree = parse::parse(&mut self.lexer);
+		let ast_tree = parse::parse(&mut self.lexer);
 		
 		//execute the tree
 		// exec(state, tree);

@@ -7,11 +7,14 @@
 extern crate collections;
 extern crate debug;
 
+pub mod helper;
 
 pub mod lexer;	//lexer
 
 pub mod ast; // ast
 pub mod parse;	//parser
+
+pub mod exec;
 
 
 //exec / interpreter?

@@ -21,18 +21,31 @@ pub fn parse(lex: &mut Lexer) -> ast::AstNode
 fn parse_command(lex: &mut Lexer)
 {
 	let tok = (&mut lex.tokens as &mut Deque<Token>).pop_front();
-	//if keyword parse keyword
 	
+	//parse <expr> only when PlaceId is found
+		// ls -l $myvar.get
+	
+	//look for special kw
+		//def, if, match, ...?
+	
+	//match
+	
+	//if keyword parse keyword
 }
 
 
 fn parse_expression()
 {
-	
+	//precedence climbing
 }
 
-
+// def <name> : <type> {} or = <expr>
 fn parse_def()
 {
 	
 }
+
+//token
+//next_nowhitespace
+//next
+//merge_token_until_whitespace?
