@@ -6,7 +6,7 @@ extern crate libshellng;
 
 fn main()
 {
-	println!("shellng");
+	//println!("shellng");
 	
 	libshellng::shell::run();
 }

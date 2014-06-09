@@ -1,9 +1,11 @@
 
 use std::io;
+use std::path;
+use std::vec;
 use collections::ringbuf::{RingBuf};
 use collections::deque::{Deque};
 
-use helper::{uchar, UnicodeReader};
+use helper;
 
 pub enum TokenKind
 {
@@ -11,6 +13,7 @@ pub enum TokenKind
 	Id,
 	PlaceId,
 	StringLiteral,
+	NumLiteral,
 	
 	KwDef,			 // def
 					 // let
@@ -19,6 +22,8 @@ pub enum TokenKind
 					// (, ), [, ], ... 
 	SymROBracket,	// (
 	SymRCBracket,	// )
+	
+	SymDollar,		// $
 	
 	OpPlus,			 // +
 	OpAssign,		 // =
@@ -33,6 +38,7 @@ pub struct Token
 	s : String
 }
 
+#[deriving(PartialEq)]
 impl Token
 {
 	pub fn new(kind: TokenKind, s : &str) -> Token
@@ -40,6 +46,18 @@ impl Token
 		Token { kind:kind, s: String::from_str(s) }
 	}
 }
+
+impl PartialEq for Token 
+{
+     fn eq(&self, other: &Token) -> bool 
+     {
+         (self.kind as int == other.kind as int)
+         && (self.s == other.s)
+     }
+ }
+
+
+
 
 //todo reader interface which supports prompt???
 	// ShellSource trait
@@ -63,66 +81,81 @@ impl<'a> Lexer<'a>
 		Lexer { reader: reader, tokens: RingBuf::with_capacity(5)}
 	}
 	
-	//creates a single token
-	fn tokenize_part(&mut self, reader: &mut UnicodeReader) -> bool
+	fn whitespace_tok_check(&mut self, reader: &mut helper::CharReader)
 	{
-		let mut cur_res = reader.read_char();
-		
-		//skip preleading whitespace
-		while !cur_res.is_eob()
-		&& UnicodeReader::is_whitespace(cur_res.get_char()) 
-		{
-			cur_res = reader.read_char();
+		//whitespace check
+		if !reader.is_eob() 
+		&& reader.cur_char().is_whitespace() {
+			self.tokens.push_back(Token::new(Whitespace, " "));
 		}
-		
-		//read over buffer no token here
-		if reader.is_eob()
-		|| cur_res.is_eob() {
+	}
+	
+	//creates a single token
+	fn tokenize_part(&mut self, reader: &mut helper::CharReader) -> bool
+	{
+		//nothing to do
+		if reader.is_eob() {
 			return false;
 		}
 		
-		//have valid first char here?
-		
-		//safe start position (to extract ident, string, ... via utf8 slice
-		let start_pos = reader.pos();
-		
-		//create slice from here to next whitespace?
-			//pay attention when \ followed by whitespace occur
-			//whitespace gets escaped 
-		
-		
-		//if we have readed complete stuff add token
-			//detect token kind afterwards
-			//detect wildcards? (regex)
-		
-		//add whitespace token afterwards?
-			
-		//ascii char
-		if cur_res.get_char() < 0x7F 
+		//skip preleading whitespace
+		while !reader.is_eob()
+		&& reader.cur_char().is_whitespace()
 		{
-			let ascii_char : char = (cur_res.get_char() as u8) as char;
+			reader.next_char();
+		}
+		
+		//read over buffer no token here (whitespaces at end)
+		if reader.is_eob() {
+			return false;
+		}
+		
+		//safe position of first valid char
+		let start_pos = reader.pos();
+		let mut tok_kind : TokenKind = Eof;
+		
+		//if it is an id parse it to end
+		if reader.cur_char().is_alphanumeric()
+		{
+			tok_kind = Id;
 			
-			match ascii_char 
-			{
-				'$' => { }
-				_ => ()
+			//read over until something other occur
+			while !reader.is_eob()
+			&& reader.cur_char().is_alphanumeric() {
+				reader.next_char();
 			}
 			
-			//follow up
+			self.tokens.push_back(Token::new(tok_kind, reader.part().slice(start_pos, reader.pos())));
+			self.whitespace_tok_check(reader);
+			
+			return true;
 		}
-		return true;
-	}
-	
-	//tokenize a complete line
-	//line stands here for the buffer to tokenize
-	fn tokenize_line(&mut self, line : &[u8])
-	{
-		//as_bytes &'a [u8]
-		let mut reader = UnicodeReader::new(line); 
 		
-		//doit until end of line
-		while self.tokenize_part(&mut reader){		
+		//read numbers
+		
+		
+		//handling of other stuff
+		match reader.cur_char() 
+		{
+			'$' => 
+			{ tok_kind = SymDollar; 
+			  reader.next_char();
+				//followed by alphanumeric = PlaceId Parse complete?
+			}
+			
+			'\\' => { /* handle escape! */ }
+			
+			'"' => { /* todo read string */ }
+			_ => ()
 		}
+		
+		reader.next_char();
+		
+		//if at the end of reading a whitespace is the "next" char 
+		//	add a whitespace token
+		self.whitespace_tok_check(reader);
+		
+		return true;
 	}
 	
 	//TokenKind
@@ -142,7 +175,10 @@ impl<'a> Lexer<'a>
 		{
 			Ok(ref line) => 
 			{
-				self.tokenize_line(line.as_bytes());
+				//tokenize complete line?
+				let mut reader = helper::CharReader::new(line.as_slice());
+				while self.tokenize_part(&mut reader) {
+				}
 				return true;
 			}
 			Err(err) => 
@@ -155,4 +191,28 @@ impl<'a> Lexer<'a>
 		
 		//when runs to the end of a line and it is escaped read again
 	}
+}
+
+
+#[test]
+fn lexer_test()
+{
+	let test_string = String::from_str("foo 14 bar $abc $abc+1 $abc + 1");
+	let mut reader = io::MemReader::new(test_string.into_bytes());
+	let mut lexer = Lexer::new(&mut reader as &mut Buffer);
+	
+	let mut list = vec::Vec::new();
+	list.push(Token::new(Id, "foo"));
+	list.push(Token::new(Whitespace, " "));
+	//list.push(Token::new(NumLiteral, "14"));
+	
+	assert!(lexer.tokenize()); //tokenize should return true
+	
+	for i in range(0, list.len()) 
+	{
+		assert!(lexer.tokens.get(i) ==  list.get(i));
+	}
+	
+	
+	//multiline, escaping tests, ...
 }
