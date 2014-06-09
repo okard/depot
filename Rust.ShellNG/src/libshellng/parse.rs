@@ -1,10 +1,10 @@
 
 use collections::deque::{Deque};
 
-use lexer::{Token, Lexer};
+use lexer;
 use ast;
 
-pub fn parse(lex: &mut Lexer) -> ast::AstNode
+pub fn parse(lex: &mut lexer::Lexer) -> ast::AstNode
 {
 	//parse command
 	lex.tokenize();
@@ -18,9 +18,19 @@ pub fn parse(lex: &mut Lexer) -> ast::AstNode
 }
 
 
-fn parse_command(lex: &mut Lexer)
+fn parse_command(lex: &mut lexer::Lexer)
 {
-	let tok = (&mut lex.tokens as &mut Deque<Token>).pop_front();
+	let tok_o = lex.tokens.pop_front();
+	let tok_ref = tok_o.get_ref();
+	
+	if tok_ref.kind == lexer::PlaceId {
+	}
+	
+	match tok_ref.kind
+	{
+		lexer::Id => {}
+		_ => ()
+	}
 	
 	//parse <expr> only when PlaceId is found
 		// ls -l $myvar.get
@@ -49,3 +59,9 @@ fn parse_def()
 //next_nowhitespace
 //next
 //merge_token_until_whitespace?
+
+#[test]
+fn parser_test()
+{
+	
+}
