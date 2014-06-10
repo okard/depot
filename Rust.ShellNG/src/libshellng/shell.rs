@@ -5,12 +5,16 @@ use std::io::Buffer;
 
 //import lexer
 use lexer::{Lexer};
-use parse;
+use parse::{Parser};
+
+use exec;
+
+pub struct ShellContext;
 
 /*
 * Shell State
 */
-struct ShellState<'a>
+pub struct ShellState<'a>
 {
 	lexer: Lexer<'a>
 	//reader
@@ -27,11 +31,13 @@ impl<'a> ShellState<'a>
 {	
 	fn step(&mut self) -> bool
 	{
+		let mut parser = Parser::new(&mut self.lexer);
 		//parse a complete syntax tree:
-		let ast_tree = parse::parse(&mut self.lexer);
+		let ast_tree = parser.parse();
 		
+		let mut shctx = ShellContext;
 		//execute the tree
-		// exec(state, tree);
+		exec::exec(&mut shctx, &ast_tree);
 		
 		//prompt
 		print!("shellng> ");

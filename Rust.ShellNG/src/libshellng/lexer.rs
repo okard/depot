@@ -1,6 +1,6 @@
 
 use std::io;
-use std::vec;
+//use std::vec;
 use collections::ringbuf::{RingBuf};
 use collections::deque::{Deque};
 

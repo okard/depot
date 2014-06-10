@@ -3,6 +3,8 @@
 ShellNG implementation in rust
 
 
+## Todo
+* linenoise/readline for line handling?
 
 ## Lexing
 * Whitespace aware 
@@ -13,12 +15,17 @@ ShellNG implementation in rust
 	- ls -l "test folder"
 	 
 
-
 ## Test Notices
 	ls -l
 	ls -l *.sh 	//wildcards
 	
 	def a = "*.sh"
 	ls -l $a.get_files()
+	
+	def exec = "ls"
+	$exec -l .
+	
+	def s = "s"
+	l$s -l .
 	
 	

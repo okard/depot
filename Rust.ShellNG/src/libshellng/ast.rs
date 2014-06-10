@@ -16,10 +16,17 @@
 pub enum AstNode
 {
 	Empty,
-	Command,
+	Command(Box<CommandNode>),
+	StringLiteral(String),		//"asda" or abc
+	VarLiteral(String),			//$abc
 	
-	
+	List(Vec<Box<AstNode>>)	//concatenation of AstNode -> abc$abc 
 }
 
+pub struct CommandNode
+{
+	pub exe: Vec<Box<AstNode>>, //exe also Vec for exe for ls$abc -l stuff
+	pub args: Vec<Box<AstNode>> // one parameter is a List node
+}
 
 
