@@ -5,7 +5,8 @@
 #include <memory>
 
 #include <QPen>
-#include <QQuickItem>
+#include <QPainter>
+#include <QQuickPaintedItem>
 
 #include "PaintTool.hpp"
 #include "View.hpp"
@@ -16,7 +17,7 @@
  * Main QML Widget to show views
  *
  */
-class PresentationViewer : public QQuickItem
+class PresentationViewer : public QQuickPaintedItem
 {
     Q_OBJECT
 
@@ -36,15 +37,22 @@ public:
     Q_ENUMS(PaintToolType)
 
 private:
+	//Tool Management:
+
     QPen pen_;
     std::unordered_map<PaintToolType, std::unique_ptr<PaintTool>, std::hash<unsigned int>> tools_;
     PaintTool* currentTool_ = nullptr;
 
+	//Current view to show
 	View* view_;
+
+	//Helper for drawing in OverlayImage
+	QPainter overlayPainter_;
 
 public:
     explicit PresentationViewer(QQuickItem *parent = 0);
 
+	//get mouse events
     void mouseMoveEvent(QMouseEvent* event);
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);
@@ -64,14 +72,15 @@ public slots:
 
 
 signals:
-   void mouseMove(QMouseEvent* event);
-   void mousePress(QMouseEvent* event);
-   void mouseRelease(QMouseEvent* event);
 
+	//paint tool mouse events:
+	void mouseMove(QMouseEvent* event, QPainter& painter);
+	void mousePress(QMouseEvent* event, QPainter& painter);
+	void mouseRelease(QMouseEvent* event, QPainter& painter);
 
-   // QQuickItem interface
-protected:
-   QSGNode*updatePaintNode(QSGNode*, UpdatePaintNodeData*);
+// QQuickPaintedItem interface
+public:
+   void paint(QPainter* painter);
 };
 
 #endif // PRESENTATIONVIEWER_HPP

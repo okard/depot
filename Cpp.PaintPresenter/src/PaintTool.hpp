@@ -3,6 +3,10 @@
 
 #include <QObject>
 
+#include <QPoint>
+#include <QPainter>
+
+
 class QMouseEvent;
 
 
@@ -26,20 +30,25 @@ private:
     //QPixmap& overlay_;
 
     //access to overlay/painter
-
+protected:
     const QPen& pen_;
 public:
 
     explicit PaintTool(const QPen& pen);
     virtual ~PaintTool();
 
-
+	//access to QImage, QPainter???
+	//best way?
+	//add to events?
     //events
 
+	//temp draw
+
 public slots:
-    virtual void mouseMoveEvent(QMouseEvent* event);
-    virtual void mousePressEvent(QMouseEvent* event);
-    virtual void mouseReleaseEvent(QMouseEvent* event);
+	//mouseMoveEvent(QMouseEvent* QPainter*);
+	virtual void mouseMoveEvent(QMouseEvent* event, QPainter& p);
+	virtual void mousePressEvent(QMouseEvent* event, QPainter& p);
+	virtual void mouseReleaseEvent(QMouseEvent* event, QPainter& p);
 
     //disable
     //enable
@@ -53,15 +62,24 @@ class PenTool : public PaintTool
 {
     Q_OBJECT
 
+private:
+	QPoint penLastPoint_;
+
 public:
     explicit PenTool(const QPen& pen);
     virtual ~PenTool();
 
 
+
 public slots:
-    virtual void mouseMoveEvent(QMouseEvent* event);
-    virtual void mousePressEvent(QMouseEvent* event);
-    virtual void mouseReleaseEvent(QMouseEvent* event);
+	//mouseMoveEvent(QMouseEvent* QPainter*);
+	virtual void mouseMoveEvent(QMouseEvent* event, QPainter& p);
+	virtual void mousePressEvent(QMouseEvent* event, QPainter& p);
+	virtual void mouseReleaseEvent(QMouseEvent* event, QPainter& p);
+
+private:
+	void drawLineTo(QPainter& p, const QPoint &endPoint);
+
 };
 
 

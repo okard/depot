@@ -2,18 +2,44 @@
 #include "View.hpp"
 
 
+View::View()
+	: size_(1024, 768)
+{
+
+}
+
+const QSize& View::size() const
+{
+	return size_;
+}
+
+void View::setSize(const QSize& size)
+{
+	size_ = size;
+	emit size_changed();
+}
 
 const QString& View::name() const
 {
-	return this->name_;
+	return name_;
 }
 
-QImage& View::get_overlay()
+QImage* View::get_overlay()
 {
-
+	return nullptr;
 }
 
-void View::draw_to(const QRect& dirtyRect, QPainter& painter)
+bool View::hasOverlay()
+{
+	return false;
+}
+
+bool View::createOverlay()
+{
+	return false;
+}
+
+void View::draw_to(const QRectF&, QPainter&)
 {
 
 }

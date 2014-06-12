@@ -2,6 +2,7 @@
 #define PDFVIEW_HPP
 
 #include <QUrl>
+#include <QMap>
 
 #include "View.hpp"
 
@@ -16,7 +17,7 @@ class PdfView : public PageableView
 private:
 	//PDF Handling:
 	std::unique_ptr<Poppler::Document> pdfDocument_;    //the pdfDocument (use std::unique_ptr)
-	unsigned int pdfCurrentPage_;       //current page
+	int pdfCurrentPage_;       //current page
 	QImage pdfImage_;                   //the current pdf page as image
 
 	//Overlay Handling:
@@ -27,27 +28,27 @@ public:
 	~PdfView();
 
 	//access for preview and co?
-		//show next and prev page
-
-	//create from file
-	//static PdfView* open_file();
+		//show preview of next and prev page
 
 	// View interface
+
+	QImage* get_overlay();
+	bool hasOverlay();
+	bool createOverlay();
+	void draw_to(const QRectF& dirtyRect, QPainter& painter);
 
 public slots:
 	void loadPdf(QUrl file);
 
-public:
-
-	QImage& get_overlay();
-	void draw_to(const QRect& dirtyRect, QPainter& painter);
-
-	// PageableView interface
+// PageableView interface
 public:
 	int page_index();
 	void page_next();
 	void page_prev();
 	void page_set(int index);
+
+private:
+	void updatePdfImage();
 };
 
 

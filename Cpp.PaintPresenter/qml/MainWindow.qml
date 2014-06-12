@@ -72,6 +72,7 @@ ApplicationWindow {
         iconSource: "../images/icon_pen2.png"
         onTriggered: {
             mainWindow.tool_icon_source = iconSource
+            presentationViewer.switchTool(PresentationViewer.Pen)
         }
     }
 
@@ -95,7 +96,7 @@ ApplicationWindow {
             //Tool Chooser
             ToolButton
             {
-
+                tooltip: "Choose tool"
                 style: ButtonStyle {
                         label:
                             RowLayout{ Image {
@@ -116,6 +117,7 @@ ApplicationWindow {
 
             //Color Chooser
             ToolButton {
+                tooltip: "Choose tool color"
                 onClicked: toolColorDialog.open()
                 style: ButtonStyle {
                         background: Rectangle {
@@ -224,6 +226,10 @@ ApplicationWindow {
 
 
         view: view_current
+
+        /*viewChanged: {
+            //update view info label here
+        }*/
     }
 
     //timer widget dogs

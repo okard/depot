@@ -1,6 +1,7 @@
 
 #include "PaintTool.hpp"
 
+#include <QMouseEvent>
 
 PaintTool::PaintTool(const QPen& pen)
     : pen_(pen)
@@ -14,17 +15,17 @@ PaintTool::~PaintTool()
 }
 
 
-void PaintTool::mouseMoveEvent(QMouseEvent *event)
+void PaintTool::mouseMoveEvent(QMouseEvent*, QPainter&)
 {
 
 }
 
-void PaintTool::mousePressEvent(QMouseEvent *event)
+void PaintTool::mousePressEvent(QMouseEvent* , QPainter&)
 {
 
 }
 
-void PaintTool::mouseReleaseEvent(QMouseEvent *event)
+void PaintTool::mouseReleaseEvent(QMouseEvent* , QPainter&)
 {
 
 }
@@ -42,17 +43,32 @@ PenTool::~PenTool()
 
 }
 
-void PenTool::mouseMoveEvent(QMouseEvent *event)
+void PenTool::mouseMoveEvent(QMouseEvent *event, QPainter& p)
 {
-    //drawLineTo(event->pos());
+	//todo calculate right mouse position
+
+	drawLineTo(p, event->pos());
 }
 
-void PenTool::mousePressEvent(QMouseEvent *event)
+void PenTool::mousePressEvent(QMouseEvent *event, QPainter& p)
 {
-    //penLastPoint_ = event->pos();
+	penLastPoint_ = event->pos();
 }
 
-void PenTool::mouseReleaseEvent(QMouseEvent *event)
+void PenTool::mouseReleaseEvent(QMouseEvent *event, QPainter& p)
 {
-    //drawLineTo(event->pos());
+	drawLineTo(p, event->pos());
+}
+
+void PenTool::drawLineTo(QPainter& p, const QPoint& endPoint)
+{
+	p.setPen(pen_);
+	p.drawLine(penLastPoint_, endPoint);
+
+	//int rad = (pen_.width()/ 2) + 2;
+	//QRect dirtyRect = QRect(penLastPoint_, endPoint).normalized().adjusted(-rad, -rad, +rad, +rad);
+
+	penLastPoint_ = endPoint;
+
+	//emit change event?
 }

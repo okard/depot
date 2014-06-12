@@ -39,7 +39,8 @@ HEADERS  += \
     src/PaintTool.hpp \
     src/PresentationViewer.hpp \
     src/PdfView.hpp \
-    src/ViewListModel.hpp
+    src/ViewListModel.hpp \
+    src/Helper.hpp
 
 FORMS    += src/mainwindow.ui
 

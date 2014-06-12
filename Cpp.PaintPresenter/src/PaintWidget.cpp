@@ -11,22 +11,7 @@
 
 #include <iostream>
 
-
-static QRect calcDrawArea(const QSize& source, const QSize& target)
-{
-    QSize s = source;
-    s.scale(target.width(), target.height(), Qt::KeepAspectRatio);
-    int x = s.width() < target.width() ? (qreal)(target.width() - s.width())/(qreal)2 : 0;
-    int y = s.height() < target.height() ? (qreal)(target.height() - s.height())/(qreal)2 : 0;
-    return QRect(x, y, s.width(), s.height());
-}
-
-template<typename T>
-static inline T clamp(T value, T min, T max)
-{
-    return value > max ? max : value < min ? min : value;
-}
-
+#include "Helper.hpp"
 
 
 PaintWidget::PaintWidget(QWidget *parent)
