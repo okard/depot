@@ -1,4 +1,5 @@
 
+#include <QObject>
 #include <QApplication>
 #include <QQmlApplicationEngine>
 
@@ -7,18 +8,16 @@
 
 int main(int argc, char *argv[])
 {
+	//QGuiApplication app(argc, argv);
+	 QApplication app(argc, argv);
 
-
-    QApplication app(argc, argv);
-
-    // QT Window
-    //MainWindow w;
-
+	//register ScreenshotView, PdfView ???
     qmlRegisterType<PresentationViewer>("PP", 1, 0, "PresentationViewer");
-    //register ScreenshotView, PdfView
 
-    // QML Window
-    QQmlApplicationEngine engine("qml/MainWindow.qml");
-    
+	// QML Window
+	QQmlApplicationEngine engine;
+	engine.setOutputWarningsToStandardError(true);
+	engine.load("qml/MainWindow.qml");
+
     return app.exec();
 }

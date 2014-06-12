@@ -8,7 +8,14 @@
 #include <QQuickItem>
 
 #include "PaintTool.hpp"
+#include "View.hpp"
 
+/**
+ * @brief The PresentationViewer class
+ *
+ * Main QML Widget to show views
+ *
+ */
 class PresentationViewer : public QQuickItem
 {
     Q_OBJECT
@@ -32,7 +39,7 @@ private:
     PaintTool* currentTool_ = nullptr;
 
     //Views
-    //std::vector<std::unique_ptr<View>> views_;
+	QList<std::unique_ptr<View>> views_;
 
 public:
     explicit PresentationViewer(QQuickItem *parent = 0);
@@ -46,6 +53,11 @@ signals:
 
 public slots:
     void switchTool(PaintToolType t);
+
+	//addView
+	//addPdfView
+	//addScreenshotView
+
 
 signals:
    void mouseMove(QMouseEvent* event);

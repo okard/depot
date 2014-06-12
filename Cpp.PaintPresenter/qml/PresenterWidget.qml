@@ -10,5 +10,6 @@ Rectangle {
 
 	PresentationViewer
 	{
+        id: presentationViewer
 	}
 }

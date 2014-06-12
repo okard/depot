@@ -30,3 +30,25 @@
 
 * QML Rewrite?
     - add qml/js to resources?
+    
+* Streaming?
+	-> Use Tablet for presentation/drawings 
+	-> Stream to beamer
+    
+## General Design Notices
+	
+Switchable views e.g. for an image or PDF file
+	
+* Views
+	- Type
+		* PDF View
+		* Image View
+	- Pageable
+		* Pdf View has multpiple pages 
+	- Overlay
+		* Drawings to a View/Subpage
+	
+* For Views Exists GUI Elements?
+	* Pure readonly show (View -> Subpage + Overlay)
+	* Editable?
+		- Overlay Editing

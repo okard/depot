@@ -12,6 +12,8 @@ TARGET = presentation_paint
 
 QMAKE_CXXFLAGS += -std=c++11
 
+CONFIG += qml_debug console
+
 # whats wrong????
 #unix:INCLUDEPATH += "/usr/include/qt/QtQml"
 #unix:INCLUDEPATH += "/usr/include/qt/QtQuick"
@@ -25,7 +27,8 @@ SOURCES += src/main.cpp\
     src/PresentationDialog.cpp \
     src/MainWindow.cpp \
     src/PaintWidget.cpp \
-    src/PresentationViewer.cpp
+    src/PresentationViewer.cpp \
+    src/View.cpp
 
 
 HEADERS  += \
@@ -66,4 +69,6 @@ OTHER_FILES += \
     images/icon_blue.png \
     images/icon_black.png \
     qml/PresenterWidget.qml \
-    qml/MainWindow.js
+    qml/MainWindow.js \
+    qml/TimerWidget.qml \
+    qml/PresentationWindow.qml
