@@ -11,7 +11,6 @@ class MainWindow;
 }
 
 class PaintWidget;
-class PresentationDialog;
 
 class MainWindow : public QMainWindow
 {
@@ -32,7 +31,6 @@ private slots:
 private:
     Ui::MainWindow *ui;
     PaintWidget* paintWidget;
-    PresentationDialog* presentationDialog;
 
     QComboBox views_;
     QComboBox overlays_;

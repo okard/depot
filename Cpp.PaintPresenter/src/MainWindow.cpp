@@ -2,8 +2,6 @@
 #include "ui_mainwindow.h"
 #include "PaintWidget.hpp"
 
-#include "PresentationDialog.hpp"
-
 #include <QFileDialog>
 
 #include <iostream>
@@ -14,13 +12,11 @@ MainWindow::MainWindow(QWidget *parent)
     , timer_(new QTimer(this))
 {
     paintWidget = new PaintWidget(this);
-    presentationDialog = new PresentationDialog(*paintWidget);
 
     ui->setupUi(this);
     ui->menuBar->hide();
     ui->actionWindowsMenu->setMenu(ui->menuWindows);
     ui->menuWindows->addAction(ui->dockTimer->toggleViewAction());
-    ui->menuWindows->addAction(presentationDialog->toggleViewAction());
 
     ui->mainToolBar->addWidget(&views_);
     ui->mainToolBar->addWidget(&presentationSize_);
@@ -77,23 +73,11 @@ MainWindow::MainWindow(QWidget *parent)
 
     //toggle presentation dialog
     //paintWidget->autoOutputSize() = false;
-
-    connect(presentationDialog, &QDialog::open, [=]() {
-        paintWidget->autoOutputSize() = false;
-        paintWidget->updateOutputSize(presentationDialog->size());
-    });
-
-    connect(presentationDialog, &QDialog::finished, [=](int r) {
-        paintWidget->autoOutputSize() = true;
-        paintWidget->updateOutputSize(paintWidget->size());
-    });
-
 }
 
 MainWindow::~MainWindow()
 {
     delete timer_;
-    delete presentationDialog;
     delete paintWidget;
     delete ui;
 }
@@ -120,18 +104,5 @@ void MainWindow::openPdfFile()
 void MainWindow::togglePresentationDialog()
 {
 
-    if(presentationDialog->isVisible())
-    {
-        std::cout << "off" << std::endl;
-        presentationDialog->close();
-    }
-    else
-    {
-        std::cout << "on" << std::endl;
-        presentationDialog->showFullScreen();
-        presentationDialog->raise();
-        presentationDialog->activateWindow();
-        this->activateWindow();
-    }
 }
 

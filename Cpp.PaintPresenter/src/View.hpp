@@ -1,6 +1,8 @@
 #ifndef VIEW_HPP
 #define VIEW_HPP
 
+#include <memory>
+
 #include <QMap>
 #include <QImage>
 
@@ -13,26 +15,27 @@ namespace Poppler { class Document; }
 class View : public QObject
 {
     Q_OBJECT
-    //Q_PROPERTY(QString name_ READ name)
+	Q_PROPERTY(QString name READ name NOTIFY name_changed)
 
-private:
+protected:
     QString name_;
 
-
 public:
+	const QString& name() const;
     //events
 
 	//get the current overlay
-	virtual QImage& get_overlay() = 0;
+	virtual QImage& get_overlay();
 
 	//draw the current view to painter
-	virtual void draw_to(const QRect& dirtyRect, QPainter& painter) = 0;
+	virtual void draw_to(const QRect& dirtyRect, QPainter& painter);
 
 	//resize stuff -> internal size of view & overlay
 
-    //name
-	QString& name();
+signals:
+	void name_changed();
 };
+
 
 
 /**
@@ -44,7 +47,6 @@ class PageableView : public View
 	Q_OBJECT
 
 public:
-
 	//page_change slot
 
 	virtual int page_index() = 0;
@@ -58,25 +60,6 @@ signals:
 
 };
 
-
-
-//Pdf View
-class PdfView : public PageableView
-{
-private:
-	//PDF Handling:
-    Poppler::Document* pdfDocument_;    //the pdfDocument (use std::unique_ptr)
-    unsigned int pdfCurrentPage_;       //current page
-	QImage pdfImage_;                   //the current pdf page as image
-
-	//Overlay Handling:
-    QMap<unsigned int, QImage> overlays_; //overlay for each page
-
-public:
-
-	//create from file
-	//static PdfView* open_file();
-};
 
 //Image View
 	//shows a image + overlay

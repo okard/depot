@@ -18,7 +18,6 @@ ApplicationWindow {
     property color tool_color: "black"
     property url tool_icon_source
 
-
     Action {
             id: actionOpenPdf
             text: "&Open Pdf"
@@ -44,6 +43,15 @@ ApplicationWindow {
         //onTriggered: Logic.openPdfFile()
         tooltip: "Close view"
         iconSource: "../images/circle-x-8x.png"
+    }
+
+    Action {
+        id: actionShowPresentation
+        text: "show presentation"
+
+        onTriggered: {
+            presentationWindow.show();
+        }
     }
 
     //page_next
@@ -84,6 +92,7 @@ ApplicationWindow {
 	{
 		RowLayout
 		{
+            //Tool Chooser
             ToolButton
             {
 
@@ -105,6 +114,7 @@ ApplicationWindow {
                 }
             }
 
+            //Color Chooser
             ToolButton {
                 onClicked: toolColorDialog.open()
                 style: ButtonStyle {
@@ -127,10 +137,11 @@ ApplicationWindow {
                 }
             }
 
+
             ToolButton { action: actionOpenPdf }
             ToolButton { action: actionMakeScreenshot }
-            //
 
+            //
             Text {
                 text: " View: "
             }
@@ -138,7 +149,9 @@ ApplicationWindow {
 			ComboBox
 			{
 				id: cmbViews
-                model: []
+                width: 200
+                model: views
+                textRole: "name"
 			}
 
             ToolButton { action: actionCloseView }
@@ -157,10 +170,11 @@ ApplicationWindow {
             Text {
                 text: "View Info: "
             }
+
+
+            ToolButton { action: actionShowPresentation }
 		}
 	}
-
-
 
     //pdf file dialog
 	FileDialog
@@ -168,7 +182,19 @@ ApplicationWindow {
         id: diaOpenPdf
 		title: "Please choose a file"
 		nameFilters: [ "PDF Files (*.pdf)" ]
+        onAccepted: Logic.addPdfView(diaOpenPdf.fileUrl)
 	}
+
+
+    ListModel
+    {
+        id: views
+    }
+
+    property int view_index: cmbViews.currentIndex
+    property View view_current: views.count > 0 && view_index > 0 && view_index < views.count
+                                ? views[view_index] : null
+
 
     //the presentation viewer (show views)
     PresentationViewer
@@ -178,10 +204,19 @@ ApplicationWindow {
         height: parent.height
     }
 
+    TimerWidget {
+
+    }
+
+
     //presentation window for the second screen
     PresentationWindow
     {
         id: presentationWindow
     }
 
+    PdfView {
+        id: testView
+    }
 }
+

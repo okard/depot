@@ -24,20 +24,20 @@ LIBS +=  -lpoppler-qt5
 
 SOURCES += src/main.cpp\
     src/PaintTool.cpp \
-    src/PresentationDialog.cpp \
     src/MainWindow.cpp \
     src/PaintWidget.cpp \
     src/PresentationViewer.cpp \
-    src/View.cpp
+    src/View.cpp \
+    src/PdfView.cpp
 
 
 HEADERS  += \
-    src/PresentationDialog.hpp \
     src/MainWindow.hpp \
     src/PaintWidget.hpp \
     src/View.hpp \
     src/PaintTool.hpp \
-    src/PresentationViewer.hpp
+    src/PresentationViewer.hpp \
+    src/PdfView.hpp
 
 FORMS    += src/mainwindow.ui
 

@@ -5,6 +5,7 @@
 
 #include "MainWindow.hpp"
 #include "PresentationViewer.hpp"
+#include "PdfView.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -13,6 +14,9 @@ int main(int argc, char *argv[])
 
 	//register ScreenshotView, PdfView ???
     qmlRegisterType<PresentationViewer>("PP", 1, 0, "PresentationViewer");
+	qmlRegisterType<View>("PP", 1, 0, "View");
+	qmlRegisterType<PdfView>("PP", 1, 0, "PdfView");
+	//register ScreenshotView
 
 	// QML Window
 	QQmlApplicationEngine engine;

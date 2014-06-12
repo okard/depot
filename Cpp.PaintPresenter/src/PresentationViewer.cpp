@@ -12,7 +12,7 @@ PresentationViewer::PresentationViewer(QQuickItem *parent) :
     pen_.setCapStyle(Qt::RoundCap);
     pen_.setJoinStyle(Qt::RoundJoin);
 
-    tools_.insert(std::make_pair<PaintToolType, std::unique_ptr<PaintTool>>(Pen, std::unique_ptr<PaintTool>(new PenTool(pen_))));
+	tools_.insert(std::make_pair<PaintToolType, std::unique_ptr<PaintTool>>(Pen, std::unique_ptr<PaintTool>(new PenTool(pen_))));
 }
 
 void PresentationViewer::mouseMoveEvent(QMouseEvent *event)
@@ -44,5 +44,6 @@ void PresentationViewer::switchTool(PresentationViewer::PaintToolType t)
     connect(this, SIGNAL(mousePress), currentTool_, SLOT(mousePressEvent));
     connect(this, SIGNAL(mouseRelease), currentTool_, SLOT(mouseReleaseEvent));
 
-    //connect events
+	//connect events
 }
+

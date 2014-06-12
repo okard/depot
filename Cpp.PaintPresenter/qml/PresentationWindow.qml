@@ -5,4 +5,8 @@ Window
 {
     width: 100
     height: 62
+
+    Rectangle {
+        color: "red"
+    }
 }

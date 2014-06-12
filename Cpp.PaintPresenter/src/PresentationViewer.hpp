@@ -38,9 +38,6 @@ private:
     std::unordered_map<PaintToolType, std::unique_ptr<PaintTool>, std::hash<unsigned int>> tools_;
     PaintTool* currentTool_ = nullptr;
 
-    //Views
-	QList<std::unique_ptr<View>> views_;
-
 public:
     explicit PresentationViewer(QQuickItem *parent = 0);
 
@@ -48,15 +45,16 @@ public:
     void mousePressEvent(QMouseEvent* event);
     void mouseReleaseEvent(QMouseEvent* event);
 
+
+	//attach ListModel View property?
+
 signals:
     //tool changed
 
 public slots:
     void switchTool(PaintToolType t);
 
-	//addView
-	//addPdfView
-	//addScreenshotView
+	//change_view
 
 
 signals:
