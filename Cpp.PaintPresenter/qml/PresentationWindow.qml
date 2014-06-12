@@ -8,5 +8,7 @@ Window
 
     Rectangle {
         color: "red"
+        width: parent.width
+        height: parent.height
     }
 }

@@ -50,7 +50,7 @@ ApplicationWindow {
         text: "show presentation"
 
         onTriggered: {
-            presentationWindow.show();
+            presentationWindow.showMaximized();
         }
     }
 
@@ -150,8 +150,12 @@ ApplicationWindow {
 			{
 				id: cmbViews
                 width: 200
-                model: views
-                textRole: "name"
+                currentIndex: -1
+                textRole: "display"
+                onCurrentIndexChanged: {
+                    console.log("cmbViews index changed " + currentIndex)
+                    view_index = currentIndex
+                }
 			}
 
             ToolButton { action: actionCloseView }
@@ -186,15 +190,30 @@ ApplicationWindow {
 	}
 
 
-    ListModel
+
+    //View handling:
+    ViewListModel
     {
         id: views
+
+        onDataChanged: {
+            if(count == 1)
+            {
+                cmbViews.currentIndex = -1;
+                cmbViews.model = views;
+                cmbViews.currentIndex = 0;
+            }
+
+            console.log("views.count: " + count)
+        }
+
     }
 
-    property int view_index: cmbViews.currentIndex
-    property View view_current: views.count > 0 && view_index > 0 && view_index < views.count
-                                ? views[view_index] : null
-
+    property int view_index
+    property View view_current: views.count > 0
+                                    && view_index >= 0
+                                    && view_index < views.count
+                                ? views.get(view_index) : null
 
     //the presentation viewer (show views)
     PresentationViewer
@@ -202,12 +221,14 @@ ApplicationWindow {
         id: presentationViewer
         width: parent.width
         height: parent.height
+
+
+        view: view_current
     }
 
+    //timer widget dogs
     TimerWidget {
-
     }
-
 
     //presentation window for the second screen
     PresentationWindow
@@ -215,8 +236,12 @@ ApplicationWindow {
         id: presentationWindow
     }
 
-    PdfView {
-        id: testView
+    onView_indexChanged: {
+        console.log("view_index: " + view_index)
+    }
+
+    onView_currentChanged: {
+        console.log("view_current: " + view_current)
     }
 }
 

@@ -20,6 +20,8 @@ class PresentationViewer : public QQuickItem
 {
     Q_OBJECT
 
+	Q_PROPERTY(View* view READ get_view WRITE set_view NOTIFY viewChanged)
+
 public:
     //tools
     enum PaintToolType : unsigned int
@@ -38,6 +40,8 @@ private:
     std::unordered_map<PaintToolType, std::unique_ptr<PaintTool>, std::hash<unsigned int>> tools_;
     PaintTool* currentTool_ = nullptr;
 
+	View* view_;
+
 public:
     explicit PresentationViewer(QQuickItem *parent = 0);
 
@@ -48,13 +52,15 @@ public:
 
 	//attach ListModel View property?
 
+	View* get_view();
+	void set_view(View* v);
+
 signals:
-    //tool changed
+	void toolChanged();
+	void viewChanged();
 
 public slots:
     void switchTool(PaintToolType t);
-
-	//change_view
 
 
 signals:
@@ -62,6 +68,10 @@ signals:
    void mousePress(QMouseEvent* event);
    void mouseRelease(QMouseEvent* event);
 
+
+   // QQuickItem interface
+protected:
+   QSGNode*updatePaintNode(QSGNode*, UpdatePaintNodeData*);
 };
 
 #endif // PRESENTATIONVIEWER_HPP

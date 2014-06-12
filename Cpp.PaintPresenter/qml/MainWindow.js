@@ -18,7 +18,7 @@ function addPdfView(url)
     //load the pdf
     newObject.loadPdf(url);
 
-    console.log(newObject.name);
+    console.log("loaded pdf file: " + newObject.name);
 
     //append to view listmodel
     views.append(newObject);

@@ -1,5 +1,6 @@
 #include "PresentationViewer.hpp"
 
+#include <QSGSimpleRectNode>
 
 
 PresentationViewer::PresentationViewer(QQuickItem *parent) :
@@ -13,6 +14,9 @@ PresentationViewer::PresentationViewer(QQuickItem *parent) :
     pen_.setJoinStyle(Qt::RoundJoin);
 
 	tools_.insert(std::make_pair<PaintToolType, std::unique_ptr<PaintTool>>(Pen, std::unique_ptr<PaintTool>(new PenTool(pen_))));
+
+
+	this->setFlag(QQuickItem::ItemHasContents);
 }
 
 void PresentationViewer::mouseMoveEvent(QMouseEvent *event)
@@ -27,7 +31,22 @@ void PresentationViewer::mousePressEvent(QMouseEvent *event)
 
 void PresentationViewer::mouseReleaseEvent(QMouseEvent *event)
 {
-    emit mouseRelease(event);
+	emit mouseRelease(event);
+}
+
+View* PresentationViewer::get_view()
+{
+	return view_;
+}
+
+void PresentationViewer::set_view(View* v)
+{
+	if(v == nullptr)
+		return;
+
+	qDebug() << "PresentationViewer::set_view called";
+	view_ = v;
+	emit viewChanged();
 }
 
 void PresentationViewer::switchTool(PresentationViewer::PaintToolType t)
@@ -47,3 +66,17 @@ void PresentationViewer::switchTool(PresentationViewer::PaintToolType t)
 	//connect events
 }
 
+
+
+QSGNode*PresentationViewer::updatePaintNode(QSGNode* node, UpdatePaintNodeData*)
+{
+
+	QSGSimpleRectNode *n = static_cast<QSGSimpleRectNode *>(node);
+	if (!n) {
+		n = new QSGSimpleRectNode();
+		n->setColor(Qt::red);
+	}
+	n->setRect(boundingRect());
+	return n;
+
+}

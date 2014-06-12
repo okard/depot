@@ -28,7 +28,8 @@ SOURCES += src/main.cpp\
     src/PaintWidget.cpp \
     src/PresentationViewer.cpp \
     src/View.cpp \
-    src/PdfView.cpp
+    src/PdfView.cpp \
+    src/ViewListModel.cpp
 
 
 HEADERS  += \
@@ -37,7 +38,8 @@ HEADERS  += \
     src/View.hpp \
     src/PaintTool.hpp \
     src/PresentationViewer.hpp \
-    src/PdfView.hpp
+    src/PdfView.hpp \
+    src/ViewListModel.hpp
 
 FORMS    += src/mainwindow.ui
 
