@@ -55,7 +55,7 @@ bool PdfView::hasOverlay()
 }
 
 
-void PdfView::draw_to(const QRectF& dirtyRect, QPainter& painter)
+void PdfView::draw_to(const QRectF&, QPainter& painter)
 {
 	painter.setRenderHint(QPainter::SmoothPixmapTransform, true);
 	painter.setRenderHint(QPainter::Antialiasing, true);
@@ -64,8 +64,8 @@ void PdfView::draw_to(const QRectF& dirtyRect, QPainter& painter)
 	//draw pdf if available
 	if(pdfDocument_)
 	{
-	   QSize s(4, 3);
-	   QRect area = calcDrawArea(s, painter.viewport().size());
+	   //QSize s(4, 3);
+	   QRect area = calcDrawArea(pdfImage_.size(), painter.viewport().size());
 	   //std::cout << area.x() << ' ' << area.y() << ' ' << area.width() << ' ' << area.height() << std::endl;
 	   painter.drawImage(area, pdfImage_);
 	}
@@ -80,15 +80,18 @@ void PdfView::updatePdfImage()
 	std::unique_ptr<Poppler::Page> page(pdfDocument_->page(pdfCurrentPage_));
 
 	auto page_size = page->pageSize(); //page size in points, 72 dpi == each point one pixel
-	auto rect = calcDrawArea(page_size, this->size()); //scale up to size
+	auto rect = calcDrawArea(page_size, this->size()); //scale up to view size
 
 	//extract factor
 	float xfactor = 72.0 * ((qreal)rect.width()/(qreal)page_size.width());
 	float yfactor = 72.0 * ((qreal)rect.height()/(qreal)page_size.height());
 	pdfImage_ = page->renderToImage(xfactor, yfactor);
 
+	qDebug() << "PDF_Image size: " << pdfImage_.width() << ", " << pdfImage_.height();
+
 	emit view_changed();
 }
+
 
 int PdfView::page_index()
 {
@@ -126,8 +129,14 @@ bool PdfView::createOverlay()
 {
 	if(!hasOverlay())
 	{
-		overlays_[page_index()] = QImage(size(), QImage::Format_ARGB32);
+		//overlay in the same size as the corospending pdf page
+		overlays_[page_index()] = QImage(pdfImage_.size(), QImage::Format_ARGB32);
+		//overlays_[page_index()].fill(QColor::fromRgb(255,0,0,30));
+		overlays_[page_index()].fill(QColor::fromRgb(0,0,0,0));
 		emit view_changed();
+
+		qDebug() << "Overlay_Image size: " << overlays_[page_index()].width()
+								   << ", " << overlays_[page_index()].height();
 		return true;
 	}
 	return false;

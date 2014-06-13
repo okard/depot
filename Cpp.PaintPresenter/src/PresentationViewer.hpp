@@ -67,6 +67,8 @@ signals:
 	void toolChanged();
 	void viewChanged();
 
+	//size changed?
+
 public slots:
     void switchTool(PaintToolType t);
 

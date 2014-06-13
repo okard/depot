@@ -37,8 +37,6 @@ void PresentationViewer::mousePressEvent(QMouseEvent *event)
 {
 	qDebug() << "PresentationViewer::mousePressEvent called";
 
-
-
 	//create overlay when not available
 	if( view_ != nullptr && !view_->hasOverlay())
 	{
@@ -76,8 +74,12 @@ View* PresentationViewer::get_view()
 
 void PresentationViewer::set_view(View* v)
 {
+	view_ = nullptr; //reset internal view
+
 	if(v == nullptr)
 		return;
+
+	//overlayPainter_ = QPainter();
 
 	qDebug() << "PresentationViewer::set_view called";
 	view_ = v;
@@ -113,13 +115,18 @@ void PresentationViewer::paint(QPainter* painter)
 	if( view_ != nullptr)
 	{
 		//draw the view content
+		painter->save();
 		view_->draw_to(contentsBoundingRect(), *painter);
+		painter->restore();
 
 		//draw the current overlay of the view when available
 		if(view_->hasOverlay())
 		{
+			//contentsBoundingRect() == painter.viewport().size() ????
 			//this upsizes image?
-			painter->drawImage(contentsBoundingRect(), *view_->get_overlay());
+			QSize s = QSize(contentsBoundingRect().size().width(), contentsBoundingRect().size().height());
+			QRect area = calcDrawArea(view_->get_overlay()->size(), s);
+			painter->drawImage(area, *view_->get_overlay());
 		}
 	}
 

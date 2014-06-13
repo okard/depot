@@ -3,7 +3,6 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 
-#include "MainWindow.hpp"
 #include "PresentationViewer.hpp"
 #include "PdfView.hpp"
 #include "ViewListModel.hpp"

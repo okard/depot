@@ -45,6 +45,10 @@ public:
 
 	//QString viewInfo();
 
+	//deliver actions? QList<Action> actions();
+		//pdf has page forward backwards ...
+		//screenshot has, clear, new, save
+
 signals:
 	void name_changed();
 	void size_changed();

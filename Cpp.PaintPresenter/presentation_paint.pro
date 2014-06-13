@@ -24,7 +24,6 @@ LIBS +=  -lpoppler-qt5
 
 SOURCES += src/main.cpp\
     src/PaintTool.cpp \
-    src/MainWindow.cpp \
     src/PaintWidget.cpp \
     src/PresentationViewer.cpp \
     src/View.cpp \
@@ -33,7 +32,6 @@ SOURCES += src/main.cpp\
 
 
 HEADERS  += \
-    src/MainWindow.hpp \
     src/PaintWidget.hpp \
     src/View.hpp \
     src/PaintTool.hpp \
@@ -41,8 +39,6 @@ HEADERS  += \
     src/PdfView.hpp \
     src/ViewListModel.hpp \
     src/Helper.hpp
-
-FORMS    += src/mainwindow.ui
 
 RESOURCES += \
     resources.qrc

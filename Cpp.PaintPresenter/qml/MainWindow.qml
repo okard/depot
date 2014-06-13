@@ -15,6 +15,7 @@ ApplicationWindow {
 	width: 800; height: 800
 	visible: true
 
+    //properties for tool management
     property color tool_color: "black"
     property url tool_icon_source
 
@@ -224,11 +225,11 @@ ApplicationWindow {
         width: parent.width
         height: parent.height
 
-
         view: view_current
 
         /*viewChanged: {
             //update view info label here
+            //add a action toolbar? from view.xxxxx
         }*/
     }
 

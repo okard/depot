@@ -52,3 +52,5 @@ Switchable views e.g. for an image or PDF file
 	* Pure readonly show (View -> Subpage + Overlay)
 	* Editable?
 		- Overlay Editing
+
+* Network interface possibilities
