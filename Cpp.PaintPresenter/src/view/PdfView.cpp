@@ -5,7 +5,7 @@
 
 #include <poppler/qt5/poppler-qt5.h>
 
-#include "Helper.hpp"
+#include "../Helper.hpp"
 
 
 PdfView::PdfView()
@@ -100,20 +100,12 @@ int PdfView::page_index()
 
 void PdfView::page_next()
 {
-	if(pdfDocument_ == nullptr)
-		return;
-
-	pdfCurrentPage_ = clamp<int>(pdfCurrentPage_ + 1, 0, pdfDocument_->numPages()-1);
-	updatePdfImage();
+	page_set(pdfCurrentPage_ + 1);
 }
 
 void PdfView::page_prev()
 {
-	if(pdfDocument_ == nullptr)
-		return;
-
-	pdfCurrentPage_ = clamp<int>(pdfCurrentPage_ - 1, 0, pdfDocument_->numPages()-1);
-	updatePdfImage();
+	page_set(pdfCurrentPage_ - 1);
 }
 
 void PdfView::page_set(int index)
@@ -121,8 +113,13 @@ void PdfView::page_set(int index)
 	if(pdfDocument_ == nullptr)
 		return;
 
+	int cur_page = pdfCurrentPage_;
 	pdfCurrentPage_ = clamp<int>(index, 0, pdfDocument_->numPages()-1);
-	updatePdfImage();
+
+	if( cur_page != pdfCurrentPage_)
+	{
+		updatePdfImage();
+	}
 }
 
 bool PdfView::createOverlay()
@@ -139,5 +136,24 @@ bool PdfView::createOverlay()
 								   << ", " << overlays_[page_index()].height();
 		return true;
 	}
+	return false;
+}
+
+
+bool PdfView::doCommand(const QString& command)
+{
+	if(command == "page_prev")
+	{
+		page_prev();
+		return true;
+	}
+
+	if(command == "page_next")
+	{
+		page_next();
+		return true;
+	}
+
+
 	return false;
 }

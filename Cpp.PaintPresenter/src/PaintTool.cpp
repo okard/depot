@@ -46,11 +46,10 @@ PenTool::~PenTool()
 void PenTool::mouseMoveEvent(QMouseEvent *event, QPainter& p)
 {
 	//todo calculate right mouse position
-
 	drawLineTo(p, event->pos());
 }
 
-void PenTool::mousePressEvent(QMouseEvent *event, QPainter& p)
+void PenTool::mousePressEvent(QMouseEvent *event, QPainter&)
 {
 	penLastPoint_ = event->pos();
 }

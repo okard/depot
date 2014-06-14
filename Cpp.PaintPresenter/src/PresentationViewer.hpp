@@ -9,7 +9,7 @@
 #include <QQuickPaintedItem>
 
 #include "PaintTool.hpp"
-#include "View.hpp"
+#include "view/View.hpp"
 
 /**
  * @brief The PresentationViewer class
@@ -73,6 +73,7 @@ public slots:
     void switchTool(PaintToolType t);
 
 
+	void redraw();
 signals:
 
 	//paint tool mouse events:

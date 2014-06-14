@@ -55,6 +55,27 @@ ApplicationWindow {
         }
     }
 
+
+    Action {
+        id: actionPagePrev
+        iconSource: "../images/icon_prev.png"
+
+        onTriggered: {
+            view_current.doCommand("page_prev");
+        }
+    }
+
+    Action {
+        id: actionPageNext
+        iconSource: "../images/icon_next.png"
+
+        onTriggered: {
+            view_current.doCommand("page_next");
+        }
+    }
+
+
+
     //page_next
     //page_prev
 
@@ -178,10 +199,18 @@ ApplicationWindow {
                 text: "View Info: "
             }
 
+            ToolButton { action: actionPagePrev }
+            ToolButton { action: actionPageNext }
 
             ToolButton { action: actionShowPresentation }
 		}
 	}
+
+    statusBar: StatusBar {
+        RowLayout {
+            Label { text: "status bar" }
+        }
+    }
 
     //pdf file dialog
 	FileDialog
@@ -243,6 +272,8 @@ ApplicationWindow {
         id: presentationWindow
     }
 
+
+
     onView_indexChanged: {
         console.log("view_index: " + view_index)
     }
@@ -250,5 +281,6 @@ ApplicationWindow {
     onView_currentChanged: {
         console.log("view_current: " + view_current)
     }
+
 }
 

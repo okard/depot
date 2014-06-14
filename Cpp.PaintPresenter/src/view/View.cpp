@@ -43,3 +43,8 @@ void View::draw_to(const QRectF&, QPainter&)
 {
 
 }
+
+bool View::doCommand(const QString&)
+{
+	return false;
+}

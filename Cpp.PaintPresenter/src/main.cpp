@@ -4,8 +4,8 @@
 #include <QQmlApplicationEngine>
 
 #include "PresentationViewer.hpp"
-#include "PdfView.hpp"
-#include "ViewListModel.hpp"
+#include "view/PdfView.hpp"
+#include "view/ViewListModel.hpp"
 
 int main(int argc, char *argv[])
 {

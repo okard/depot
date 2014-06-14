@@ -31,7 +31,7 @@ void ViewListModel::append(View* v)
 	emit onChangedCount();
 }
 
-int ViewListModel::rowCount(const QModelIndex& parent) const
+int ViewListModel::rowCount(const QModelIndex&) const
 {
 	return views_.count();
 }

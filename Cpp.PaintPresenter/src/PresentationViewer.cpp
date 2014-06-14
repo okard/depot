@@ -38,7 +38,9 @@ void PresentationViewer::mousePressEvent(QMouseEvent *event)
 	qDebug() << "PresentationViewer::mousePressEvent called";
 
 	//create overlay when not available
-	if( view_ != nullptr && !view_->hasOverlay())
+	if( view_ != nullptr
+	&& currentTool_ != nullptr
+	&& !view_->hasOverlay())
 	{
 		view_->createOverlay();
 	}
@@ -74,16 +76,23 @@ View* PresentationViewer::get_view()
 
 void PresentationViewer::set_view(View* v)
 {
-	view_ = nullptr; //reset internal view
-
 	if(v == nullptr)
 		return;
+
+	if(view_ != nullptr)
+	{
+		disconnect(view_, &View::view_changed, this, &PresentationViewer::redraw );
+		view_ = nullptr; //reset internal view
+	}
 
 	//overlayPainter_ = QPainter();
 
 	qDebug() << "PresentationViewer::set_view called";
 	view_ = v;
 	emit viewChanged();
+
+	connect(view_, &View::view_changed, this, &PresentationViewer::redraw );
+
 
 	this->update();
 }
@@ -98,6 +107,11 @@ void PresentationViewer::switchTool(PresentationViewer::PaintToolType t)
         currentTool_ = nullptr;
     }
 
+	if (tools_.find(t) == tools_.end())
+	{
+	   return;
+	}
+
 	//connect the new tool
     currentTool_ = tools_[t].get();
 	connect(this, SIGNAL(mouseMove(QMouseEvent*, QPainter&)), currentTool_, SLOT(mouseMoveEvent(QMouseEvent *, QPainter&)));
@@ -106,6 +120,11 @@ void PresentationViewer::switchTool(PresentationViewer::PaintToolType t)
 
 
 	qDebug() << "PresentationViewer::switchTool called";
+}
+
+void PresentationViewer::redraw()
+{
+	this->update();
 }
 
 

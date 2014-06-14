@@ -7,7 +7,7 @@
 #include <QPainter>
 #include <QColor>
 
-#include "View.hpp"
+#include "view/View.hpp"
 #include "PaintTool.hpp"
 
 

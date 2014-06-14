@@ -36,6 +36,7 @@ public:
 	bool hasOverlay();
 	bool createOverlay();
 	void draw_to(const QRectF& dirtyRect, QPainter& painter);
+	bool doCommand(const QString& command);
 
 public slots:
 	void loadPdf(QUrl file);
@@ -49,6 +50,9 @@ public:
 
 private:
 	void updatePdfImage();
+
+
+
 };
 
 

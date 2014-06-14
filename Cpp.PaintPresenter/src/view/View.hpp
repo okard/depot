@@ -49,6 +49,12 @@ public:
 		//pdf has page forward backwards ...
 		//screenshot has, clear, new, save
 
+		//command list QList<QString> commands
+		// do_command(QString);
+
+	Q_INVOKABLE virtual bool doCommand(const QString& command); //enum for commands?
+																// AnyPtr as argument?
+
 signals:
 	void name_changed();
 	void size_changed();

@@ -34,7 +34,11 @@
 * Streaming?
 	-> Use Tablet for presentation/drawings 
 	-> Stream to beamer
-    
+
+* Fix Coding Style
+	-> foo_bar
+	-> fooBar
+
 ## General Design Notices
 	
 Switchable views e.g. for an image or PDF file

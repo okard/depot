@@ -26,19 +26,20 @@ SOURCES += src/main.cpp\
     src/PaintTool.cpp \
     src/PaintWidget.cpp \
     src/PresentationViewer.cpp \
-    src/View.cpp \
-    src/PdfView.cpp \
-    src/ViewListModel.cpp
+	src/view/View.cpp \
+	src/view/PdfView.cpp \
+	src/view/ViewListModel.cpp
 
 
 HEADERS  += \
+	src/Helper.hpp \
     src/PaintWidget.hpp \
-    src/View.hpp \
     src/PaintTool.hpp \
     src/PresentationViewer.hpp \
-    src/PdfView.hpp \
-    src/ViewListModel.hpp \
-    src/Helper.hpp
+	src/view/View.hpp \
+	src/view/PdfView.hpp \
+	src/view/ViewListModel.hpp
+
 
 RESOURCES += \
     resources.qrc
