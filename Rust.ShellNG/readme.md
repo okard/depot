@@ -29,3 +29,19 @@ ShellNG implementation in rust
 	l$s -l .
 	
 	
+	date
+	cat /usr/share/dict/words
+	who >user.names
+	who >>user.names
+	wc <file
+	echo [a-f]*.c
+	who | wc
+	who; date
+	cc *.c &
+	mkdir junk && cd junk
+	cd ..
+	rm -r junk || echo "rm failed!"
+	
+## Links
+	https://github.com/michaelmacinnis/oh
+	

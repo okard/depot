@@ -10,12 +10,13 @@ extern crate debug;
 
 pub mod helper;
 
-pub mod lexer;	//lexer
+pub mod lexer;	// lexer
 
 pub mod ast; // ast
-pub mod parse;	//parser
+pub mod parse;	// parser
 
-pub mod exec;
+pub mod visitor; // ast visitor
+pub mod exec;	  // interpreter
 
 
 //exec / interpreter?

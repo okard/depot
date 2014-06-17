@@ -35,9 +35,11 @@ impl<'a> ShellState<'a>
 		//parse a complete syntax tree:
 		let ast_tree = parser.parse();
 		
+		println!("{}", ast_tree);
+		
 		let mut shctx = ShellContext;
 		//execute the tree
-		exec::exec(&mut shctx, &ast_tree);
+		exec::exec(&mut shctx, ast_tree);
 		
 		//prompt
 		print!("shellng> ");

@@ -1,9 +1,11 @@
 
-use collections::deque::{Deque};
+use std::collections::{ Deque};
 
 use lexer;
 use ast;
-
+use ast::{Node};
+//use ast::{AstRef};
+use std::rc::{Rc};
 
 pub struct Parser<'a>
 {
@@ -19,9 +21,128 @@ impl<'a> Parser<'a>
 		Parser { lexer: lex, tok_pos: 0 }
 	}
 	
+	//-----------------------------
+	
+	pub fn parse(&mut self) -> Node
+	{
+		//lex one line and generate tokens
+		self.lexer.tokenize();
+		
+		
+		let mut list = box Vec::new();
+		//generate a List and 
+		while self.lexer.tokens.len() > 0
+		{
+			list.push(self.parse_command());
+		}
+		
+		return ast::List(list);
+	}
+	
+	fn parse_command(&mut self) -> Node
+	{
+		//this is called when lexer has lexed one line?
+		
+		//keywords
+		if self.cur_kind() == lexer::KwDef {
+			return self.parse_def();
+		}
+		
+		//keywords: let, if, etc
+		
+		
+		//otherwise it is a command:
+		//list for the exe expression (is a list of nodes)
+		let mut exe_list = box Vec::new();
+		
+		//first parse exe name
+		loop 
+		{
+			match self.cur_kind()
+			{
+				//all stuff other then PlaceId or Whitespace are added to exe name
+				lexer::PlaceId => { exe_list.push(self.parse_expression()); /* except only non whitespace expr here? */ }
+				lexer::Whitespace => {}
+				lexer::Eof => {}
+				_ => { exe_list.push(ast::StringLiteral(box self.cur_string())); self.next_token(); }
+			}
+			
+			//handle whitespace and eof
+			match self.cur_kind()
+			{
+				lexer::Whitespace => { self.next_token(); break; }
+				lexer::Eof => { break; }
+				_ => {}
+			}
+		}
+		
+		//list of all arguments (each argument is also a list)
+		let mut args_list = box Vec::new();
+		
+		//parse arguments until no tokens anymore (aka line end)
+		while self.token_left() > 0
+		{
+			let mut arg_list = box Vec::new();
+			
+			//todo parse special shell stuff pipes and so on
+			
+			//parse a single argument until first whitespace
+			loop 
+			{
+				match self.cur_kind()
+				{
+					lexer::PlaceId => { arg_list.push(self.parse_expression()); }
+					lexer::Whitespace => {}
+					lexer::Eof => {}
+					_ => {arg_list.push(ast::StringLiteral(box self.cur_string())); self.next_token();}
+				}
+				
+				//handle whitespace and eof
+				match self.cur_kind()
+				{
+					lexer::Whitespace => { self.next_token(); break; }
+					lexer::Eof => { break; }
+					_ => {}
+				}
+			}
+			
+			//create the argument ast node and add it to command;
+			args_list.push(ast::List(arg_list));
+		}
+	
+		
+		return ast::Command( box ast::Command_ { 	exe: ast::List(exe_list), 
+													args: ast::List(args_list)
+		});
+	}
+	
+	fn parse_expression(&mut self) -> Node
+	{
+		self.next_token();
+		//precedence climbing
+		fail!();
+	}
+
+	// def <name> : <type> {} or = <expr>
+	fn parse_def(&mut self) -> Node
+	{
+		assert!(self.cur_kind() == lexer::KwDef);
+		//cur token = KwDef
+		fail!();
+	}
+
+	//merge_token_until_whitespace?
+	
+	//------------------------------------------------------------------
+	
 	fn cur_kind(&self) -> lexer::TokenKind
 	{
-		self.lexer.tokens.get(self.tok_pos).kind
+		if self.lexer.tokens.len() > 0 {
+			self.lexer.tokens.get(self.tok_pos).kind
+		}
+		else {
+			lexer::Eof
+		}
 	}
 	
 	fn cur_string(&self) -> String
@@ -47,103 +168,6 @@ impl<'a> Parser<'a>
 			self.next_token();
 		}
 	}
-	
-	
-	pub fn parse(&mut self) -> Box<ast::AstNode>
-	{
-		//lex one line and generate tokens
-		self.lexer.tokenize();
-		
-		//generate a List and 
-		while self.lexer.tokens.len() > 0
-		{
-			self.parse_command();
-		}
-		
-		return box ast::Empty;
-	}
-	
-	fn parse_command(&mut self) -> Box<ast::AstNode>
-	{
-		//this is called when lexer has lexed one line?
-		
-		//keywords
-		if self.cur_kind() == lexer::KwDef {
-			return self.parse_def();
-		}
-		
-		//keywords: let, if, etc
-		
-		//otherwise it is a command
-		
-		let mut cmd = box ast::CommandNode {exe: Vec::new(), args: Vec::new() };
-		
-		//first parse exe 
-		loop 
-		{
-			match self.cur_kind()
-			{
-				lexer::Id => { cmd.exe.push(box ast::StringLiteral(self.cur_string()))}
-				lexer::PlaceId => {cmd.exe.push(self.parse_expression()); }
-				_ => {fail!();}
-			}
-			self.next_token();
-			
-			if self.cur_kind() == lexer::Whitespace {
-				self.next_token();
-				break;
-			}
-		}
-		
-		//parse arguments?
-		
-		while self.token_left() > 0
-		{
-			let mut arg = box ast::List(Vec::new());
-			
-			//parse a single argument until first whitespace
-			loop 
-			{
-				match arg
-				{
-					box ast::List(ref mut arg_list) => 
-					{
-						match self.cur_kind()
-						{
-							lexer::Id => { arg_list.push(box ast::StringLiteral(self.cur_string()))}
-							lexer::PlaceId => { arg_list.push(self.parse_expression()); }
-							_ => {fail!();}
-						}
-					}
-					_ => {fail!()}
-				}
-				self.next_token();
-				
-				if self.cur_kind() == lexer::Whitespace {
-					self.next_token();
-					break;
-				}
-			}
-			cmd.args.push(arg);
-		}
-		
-		return box ast::Command(cmd); //return command
-	}
-	
-	fn parse_expression(&mut self) -> Box<ast::AstNode>
-	{
-		//precedence climbing
-		fail!();
-	}
-
-	// def <name> : <type> {} or = <expr>
-	fn parse_def(&mut self) -> Box<ast::AstNode>
-	{
-		//cur token = KwDef
-		fail!();
-	}
-
-	//merge_token_until_whitespace?
 }
 
 
@@ -156,9 +180,23 @@ impl<'a> Parser<'a>
 #[test]
 fn parser_test()
 {
+	use std::io;
+	use std::vec;
+	use lexer::Lexer;
+	
+	let test_string = String::from_str("ls -alh .");
+	let mut reader = io::MemReader::new(test_string.into_bytes());
+	let mut lexer = Lexer::new(&mut reader as &mut Buffer);
+	let mut parser = Parser::new(&mut lexer);
+	let ast_tree = parser.parse();
+	
+	
+	
 	//command
 	//def func
 	//def ...
 	//let
 	//expr
+	
+	// test stuff with new line? -> requires multiple tokenize calls
 }

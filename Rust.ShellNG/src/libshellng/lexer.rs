@@ -1,8 +1,8 @@
 
 use std::io;
 //use std::vec;
-use collections::ringbuf::{RingBuf};
-use collections::deque::{Deque};
+use std::collections::{RingBuf, Deque};
+
 
 use helper;
 
@@ -34,7 +34,17 @@ pub enum TokenKind
 	OpMul,			// *
 	OpDiv,			// /
 	
+	//special shell chars
+		// | pipe
+		// > <
+		// >>
+		// & 
+		// && ||
+		// , 
+		
+	
 	Whitespace,
+	//NewLine?
 }
 
 impl PartialEq for TokenKind 
@@ -255,7 +265,8 @@ impl<'a> Lexer<'a>
 	
 	//TokenKind
 	
-	//this generates a bunch of tokens? 
+	//todo rename to tokenize_line() ?
+	//this generates a bunch of tokens?  
 	//return a result?
 	pub fn tokenize(&mut self) -> bool
 	{
@@ -292,6 +303,8 @@ impl<'a> Lexer<'a>
 #[test]
 fn lexer_test()
 {
+	use std::io;
+	use std::vec;
 	//todo split into multiple small tests
 	//fix test string to contains all tokens incl. whitespace stuff
 	

@@ -1,28 +1,29 @@
 
 use ast;
+use visitor;
 use shell::ShellContext;
 
+use std::rc::{Rc};
 
-
-trait AstVisitor 
+enum Value
 {
-	fn dispatch(&self);
-	//dispatch
-	
-	//visit
+	//string
+	//number
+	//function
+	//map
 }
 
+struct Interpreter;
 
-//execute ast
+//implement visitor
 
-	//exec(shell_state, ast_tree);
+
+//execute ast	
 	
-	
-pub fn exec(shstate : &mut ShellContext, node: &Box<ast::AstNode>)
+pub fn exec(shstate : &mut ShellContext, node: ast::Node)
 {
 	//let mut ip = Interpreter::new(state);
-	//ip.interpret(node);
-	
+	//ip.interpret(node);	
 }
 
 

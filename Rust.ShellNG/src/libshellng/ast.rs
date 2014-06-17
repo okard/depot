@@ -1,4 +1,5 @@
 
+use std::rc::{Rc};
 
 //objects
 
@@ -11,22 +12,59 @@
 
 //definition?
 
-//command nodes will be executed -> become process
+//command nodes will be executed -> become process (removed from ast?)
 
-pub enum AstNode
+#[deriving(Show)]
+pub enum Node
 {
-	Empty,
-	Command(Box<CommandNode>),
-	StringLiteral(String),		//"asda" or abc
-	VarLiteral(String),			//$abc
+	Nothing,
 	
-	List(Vec<Box<AstNode>>)	//concatenation of AstNode -> abc$abc 
+	////////////////////////////////////////////////////////////////////
+	//Declarations/Statements:
+	Command(Box<Command_>),
+	
+	
+	////////////////////////////////////////////////////////////////////
+	//Expressions:
+	
+	//UnaryExpr
+	BinaryExpr(Box<BinaryExpr_>),
+	//CallExpr 
+	
+	//Literals:
+	StringLiteral(Box<String>),		//"asda" or abc
+	VarLiteral(Box<String>),			//$abc
+	
+	//Special:
+	List(Box<Vec<Node>>)	//concatenation of AstNodes result in a string -> abc$abc 
 }
 
-pub struct CommandNode
+#[deriving(Show)]
+pub struct Command_
 {
-	pub exe: Vec<Box<AstNode>>, //exe also Vec for exe for ls$abc -l stuff
-	pub args: Vec<Box<AstNode>> // one parameter is a List node
+	pub exe: Node, //executable
+	pub args: Node //the parameters
 }
 
+#[deriving(Show)]
+enum BinOp
+{
+	Access,
+	Plus,
+	Minus,
+	Mul,
+	Div,
+}
+
+#[deriving(Show)]
+pub struct BinaryExpr_
+{
+	left: Node,
+	op: BinOp,
+	right: Node
+}
+
+
+
+//helper like merge list
 
