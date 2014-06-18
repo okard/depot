@@ -4,8 +4,6 @@ use std::collections::{ Deque};
 use lexer;
 use ast;
 use ast::{Node};
-//use ast::{AstRef};
-use std::rc::{Rc};
 
 pub struct Parser<'a>
 {
@@ -126,8 +124,20 @@ impl<'a> Parser<'a>
 	// def <name> : <type> {} or = <expr>
 	fn parse_def(&mut self) -> Node
 	{
-		assert!(self.cur_kind() == lexer::KwDef);
 		//cur token = KwDef
+		assert!(self.cur_kind() == lexer::KwDef);
+		
+		//let name = box self.cur_string();
+		
+		//skip :
+		
+		//parse type
+		
+		//match type
+		//parse_function(name: Box<String>);
+		//parse_var(name: Box<String>);
+		//parse_object(name: Box<String>);
+		
 		fail!();
 	}
 

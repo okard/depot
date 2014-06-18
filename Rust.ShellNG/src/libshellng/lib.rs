@@ -5,8 +5,13 @@
 #![feature(globs)]
 //#![feature(struct_variant)] 
 
+#![allow(dead_code)]
+
 extern crate collections;
 extern crate debug;
+extern crate rustnoise;
+
+pub mod input;
 
 pub mod helper;
 
@@ -18,7 +23,5 @@ pub mod parse;	// parser
 pub mod visitor; // ast visitor
 pub mod exec;	  // interpreter
 
-
-//exec / interpreter?
 
 pub mod shell; //main shell module?
