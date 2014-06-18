@@ -3,7 +3,6 @@ use ast;
 use visitor;
 use shell::ShellContext;
 
-use std::rc::{Rc};
 
 enum Value
 {
@@ -11,7 +10,11 @@ enum Value
 	//number
 	//function
 	//map
+	
+	//Node?
 }
+
+//Context { values :  map<string, Node> }
 
 struct Interpreter;
 
@@ -20,7 +23,7 @@ struct Interpreter;
 
 //execute ast	
 	
-pub fn exec(shstate : &mut ShellContext, node: ast::Node)
+pub fn exec(_ : &mut ShellContext, _: ast::Node)
 {
 	//let mut ip = Interpreter::new(state);
 	//ip.interpret(node);	

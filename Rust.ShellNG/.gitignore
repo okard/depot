@@ -1,4 +1,6 @@
 *.rlib
 *.bin
+*.o
+*.a
 /shellng
 

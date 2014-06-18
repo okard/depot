@@ -5,8 +5,11 @@
 #![feature(globs)]
 //#![feature(struct_variant)] 
 
+#![allow(dead_code)]
+
 extern crate collections;
 extern crate debug;
+extern crate rustnoise;
 
 pub mod helper;
 
