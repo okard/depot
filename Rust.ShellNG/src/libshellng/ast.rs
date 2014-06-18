@@ -25,7 +25,7 @@ pub enum Node
 	////////////////////////////////////////////////////////////////////
 	//Expressions:
 	
-	//UnaryExpr
+	UnaryExpr(Box<UnaryExpr_>),
 	BinaryExpr(Box<BinaryExpr_>),
 	//CallExpr 
 	
@@ -33,7 +33,14 @@ pub enum Node
 	StringLiteral(Box<String>),		//"asda" or abc
 	VarLiteral(Box<String>),			//$abc
 	
+	
+	//process result? -> ls || ls; ls && ls;
+		//-> NumLiteral
+	
 	//Special:
+		//different type of list nodes? 
+		//rename to mergelist
+		// a Program(List) type?
 	List(Box<Vec<Node>>)	//concatenation of AstNodes result in a string -> abc$abc 
 }
 
@@ -41,7 +48,24 @@ pub enum Node
 pub struct Command_
 {
 	pub exe: Node, //executable
-	pub args: Vec<Node>//the parameters
+	pub args: Vec<Node> //the parameters
+	//redirections
+	//piping
+}
+
+#[deriving(Show)]
+pub enum UnOp
+{
+	Not,
+	PreMinus,
+	PrePlus
+}
+
+#[deriving(Show)]
+pub struct UnaryExpr_
+{
+	pub expr: Node,
+	pub op : UnOp
 }
 
 #[deriving(Show)]
@@ -61,7 +85,6 @@ pub struct BinaryExpr_
 	op: BinOp,
 	right: Node
 }
-
 
 
 //helper like merge list

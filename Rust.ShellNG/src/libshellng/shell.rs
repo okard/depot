@@ -18,12 +18,20 @@ pub struct ShellContext;
 pub struct ShellState<'a>
 {
 	lexer: Lexer<'a>
+	//parser?
+	
+	
 	//reader
 	
 	//lexer_stdin
 	//lexer_file
 	
+	//shellio
+	
 	//current scope/context/etc
+	
+	//cwd
+	//env
 	
 	//current processes
 	//shellcontext
@@ -31,7 +39,15 @@ pub struct ShellState<'a>
 
 impl<'a> ShellState<'a>
 {	
-	fn step(&mut self) -> bool
+	fn new(shell_input: &mut input::ShellInput) -> ShellState
+	{
+		 ShellState { 
+						lexer: Lexer::new(shell_input)
+				     }
+	}
+	
+	
+	fn run_line(&mut self) -> bool
 	{
 		let mut parser = Parser::new(&mut self.lexer);
 		//parse a complete syntax tree:
@@ -42,6 +58,7 @@ impl<'a> ShellState<'a>
 		let mut shctx = ShellContext;
 		//execute the tree
 		exec::exec(&mut shctx, ast_tree);
+		
 		
 		true
 	}
@@ -57,16 +74,16 @@ pub fn run()
 	let shell_reader = &mut shell_input as &mut input::ShellInput;
 	*/
 	
+	//create a linenoise input
 	let mut shell_input = input::ShellNoiseInput { prompt: "shellng > ".to_string() };
 	
 	//create shell state/context
-	let mut state = ShellState { lexer: Lexer::new(&mut shell_input)
-							     };
+	let mut state = ShellState::new(&mut shell_input);
 	
 	//event loop
 	loop 
 	{
-		if !state.step()
+		if !state.run_line()
 		{
 			break;
 		}

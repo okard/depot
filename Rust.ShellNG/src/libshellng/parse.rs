@@ -37,6 +37,9 @@ impl<'a> Parser<'a>
 		return ast::List(list);
 	}
 	
+	/**
+	* Parse a command
+	*/
 	fn parse_command(&mut self) -> Node
 	{
 		//this is called when lexer has lexed one line?
@@ -114,6 +117,9 @@ impl<'a> Parser<'a>
 		});
 	}
 	
+	/**
+	* Parse an expression
+	*/
 	fn parse_expression(&mut self) -> Node
 	{
 		self.next_token();
@@ -121,7 +127,9 @@ impl<'a> Parser<'a>
 		fail!();
 	}
 
-	// def <name> : <type> {} or = <expr>
+	/**
+	* def <name> : <type> {} or = <expr>
+	*/
 	fn parse_def(&mut self) -> Node
 	{
 		//cur token = KwDef
@@ -157,7 +165,12 @@ impl<'a> Parser<'a>
 	
 	fn cur_string(&self) -> String
 	{
-		self.lexer.tokens.get(self.tok_pos).s.clone()
+		if self.lexer.tokens.len() > 0 {
+			self.lexer.tokens.get(self.tok_pos).s.clone()
+		}
+		else {
+			fail!();
+		}
 	}
 	
 	fn token_left(&self) -> uint
@@ -168,7 +181,9 @@ impl<'a> Parser<'a>
 	fn next_token(&mut self)
 	{
 		//pop front token?
-		self.lexer.tokens.pop_front();
+		if self.lexer.tokens.len() > 0 {
+			self.lexer.tokens.pop_front();
+		}
 	}
 	
 	fn next_tok_nws(&mut self)

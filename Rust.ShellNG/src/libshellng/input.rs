@@ -14,6 +14,7 @@ pub trait ShellInput
 	
 	//shellio  ?
 		//input and output streams
+		//required as fd_int???
 	
 	//history 
 	

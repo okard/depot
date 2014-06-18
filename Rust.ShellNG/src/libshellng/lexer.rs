@@ -35,11 +35,23 @@ pub enum TokenKind
 	
 	//special shell chars
 	Pipe,			// | pipe symbol
-		// > < 
+	Comma,			// ,
+	Ambersand,		// &
+	
+	And,			// &&
+	Or,				// ||
+	
+	//Redirecting:
+		// > < redirect stdout
+		// 2> 
+		// 2>&1
+		// >&2
 		// >>
-		// &  
-		// && ||
-		// , 
+		//num>string
+		//num>&num
+		//num>>string
+		//num>>&num
+		// <> 
 	
 	Comment,	
 	
