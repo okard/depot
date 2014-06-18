@@ -1,6 +1,4 @@
 
-use std::io;
-use std::io::Buffer;
 //use std::io::File;
 
 use input;
@@ -12,7 +10,6 @@ use parse::{Parser};
 use exec;
 
 pub struct ShellContext;
-
 
 
 /*
@@ -41,7 +38,6 @@ impl<'a> ShellState<'a>
 		let ast_tree = parser.parse();
 		
 		println!("{}", ast_tree);
-		
 		
 		let mut shctx = ShellContext;
 		//execute the tree

@@ -41,7 +41,7 @@ pub enum Node
 pub struct Command_
 {
 	pub exe: Node, //executable
-	pub args: Node //the parameters
+	pub args: Vec<Node>//the parameters
 }
 
 #[deriving(Show)]

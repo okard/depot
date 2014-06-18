@@ -1,5 +1,4 @@
 
-use std::io;
 //use std::vec;
 use std::collections::{RingBuf, Deque};
 
@@ -35,10 +34,10 @@ pub enum TokenKind
 	OpDiv,			// /
 	
 	//special shell chars
-		// | pipe
-		// > <
+	Pipe,			// | pipe symbol
+		// > < 
 		// >>
-		// & 
+		// &  
 		// && ||
 		// , 
 	
@@ -208,6 +207,8 @@ impl<'a> Lexer<'a>
 			'-' => { tok_kind = OpMinus; reader.next_char(); }
 			'*' => { tok_kind = OpMul; reader.next_char(); }
 			'/' => { tok_kind = OpDiv; reader.next_char(); }
+			
+			'|' => { tok_kind = Pipe; reader.next_char(); }
 			
 			'$' => { tok_kind = PlaceId; reader.next_char(); }
 			

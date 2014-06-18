@@ -7,6 +7,7 @@
 
 #![allow(dead_code)]
 
+extern crate libc;
 extern crate collections;
 extern crate debug;
 extern crate rustnoise;

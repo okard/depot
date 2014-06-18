@@ -75,7 +75,7 @@ impl<'a> Parser<'a>
 		}
 		
 		//list of all arguments (each argument is also a list)
-		let mut args_list = box Vec::new();
+		let mut args_list = Vec::new();
 		
 		//parse arguments until no tokens anymore (aka line end)
 		while self.token_left() > 0
@@ -110,7 +110,7 @@ impl<'a> Parser<'a>
 	
 		
 		return ast::Command( box ast::Command_ { 	exe: ast::List(exe_list), 
-													args: ast::List(args_list)
+													args: args_list
 		});
 	}
 	
