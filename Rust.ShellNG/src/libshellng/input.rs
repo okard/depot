@@ -1,4 +1,3 @@
-
 use std::io;
 
 //input trait
@@ -81,11 +80,5 @@ impl ShellInput for ShellNoiseInput
 		self.prompt = String::from_str(prompt);
 	}
 }
-
-
-//linenoise
-
-
-
 
 
