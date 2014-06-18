@@ -3,7 +3,7 @@ use std::io;
 //use std::vec;
 use std::collections::{RingBuf, Deque};
 
-
+use input;
 use helper;
 
 pub enum TokenKind
@@ -41,7 +41,8 @@ pub enum TokenKind
 		// & 
 		// && ||
 		// , 
-		
+	
+	Comment,	
 	
 	Whitespace,
 	//NewLine?
@@ -53,9 +54,7 @@ impl PartialEq for TokenKind
      {
          *self as int == *other as int
      }
- }
-
-
+}
 
 pub struct Token
 {
@@ -87,7 +86,7 @@ impl PartialEq for Token
 
 pub struct Lexer<'a>
 {
-	reader: & 'a mut io::Buffer, //buffer is minimal interface here can also be reader
+	reader: & 'a mut input::ShellInput, //buffer is minimal interface here can also be reader
 	pub tokens: RingBuf<Token>
 	
 	//position?
@@ -98,9 +97,9 @@ pub struct Lexer<'a>
 
 impl<'a> Lexer<'a>
 {
-	pub fn new(reader: &mut io::Buffer) -> Lexer
+	pub fn new(input: &mut input::ShellInput) -> Lexer
 	{
-		Lexer { reader: reader, tokens: RingBuf::with_capacity(5)}
+		Lexer { reader: input, tokens: RingBuf::with_capacity(5)}
 	}
 	
 	fn whitespace_tok_check(&mut self, reader: &mut helper::CharReader)
@@ -215,6 +214,9 @@ impl<'a> Lexer<'a>
 			'\\' => { fail!(); /* handle escape! */  }
 			
 			'"' => { tok_kind = StringLiteral;  }
+			
+			'#' => { return false; } //ignore complete line
+			
 			_ => { reader.next_char(); }
 		}
 		
