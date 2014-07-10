@@ -1,0 +1,73 @@
+
+
+.data
+$result_text1: "Fibonacci number at "
+$result_text2: " is "
+
+# this means mem = <"Fibonacci number at "" is ">
+
+.code
+
+# fibonacci function fib(n)->n : 1 result 1 argument
+@fib
+	# acces to arguments
+	
+	load reg_a, [FC, %-2] 
+	#value of arg1 is know in reg_a
+	
+	# 1/ 2 set to 1
+	cmp reg_a, %1
+	jmpeq @fib_setone
+	cmp reg_a, %2
+	jmpeq @fib_setone
+	
+	sub reg_a, %1	# n -1 
+	push			# space for result
+	push reg_a		# n-1 to stack
+	call @fib
+	pop reg_b 		# result to reg_b
+	
+	sub reg_a, %1	# n-2 -> two times -1
+	push			# space for result
+	push reg_a		# n-2 to stack
+	call @fib
+	pop reg_c 		# result to reg_c
+	
+	add reg_b, reg_c# Fn-1 + Fn-2
+	
+	# set result
+	store [FC, %-3], reg_b
+	
+	jmp @fib_ret
+	
+	# set result when returning one
+	@fib_setone
+	mov reg_a, %1
+	store [FC, %-3], reg_a
+
+	@fib_ret
+	ret
+
+
+# main entry point
+@main
+	~readr reg_a	# macro for reading value to reg_a
+	
+	# calculate fibonacci number
+	push			# make space on stack for result (4bytes) 
+	push reg_a		# push value of register a to stack
+	call @fib		# call fibonacci function /safe register?)
+	pop 			# pop argument
+	
+	# print results (result lies already on stack)
+	push \num
+	push $result_text2	# is
+	push \str
+	push reg_a			# index
+	push \num
+	push $result_text1
+	push \str
+	push %4				# 4 print parameter -> expcets 8 values on stack
+	syscall print		# call print to smart? (track value types on stack/mem/register)
+	
+	

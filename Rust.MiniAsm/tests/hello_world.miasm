@@ -1,0 +1,7 @@
+.data
+	$hello_world: "Hello World!"
+
+.code
+	mov reg_a, $hello_world 	#address in register a
+	~prints reg_a 				# print string (address) in register a
+	

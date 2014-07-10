@@ -1,0 +1,5 @@
+.code
+mov reg_a, %5		# reg_a = 5
+mov reg_b, %4		# reg_b = 4
+add reg_a, reg_b 	# reg_a += reg_b
+~printv reg_a		# print value from register a
