@@ -19,6 +19,10 @@ Mini assembler dialect for education purposes based on a virtual cpu
 	- DMA
 	
 * some kind of FFI? (clang->llvm->own backend->vm O_o)
+
+* macro code section?
+	- define own constants
+	- define own macro instructions
 	
 * cli
 	- program compile
