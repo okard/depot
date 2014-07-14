@@ -38,6 +38,9 @@ fn main()
 	
 	let prog = source::parser::parse(&src_path);
 	
+	let mut cpu = cpu::cpu::CPU::new();
+	cpu.run(&prog);
+	
 	//source_path -> Program
 	
 	

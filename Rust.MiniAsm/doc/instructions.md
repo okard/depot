@@ -40,7 +40,7 @@ Safe register:
 ### Basic Layout
 
 * 32 Bit Size
-* 6 Bit OpCode (64 instruktionen)
+* 6 Bit OpCode (64 instruktionen) 
 * 4 Bit Register (16 register max?)
 * 16 Bit Constants signed Two's complement
 
@@ -103,6 +103,7 @@ Memory
 Control
 
 * CMP		R(*), R(*)
+* CMP		R(*), C
 * JMP		C(A)	absolute?
 * JMPEQ		C(A)
 * JMPLT		C(A)

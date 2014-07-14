@@ -1,4 +1,7 @@
 
+use reg = cpu::register;
+
+
 struct Codespan
 {
 	source_id: u32,
@@ -6,25 +9,26 @@ struct Codespan
 	column: u32
 }
 
+#[deriving(Show, PartialEq)]
 pub enum Token
 {
 	EOF,
 	Newline,
 	
-	Section, 		// .<ident>
-	Label,			// @ident
-	DataAddress,	// $ident
-	Ident, 			// ident
-	Macro,			// ~ident
-	Constant,		// %+-bh num
-	InternConst,	// \ident
-	StringLiteral,	// "ident"
+	Section(Box<String>), 		// .<ident>
+	Label(Box<String>),			// @ident
+	DataAddress(Box<String>),	// $ident
+	Ident(Box<String>), 		// ident
+	Macro(Box<String>),			// ~ident
+	Constant(Box<String>),		// %+-bh num
+	InternConst(Box<String>),	// \ident
+	StringLiteral(Box<String>),	// "ident"
+	RegIdent(reg::Register),
 	
 	SBOpen,			// [
 	SBClose,		// ]
 	Comma,			// ,
 	Colon,			// :
-	
 }
 
 pub fn lex(line: &str) -> Vec<Token>
@@ -36,7 +40,7 @@ pub fn lex(line: &str) -> Vec<Token>
 
 
 
-struct lex_context<'a>
+struct LexContext<'a>
 {
 	buf: & 'a str,
 	start_pos: uint,
@@ -46,18 +50,34 @@ struct lex_context<'a>
 
 }
 
-pub fn read_ident(ctx: &mut lex_context, t: Token)
+fn read_ident(ctx: &mut LexContext) -> String
 {
 	//println!("read_ident");
 	while ctx.pos < ctx.buf.len() && (ctx.c.is_alphanumeric() || ctx.c == '_') {
 		next_char(ctx);
 	}
-	ctx.toks.push(t);
-	println!("-> {}",ctx.buf.slice(ctx.start_pos, ctx.pos));
+	String::from_str(ctx.buf.slice(ctx.start_pos, ctx.pos))
 }
 
+
+fn read_string(ctx: &mut LexContext)
+{
+	while ctx.pos < ctx.buf.len() 
+	&& ctx.c != '"' {
+		next_char(ctx);
+	}
+	let name = box String::from_str(ctx.buf.slice(ctx.start_pos, ctx.pos));
+	ctx.toks.push(StringLiteral(name));
+	
+	//skip trailing "
+	assert!(ctx.c == '"');
+	next_char(ctx);
+}
+
+
+
 #[inline]
-fn next_char(ctx: &mut lex_context)
+fn next_char(ctx: &mut LexContext)
 {
 	//println!("next_char");
 	ctx.pos += ctx.c.len_utf8_bytes();
@@ -69,7 +89,7 @@ fn next_char(ctx: &mut lex_context)
 
 fn lex_tok(buf: &str, toks: &mut Vec<Token>)
 {
-	let mut ctx = lex_context {
+	let mut ctx = LexContext {
 		buf : buf,
 		start_pos : 0,
 		pos : 0 ,
@@ -103,28 +123,32 @@ fn lex_tok(buf: &str, toks: &mut Vec<Token>)
 			//skip . 
 			next_char(&mut ctx);
 			ctx.start_pos += 1;
-			read_ident(&mut ctx, Section);
+			let sec_name = box read_ident(&mut ctx);
+			ctx.toks.push(Section(sec_name));
 		} 
 		
 		'@' => {
 			//skip @ 
 			next_char(&mut ctx);
 			ctx.start_pos += 1;
-			read_ident(&mut ctx, Label);
+			let label_name = box read_ident(&mut ctx);
+			ctx.toks.push(Label(label_name));
 		}
 		
 		'$' => {
 			//skip $
 			next_char(&mut ctx);
 			ctx.start_pos += 1;
-			read_ident(&mut ctx, DataAddress);
+			let name = box read_ident(&mut ctx);
+			ctx.toks.push(DataAddress(name));
 		}
 		
 		'~' => {
 			//skip ~
 			next_char(&mut ctx);
 			ctx.start_pos += 1;
-			read_ident(&mut ctx, Macro);
+			let name = box read_ident(&mut ctx);
+			ctx.toks.push(Macro(name));
 		}
 		
 		'%' => {
@@ -132,46 +156,60 @@ fn lex_tok(buf: &str, toks: &mut Vec<Token>)
 			next_char(&mut ctx);
 			ctx.start_pos += 1;
 			
+			match ctx.c
+			{
+				'+' => { next_char(&mut ctx);}
+				'-' => { next_char(&mut ctx);}
+				'b' => {next_char(&mut ctx);ctx.start_pos += 1; }
+				'h' => {next_char(&mut ctx);ctx.start_pos += 1;}
+				'0'..'9' => {}
+				_ => { println!("%Literal Invalid char {}", ctx.c); }
+			}
+			
 			//followed by b/h/+/-
 			//followed by 0-9, HEX
-			read_ident(&mut ctx, Constant);
+			let name = box read_ident(&mut ctx);
+			ctx.toks.push(Constant(name));
+			
 		}
 		
 		'\\' => {
 			//skip \\
 			next_char(&mut ctx);
 			ctx.start_pos += 1;
-			read_ident(&mut ctx, InternConst);
+			let name = box read_ident(&mut ctx);
+			ctx.toks.push(InternConst(name));
 		}
 		
 		',' => {
 			next_char(&mut ctx);
 			ctx.start_pos += 1;
+			ctx.toks.push(Comma);
 		}
 		
 		'[' => {
 			next_char(&mut ctx);
 			ctx.start_pos += 1;
+			ctx.toks.push(SBOpen);
 		}
 		
 		']' => {
 			next_char(&mut ctx);
 			ctx.start_pos += 1;
+			ctx.toks.push(SBClose);
 		}
 		
 		'"' => {
+			//skip "
 			next_char(&mut ctx);
 			ctx.start_pos += 1;
+			read_string(&mut ctx);
 		}
 		
 		':' => {
 			next_char(&mut ctx);
 			ctx.start_pos += 1;
-		}
-		
-		'-' => {
-			next_char(&mut ctx);
-			ctx.start_pos += 1;
+			ctx.toks.push(Colon);
 		}
 		
 		_ => {}
@@ -183,8 +221,16 @@ fn lex_tok(buf: &str, toks: &mut Vec<Token>)
 		{
 			next_char(&mut ctx);
 		}
-		ctx.toks.push(Ident);
-		println!("Ident: {}",ctx.buf.slice(ctx.start_pos, ctx.pos))
+		
+		let name = box String::from_str(ctx.buf.slice(ctx.start_pos, ctx.pos));
+		let reg = get_register(&name);
+		
+		if reg.is_some() {
+			ctx.toks.push(RegIdent(reg.unwrap()));
+		}
+		else {
+			ctx.toks.push(Ident(name));
+		}
 	}
 	
 
@@ -193,6 +239,23 @@ fn lex_tok(buf: &str, toks: &mut Vec<Token>)
 		lex_tok(ctx.buf.slice_from(ctx.pos), ctx.toks);
 	}
 	
+}
+
+fn get_register(s: &Box<String>) -> Option<reg::Register>
+{
+	match s.as_slice()
+	{
+		"reg_a" => Some(reg::REG_A),
+		"reg_b" => Some(reg::REG_B),
+		"reg_c" => Some(reg::REG_C),
+		"reg_d" => Some(reg::REG_D),
+		"loop" => Some(reg::LOOP),
+		"cmp" => Some(reg::CMP),
+		"PC" => Some(reg::PC),
+		"ST" => Some(reg::ST),
+		"FP" => Some(reg::FP),
+		_ => None
+	}
 }
 
 

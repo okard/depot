@@ -7,11 +7,11 @@ use std::collections::{HashMap};
 
 pub struct Program
 {
-	data: Vec<u8>,
-	code: Vec<Instr>,
+	pub data: Vec<u8>,
+	pub code: Vec<Instr>,
 	
-	code_labels: HashMap<String, uint>, //&str without lifetime?
-	data_map: HashMap<String, uint>,
+	pub code_labels: HashMap<String, uint>, //&str without lifetime?
+	pub data_map: HashMap<String, uint>,
 }
 
 
@@ -27,5 +27,24 @@ impl Program
 		}
 	}
 	
+	pub fn add_data(&mut self, name: &String, data: &[u8])
+	{
+		println!("add_data: {}:{}", name, data);
+	}
 	
+	
+	pub fn add_label(&mut self, name: &String)
+	{
+		//use current position
+		println!("add_label: {}", name);
+	}
+	
+	pub fn add_instr(&mut self, instr: Instr)
+	{
+		self.code.push(instr);
+	}
+
+	pub fn dump(&self)
+	{
+	}
 }

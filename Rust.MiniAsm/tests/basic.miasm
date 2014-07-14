@@ -11,7 +11,6 @@ $result_text2: " is "
 # fibonacci function fib(n)->n : 1 result 1 argument
 @fib
 	# acces to arguments
-	
 	load reg_a, [FC, %-2] 
 	#value of arg1 is know in reg_a
 	
@@ -30,7 +29,7 @@ $result_text2: " is "
 	sub reg_a, %1	# n-2 -> two times -1
 	push			# space for result
 	push reg_a		# n-2 to stack
-	call @fib
+	~call @fib
 	pop reg_c 		# result to reg_c
 	
 	add reg_b, reg_c# Fn-1 + Fn-2
@@ -46,7 +45,7 @@ $result_text2: " is "
 	store [FC, %-3], reg_a
 
 	@fib_ret
-	ret
+	~ret
 
 
 # main entry point
@@ -56,7 +55,7 @@ $result_text2: " is "
 	# calculate fibonacci number
 	push			# make space on stack for result (4bytes) 
 	push reg_a		# push value of register a to stack
-	call @fib		# call fibonacci function /safe register?)
+	~call @fib		# call fibonacci function /safe register?)
 	pop 			# pop argument
 	
 	# print results (result lies already on stack)
