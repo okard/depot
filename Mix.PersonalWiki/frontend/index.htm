@@ -7,6 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="keywords" content="">
+	
+	
+	<link rel="icon" type="image/png" href="img/aperture-2x.png" />
 
     <link href="style/core.css" type="text/css" rel="stylesheet">
     <link href="style/tabs.css" type="text/css" rel="stylesheet">
@@ -19,78 +22,41 @@
 
 <body>
 	<header id="headerMain">
-        <hgroup>
-			<h1>Personal Wiki</h1>
-        </hgroup>  
+		<h1>Personal Wiki</h1>
+		<span>Categories</span>
+		<a href="#" onclick="frontend.page_new(); return false;"><img src="img/plus-2x.png"/></a>
+
+		<div style="float:right; display: table-cell;">
+			<a href="#" onclick="frontend.load_setting_tpl(); return false;">Settings</a>
+		</div>
+		
+		<div style="clear:both;" />
+		
     </header>
 	
+	<noscript>
+		Javascript is required to work properly
+	</noscript>
 	
-	<nav id="sidebarLeft">
-        <ul>
-            <li><a href="#" onclick="wiki.openPage('main_page'); return false;">Main Page</a></li>
-            <li><a href="#" onclick="frontend.newPage(); return false;">New Page</a></li>
-            
-            <li><a href="#">Categories</a>
-				<ul>
-					<li>Test</li>
-				</ul>
-            </li>
-            
-            <li>Tools
-				<ul>
-					<li><a href="#">File Manager</a></li>
-					<li><a href="#">Sync Data</a></li>
-				</ul>
-            </li>
-        </ul>
-    </nav>
+	<!--
+	<li><a href="#">File Manager</a></li>
+	<li><a href="#">Sync Data</a></li>
+	-->
 	
+	<!--
+	Views:
+		* Page View
+			Show a wiki page 
+		* Settings View
+			Show settings of the frontend
+		* Category View / All Pages / ....
+			Listing of pages received from server
+			
+		(Syncing, FileManager, etc)
+	-->
 	
 	<section id="contentMain">
-		<ul class="tablist">
-            <li><a href="#" onclick="modeSwitch('show'); return false;">Show</a></li>
-            <li><a href="#" onclick="modeSwitch('edit'); return false;">Edit</a></li>
-            <li><a href="#" onclick="modeSwitch('history'); return false;">History</a></li>
-            <li><a href="#" onclick="modeSwitch('subpages'); return false;">Subpages</a></li>
-            <li><a href="#" onclick="modeSwitch('meta'); return false;">Metadata</a></li>
-            <!-- Debug tab? -->
-        </ul>
-        
-        <div id="page" class="tabcontent">
-			<div id="page_show" style="display:none">
-				<h1>show</h1>
-			</div>
-			
-			<div id="page_edit" style="display:none">
-				<h1>edit</h1>
-				
-				<!-- Editor Toolbar? -->
-				<textarea name="content" cols="50" rows="30"></textarea>
-				<br/>
-				
-				<!-- Attached Files -->
-			
-				<!-- 
-					file upload
-					attachements here?
-					save cancel button		
-				-->
-				
-				<input type="button" value="Save" />
-			</div>
-			
-			<div id="page_history" style="display:none">
-				<h1>history</h1>
-			</div>
-			
-			<div id="page_subpages" style="display:none">
-				<h1>subpages</h1>
-			</div>
-			
-			<div id="page_meta" style="display:none">
-				<h1>meta</h1>
-			</div>
-        </div>
+		
 	</section>
 	
 	<div style="clear:both" />

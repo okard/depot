@@ -13,28 +13,40 @@ a:hover {
 	color: orange;
 }
 
+noscript {
+	display:block;
+	border: 1px solid #ccc;
+	margin: 0.5%;
+	padding: 0.3em;
+	background-color: #ff6464;
+}
 
 
 #headerMain {
 	background-color: #1a1a1a;
 	color: white;
-	margin:0.5%;
 	padding:0.5%;
-	border-radius: 10px;
+	background-image: linear-gradient(#3c8a59 0%, #377d51 100%);
+	font: 14px arial, sans-serif;
+	min-height: 5%;
+	margin-bottom: 1%;
 }
 
-#sidebarLeft {
-	width: 19%;
-	float:left;
-	padding: 1em .5% 1em .5%;
+#headerMain * {
+	vertical-align: middle;
+}
+
+#headerMain h1 {
+	display: inline;
+	margin-left: 0.6em;
+	margin-right: 0.6em;
 }
 
 #contentMain {
-	margin-left: 20%;
-	max-width: 79%;
-	width: 79%;
-	min-width:79%;
+	margin-left: 0.5%;
+	margin-right: 0.5%;
 	padding:0.5%;
+	border: 1px solid #bbb;
 }
 
 

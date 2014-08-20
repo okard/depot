@@ -1,4 +1,10 @@
 
+/*
+ Interface to the application REST interface
+ 
+ no html references here take it from frontend
+ TODO jquery objects or functions
+*/
 
 /**
 * represents a wiki page
@@ -14,8 +20,13 @@ function Page()
 		//meta
 		//name
 		
+		//attachments
+		
+		//raw_data
+		//rendered_data	
 		
 		
+		//save?
 	};
 	
 	return obj;
@@ -30,6 +41,7 @@ function Wiki()
 	var obj =
 	{
 		content_container: undefined,
+		//service_url 
 		
 		//current page
 		
