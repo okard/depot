@@ -38,15 +38,34 @@ var frontend =
 		alert(error_text);
 	},
 	
-	load_tpl: function(file) //TODO callback on sucess
+	load_tpl: function(file, success_cb) //TODO callback on sucess
 	{
-		$("#contentMain").load(file, function(responseTxt,statusTxt,xhr)
+		frontend.load_tpl_full($("#contentMain"), file, success_cb);
+	},
+	
+	load_tpl_full: function(node, file, success_cb)
+	{
+		if(!(node instanceof jQuery))
+		{
+			frontend.show_error("Error: node is not a jquery element");
+			return;
+		}
+		
+		//typeof file === 'string'
+		//typeof file === 'function'
+		
+		node.load(file, function(responseTxt,statusTxt,xhr)
 		{
 			if(statusTxt=="error")
 				frontend.show_error("Error: "+xhr.status+": "+xhr.statusText);
-			//if(statusTxt=="success") success callback
+			if(statusTxt=="success" && typeof success_cb === 'function')
+				success_cb();
 		});
+		
 	},
+	
+	
+
 	
 	load_setting_tpl: function()
 	{
@@ -58,7 +77,7 @@ var frontend =
 function modeSwitch(mode)
 {
 	//alert('mode switch: ' + mode);
-	var container = $('#page');	//get container
+	var container = $('#page_view');	//get container
 	container.children('div').hide(); //hide all divs
 	container.children('#page_'+mode).show(); //show the right one
 }
@@ -66,17 +85,19 @@ function modeSwitch(mode)
 
 $(document).ready(function() 
 {
+	var content = $("#contentMain");
+	
+	
 	// setup wiki handler
 	var wiki = new Wiki();
 	window.wiki = wiki;
-	wiki.content_container = $('#page'); //todo callback?
+	wiki.page_container = $('#page'); //todo callback?
 	
 	
 	//setup frontend stuff
 	
 	//get categories and add them to menu
-	frontend.load_tpl("tpl/show_page.html");
-	modeSwitch('show');
+	frontend.load_tpl("tpl/show_page.html", function() { modeSwitch('show'); });
 	
 	
 	window.onbeforeunload = function() {

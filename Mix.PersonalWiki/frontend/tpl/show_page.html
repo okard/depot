@@ -1,21 +1,38 @@
 
 
-<ul class="tablist">
-	<li><a href="#" onclick="modeSwitch('show'); return false;">Show</a></li>
-	<li><a href="#" onclick="modeSwitch('edit'); return false;">Edit</a></li>
-	<li><a href="#" onclick="modeSwitch('history'); return false;">History</a></li>
-	<li><a href="#" onclick="modeSwitch('subpages'); return false;">Subpages</a></li>
-	<li><a href="#" onclick="modeSwitch('meta'); return false;">Metadata</a></li>
-	<!-- Debug tab? -->
-</ul>
 
-<div id="page" class="tabcontent">
+<!-- left float menu with icons -->
+
+<div id="page_menu">
+	<ul>
+	<li>
+		<a class="settings_button" href="#" onclick="return false;"></a>
+		 <a class="edit_button" href="#" onclick="modeSwitch('edit'); return false;"></a>
+		 
+		 <div style="clear:both"></div>
+		 <ul>
+			 <li><a href="#" onclick="modeSwitch('history'); return false;">History</a></li>
+			 <li><a href="#" onclick="modeSwitch('subpages'); return false;">Subpages</a></li>
+			 <li><a href="#">Attachments</a></li>
+			 <li><a href="#" onclick="modeSwitch('meta'); return false;">Meta</a></li>
+		 </ul>
+	</li>
+	</ul>
+</div>
+
+
+<div id="page_view">
+	
 	<div id="page_show" style="display:none">
 		<h1>show</h1>
 	</div>
 	
 	<div id="page_edit" style="display:none">
+		
 		<h1>edit</h1>
+		
+		<form>
+		<input type="button" value="Save"  onclick="modeSwitch('show');"/>
 		
 		<!-- Editor Toolbar? -->
 		<textarea name="content" cols="50" rows="30" style="width:100%"></textarea>
@@ -28,8 +45,7 @@
 			attachements here?
 			save cancel button		
 		-->
-		
-		<input type="button" value="Save" />
+		</form>
 	</div>
 	
 	<div id="page_history" style="display:none">
@@ -44,4 +60,6 @@
 		<h1>meta</h1>
 	</div>
 </div>
+
+<div style="clear:both;"></div>
 
