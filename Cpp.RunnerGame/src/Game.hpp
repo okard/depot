@@ -29,6 +29,9 @@ private:
 	Background background_;
 	Player player_;
 	Level level_;
+	
+	sf::Font font_; //font for score text
+	sf::Text scoreText_; //score text
 
 	GameState state_ = GameState::Pause;
 	//status paused, running, failed

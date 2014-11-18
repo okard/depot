@@ -2,7 +2,7 @@
 #include "Game.hpp"
 
 #include <iostream>
-
+#include <sstream>
 
 Game::Game()
 	: window_(sf::VideoMode(1024, 768), "Runner")
@@ -20,6 +20,17 @@ Game::Game()
 													//flip y axis not possible stupid sfml2 design?
 	//camera_.zoom(1.2f);
 	window_.setView(camera_);
+	
+	//score text
+	if(!font_.loadFromFile("data/DroidSans.ttf"))
+	{
+		std::cerr << "Can't load font DroidSans.ttf" << std::endl;
+		throw;
+	}
+	scoreText_.setFont(font_);
+	scoreText_.setString("0");
+	scoreText_.setCharacterSize(30);
+	scoreText_.setPosition(50,-50);
 }
 
 Game::~Game()
@@ -108,10 +119,13 @@ void Game::update(unsigned int timeElapsedMS)
 		background_.update(timeElapsedMS);
 		player_.update(timeElapsedMS);
 		level_.update(timeElapsedMS);
-
+		
+		std::stringstream stream;
+		stream << level_.way_length();
+		scoreText_.setString(stream.str());
+		
 		if(level_.hit(player_.getBoundingBox()))
 		{
-			std::cout << "hit: " << level_.way_length() << std::endl;
 			state_ = GameState::Pause;
 			//game over
 		}
@@ -123,4 +137,5 @@ void Game::draw()
 	background_.draw(window_);
 	player_.draw(window_);
 	level_.draw(window_);
+	window_.draw(scoreText_);
 }
