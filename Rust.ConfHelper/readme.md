@@ -1,6 +1,7 @@
 # ConfigHelper
 
 
+Status: WIP
 
 
 Tool for synchronizing 2 directories for example for storing configs in a git repository
@@ -45,11 +46,13 @@ Commands:
 	$ confh --init??
 	
 Config:
+
+	~/.config/confhelper.config.toml
 	
 ```toml
 
 target="~/"
-source="~/20.Dev/10.Projects/zz.Configs/"
+source="~/.myconfigrepo"
 
 # multiple dirs?
 
