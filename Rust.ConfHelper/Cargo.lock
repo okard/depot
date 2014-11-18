@@ -1,0 +1,18 @@
+[root]
+name = "confh"
+version = "0.0.1"
+dependencies = [
+ "rust-crypto 0.1.0 (git+https://github.com/DaGenix/rust-crypto)",
+ "toml 0.1.0 (git+https://github.com/alexcrichton/toml-rs)",
+]
+
+[[package]]
+name = "rust-crypto"
+version = "0.1.0"
+source = "git+https://github.com/DaGenix/rust-crypto#942e60ec3281ee83b6dc1fdcf7a71d21436bcda9"
+
+[[package]]
+name = "toml"
+version = "0.1.0"
+source = "git+https://github.com/alexcrichton/toml-rs#796a127adf15e074f6483da5885dbf26535755b9"
+

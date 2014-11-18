@@ -1,0 +1,16 @@
+[project]
+name = "confh"
+version = "0.0.1"
+authors = []
+
+
+[[bin]]
+name = "confh"
+path = "src/main.rs"
+
+[dependencies.toml]
+git = "https://github.com/alexcrichton/toml-rs"
+
+[dependencies.rust-crypto]
+git = "https://github.com/DaGenix/rust-crypto"
+
