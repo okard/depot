@@ -10,6 +10,7 @@ function setup()
     var txtAnswer = document.getElementById("txtInput");
     var btnTip = document.getElementById("btnTip");
     var btnNext = document.getElementById("btnNext");
+    var btnReset = document.getElementById("btnReset");
     var lblSymbol = document.getElementById("divSymbol");
     var divStatus = document.getElementById("divStatus");
     var divStatistics = document.getElementById("divStatistics");
@@ -22,6 +23,7 @@ function setup()
     var chkBase = document.getElementById("chkBase");
     var chkExtended = document.getElementById("chkExtended");
     var chkYoon = document.getElementById("chkYoon");
+    var chkHepburnMode = document.getElementById("chkHepburnMode");
     
     //setup kana trainer object
     var kanaTrainer = new KanaTrainer(canvas, getKanaData());
@@ -44,6 +46,14 @@ function setup()
         return true;
     };
     
+    btnReset.onclick = function()
+    {
+		kanaTrainer.resetAll();
+		kanaTrainer.next();
+		setStats();
+		return true;
+	};
+    
     chkHiragana.checked = true;
     chkKatakana.checked = true;
     chkBase.checked = true;
@@ -54,6 +64,7 @@ function setup()
     chkBase.onclick = checkBoxHelper("base", chkBase);
     chkExtended.onclick = checkBoxHelper("ext", chkExtended);
     chkYoon.onclick = checkBoxHelper("yoon", chkYoon);
+	chkHepburnMode.onclick = checkBoxHelper("hepburnmode", chkHepburnMode);
     
     txtAnswer.onkeydown = function(event)
     {

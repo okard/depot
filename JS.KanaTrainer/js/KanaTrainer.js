@@ -33,6 +33,10 @@ function KanaTrainer(pCanvas, pKanas)
         // current kana obj
         currentKana: undefined,
         
+        //current elements for hepburn mode
+        currentElements: [], 
+        //safe solution position
+        
         //fault handling
         faultQueue: [],
         faultLookup: {},
@@ -45,11 +49,14 @@ function KanaTrainer(pCanvas, pKanas)
         statRightInRow: 0,
         
         /* Options */
-        optKatakana: true,
-        optHiragana: true,
-        optBase: true,
-        optExtended: true,
-        optYoon: true,
+        optKatakana: true, //ask katakana
+        optHiragana: true, //ask hiragana
+        optBase: true,	   //only base kanas
+        optExtended: true,	//extended kanas e.g. ga
+        optYoon: true,	//yoon kanas
+        optHepburnMode: false, //how hepburn instead of kana
+        
+        //optHepburnModeLimit: 9,  //limit of symbols to choose from
         
         /* UI */
         uiCanvas: undefined,
@@ -64,10 +71,13 @@ function KanaTrainer(pCanvas, pKanas)
         
         //prepare canvas
         prop.uiCanvas = pCanvas;
+        prop.uiCanvas.onclick = onCanvasClick;
         prop.uiContex = pCanvas.getContext('2d');
         prop.uiContex.textAlign = 'center';
         prop.uiContex.textBaseline = 'middle';
-        prop.uiContex.font = 'italic 100px Calibri';
+        prop.uiContex.font = '100px Calibri';
+        
+        //TODO calculate font size from canvas size?
         
         setupFaultLookup();
         createQueue();
@@ -81,7 +91,9 @@ function KanaTrainer(pCanvas, pKanas)
      */
     self.validate = function(value)
     {
-        if(value === prop.currentKana.hepburn)
+		var result = prop.optHepburnMode ?  prop.currentKana.kana : prop.currentKana.hepburn;
+		
+        if(value === result)
         {
             prop.statRight++;
             prop.statRightInRow++;
@@ -103,6 +115,8 @@ function KanaTrainer(pCanvas, pKanas)
      */
     self.next = function()
     {
+		//TODO different modes:
+		
         //when faultQueue has entries 65% Chance to use entry from faultQueue  
         if(prop.faultQueue.length > 0 && Math.random() > 0.35)
         {
@@ -117,7 +131,26 @@ function KanaTrainer(pCanvas, pKanas)
             if(prop.currentPos > prop.kanaQueue.length-1)
                 prop.currentPos = 0;
         }
- 
+        
+        //setup stuff for hepburn mode
+        if(prop.optHepburnMode)
+		{
+			prop.currentElements = [];
+			for(var i=0; i < 9; i += 1)
+			{
+				//only from current list
+				prop.currentElements.push(prop.kanaQueue[randomNumber(0, prop.kanaQueue.length-1)].kana);
+			}
+			prop.currentElements[0] = prop.currentKana.kana; //solution
+			shuffleArray(prop.currentElements);
+			//no current element in middle?
+			while(prop.currentElements[4] == prop.currentKana.kana)
+			{
+				shuffleArray(prop.currentElements);
+			}
+			prop.currentElements[4] = prop.currentKana.hepburn; //question
+		}
+
         prop.tipStatus = 0;
         self.draw();
     }
@@ -132,9 +165,35 @@ function KanaTrainer(pCanvas, pKanas)
         var ctx = prop.uiContex;
         var w = prop.uiCanvas.width;
         var h = prop.uiCanvas.height;
-       
-        ctx.clearRect(0, 0, w, h);
-        ctx.fillText(prop.currentKana.kana, w/2, h/2);
+        
+        
+        if(prop.optHepburnMode && prop.currentElements.length > 0)
+		{
+			ctx.clearRect(0, 0, w, h);
+			ctx.save();
+			ctx.font = '30px Calibri';
+			
+			var step_x = (w/3.0);
+			var step_y = (h/3.0);
+			var idx_element = 0;
+			
+			for(var r=0; r < 3; r += 1)
+			{
+				for(var c=0; c < 3; c += 1)
+				{
+					ctx.fillText(prop.currentElements[idx_element], (step_x/2) + c*step_x, (step_y/2) + r*step_y);
+					idx_element++;
+				}
+			}
+			
+			ctx.restore();
+			return;
+		}
+		else
+		{
+			ctx.clearRect(0, 0, w, h);
+			ctx.fillText(prop.currentKana.kana, w/2, h/2);
+		}
     }
     
     /**
@@ -209,10 +268,12 @@ function KanaTrainer(pCanvas, pKanas)
             case "yoon":
                 prop.optYoon = value;
                 break;
+			case "hepburnmode":
+				prop.optHepburnMode = value;
+				break;
         }
         
-        createQueue();
-        setupFaultLookup();
+        self.resetAll();
     }
     
     /**
@@ -225,6 +286,14 @@ function KanaTrainer(pCanvas, pKanas)
         
         return prop.currentKana.hepburn.substr(0, prop.tipStatus);
     }
+    
+    
+    self.resetAll = function()
+    {
+		self.resetStats();
+		setupFaultLookup();
+        createQueue();
+	}
     
     //Internal Functions
     
@@ -303,4 +372,44 @@ function KanaTrainer(pCanvas, pKanas)
             prop.faultLookup[hepburn].push(i);
         }
 	}
+	
+	function onCanvasClick(e)
+	{	
+		if(!prop.optHepburnMode)
+		{
+			//not required for no hepburn mode
+			return;
+		}
+		
+		var rect = prop.uiCanvas.getBoundingClientRect();
+		var pos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+		
+		var step_x = (rect.width/3.0);
+		var step_y = (rect.height/3.0);
+		
+		var x_cell = Math.floor(pos.x / step_x);
+		var y_cell = Math.floor(pos.y / step_y);
+		
+		var index = (3*(y_cell+1)) - (3-x_cell);
+		
+		var value = prop.currentElements[index];
+		//alert(value);
+		if(self.validate(value))
+		{
+			self.next();
+		}
+	}
+	
+	function shuffleArray(array)
+	{
+		for (var i = array.length - 1; i > 0; i--) 
+		{
+			var j = Math.floor(Math.random() * (i + 1));
+			var temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+		}
+		return array;
+	}
+	
 }
