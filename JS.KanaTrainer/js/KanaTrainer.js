@@ -61,6 +61,9 @@ function KanaTrainer(pCanvas, pKanas)
         /* UI */
         uiCanvas: undefined,
         uiContex: undefined,
+        
+        //callback function for validation
+        cbValidated: function(result) {},
     };
     
     //Ctor
@@ -87,7 +90,7 @@ function KanaTrainer(pCanvas, pKanas)
     //Public Functions
     
     /**
-     * Validate Input
+     * Validate Input given by value
      */
     self.validate = function(value)
     {
@@ -97,6 +100,7 @@ function KanaTrainer(pCanvas, pKanas)
         {
             prop.statRight++;
             prop.statRightInRow++;
+            prop.cbValidated(true);
             return true;
         }
         else
@@ -106,12 +110,13 @@ function KanaTrainer(pCanvas, pKanas)
             
             prop.statWrong++;
             prop.statRightInRow=0;
+            prop.cbValidated(false);
             return false;
         }
     }
     
     /**
-     * Next kana in queue
+     * Show next kana in queue
      */
     self.next = function()
     {
@@ -166,7 +171,8 @@ function KanaTrainer(pCanvas, pKanas)
         var w = prop.uiCanvas.width;
         var h = prop.uiCanvas.height;
         
-        
+        //in hepburn mode the question data is setup in next function
+        //the mode renders 9 symbols with requested kana in center 
         if(prop.optHepburnMode && prop.currentElements.length > 0)
 		{
 			ctx.clearRect(0, 0, w, h);
@@ -177,6 +183,9 @@ function KanaTrainer(pCanvas, pKanas)
 			var step_y = (h/3.0);
 			var idx_element = 0;
 			
+			//assert(prop.currentElements.length == 9)
+			
+			//render 3x3 cells with values
 			for(var r=0; r < 3; r += 1)
 			{
 				for(var c=0; c < 3; c += 1)
@@ -276,6 +285,14 @@ function KanaTrainer(pCanvas, pKanas)
         self.resetAll();
     }
     
+    self.setValidateCallback = function(cb)
+    {
+		if(typeof cb === 'function')
+		{
+			prop.cbValidated = cb;
+		}
+	}
+    
     /**
      * Tip Function
      */
@@ -298,9 +315,10 @@ function KanaTrainer(pCanvas, pKanas)
     //Internal Functions
     
     /// Create the kana queue
+    //     write all selected kanas in random order into a queue
     function createQueue()
     {
-		prop.faultQueue = [];
+		prop.faultQueue = []; //reset fault queue
 		
         //fill kanaQueue with random data from kanaData
         prop.kanaQueue = [];
@@ -345,9 +363,10 @@ function KanaTrainer(pCanvas, pKanas)
     }
     
     ///setup fault lookup
+    // create a lookup hashmap to find the wrong answer and queue them into fault queue
     function setupFaultLookup()
     {
-		prop.faultLookup = [];
+		prop.faultLookup = []; //clear lookup 
 		
         for(var i=0; i<prop.kanaData.length; i++)
         {
@@ -373,6 +392,10 @@ function KanaTrainer(pCanvas, pKanas)
         }
 	}
 	
+	/**
+	* Handle click events in the canvas element
+	* it is required to validate result in hepburn mode
+	*/
 	function onCanvasClick(e)
 	{	
 		if(!prop.optHepburnMode)
@@ -400,6 +423,9 @@ function KanaTrainer(pCanvas, pKanas)
 		}
 	}
 	
+	/**
+	* shuffle an array
+	*/
 	function shuffleArray(array)
 	{
 		for (var i = array.length - 1; i > 0; i--) 

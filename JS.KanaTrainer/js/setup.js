@@ -59,6 +59,7 @@ function setup()
     chkBase.checked = true;
     chkExtended.checked = true;
     chkYoon.checked = true;
+    chkHepburnMode.checked = false;
     chkHiragana.onclick = checkBoxHelper("hiragana", chkHiragana);
     chkKatakana.onclick = checkBoxHelper("katakana", chkKatakana);
     chkBase.onclick = checkBoxHelper("base", chkBase);
@@ -81,9 +82,18 @@ function setup()
 		//space and enter
         if(!(event.keyCode == 13 || event.charCode == 32))
             return true;
-        
+            
         txtAnswer.style.backgroundColor="transparent";
-        if(kanaTrainer.validate(txtAnswer.value))
+        kanaTrainer.validate(txtAnswer.value)
+        
+        return false;
+    };
+    
+    
+    //set the callback when kana trainer validated an input
+    kanaTrainer.setValidateCallback(function(result)
+    {
+		if(result)
         {
             try
             {
@@ -107,10 +117,9 @@ function setup()
         }
         
         setStats();
-        
-        return false;
-    };
+	});
     
+    //create action for a checkbox
     function checkBoxHelper(option, checkbox)
     {
         return function()
@@ -122,6 +131,7 @@ function setup()
         }
     }
     
+    //retrieve stats from kana trainer and show in html
     function setStats()
     {
         divStatus.innerHTML = kanaTrainer.getQueuePos() + "/" + kanaTrainer.getQueueSize() + "-" + kanaTrainer.getFaultQueueSize();
@@ -134,8 +144,6 @@ function setup()
     setStats();
     txtAnswer.focus();
     
-    
-
 }
 
 
