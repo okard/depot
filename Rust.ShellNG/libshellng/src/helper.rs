@@ -3,12 +3,12 @@
 pub struct CharReader<'a>
 {
 	part: & 'a str,
-	pos: uint
+	pos: usize
 }
 
 impl<'a> CharReader<'a>
 {
-	pub fn new<'a>(part: &'a str) -> CharReader<'a>
+	pub fn new<'b>(part: &'b str) -> CharReader<'b>
 	{
 		CharReader { part:part, pos:0 }
 	}
@@ -27,7 +27,7 @@ impl<'a> CharReader<'a>
 	pub fn next_char(&mut self) 
 	{
 		let c = self.cur_char();
-		self.pos += c.len_utf8_bytes();
+		self.pos += c.len_utf8();
 	}
 	
 	pub fn part(&mut self) -> &'a str
@@ -35,7 +35,7 @@ impl<'a> CharReader<'a>
 		self.part
 	}
 	
-	pub fn pos(&self) -> uint
+	pub fn pos(&self) -> usize
 	{
 		self.pos
 	}

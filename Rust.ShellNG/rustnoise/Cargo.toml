@@ -1,0 +1,12 @@
+
+[package]
+name = "rustnoise"
+version = "0.0.1"    
+authors = [ ]
+links = "linenoise"
+build = "build.rs"
+
+
+[lib]
+name ="rustnoise"
+path ="src/lib.rs"

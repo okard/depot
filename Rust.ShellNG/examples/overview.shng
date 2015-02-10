@@ -1,0 +1,98 @@
+
+# commands
+pwd
+ls -l .
+
+ls -l && echo "success"
+ls -l || echo "fail"
+
+
+ls -l .
+echo $?
+
+# simple variables
+
+var dir = "."
+var i : num = 0;
+
+# expressions
+
+: $i++
+: $i -= 1
+
+#$i++ -> is 1 try to run 1 
+
+# controls
+
+if $num == 0 {
+	echo "yes"
+}
+
+
+# match
+
+
+
+# loops
+
+for f : $fs.files(".") {
+	echo $f
+}
+
+while $i != 0 {
+	echo "test"
+}
+
+# functions
+def myls(dir)
+{
+	ls -l $dir
+}
+
+$myls(".")
+
+
+# alternative def myls = fn() {}
+
+
+# objects
+
+obj myobj
+{
+	var i: num = 0;
+	
+	def get()
+	{
+		return $self.i
+	}
+	
+	#object flags?
+		# mutable, cloneable, ...
+		
+	# allow commands here?
+}
+
+# creation is cloning 
+# rename to new?
+var nobj = $myobj.clone();
+
+let $myobj.abc = fn {
+	echo "abc"
+}
+
+
+# expressions:
+
+# binary: +,- , ++, -- * / . 
+
+# array/list?
+var abc = [1,2,3,4]
+
+
+# def ls(dir) = ls -l $dir
+
+# custom functions/objects vs custom commands?
+ # def a(a, params) : command 
+
+# load/run script
+#. test.shng

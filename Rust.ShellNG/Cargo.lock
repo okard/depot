@@ -1,0 +1,19 @@
+[root]
+name = "shellng"
+version = "0.0.1"
+dependencies = [
+ "libshellng 0.0.1",
+ "rustnoise 0.0.1",
+]
+
+[[package]]
+name = "libshellng"
+version = "0.0.1"
+dependencies = [
+ "rustnoise 0.0.1",
+]
+
+[[package]]
+name = "rustnoise"
+version = "0.0.1"
+

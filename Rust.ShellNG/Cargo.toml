@@ -1,0 +1,17 @@
+
+[package]
+name = "shellng"
+version = "0.0.1"    
+authors = [ ]
+
+
+[dependencies.rustnoise]
+path = "rustnoise/"
+
+[dependencies.libshellng]
+path = "libshellng/"
+
+
+[[bin]]
+name = "shellng"
+path = "shellng/main.rs"

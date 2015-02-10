@@ -1,23 +1,29 @@
 
 //use std::io::File;
 
-use input;
+use io;
 
 //import lexer
-use lexer::{Lexer};
-use parse::{Parser};
+use syntax::lexer::{Lexer};
+use syntax:: parse::{Parser};
 
-use exec;
+use vm::exec;
 
-pub struct ShellContext;
+pub struct ShellContext; //ContextTable
+						  // RuntimeContext?
+						  
+						  
 
 
+// a working struct is shellio/parse/lex/context 
+
+//todo rename to Shell, ShellCore? ShellContext?
 /*
-* Shell State
+* Shell State 
 */
 pub struct ShellState<'a>
 {
-	lexer: Lexer<'a>
+	parser: Parser<'a>,
 	//parser?
 	
 	
@@ -39,21 +45,21 @@ pub struct ShellState<'a>
 
 impl<'a> ShellState<'a>
 {	
-	fn new(shell_input: &mut input::ShellInput) -> ShellState
+	fn new<'b>(shell_input: & 'b mut io::SourceInput) -> ShellState<'b>
 	{
 		 ShellState { 
-						lexer: Lexer::new(shell_input)
-				     }
+						parser: Parser::new(shell_input)
+				}
 	}
 	
 	
 	fn run_line(&mut self) -> bool
 	{
-		let mut parser = Parser::new(&mut self.lexer);
+	
 		//parse a complete syntax tree:
-		let ast_tree = parser.parse();
+		let ast_tree = self.parser.parse();
 		
-		println!("{}", ast_tree);
+		//println!("{}", ast_tree);
 		
 		let mut shctx = ShellContext;
 		//execute the tree
@@ -65,6 +71,11 @@ impl<'a> ShellState<'a>
 }
 
 
+fn do_line<'a>(ss : & 'a mut ShellState<'a>)
+{
+	ss.run_line();
+}
+
 pub fn run()
 {
 	/*
@@ -75,17 +86,14 @@ pub fn run()
 	*/
 	
 	//create a linenoise input
-	let mut shell_input = input::ShellNoiseInput { prompt: "shellng > ".to_string() };
+	let mut shell_input = io::linenoise::ShellNoiseInput::new("shellng > ");
 	
 	//create shell state/context
 	let mut state = ShellState::new(&mut shell_input);
 	
 	//event loop
-	loop 
+	loop  
 	{
-		if !state.run_line()
-		{
-			break;
-		}
+		//do_line(&mut state);
 	}
 }

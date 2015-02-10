@@ -12,14 +12,14 @@
 
 //command nodes will be executed -> become process (removed from ast?)
 
-#[deriving(Show)]
+#[derive(Debug)]
 pub enum Node
 {
 	Nothing,
 	
 	////////////////////////////////////////////////////////////////////
 	//Declarations/Statements:
-	Command(Box<Command_>),
+	Command,
 	
 	
 	////////////////////////////////////////////////////////////////////
@@ -44,16 +44,17 @@ pub enum Node
 	List(Box<Vec<Node>>)	//concatenation of AstNodes result in a string -> abc$abc 
 }
 
-#[deriving(Show)]
-pub struct Command_
-{
-	pub exe: Node, //executable
-	pub args: Vec<Node> //the parameters
-	//redirections
-	//piping
-}
 
-#[deriving(Show)]
+/*
+Command {
+		exe: Node, //executable
+		args: Vec<Node> //the parameters
+		
+		//pipes fds and so on
+	},
+*/
+
+#[derive(Debug)]
 pub enum UnOp
 {
 	Not,
@@ -61,24 +62,24 @@ pub enum UnOp
 	PrePlus
 }
 
-#[deriving(Show)]
+#[derive(Debug)]
 pub struct UnaryExpr_
 {
 	pub expr: Node,
 	pub op : UnOp
 }
 
-#[deriving(Show)]
+#[derive(Debug)]
 enum BinOp
 {
-	Access,
-	Plus,
-	Minus,
-	Mul,
-	Div,
+	Access,	// .
+	Plus,	// +
+	Minus,	// -
+	Mul,	// *
+	Div,	// /
 }
 
-#[deriving(Show)]
+#[derive(Debug)]
 pub struct BinaryExpr_
 {
 	left: Node,

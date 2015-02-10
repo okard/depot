@@ -1,10 +1,11 @@
 
 //use std::vec;
-use std::collections::{RingBuf, Deque};
+use std::collections::{RingBuf};
 
-use input;
+use io;
 use helper;
 
+#[derive(Copy)]
 pub enum TokenKind
 {
 	Eof,			
@@ -63,7 +64,7 @@ impl PartialEq for TokenKind
 {
      fn eq(&self, other: &TokenKind) -> bool 
      {
-         *self as int == *other as int
+         self == other
      }
 }
 
@@ -97,7 +98,7 @@ impl PartialEq for Token
 
 pub struct Lexer<'a>
 {
-	reader: & 'a mut input::ShellInput, //buffer is minimal interface here can also be reader
+	reader: & 'a mut (io::SourceInput + 'a), //buffer is minimal interface here can also be reader
 	pub tokens: RingBuf<Token>
 	
 	//position?
@@ -108,7 +109,7 @@ pub struct Lexer<'a>
 
 impl<'a> Lexer<'a>
 {
-	pub fn new(input: &mut input::ShellInput) -> Lexer
+	pub fn new<'b>(input: & 'b mut io::SourceInput) -> Lexer<'b>
 	{
 		Lexer { reader: input, tokens: RingBuf::with_capacity(5)}
 	}
@@ -118,23 +119,23 @@ impl<'a> Lexer<'a>
 		//whitespace check
 		if !reader.is_eob() 
 		&& reader.cur_char().is_whitespace() {
-			self.tokens.push_back(Token::new(Whitespace, " "));
+			self.tokens.push_back(Token::new(TokenKind::Whitespace, " "));
 		}
 	}
 	
 	fn check_id_token(t : &mut Token)
 	{
-		if t.kind as int != Id as int {
+		if t.kind != TokenKind::Id {
 			return;
 		}
 		
 		match t.s.as_slice()
 		{
-			"def" => {t.kind = KwDef; }
-			"let" => {t.kind = KwLet; }
-			"if" => {t.kind = KwIf; }
-			"for" => {t.kind = KwFor; }
-			"match" => {t.kind = KwMatch; }
+			"def" => {t.kind = TokenKind::KwDef; }
+			"let" => {t.kind = TokenKind::KwLet; }
+			"if" => {t.kind = TokenKind::KwIf; }
+			"for" => {t.kind = TokenKind::KwFor; }
+			"match" => {t.kind = TokenKind::KwMatch; }
 			_ => ()
 		}
 		//compare with keywords
@@ -161,18 +162,18 @@ impl<'a> Lexer<'a>
 		
 		//safe position of first valid char
 		let mut start_pos = reader.pos();
-		let mut tok_kind : TokenKind = Eof;
+		let mut tok_kind = TokenKind::Eof;
 		
 		//read numbers
-		if reader.cur_char().is_digit()
+		if reader.cur_char().is_digit(10)
 		{
-			tok_kind = NumLiteral;
+			tok_kind = TokenKind::NumLiteral;
 			
 			//escaping
 			
 			//read over until something other occur
 			while !reader.is_eob()
-			&& reader.cur_char().is_digit() {
+			&& reader.cur_char().is_digit(10) {
 				reader.next_char();
 			}
 			
@@ -184,7 +185,7 @@ impl<'a> Lexer<'a>
 		//if it is an id parse it to end
 		if reader.cur_char().is_alphanumeric()
 		{
-			tok_kind = Id;
+			tok_kind = TokenKind::Id;
 			
 			//escaping
 			
@@ -205,28 +206,28 @@ impl<'a> Lexer<'a>
 		//handling single symbols
 		match reader.cur_char() 
 		{
-			'(' => { tok_kind = SymROBracket; reader.next_char(); }
-			')' => { tok_kind = SymRCBracket; reader.next_char(); }
-			'[' => { tok_kind = SymSOBracket; reader.next_char(); }
-			']' => { tok_kind = SymSCBracket; reader.next_char(); }
-			'{' => { tok_kind = SymCOBracket; reader.next_char(); }
-			'}' => { tok_kind = SymCCBracket; reader.next_char(); }
+			'(' => { tok_kind = TokenKind::SymROBracket; reader.next_char(); }
+			')' => { tok_kind = TokenKind::SymRCBracket; reader.next_char(); }
+			'[' => { tok_kind = TokenKind::SymSOBracket; reader.next_char(); }
+			']' => { tok_kind = TokenKind::SymSCBracket; reader.next_char(); }
+			'{' => { tok_kind = TokenKind::SymCOBracket; reader.next_char(); }
+			'}' => { tok_kind = TokenKind::SymCCBracket; reader.next_char(); }
 			
-			'=' => { tok_kind = OpAssign; reader.next_char(); }
-			'.' => { tok_kind = OpDot; reader.next_char(); }
+			'=' => { tok_kind = TokenKind::OpAssign; reader.next_char(); }
+			'.' => { tok_kind = TokenKind::OpDot; reader.next_char(); }
 			
-			'+' => { tok_kind = OpPlus; reader.next_char(); }
-			'-' => { tok_kind = OpMinus; reader.next_char(); }
-			'*' => { tok_kind = OpMul; reader.next_char(); }
-			'/' => { tok_kind = OpDiv; reader.next_char(); }
+			'+' => { tok_kind = TokenKind::OpPlus; reader.next_char(); }
+			'-' => { tok_kind = TokenKind::OpMinus; reader.next_char(); }
+			'*' => { tok_kind = TokenKind::OpMul; reader.next_char(); }
+			'/' => { tok_kind = TokenKind::OpDiv; reader.next_char(); }
 			
-			'|' => { tok_kind = Pipe; reader.next_char(); }
+			'|' => { tok_kind = TokenKind::Pipe; reader.next_char(); }
 			
-			'$' => { tok_kind = PlaceId; reader.next_char(); }
+			'$' => { tok_kind = TokenKind::PlaceId; reader.next_char(); }
 			
-			'\\' => { fail!(); /* handle escape! */  }
+			'\\' => { panic!(); /* handle escape! */  }
 			
-			'"' => { tok_kind = StringLiteral;  }
+			'"' => { tok_kind = TokenKind::StringLiteral;  }
 			
 			'#' => { return false; } //ignore complete line
 			
@@ -236,7 +237,7 @@ impl<'a> Lexer<'a>
 		// 2 chars or special stuff 
 		match tok_kind
 		{
-			PlaceId => 
+			TokenKind::PlaceId => 
 			{
 				//while not whitespace read
 				while !reader.is_eob()
@@ -245,7 +246,7 @@ impl<'a> Lexer<'a>
 				}
 			}
 			
-			StringLiteral =>
+			TokenKind::StringLiteral =>
 			{
 				assert!(reader.cur_char() == '"');
 				reader.next_char();
@@ -265,7 +266,7 @@ impl<'a> Lexer<'a>
 		self.tokens.push_back(Token::new(tok_kind, reader.part().slice(start_pos, reader.pos())));
 		
 		//skip end "
-		if tok_kind == StringLiteral {
+		if tok_kind == TokenKind::StringLiteral {
 			assert!(reader.cur_char() == '"');
 			reader.next_char();
 		}
@@ -369,7 +370,7 @@ fn lexer_test()
 	{
 		println!("{} => '{}' == '{}' && {} == {}",i, 
 				 lexer.tokens.get(i).s, list.get(i).s,
-				 lexer.tokens.get(i).kind as int, list.get(i).kind as int);
+				 lexer.tokens.get(i).kind as isize, list.get(i).kind as isize);
 		assert!(lexer.tokens.get(i) ==  list.get(i));
 	}
 	

@@ -1,0 +1,13 @@
+[package]
+name = "libshellng"
+version = "0.0.1"    
+authors = [ ]
+
+
+[dependencies.rustnoise]
+path = "../rustnoise/"
+
+
+[lib]
+name = "libshellng"
+path = "src/lib.rs"

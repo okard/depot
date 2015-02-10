@@ -4,7 +4,36 @@ ShellNG implementation in rust
 
 
 ## Todo
-* linenoise/readline for line handling?
+* syntax mod with token, lexer, parser
+* ContextTable renaming and handling (on stack?)
+	- Node->Table Mapping???
+* More Parsing stuff
+	- definitions
+	- expressions
+* rename exec -> interpreter
+* internal commands/functions
+	- prompt
+	- cd / pwd
+	- exit
+	- .
+	- (and more)
+
+* command line args and file handling
+* think about wildcard abuse
+* internal settings?
+	- abort script on error (no go through all commands)
+* think about commands with expression syntax
+	- $foo.asd 
+	- $foo + 1
+	- abc$abc + 1
+	- $foo+1
+	- $abc -l$foo
+* handle expression returns at command exe position possibilities:
+	- ignore -> no command
+	- string -> executable
+	- array -> complete command with args? 
+* think about let syntax
+
 
 ## Lexing
 * Whitespace aware 
@@ -26,7 +55,7 @@ ShellNG implementation in rust
 	$exec -l .
 	
 	def s = "s"
-	l$s -l .
+	l$s -l .	//do not allow $ident in compound command parts?
 	
 	
 	date
