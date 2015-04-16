@@ -1,21 +1,37 @@
 /*
 
 source_dir is the repository of files
-target_dir is the working directory
+local_dir is the working directory
 
 */
+#![feature(convert)]
+#![feature(path_relative_from)]
+#![feature(fs_time)]
+#![feature(path_ext)]
+
 extern crate toml; 
-extern crate "rust-crypto" as crypto;
+extern crate crypto;
+extern crate argparse;
 
 use std::os;
-use std::path::Path;
-use std::io::fs::PathExtensions;
 use std::io;
+use std::env;
+use std::fs;
+use std::str;
+
+use std::path::{PathBuf, Path};
+use std::fs::PathExt;
+use std::io::{Read};
+
+use argparse::{ArgumentParser, StoreTrue, Store};
+
+//get config path
+//get config_settings
 
 /**
 * Search and load the config
 */
-fn get_config() -> Option<toml::TomlTable>
+fn get_config() -> Option<toml::Table> //result
 {
 	//search for config
 	//os::homedir() -> Option<Path>
@@ -23,13 +39,14 @@ fn get_config() -> Option<toml::TomlTable>
 	//
 	
 	
-	let conf_file = os::homedir().unwrap().join(".config/confhelper.config.toml");
+	let conf_file = env::home_dir().unwrap().join(".config/confhelper.config.toml");
 	if conf_file.is_file() {
 		println!("Config-File: {}", conf_file.display());
 		
-		let contents = io::File::open(&conf_file).read_to_end();
-		let contents = String::from_utf8(contents.ok().unwrap()).ok().unwrap();
-		let config = toml::Parser::new(contents.as_slice()).parse().unwrap();
+		let mut content : Vec<u8> = Vec::new();
+		fs::File::open(&conf_file).unwrap().read_to_end(&mut content);
+		
+		let config = toml::Parser::new(str::from_utf8(content.as_slice()).unwrap()).parse().unwrap();
 		return Some(config);
 	}
 	
@@ -39,24 +56,24 @@ fn get_config() -> Option<toml::TomlTable>
 /**
 * try to convert a path to an absolute path
 */
-fn get_absolute_path(path : &str) -> Option<Path>
+fn get_absolute_path(path : &str) -> Option<PathBuf>
 {
-	let path = path.replace("~", os::homedir().unwrap().as_str().unwrap());
-	let path = Path::new(path);
+	let path = path.replace("~", env::home_dir().unwrap().to_str().unwrap());
+	let path = PathBuf::from(path);
 	
 	//println!("absolute for: {}", path.display());
 	//println!("path '{}' is_dir {}", path.display(), path.is_dir());
 	
 	//is directly accessable make it full path
 	if (path.is_dir() || path.is_file()) && !path.is_absolute() {
-		let cwd = os::getcwd();
+		let cwd = env::current_dir().unwrap();
 		let path = cwd.join(path);
 		
 		assert!(path.is_dir() || path.is_file());
 		assert!(path.is_absolute());
 		
 		return Some(path);
-	}	
+	}   
 	
 	//already a absolute path
 	if (path.is_dir() || path.is_file()) && path.is_absolute() {
@@ -67,58 +84,68 @@ fn get_absolute_path(path : &str) -> Option<Path>
 	return None;
 }
 
-
+/**
+* create sha1sum of a file
+*/
 fn sha1sum(file: &Path) -> Vec<u8>
 {
 	use crypto::digest::Digest;
 	let mut sha = crypto::sha1::Sha1::new();
 	//TODO chunk reading
-	let contents = io::File::open(file).read_to_end().unwrap();
-	sha.input(contents.as_slice());
-	let mut out = [0u8, ..20];
-	sha.result(out);
+	
+	let mut content : Vec<u8> = Vec::new();
+	fs::File::open(&file).unwrap().read_to_end(&mut content);
+	sha.input(content.as_slice());
+	let mut out = [0u8; 20];
+	sha.result(&mut out);
 	return out.to_vec();
 }
 
-fn compare_files(target_file : &Path, source_file: &Path)
+/**
+* compare two files (part of diff command)
+*/
+fn compare_files(local_file : &Path, source_file: &Path)
 {
 	//create sha1 sums
-	let target_checksum = sha1sum(target_file);
+	let local_checksum = sha1sum(local_file);
 	let source_checksum = sha1sum(source_file);
 	
-	if target_checksum == source_checksum {
+	if local_checksum == source_checksum {
 		println!("Checksum of both file are identical");
 		return;
 	}
 	
-	let target_file_stat = target_file.lstat().unwrap();
-	let source_file_stat = source_file.lstat().unwrap();
+	let local_file_meta = local_file.metadata().unwrap();
+	let source_file_meta = source_file.metadata().unwrap();
 	
 	//if differs check modified date
-	if target_file_stat.modified < source_file_stat.modified {
-		//<target> <source>/
-		println!("{} is newer than {}", source_file.display(), target_file.display());
+	if local_file_meta.modified() < source_file_meta.modified() {
+		//<local> <source>/
+		println!("{} is newer than {}", source_file.display(), local_file.display());
 	}
 	
-	if target_file_stat.modified > source_file_stat.modified {
-		println!("{} is newer than {}", target_file.display(), source_file.display());
+	if local_file_meta.modified() > source_file_meta.modified() {
+		println!("{} is newer than {}", local_file.display(), source_file.display());
 	}
 	
-	if target_file_stat.modified == source_file_stat.modified {
-		println!("{} seems identical {}", target_file.display(), source_file.display());
+	if local_file_meta.modified() == source_file_meta.modified() {
+		println!("{} seems identical {}", local_file.display(), source_file.display());
 	}
 	
 	//call diff command?
 }
 
 
-// fn get_file_pair(file_to_check, target_dir, source_dir) -> Option<(Path,Path)>
+// fn get_file_pair(file_to_check, local_dir, source_dir) -> Option<(Path,Path)>
 
 /**
 * Implement the diff command
 */
-fn diff_command(file_to_check: &str, target_dir: &Path, source_dir: &Path)
+fn diff_command(verbose: bool, file_to_check: &str, local_dir: &Path, source_dir: &Path)
 {
+	assert!(local_dir.is_absolute());
+	assert!(source_dir.is_absolute());
+	
 	//get the absolute path to current file
 	let file_to_check = get_absolute_path(file_to_check);
 	
@@ -128,56 +155,62 @@ fn diff_command(file_to_check: &str, target_dir: &Path, source_dir: &Path)
 	}
 	let file_to_check = file_to_check.unwrap();
 	
+	if verbose {
+		println!("File-to-check: {}", file_to_check.display());
+	}
+	
 	//find matching file
-	let target_file;
+	let local_file;
 	let source_file;
 	
-	//set source and target file
-	match (target_dir.is_ancestor_of(&file_to_check), source_dir.is_ancestor_of(&file_to_check)) 
+	//set source and local file
+	match (file_to_check.starts_with(&local_dir), file_to_check.starts_with(&source_dir)) 
 	{
 		(true, true) => {
-			//source dir is in target and file is in source_dir
-			if target_dir.is_ancestor_of(source_dir) {
+			//source dir is in local and file is in source_dir
+			if local_dir.starts_with(source_dir) {
 				//file is in source
 				source_file = file_to_check.clone();
-				target_file = target_dir.join(file_to_check.path_relative_from(source_dir).unwrap());
+				local_file = local_dir.join(file_to_check.relative_from(source_dir).unwrap());
 			}
-			else //use target dir for file 
+			else //use local dir for file 
 			{
-				source_file = source_dir.join(file_to_check.path_relative_from(target_dir).unwrap());
-				target_file = file_to_check.clone(); 
+				source_file = source_dir.join(file_to_check.relative_from(local_dir).unwrap());
+				local_file = file_to_check.clone(); 
 			}
 		} //use source as base
 		(false, true) => { 
 			//only in source
 			source_file = file_to_check.clone();
-			target_file = target_dir.join(file_to_check.path_relative_from(source_dir).unwrap());
+			local_file = local_dir.join(file_to_check.relative_from(source_dir).unwrap());
 			
 		} //use source as base
 		(true, false) => { 
-			source_file = source_dir.join(file_to_check.path_relative_from(target_dir).unwrap());
-			target_file = file_to_check.clone(); 
-		} //use target as base
+			source_file = source_dir.join(file_to_check.relative_from(local_dir).unwrap());
+			local_file = file_to_check.clone(); 
+		} //use local as base
 		(false, false) => { 
 			//create? where to create?
-			println!( "the file is not in target or source dir"); 
+			println!( "the file is not in local or source dir"); 
 			return;
 		} 
 	}
 	
-	println!("target_file: {}", target_file.display());
-	println!("source_file: {}", source_file.display());
+	if verbose {
+		println!("Local-File: {}", local_file.display());
+		println!("Source-File: {}", source_file.display());
+	}
 	
-	compare_files(&target_file, &source_file);
+	compare_files(&local_file, &source_file);
 	
-	//source_file, target_file
-	//target does not exist
+	//source_file, local_file
+	//local does not exist
 	//source does not exist
-	//target and source are identical
-	//target is newer
+	//local and source are identical
+	//local is newer
 	//source is newer
 	
-	//find file in target or source dir
+	//find file in local or source dir
 	
 	//actions: 
 }
@@ -187,15 +220,26 @@ fn diff_command(file_to_check: &str, target_dir: &Path, source_dir: &Path)
 
 fn main()
 {
-	let args = os::args();
-	
-	//todo --verbose flag
-	
-	//look for arguments
-	if args.len() < 3 {
-		println!("Missing arguments");
+	let mut verbose: bool = false;
+	let mut config_file = "".to_string();
+	let mut command = "".to_string();
+	let mut filename = "".to_string();
+	{  
+		let mut ap = ArgumentParser::new();
+		ap.set_description("Conf Helper");
+		ap.refer(&mut verbose).add_option(&["-v", "--verbose"], StoreTrue, "Be verbose");
+		ap.refer(&mut config_file).add_option(&["-c", "--config"], Store, "Use following config file");
+		ap.refer(&mut command).add_argument("command", Store, "Command to run");
+		ap.refer(&mut filename).add_argument("filename", Store, "filename");
+		ap.parse_args_or_exit();
+	}
+	if command.is_empty() 
+	|| filename.is_empty()
+	{
+		println!("Missing arguments use -h or --help for more information");
 		return;
 	}
+		
 	
 	//get config
 	let config = get_config();
@@ -206,16 +250,16 @@ fn main()
 	let config = config.unwrap();
 	
 	//validate config?
-	assert!(config.contains_key(&"target".to_string()));
+	assert!(config.contains_key(&"local".to_string()));
 	assert!(config.contains_key(&"source".to_string()));
 	
-	//load target dir
-	let target_dir = get_absolute_path(config.get(&"target".to_string()).unwrap().as_str().unwrap());
-	if target_dir.is_none() {
-		println!("target_dir not available");
+	//load local dir
+	let local_dir = get_absolute_path(config.get(&"local".to_string()).unwrap().as_str().unwrap());
+	if local_dir.is_none() {
+		println!("local_dir not available");
 		return;
 	}
-	let target_dir = target_dir.unwrap();
+	let local_dir = local_dir.unwrap();
 	
 	//load source dir
 	let source_dir = get_absolute_path(config.get(&"source".to_string()).unwrap().as_str().unwrap());
@@ -225,33 +269,34 @@ fn main()
 	}
 	let source_dir = source_dir.unwrap();
 	
-	
-	//when source is in target source has to be longer than target
-	//check which path is longer
-	if source_dir.is_ancestor_of(&target_dir) {
-		println!("source dir has to be longer than target dir");
-		return;
+	if(verbose)
+	{
+		println!("Config-Content: {:?}", config);
+		println!("Source-Dir: {:?}", source_dir);
+		println!("Local-Dir: {:?}", local_dir);
 	}
 	
-	//config seems to be valid at this point
-	
-	println!("Config-Content: {}", config);
+	//when source is in local source has to be longer than local
+	//check which path is longer
+	if !source_dir.starts_with(&local_dir) {
+		println!("source dir has to be longer than local dir");
+		return;
+	}
 	
 	//find the specific file stuff before looking at command?
 	
 	
 	//look for command
-	let command = args[1].as_slice();
-	match command 
+	match command.as_str()
 	{
 		//compares a file 
-		"diff" => { diff_command(args[2].as_slice(), &target_dir, &source_dir); }
+		"diff" => { diff_command(verbose, filename.as_str(), &local_dir, &source_dir); }
 		
-		//push file from target to source?
-		"push" => { } //only target files? or source->target|target->source
-		//replace a target file with the source file
+		//push file from local to source?
+		"push" => { } //only local files? or source->local|local->source
+		//replace a local file with the source file
 		"pop" => { /* */ } 
-		//try to merge both files in target (push afterwards if wanted)
+		//try to merge both files in local (push afterwards if wanted)
 		"merge" => {}
 		
 		//loop through source directory and compare all files
@@ -261,7 +306,7 @@ fn main()
 	}
 	
 	
-	//look if it is the source or target dir 
+	//look if it is the source or local dir 
 		//attention when using starts with it is the better match
 		//get the right other file
 		
