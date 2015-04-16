@@ -2,28 +2,19 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <title>Pw Helper</title>
+	<meta charset="UTF-8">
+	<title>Pw Helper</title>
+	
+	<link rel="stylesheet" type="text/css" href="css/furtive.min.css">
 
-	<script src="pbkdf2.js"></script>
-	<script>
-		
-		function doit()
-		{
-			var mpw_salt = document.getElementById('txtMasterPw').value;
-			var url = document.getElementById('txtUrl').value;
-			
-			document.body.style.cursor = 'wait';
-			var result = CryptoJS.PBKDF2(url, mpw_salt, { keySize: 512/32, iterations: 1000 });
-			document.body.style.cursor = 'auto';
-			document.getElementById('txtResult').value = result;
-		}
-		
-	</script>
-    
+	<script src="js/pbkdf2.js"></script>
+	<script src="js/blake2s.js"></script>
+	<script src="js/utils.js"></script>
+	<script src="js/webapp.js"></script>
 </head>
 
 <body>
+	<form style="max-width:48rem; margin: 0px auto;" onsubmit="create_pw();return false;">
 	<p>
 	<input id="txtMasterPw" type="password" value="" placeholder="Master Password" />
 	<label for="txtMasterPw">Master Password</label>
@@ -35,12 +26,40 @@
 	</p>
 	
 	<p>
-	<label for="txtResult">Key</label><br/>
+		<label for="lstAlgorithm">Algorithm: </label>
+		<select id="lstAlgorithm">
+			<option value="PBKDF2">PBKDF2 (Key: 512/32, Iter: 1000)</option>
+			<option value="BLAKE2S">BLAKE2s (Key 32, With Secret Key)</option>
+			<!--
+			scrypt,
+			blake2b/chacha20 simple hashing/symmetric encryption?
+			pure hash hash(mpw+url)?
+			-->
+		</select>
+		
+		<label for="lstEncoding">Encoding: </label>
+		<select id="lstEncoding">
+			<option value="hex">hex</option>
+			<option value="base64">base64</option>
+			<option value="base64url">base64url</option>
+		</select>
+	</p>
+		
+	<p>
+		<input id="numLength" style="margin-top:1em" type="number" name="numLength" min="0" max="100" placeholder="Length Limit">
+		<label for="numLength">Length Limit</label>
+	</p>
+	
+	<p>
+	<label for="txtResult">Key</label> <span id="lblWarning" style="color:red"></span>
+	<br/>
 	<textarea id="txtResult" rows="5" cols="25">
 	</textarea>
 	</p>
+	<div id="lblKeyInfo">KeyInfo: </div>
 	
-	<input id="btnGo" type="button" value="go" onclick="javascript:doit()" />
-
+	<input class="btn--blue" id="btnGo" type="submit" value="Go">
+	<input class="btn--gray" type="reset" value="Reset">
+	</form>
 </body>
 </html>
