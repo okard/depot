@@ -10,6 +10,7 @@ function setup()
     var txtAnswer = document.getElementById("txtInput");
     var btnTip = document.getElementById("btnTip");
     var btnNext = document.getElementById("btnNext");
+    var btnReset = document.getElementById("btnReset");
     var lblSymbol = document.getElementById("divSymbol");
     var divStatus = document.getElementById("divStatus");
     var divStatistics = document.getElementById("divStatistics");
@@ -22,6 +23,7 @@ function setup()
     var chkBase = document.getElementById("chkBase");
     var chkExtended = document.getElementById("chkExtended");
     var chkYoon = document.getElementById("chkYoon");
+    var chkHepburnMode = document.getElementById("chkHepburnMode");
     
     //setup kana trainer object
     var kanaTrainer = new KanaTrainer(canvas, getKanaData());
@@ -44,16 +46,26 @@ function setup()
         return true;
     };
     
+    btnReset.onclick = function()
+    {
+		kanaTrainer.resetAll();
+		kanaTrainer.next();
+		setStats();
+		return true;
+	};
+    
     chkHiragana.checked = true;
     chkKatakana.checked = true;
     chkBase.checked = true;
     chkExtended.checked = true;
     chkYoon.checked = true;
+    chkHepburnMode.checked = false;
     chkHiragana.onclick = checkBoxHelper("hiragana", chkHiragana);
     chkKatakana.onclick = checkBoxHelper("katakana", chkKatakana);
     chkBase.onclick = checkBoxHelper("base", chkBase);
     chkExtended.onclick = checkBoxHelper("ext", chkExtended);
     chkYoon.onclick = checkBoxHelper("yoon", chkYoon);
+	chkHepburnMode.onclick = checkBoxHelper("hepburnmode", chkHepburnMode);
     
     txtAnswer.onkeydown = function(event)
     {
@@ -70,9 +82,18 @@ function setup()
 		//space and enter
         if(!(event.keyCode == 13 || event.charCode == 32))
             return true;
-        
+            
         txtAnswer.style.backgroundColor="transparent";
-        if(kanaTrainer.validate(txtAnswer.value))
+        kanaTrainer.validate(txtAnswer.value)
+        
+        return false;
+    };
+    
+    
+    //set the callback when kana trainer validated an input
+    kanaTrainer.setValidateCallback(function(result)
+    {
+		if(result)
         {
             try
             {
@@ -96,10 +117,9 @@ function setup()
         }
         
         setStats();
-        
-        return false;
-    };
+	});
     
+    //create action for a checkbox
     function checkBoxHelper(option, checkbox)
     {
         return function()
@@ -111,11 +131,13 @@ function setup()
         }
     }
     
+    //retrieve stats from kana trainer and show in html
     function setStats()
     {
         divStatus.innerHTML = kanaTrainer.getQueuePos() + "/" + kanaTrainer.getQueueSize() + "-" + kanaTrainer.getFaultQueueSize();
         var stats = kanaTrainer.getStatistics();
-        divStatistics.innerHTML = "Right: " + stats.right + " Wrong: " + stats.wrong + " Right in Row: " + stats.rightInRow;
+        divStatistics.innerHTML = "Right: " + stats.right + " Wrong: " + stats.wrong + " Right in Row: " + stats.rightInRow
+								+ " Right in Round: " + stats.rightInRound + " Wrong in Round: " + stats.wrongInRound;
     }
     
     //initial
@@ -123,8 +145,6 @@ function setup()
     setStats();
     txtAnswer.focus();
     
-    
-
 }
 
 

@@ -33,6 +33,10 @@ function KanaTrainer(pCanvas, pKanas)
         // current kana obj
         currentKana: undefined,
         
+        //current elements for hepburn mode
+        currentElements: [], 
+        //safe solution position
+        
         //fault handling
         faultQueue: [],
         faultLookup: {},
@@ -43,17 +47,27 @@ function KanaTrainer(pCanvas, pKanas)
         statRight: 0,
         statWrong: 0,
         statRightInRow: 0,
+        statRightInRound: 0,
+        statWrongInRound: 0,
         
         /* Options */
-        optKatakana: true,
-        optHiragana: true,
-        optBase: true,
-        optExtended: true,
-        optYoon: true,
+        optKatakana: true, //ask katakana
+        optHiragana: true, //ask hiragana
+        optBase: true,	   //only base kanas
+        optExtended: true,	//extended kanas e.g. ga
+        optYoon: true,	//yoon kanas
+        optHepburnMode: false, //how hepburn instead of kana
+        
+        //optHepburnModeLimit: 9,  //limit of symbols to choose from
         
         /* UI */
         uiCanvas: undefined,
         uiContex: undefined,
+        
+        //callback function for validation
+        cbValidated: function(result) {},
+        //callback when completly looped through current list
+        cbRoundComplete: function(result) {},
     };
     
     //Ctor
@@ -64,10 +78,13 @@ function KanaTrainer(pCanvas, pKanas)
         
         //prepare canvas
         prop.uiCanvas = pCanvas;
+        prop.uiCanvas.onclick = onCanvasClick;
         prop.uiContex = pCanvas.getContext('2d');
         prop.uiContex.textAlign = 'center';
         prop.uiContex.textBaseline = 'middle';
-        prop.uiContex.font = 'italic 100px Calibri';
+        prop.uiContex.font = '100px Calibri';
+        
+        //TODO calculate font size from canvas size?
         
         setupFaultLookup();
         createQueue();
@@ -77,14 +94,18 @@ function KanaTrainer(pCanvas, pKanas)
     //Public Functions
     
     /**
-     * Validate Input
+     * Validate Input given by value
      */
     self.validate = function(value)
     {
-        if(value === prop.currentKana.hepburn)
+		var result = prop.optHepburnMode ?  prop.currentKana.kana : prop.currentKana.hepburn;
+		
+        if(value === result)
         {
             prop.statRight++;
             prop.statRightInRow++;
+            prop.statRightInRound++;
+            prop.cbValidated(true);
             return true;
         }
         else
@@ -94,15 +115,19 @@ function KanaTrainer(pCanvas, pKanas)
             
             prop.statWrong++;
             prop.statRightInRow=0;
+            prop.statWrongInRound++;
+            prop.cbValidated(false);
             return false;
         }
     }
     
     /**
-     * Next kana in queue
+     * Show next kana in queue
      */
     self.next = function()
     {
+		//TODO different modes:
+		
         //when faultQueue has entries 65% Chance to use entry from faultQueue  
         if(prop.faultQueue.length > 0 && Math.random() > 0.35)
         {
@@ -114,10 +139,35 @@ function KanaTrainer(pCanvas, pKanas)
             prop.currentKana = prop.kanaQueue[prop.currentPos];
             
             prop.currentPos++;
+            
             if(prop.currentPos > prop.kanaQueue.length-1)
+            {
                 prop.currentPos = 0;
+                prop.cbRoundComplete(self.getStatistics());
+                prop.statRightInRound = 0;
+                prop.statWrongInRound = 0;
+			}
         }
- 
+        
+        //setup stuff for hepburn mode
+        if(prop.optHepburnMode)
+		{
+			prop.currentElements = [];
+			for(var i=0; i < 9; i += 1)
+			{
+				//only from current list
+				prop.currentElements.push(prop.kanaQueue[randomNumber(0, prop.kanaQueue.length-1)].kana);
+			}
+			prop.currentElements[0] = prop.currentKana.kana; //solution
+			shuffleArray(prop.currentElements);
+			//no current element in middle?
+			while(prop.currentElements[4] == prop.currentKana.kana)
+			{
+				shuffleArray(prop.currentElements);
+			}
+			prop.currentElements[4] = prop.currentKana.hepburn; //question
+		}
+
         prop.tipStatus = 0;
         self.draw();
     }
@@ -132,9 +182,39 @@ function KanaTrainer(pCanvas, pKanas)
         var ctx = prop.uiContex;
         var w = prop.uiCanvas.width;
         var h = prop.uiCanvas.height;
-       
-        ctx.clearRect(0, 0, w, h);
-        ctx.fillText(prop.currentKana.kana, w/2, h/2);
+        
+        //in hepburn mode the question data is setup in next function
+        //the mode renders 9 symbols with requested kana in center 
+        if(prop.optHepburnMode && prop.currentElements.length > 0)
+		{
+			ctx.clearRect(0, 0, w, h);
+			ctx.save();
+			ctx.font = '30px Calibri';
+			
+			var step_x = (w/3.0);
+			var step_y = (h/3.0);
+			var idx_element = 0;
+			
+			//assert(prop.currentElements.length == 9)
+			
+			//render 3x3 cells with values
+			for(var r=0; r < 3; r += 1)
+			{
+				for(var c=0; c < 3; c += 1)
+				{
+					ctx.fillText(prop.currentElements[idx_element], (step_x/2) + c*step_x, (step_y/2) + r*step_y);
+					idx_element++;
+				}
+			}
+			
+			ctx.restore();
+			return;
+		}
+		else
+		{
+			ctx.clearRect(0, 0, w, h);
+			ctx.fillText(prop.currentKana.kana, w/2, h/2);
+		}
     }
     
     /**
@@ -150,7 +230,8 @@ function KanaTrainer(pCanvas, pKanas)
      */
     self.getQueuePos = function()
     {
-        return prop.currentPos-1;
+		var pos = prop.currentPos;
+        return pos;
     }
     
     /**
@@ -180,7 +261,9 @@ function KanaTrainer(pCanvas, pKanas)
         return {
             right: prop.statRight,
             wrong: prop.statWrong,
-            rightInRow: prop.statRightInRow
+            rightInRow: prop.statRightInRow,
+            rightInRound: prop.statRightInRound,
+            wrongInRound: prop.statWrongInRound,
         };
     }
     
@@ -209,11 +292,29 @@ function KanaTrainer(pCanvas, pKanas)
             case "yoon":
                 prop.optYoon = value;
                 break;
+			case "hepburnmode":
+				prop.optHepburnMode = value;
+				break;
         }
         
-        createQueue();
-        setupFaultLookup();
+        self.resetAll();
     }
+    
+    self.setValidateCallback = function(cb)
+    {
+		if(typeof cb === 'function')
+		{
+			prop.cbValidated = cb;
+		}
+	}
+	
+	self.setRoundCompleteCallback = function(cb)
+    {
+		if(typeof cb === 'function')
+		{
+			prop.cbRoundComplete = cb;
+		}
+	}
     
     /**
      * Tip Function
@@ -226,12 +327,23 @@ function KanaTrainer(pCanvas, pKanas)
         return prop.currentKana.hepburn.substr(0, prop.tipStatus);
     }
     
+    
+    self.resetAll = function()
+    {
+		self.resetStats();
+		prop.statRightInRound = 0;
+		prop.statWrongInRound = 0;
+		setupFaultLookup();
+        createQueue();
+	}
+    
     //Internal Functions
     
     /// Create the kana queue
+    //     write all selected kanas in random order into a queue
     function createQueue()
     {
-		prop.faultQueue = [];
+		prop.faultQueue = []; //reset fault queue
 		
         //fill kanaQueue with random data from kanaData
         prop.kanaQueue = [];
@@ -276,9 +388,10 @@ function KanaTrainer(pCanvas, pKanas)
     }
     
     ///setup fault lookup
+    // create a lookup hashmap to find the wrong answer and queue them into fault queue
     function setupFaultLookup()
     {
-		prop.faultLookup = [];
+		prop.faultLookup = []; //clear lookup 
 		
         for(var i=0; i<prop.kanaData.length; i++)
         {
@@ -303,4 +416,51 @@ function KanaTrainer(pCanvas, pKanas)
             prop.faultLookup[hepburn].push(i);
         }
 	}
+	
+	/**
+	* Handle click events in the canvas element
+	* it is required to validate result in hepburn mode
+	*/
+	function onCanvasClick(e)
+	{	
+		if(!prop.optHepburnMode)
+		{
+			//not required for no hepburn mode
+			return;
+		}
+		
+		var rect = prop.uiCanvas.getBoundingClientRect();
+		var pos = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+		
+		var step_x = (rect.width/3.0);
+		var step_y = (rect.height/3.0);
+		
+		var x_cell = Math.floor(pos.x / step_x);
+		var y_cell = Math.floor(pos.y / step_y);
+		
+		var index = (3*(y_cell+1)) - (3-x_cell);
+		
+		var value = prop.currentElements[index];
+		//alert(value);
+		if(self.validate(value))
+		{
+			self.next();
+		}
+	}
+	
+	/**
+	* shuffle an array
+	*/
+	function shuffleArray(array)
+	{
+		for (var i = array.length - 1; i > 0; i--) 
+		{
+			var j = Math.floor(Math.random() * (i + 1));
+			var temp = array[i];
+			array[i] = array[j];
+			array[j] = temp;
+		}
+		return array;
+	}
+	
 }
