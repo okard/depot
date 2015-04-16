@@ -86,6 +86,8 @@ function create_pw()
 	
 	//show results
 	txtResult.value = final_result;
+	txtResult.focus();
+	txtResult.select();
 	
 	document.getElementById('lblKeyInfo').textContent = 'KeyInfo: Key-Bytes=' + base_result.byteLength
 			+ '; Result-Length=' + encoded_result.length 
