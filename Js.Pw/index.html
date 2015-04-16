@@ -9,6 +9,7 @@
 
 	<script src="js/pbkdf2.js"></script>
 	<script src="js/blake2s.js"></script>
+	<script src="js/base91.js"></script>
 	<script src="js/utils.js"></script>
 	<script src="js/webapp.js"></script>
 </head>
@@ -16,12 +17,12 @@
 <body>
 	<form style="max-width:48rem; margin: 0px auto;" onsubmit="create_pw();return false;">
 	<p>
-	<input id="txtMasterPw" type="password" value="" placeholder="Master Password" />
+	<input id="txtMasterPw" type="password" value="" placeholder="Master Password" required/>
 	<label for="txtMasterPw">Master Password</label>
 	</p>
 	
 	<p>
-	<input id="txtUrl" type="text" value=""  placeholder="URL"  />
+	<input id="txtUrl" type="text" value=""  placeholder="URL" required/>
 	<label for="txtUrl">URL</label>
 	</p>
 	
@@ -42,6 +43,7 @@
 			<option value="hex">hex</option>
 			<option value="base64">base64</option>
 			<option value="base64url">base64url</option>
+			<option value="base91">base91</option>
 		</select>
 	</p>
 		

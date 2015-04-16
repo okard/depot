@@ -1,7 +1,17 @@
 
-
+/**
+* create a array buffer result from master password salt and the given url
+*/
 function run_algorithm(algorithm, mpw_salt, url)
 {
+	if(!mpw_salt || typeof mpw_salt !== 'string' || mpw_salt.length <= 0 ) {
+		throw "mpw_salt should be a string with content";
+	}
+	
+	if(!url && typeof url !== 'string' ) {
+		throw "url should be a string";
+	}
+	
 	switch(algorithm)
 	{
 		case 'PBKDF2':
@@ -15,15 +25,17 @@ function run_algorithm(algorithm, mpw_salt, url)
 			blake.update(url);
 			var result = blake.digest();
 			return result.buffer; 
+		default: throw "invalid algorithm";
 	}
 }
 
+/**
+* Convert a array buffer result into choosen string encoding
+*/
 function encode_result(encoding, result)
 {
 	//todo require byte array?
-	if(!(result && result instanceof ArrayBuffer && result.byteLength !== undefined))
-	{
-		console.log("not an array buffer");
+	if(!(result && result instanceof ArrayBuffer && result.byteLength !== undefined)) {
 		throw "not an array buffer";
 	}
 	
@@ -36,9 +48,15 @@ function encode_result(encoding, result)
 		case 'base64url': 
 			var base64 = arrayBufferToBase64(result);
 			return base64.replace(/\+/g, "-").replace(/\//g, "_");
+		case 'base91':
+			return base91.encode(new Uint8Array(result));
+		default: throw "invalid encoding method";
 	}
 }
 
+/**
+* Creates the password key string
+*/
 function create_pw()
 {
 	//collect values
@@ -47,10 +65,12 @@ function create_pw()
 	var algorithm = document.getElementById('lstAlgorithm').value;
 	var encoding = document.getElementById('lstEncoding').value;
 	var numLimitLength = document.getElementById('numLength').value;
-	
+	var txtResult = document.getElementById('txtResult');
+	txtResult.value ='';
 	
 	document.body.style.cursor = 'wait';
 	
+	//create result, encoding string, and cut string
 	var base_result = run_algorithm(algorithm, mpw_salt, url);
 	var encoded_result = encode_result(encoding, base_result);
 	var final_result = encoded_result;
@@ -64,24 +84,12 @@ function create_pw()
 		document.getElementById('lblWarning').textContent ='Reduced safety by limiting length of key';
 	}
 	
-	document.getElementById('txtResult').value = final_result;
+	//show results
+	txtResult.value = final_result;
 	
-	document.getElementById('lblKeyInfo').textContent = 'KeyInfo: ' + base_result.byteLength + ' Base-Length '
-			+ encoded_result.length + ' Result-Length '
-			+ final_result.length + ' Final-Length';
+	document.getElementById('lblKeyInfo').textContent = 'KeyInfo: Key-Bytes=' + base_result.byteLength
+			+ '; Result-Length=' + encoded_result.length 
+			+ '; Final-Length=' + final_result.length;
 	
 	document.body.style.cursor = 'auto';
-}
-
-
-
-function doit()
-{
-	var mpw_salt = document.getElementById('txtMasterPw').value;
-	var url = document.getElementById('txtUrl').value;
-	
-	document.body.style.cursor = 'wait';
-	var result = CryptoJS.PBKDF2(url, mpw_salt, { keySize: 512/32, iterations: 1000 });
-	document.body.style.cursor = 'auto';
-	document.getElementById('txtResult').value = result;
 }
