@@ -12,56 +12,82 @@
 	<script src="js/base91.js"></script>
 	<script src="js/utils.js"></script>
 	<script src="js/webapp.js"></script>
+	
+	<style type="text/css">
+	textarea {
+		white-space: pre;
+		word-wrap: normal;
+		overflow-x: scroll;
+	}
+	
+	</style>
 </head>
 
 <body>
-	<form style="max-width:48rem; margin: 0px auto;" onsubmit="create_pw();return false;">
-	<p>
-	<input id="txtMasterPw" type="password" value="" placeholder="Master Password" required/>
-	<label for="txtMasterPw">Master Password</label>
-	</p>
 	
-	<p>
-	<input id="txtUrl" type="text" value=""  placeholder="URL" required/>
-	<label for="txtUrl">URL</label>
-	</p>
-	
-	<p>
-		<label for="lstAlgorithm">Algorithm: </label>
-		<select id="lstAlgorithm">
-			<option value="PBKDF2">PBKDF2 (Key: 512/32, Iter: 1000)</option>
-			<option value="BLAKE2S">BLAKE2s (Key 32, With Secret Key)</option>
-			<!--
-			scrypt,
-			blake2b/chacha20 simple hashing/symmetric encryption?
-			pure hash hash(mpw+url)?
-			-->
-		</select>
+	<div style="max-width:80%; margin: 0px auto;">
+		<h1 class="txt--center">PW Helper</h1>
 		
-		<label for="lstEncoding">Encoding: </label>
-		<select id="lstEncoding">
-			<option value="hex">hex</option>
-			<option value="base64">base64</option>
-			<option value="base64url">base64url</option>
-			<option value="base91">base91</option>
-		</select>
-	</p>
-		
-	<p>
-		<input id="numLength" style="margin-top:1em" type="number" name="numLength" min="0" max="100" placeholder="Length Limit">
-		<label for="numLength">Length Limit</label>
-	</p>
-	
-	<p>
-	<label for="txtResult">Key</label> <span id="lblWarning" style="color:red"></span>
-	<br/>
-	<textarea id="txtResult" rows="5" cols="25">
-	</textarea>
-	</p>
-	<div id="lblKeyInfo">KeyInfo: </div>
-	
-	<input class="btn--blue" id="btnGo" type="submit" value="Go">
-	<input class="btn--gray" type="reset" value="Reset">
-	</form>
+		<form  onsubmit="create_pw();return false;">
+			
+		<div class="grd brdr--light-gray">
+			<div class="grd-row">
+				<div class="grd-row-col-3-6 px2">
+					<h3>Parameter</h3>
+					<p>
+					<label for="txtMasterPw">Master Password</label>
+					<input id="txtMasterPw" name="txtMasterPw" type="password" value="" placeholder="Master Password" required/>
+					</p>
+					
+					<p>
+					<label for="txtUrl">URL</label>
+					<input id="txtUrl" name="txtUrl" type="text" value=""  placeholder="URL" required/>
+					</p>
+					
+					<p>
+					<label for="lstAlgorithm">Algorithm: </label>
+					<select id="lstAlgorithm" name="lstAlgorithm">
+						<option value="PBKDF2">PBKDF2 (Key: 512/32, Iter: 1000)</option>
+						<option value="BLAKE2S">BLAKE2s (Key 32, With Secret Key)</option>
+						<!--
+						scrypt,
+						blake2b/chacha20 simple hashing/symmetric encryption?
+						pure hash hash(mpw+url)?
+						-->
+					</select>
+					<br/>
+					<label for="lstEncoding">Encoding: </label>
+					<select id="lstEncoding" name="lstEncoding">
+						<option value="hex">hex</option>
+						<option value="base64">base64</option>
+						<option value="base64url">base64url</option>
+						<option value="base91">base91</option>
+					</select>
+					</p>
+					
+					<p>
+					<label for="numLength">Length Limit</label>
+					<input id="numLength" name="numLength" type="number"  min="0" max="100" placeholder="Length Limit">
+					</p>
+					
+				</div>
+				<div class="grd-row-col-3-6 px2">
+					<h3>Result</h3>
+					<p>
+					<label for="txtResult">Key</label> <span id="lblWarning" style="color:red"></span>
+					<br/>
+					<textarea id="txtResult" rows="5" cols="128">
+					</textarea>
+					</p>
+					
+					<div id="lblKeyInfo">KeyInfo: </div>
+					
+					<input class="btn--blue" style="width:48%;display:inline-block;" type="submit" value="Go">
+					<input class="btn--gray" style="width:48%;display:inline-block;" type="reset" value="Reset">
+				</div>
+			</div>
+		</div>
+		</form>
+	</div>
 </body>
 </html>
