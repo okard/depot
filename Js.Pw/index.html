@@ -21,6 +21,8 @@
 	}
 	
 	</style>
+	
+	<link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAACxQAAAsUBidZ/7wAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAExSURBVDiNzZG7SkNREEXXTEwVkCDkC3zUwZBHJdhYa2WlnyCI9uYLxB8RbAVDwOZCDoRIBBUsYmclViEEcreNN4TDFRUbN5xmZtZmzxwjR41GY9fdT4FNYAJ0zaydJMkwnrW40Gq12pLOzGxiZkOgLGlN0kTSXq/Xu/7SoNlsbgMdoJOm6UEI4RWgXq9vufulJJ9Op6uDweA9Y3zRQNKRpLG772cwQAjhVtIJsFIsFg8XmaXIoA7cJUnyFq8mqZsFXazHCZaBcQwDmNn4c6ace4NarbZjZlfAyMwuchKUgHNJ9+5+HEK4mRtUq9X1QqHwRM6v5EmSgI1+v/+crVCRZJLIXgQQ9UxSBaIjxtBP5N+P5MvM9CeDf5bA3dPfgrPZLJ0bmNkD8PILflQqlR4BPgC845QVKWSHUwAAAABJRU5ErkJggg==">
 </head>
 
 <body>
@@ -39,12 +41,12 @@
 					<h3>Parameter</h3>
 					<p>
 					<label for="txtMasterPw">Master Password</label>
-					<input id="txtMasterPw" name="txtMasterPw" type="password" value="" placeholder="Master Password" required/>
+					<input id="txtMasterPw" name="txtMasterPw" type="password" value="" placeholder="Master Password" onfocus="this.select();return false;" required/>
 					</p>
 					
 					<p>
 					<label for="txtUrl">URL</label>
-					<input id="txtUrl" name="txtUrl" type="text" value=""  placeholder="URL" required/>
+					<input id="txtUrl" name="txtUrl" type="text" value="" placeholder="URL" onfocus="this.select();return false;" required/>
 					</p>
 					
 					<p>
