@@ -24,15 +24,14 @@
 </head>
 
 <body>
-	
-	<div style="max-width:80%; margin: 0px auto;">
+	<noscript class="bg--red brdr--dark-gray p1 m1" style="display:block;">
+		Please activate javascript to use this page.
+	</noscript>
+		
+	<div id="container" style="display:none;max-width:80%; margin: 0px auto;">
 		<h1 class="txt--center">PW Helper</h1>
 		
-		<noscript class="bg--red brdr--dark-gray p1 my1" style="display:block;">
-			Please activate javascript to use this page.
-		</noscript>
-		
-		<form method="post" onsubmit="create_pw();return false;">
+		<form action="#" method="post" onsubmit="create_pw();return false;">
 			
 		<div class="grd brdr--light-gray" style="padding-bottom:1em;">
 			<div class="grd-row">
@@ -93,5 +92,9 @@
 		</div>
 		</form>
 	</div>
+	
+	<script>
+		document.getElementById("container").style.display = 'block';
+	</script> 
 </body>
 </html>
