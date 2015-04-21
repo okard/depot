@@ -20,6 +20,11 @@ function run_algorithm(algorithm, mpw_salt, url)
 			
 		case 'BLAKE2S':
 			var key = new Uint8Array(str2arraybuffer(mpw_salt));
+			//hash(key) to limit to 32 bytes
+			var blake_key = new BLAKE2s(32);
+			blake_key.update(key);
+			key = blake_key.digest();
+			//calculate result
 			var url = new Uint8Array(str2arraybuffer(url));
 			var blake = new BLAKE2s(32, key);
 			blake.update(url);
@@ -36,7 +41,7 @@ function encode_result(encoding, result)
 {
 	//todo require byte array?
 	if(!(result && result instanceof ArrayBuffer && result.byteLength !== undefined)) {
-		throw "not an array buffer";
+		throw "result is not an array buffer";
 	}
 	
 	switch(encoding)
@@ -59,39 +64,47 @@ function encode_result(encoding, result)
 */
 function create_pw()
 {
-	//collect values
-	var mpw_salt = document.getElementById('txtMasterPw').value; //master password salt
-	var url = document.getElementById('txtUrl').value;
-	var algorithm = document.getElementById('lstAlgorithm').value;
-	var encoding = document.getElementById('lstEncoding').value;
-	var numLimitLength = document.getElementById('numLength').value;
-	var txtResult = document.getElementById('txtResult');
-	txtResult.value ='';
-	
-	document.body.style.cursor = 'wait';
-	
-	//create result, encoding string, and cut string
-	var base_result = run_algorithm(algorithm, mpw_salt, url);
-	var encoded_result = encode_result(encoding, base_result);
-	var final_result = encoded_result;
-	
-	document.getElementById('lblWarning').textContent ='';
-	
-	//limit to length if only a specific length is allowed (reduce safety!!!!)
-	if(numLimitLength && numLimitLength > 0)
-	{
-		final_result = final_result.substring(0, numLimitLength);
-		document.getElementById('lblWarning').textContent ='Reduced safety by limiting length of key';
+	try 
+	{ 
+		//collect values
+		var mpw_salt = document.getElementById('txtMasterPw').value; //master password salt
+		var url = document.getElementById('txtUrl').value;
+		var algorithm = document.getElementById('lstAlgorithm').value;
+		var encoding = document.getElementById('lstEncoding').value;
+		var numLimitLength = document.getElementById('numLength').value;
+		var txtResult = document.getElementById('txtResult');
+		txtResult.value =''; //reset result before doing anything
+		
+		document.body.style.cursor = 'wait';
+		
+		//create result, encoding string, and cut string
+		var base_result = run_algorithm(algorithm, mpw_salt, url);
+		var encoded_result = encode_result(encoding, base_result);
+		var final_result = encoded_result;
+		
+		document.getElementById('lblWarning').textContent ='';
+		
+		//limit to length if only a specific length is allowed (reduce safety!!!!)
+		if(numLimitLength && numLimitLength > 0)
+		{
+			final_result = final_result.substring(0, numLimitLength);
+			document.getElementById('lblWarning').textContent ='Reduced safety by limiting length of key';
+		}
+		
+		//show results
+		txtResult.value = final_result;
+		txtResult.focus();
+		txtResult.select();
+		
+		document.getElementById('lblKeyInfo').textContent = 'KeyInfo: Key-Bytes=' + base_result.byteLength
+				+ '; Result-Length=' + encoded_result.length 
+				+ '; Final-Length=' + final_result.length;
+		
+		document.body.style.cursor = 'auto';
 	}
-	
-	//show results
-	txtResult.value = final_result;
-	txtResult.focus();
-	txtResult.select();
-	
-	document.getElementById('lblKeyInfo').textContent = 'KeyInfo: Key-Bytes=' + base_result.byteLength
-			+ '; Result-Length=' + encoded_result.length 
-			+ '; Final-Length=' + final_result.length;
-	
-	document.body.style.cursor = 'auto';
+	catch(e)
+	{
+		console.log(e);
+		alert(e);
+	}
 }
