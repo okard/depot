@@ -5,6 +5,7 @@ extern crate rand;
 use std::fs::File;
 use std::io::Read;
 use std::io::Write;
+use std::path::PathBuf;
 use std::f64::consts::PI;
 use std::ops::Neg;
 
@@ -21,7 +22,7 @@ fn main()
 	}
 	
 	//when arguments available use first one for config file
-	let mut conf_file = File::open(config_file_string).unwrap();
+	let mut conf_file = File::open(&config_file_string).unwrap();
 
 	let mut conf_content = "".to_string();
 	conf_file.read_to_string(&mut conf_content).unwrap();
@@ -30,7 +31,10 @@ fn main()
 	let segments = config.lookup("segment").unwrap().as_slice().unwrap();
 	println!("{} Segments", segments.len());
 	
-	let mut outfile = File::create("output.csv").unwrap();
+	
+	let mut outfile_path = PathBuf::from(config_file_string);
+	outfile_path.set_extension("csv");
+	let mut outfile = File::create(outfile_path).unwrap();
 	
 	let mut i = 0;
 	for segment in segments
@@ -40,7 +44,6 @@ fn main()
 		i += 1;
 	}
 }
-
 
 fn do_segment(output: &mut Write, segment: &toml::Value)
 {
