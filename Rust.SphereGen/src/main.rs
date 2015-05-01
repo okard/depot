@@ -54,10 +54,12 @@ fn main()
 		
 		//calculate distance from center (0,0) and check if point is in circle
 		if radius > 0 
-		&& radius.pow(2) <= x.pow(2) + y.pow(2) + z.pow(2) 
+		&&  x.pow(2) + y.pow(2) + z.pow(2) >= radius.pow(2)
 		{
-			write!(&mut outfile, "{}, {}, {}\n", x, y, z);
-			i += 1;
+			continue; //if distance is bigger try again
 		}
+			
+		write!(&mut outfile, "{}, {}, {}\n", x, y, z);
+		i += 1;
 	}
 }

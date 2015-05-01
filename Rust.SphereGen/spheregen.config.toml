@@ -20,6 +20,10 @@ min=-30
 max=30
 
 
+# 3 dimensional segments 
+	# min/max distance from center
+	
+	
 # 3 circular segment configs for x,y,z axis
 
 # split circle per angle (360°) in 'a' segments
