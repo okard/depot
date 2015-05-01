@@ -1,37 +1,50 @@
 
+# segment defines a ellipsoid in the maximal range of the x and y dimensions
+# ellipsoid a,b,c
 
-[general]
-count=1000 # count of generated points
-#rnd generator
-#seed
-radius=30 # if > 0 checked for points to be in radius
+[[segment]]
+# x/a dimension
+x_start=-10
+x_distance=0 # +/-minimal distance from center should be smaller as x_start and x_end
+x_end=+10
+# y/b dimension
+y_start=-10
+y_distance=0 
+y_end=+10
+# y/b dimension
+z_start=-10
+z_distance=0 
+z_end=+10
+count=1000 # count of elements
 
-# dimension x min and max limits for values
-[x]
-min=-30
-max=30
-
-[y]
-min=-30
-max=30
-
-[z]
-min=-30
-max=30
-
-
-# 3 dimensional segments 
-	# min/max distance from center
+[[segment]]
+# x/a dimension
+x_start=-20
+x_distance=10 # +/-minimal distance from center should be smaller as x_start and x_end
+x_end=+20
+# y/b dimension
+y_start=-20
+y_distance=10
+y_end=+20
+# z/c dimension
+z_start=-20
+z_distance=10 
+z_end=+20
+count=500 # count of elements
 	
-	
-# 3 circular segment configs for x,y,z axis
-
-# split circle per angle (360°) in 'a' segments
-# generate per segments 'b' subsegments
-	#  for each subsegment generate per size of segment count of 'c' values
-
-[[circular_segment]]
-dimension="x"
-
+[[segment]]
+# x/a dimension
+x_start=-30
+x_distance=20 # +/-minimal distance from center should be smaller as x_start and x_end
+x_end=+30
+# y/b dimension
+y_start=-30
+y_distance=20
+y_end=+30
+# z/c dimension
+z_start=-30
+z_distance=20
+z_end=+30
+count=250 # count of elements
 
 
