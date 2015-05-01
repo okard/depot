@@ -2,6 +2,9 @@
 
 [general]
 count=1000 # count of generated points
+#rnd generator
+#seed
+radius=30 # if > 0 checked for points to be in radius
 
 # dimension x min and max limits for values
 [x]
@@ -15,6 +18,16 @@ max=30
 [z]
 min=-30
 max=30
+
+
+# 3 circular segment configs for x,y,z axis
+
+# split circle per angle (360°) in 'a' segments
+# generate per segments 'b' subsegments
+	#  for each subsegment generate per size of segment count of 'c' values
+
+[[circular_segment]]
+dimension="x"
 
 
 
