@@ -1,0 +1,15 @@
+
+[package]
+name = "sphere_gen"
+version = "0.1.0"
+authors = []
+
+[[bin]]
+name="sphere_gen"
+path="src/main.rs"
+
+
+# Cargo.toml
+[dependencies]
+toml = "*"
+rand = "*"
