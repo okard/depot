@@ -5,7 +5,7 @@ extern crate rand;
 use std::fs::File;
 use std::io::Read;
 use std::io::Write;
-use std::f32::consts::PI;
+use std::f64::consts::PI;
 use std::ops::Neg;
 
 use rand::Rng;
@@ -50,20 +50,20 @@ fn do_segment(output: &mut Write, segment: &toml::Value)
 	let mut count = segment.lookup("count").unwrap().as_integer().unwrap();
 	let density = segment.lookup("density").unwrap().as_float().unwrap();
 	
-	let x_start = segment.lookup("x_start").unwrap().as_integer().unwrap().abs();
-	let x_start_min = segment.lookup("x_start_min").unwrap().as_integer().unwrap().abs();
-	let x_end_min = segment.lookup("x_end_min").unwrap().as_integer().unwrap().abs();
-	let x_end = segment.lookup("x_end").unwrap().as_integer().unwrap().abs();
+	let x_start = segment.lookup("x_start").unwrap().as_float().unwrap().abs();
+	let x_start_min = segment.lookup("x_start_min").unwrap().as_float().unwrap().abs();
+	let x_end_min = segment.lookup("x_end_min").unwrap().as_float().unwrap().abs();
+	let x_end = segment.lookup("x_end").unwrap().as_float().unwrap().abs();
 
-	let y_start = segment.lookup("y_start").unwrap().as_integer().unwrap().abs();
-	let y_start_min = segment.lookup("y_start_min").unwrap().as_integer().unwrap().abs();
-	let y_end_min = segment.lookup("y_end_min").unwrap().as_integer().unwrap().abs();
-	let y_end = segment.lookup("y_end").unwrap().as_integer().unwrap().abs();
+	let y_start = segment.lookup("y_start").unwrap().as_float().unwrap().abs();
+	let y_start_min = segment.lookup("y_start_min").unwrap().as_float().unwrap().abs();
+	let y_end_min = segment.lookup("y_end_min").unwrap().as_float().unwrap().abs();
+	let y_end = segment.lookup("y_end").unwrap().as_float().unwrap().abs();
 	
-	let z_start = segment.lookup("z_start").unwrap().as_integer().unwrap().abs();
-	let z_start_min = segment.lookup("z_start_min").unwrap().as_integer().unwrap().abs();
-	let z_end_min = segment.lookup("z_end_min").unwrap().as_integer().unwrap().abs();
-	let z_end = segment.lookup("z_end").unwrap().as_integer().unwrap().abs();
+	let z_start = segment.lookup("z_start").unwrap().as_float().unwrap().abs();
+	let z_start_min = segment.lookup("z_start_min").unwrap().as_float().unwrap().abs();
+	let z_end_min = segment.lookup("z_end_min").unwrap().as_float().unwrap().abs();
+	let z_end = segment.lookup("z_end").unwrap().as_float().unwrap().abs();
 	
 	//check stuff
 	
@@ -72,29 +72,29 @@ fn do_segment(output: &mut Write, segment: &toml::Value)
 	
 	//front
 	//  xyz
-	let ppp = ((3f32/4f32*PI*x_end as f32*y_end as f32*z_end as f32)/8f32) 
-			- ((3f32/4f32*PI*x_end_min as f32*y_end_min as f32*z_end_min as f32)/8f32);
-	let pnp = ((3f32/4f32*PI*x_end as f32*y_start as f32*z_end as f32)/8f32) 
-			- ((3f32/4f32*PI*x_end_min as f32*y_start_min as f32*z_end_min as f32)/8f32);
-	let nnp = ((3f32/4f32*PI*x_start as f32*y_start as f32*z_end as f32)/8f32) 
-			- ((3f32/4f32*PI*x_start_min as f32*y_start_min as f32*z_end_min as f32)/8f32);
-	let npp = ((3f32/4f32*PI*x_start as f32*y_end as f32*z_end as f32)/8f32) 
-			- ((3f32/4f32*PI*x_start_min as f32*y_end_min as f32*z_end_min as f32)/8f32);
+	let ppp = ((3f64/4f64*PI*x_end*y_end*z_end)/8f64) 
+			- ((3f64/4f64*PI*x_end_min*y_end_min*z_end_min)/8f64);
+	let pnp = ((3f64/4f64*PI*x_end*y_start*z_end)/8f64) 
+			- ((3f64/4f64*PI*x_end_min*y_start_min*z_end_min)/8f64);
+	let nnp = ((3f64/4f64*PI*x_start*y_start*z_end)/8f64) 
+			- ((3f64/4f64*PI*x_start_min*y_start_min*z_end_min)/8f64);
+	let npp = ((3f64/4f64*PI*x_start*y_end*z_end)/8f64) 
+			- ((3f64/4f64*PI*x_start_min*y_end_min*z_end_min)/8f64);
 	//back
-	let ppn = ((3f32/4f32*PI*x_end as f32*y_end as f32*z_start as f32)/8f32) 
-			- ((3f32/4f32*PI*x_end_min as f32*y_end_min as f32*z_start_min as f32)/8f32);
-	let pnn = ((3f32/4f32*PI*x_end as f32*y_start as f32*z_start as f32)/8f32) 
-			- ((3f32/4f32*PI*x_end_min as f32*y_start_min as f32*z_start_min as f32)/8f32);
-	let nnn = ((3f32/4f32*PI*x_start as f32*y_start as f32*z_start as f32)/8f32) 
-			- ((3f32/4f32*PI*x_start_min as f32*y_start_min as f32*z_start_min as f32)/8f32);
-	let npn = ((3f32/4f32*PI*x_start as f32*y_end as f32*z_start as f32)/8f32) 
-			- ((3f32/4f32*PI*x_start_min as f32*y_end_min as f32*z_start_min as f32)/8f32);
+	let ppn = ((3f64/4f64*PI*x_end*y_end*z_start)/8f64) 
+			- ((3f64/4f64*PI*x_end_min*y_end_min*z_start_min)/8f64);
+	let pnn = ((3f64/4f64*PI*x_end*y_start*z_start)/8f64) 
+			- ((3f64/4f64*PI*x_end_min*y_start_min*z_start_min)/8f64);
+	let nnn = ((3f64/4f64*PI*x_start*y_start*z_start)/8f64) 
+			- ((3f64/4f64*PI*x_start_min*y_start_min*z_start_min)/8f64);
+	let npn = ((3f64/4f64*PI*x_start*y_end*z_start)/8f64) 
+			- ((3f64/4f64*PI*x_start_min*y_end_min*z_start_min)/8f64);
 	
 	let volume = ppp+pnp+nnp+npp
 			   + ppn+pnn+nnn+npn;
 	
 	if density > 0f64 {
-		count = (density * volume as f64).floor() as i64;
+		count = (density * volume).floor() as i64;
 	}
 	
 	println!("Count: {}; Volume of segment: {}", count, volume);
@@ -108,33 +108,33 @@ fn do_segment(output: &mut Write, segment: &toml::Value)
 		let z = rnd.gen_range(z_start.neg(), z_end);
 		
 		//outer ellipsoid
-		let a = if x >= 0 {x_end} else {x_start};
-		let b = if x >= 0 {y_end} else {y_start};
-		let c = if x >= 0 {z_end} else {z_start};
+		let a = if x >= 0f64 {x_end} else {x_start};
+		let b = if x >= 0f64 {y_end} else {y_start};
+		let c = if x >= 0f64 {z_end} else {z_start};
 		
 		//inner ellipsoid
-		let a_inner = if x >= 0 {x_end_min} else {x_start_min};
-		let b_inner = if x >= 0 {y_end_min} else {y_start_min};
-		let c_inner = if x >= 0 {z_end_min} else {z_start_min};
+		let a_inner = if x >= 0f64 {x_end_min} else {x_start_min};
+		let b_inner = if x >= 0f64 {y_end_min} else {y_start_min};
+		let c_inner = if x >= 0f64 {z_end_min} else {z_start_min};
 		
 		//check for x,y,z negative or not to choose the right a,b,c distance 
 		//(x/a)^2 + (y/b)^2 + (z/c)^2 = 1
 		//if it's less than 1, the point is inside the ellipsoid.
 		
 		//check if not inside of outer ellipsoid 
-		if (x.pow(2) as f64/a.pow(2) as f64)
-		 + (y.pow(2) as f64/b.pow(2) as f64)
-		 + (z.pow(2) as f64/c.pow(2) as f64)>= 1f64 {
+		if (x/a).powi(2)
+		 + (y/b).powi(2)
+		 + (z/c).powi(2)>= 1f64 {
 			continue;
 		}
 		
 		//check if its not in the inside the inner ellipsoid
-		if a_inner > 0 
-		&& b_inner > 0 
-		&& c_inner > 0
-		&& (x.pow(2) as f64/a_inner.pow(2) as f64) 
-		 + (y.pow(2) as f64/b_inner.pow(2) as f64)
-		 + (z.pow(2) as f64/c_inner.pow(2) as f64) <= 1f64 {
+		if a_inner > 0f64 
+		&& b_inner > 0f64 
+		&& c_inner > 0f64
+		&& (x/a_inner).powi(2) 
+		 + (y/b_inner).powi(2)
+		 + (z/c_inner).powi(2) <= 1f64 {
 			continue;
 		}
 		
