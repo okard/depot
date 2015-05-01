@@ -122,7 +122,9 @@ fn do_segment(output: &mut Write, segment: &toml::Value)
 		//if it's less than 1, the point is inside the ellipsoid.
 		
 		//check if not inside of outer ellipsoid 
-		if (x/a).pow(2) + (y/b).pow(2) + (z/c).pow(2) >= 1 {
+		if (x.pow(2) as f64/a.pow(2) as f64)
+		 + (y.pow(2) as f64/b.pow(2) as f64)
+		 + (z.pow(2) as f64/c.pow(2) as f64)>= 1f64 {
 			continue;
 		}
 		
@@ -130,7 +132,9 @@ fn do_segment(output: &mut Write, segment: &toml::Value)
 		if a_inner > 0 
 		&& b_inner > 0 
 		&& c_inner > 0
-		&& (x/a_inner).pow(2) + (y/b_inner).pow(2) + (z/c_inner).pow(2) <= 1 {
+		&& (x.pow(2) as f64/a_inner.pow(2) as f64) 
+		 + (y.pow(2) as f64/b_inner.pow(2) as f64)
+		 + (z.pow(2) as f64/c_inner.pow(2) as f64) <= 1f64 {
 			continue;
 		}
 		
