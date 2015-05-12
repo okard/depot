@@ -68,6 +68,7 @@ function create_pw()
 	{ 
 		//collect values
 		var mpw_salt = document.getElementById('txtMasterPw').value; //master password salt
+		var mpw_verify = document.getElementById('txtMasterPwVerify').value;
 		var url = document.getElementById('txtUrl').value;
 		var algorithm = document.getElementById('lstAlgorithm').value;
 		var encoding = document.getElementById('lstEncoding').value;
@@ -75,14 +76,20 @@ function create_pw()
 		var txtResult = document.getElementById('txtResult');
 		txtResult.value =''; //reset result before doing anything
 		
+		document.getElementById('lblWarning').textContent ='';
+		
+		if(mpw_salt !== mpw_verify)
+		{
+			document.getElementById('lblWarning').textContent ='Master passwords are not identical';
+			return;
+		}
+		
 		document.body.style.cursor = 'wait';
 		
 		//create result, encoding string, and cut string
 		var base_result = run_algorithm(algorithm, mpw_salt, url);
 		var encoded_result = encode_result(encoding, base_result);
 		var final_result = encoded_result;
-		
-		document.getElementById('lblWarning').textContent ='';
 		
 		//limit to length if only a specific length is allowed (reduce safety!!!!)
 		if(numLimitLength && numLimitLength > 0)
