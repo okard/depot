@@ -42,6 +42,8 @@
 					<p>
 					<label for="txtMasterPw">Master Password</label>
 					<input id="txtMasterPw" name="txtMasterPw" type="password" value="" placeholder="Master Password" onfocus="this.select();return false;" required/>
+					<label for="txtMasterPwVerify">Repeat Master Password</label>
+					<input id="txtMasterPwVerify" name="txtMasterPwVerify" type="password" value="" placeholder="Repeat Master Password" onfocus="this.select();return false;" required/>
 					</p>
 					
 					<p>
@@ -79,7 +81,8 @@
 				<div class="grd-row-col-3-6 px2">
 					<h3>Result</h3>
 					<p>
-					<label for="txtResult">Key</label> <span id="lblWarning" style="color:red"></span>
+					<span id="lblWarning" style="color:red;display:block"></span>
+					<label for="txtResult" style="display:block">Key</label> 
 					<br/>
 					<textarea id="txtResult" rows="6" cols="128" readonly>
 					</textarea>
